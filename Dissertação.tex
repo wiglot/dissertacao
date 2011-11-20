@@ -1,0 +1,184 @@
+
+
+
+\documentclass{abnt}			% [pnumromarab,normaltoc] Numeração de acordo com UFPR
+
+% Utilize a opção normalfigtabnum para numerar as figuras e tabelas por capítulo
+% \usepackage{hyperref}
+
+% \usepackage{geometry}
+\usepackage{bookmark}
+% \usepackage{ccaption}
+\usepackage[brazil]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{abnt-alf}
+
+% \usepackage[none]{hyphenationyphe}
+\usepackage{tabela-simbolos}
+% \usepackage{algorithm}
+% \usepackage{algorithmic}
+
+
+
+%Package para figuras
+% \usepackage{graphicx}
+\usepackage{subfig}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% \usepackage{float}
+% \usepackage{amsthm}
+\usepackage{amsmath}
+% \usepackage{setspace}
+
+\makeatletter   %Para que ele entenda o @
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Tikz commands.
+\usepackage{tikz}
+% \usetikzlibrary{decorations.pathmorphing,decorations.pathreplacing,decorations.shapes,arrows}
+\usetikzlibrary{mindmap}
+\usepackage{lscape}
+
+% % % % % % % % % % Linhas de tablelas
+\usepackage{booktabs}
+\usepackage{threeparttable}
+
+% \floatstyle{boxed} \restylefloat{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PDF % % % % % % % % % % % % % % % % %
+%
+% \usepackage{bookmark}
+%
+\hypersetup{  pdfborder={0 0 0},
+              pdfauthor={Wagner de Melo Reck},
+              pdftitle={Emprego de Sistemas Inteligentes para Restabelecimento Automático de Energia Elétrica a partir do uso de Equipamentos Telecomandados},
+              pdfsubject={TCC UNIPAMPA-Alegrete}
+            }
+% \pdfinfo{
+%
+%    /Author (Wagner de Melo Reck)
+%    /Title  (Emprego de Sistemas Inteligentes para Restabelecimento Automático de Energia Elétrica a partir do uso de Equipamentos Telecomandados)
+%    /CreationDate (D:20100621095600)
+%    /Subject (TCC UNIPAMPA-ALegrete)
+%    /Keywords (PO, CCP)
+% }
+
+% % % % % % % % % % % % % % Renomeia
+% \renewcommand{\ALG@name}{ALGORITMO}
+% \renewcommand{\listalgorithmname}{Lista de Algoritmos}
+\renewcommand{\thefigure}{\thechapter.\arabic{figure}}
+
+% \renewcommand{\resumoname}{\normalsize{RESUMO}}
+
+
+
+
+\begin{document}
+
+\renewcommand{\resumoname}{\textnormal{\textbf{\normalsize{RESUMO}}}}
+
+\renewcommand{\ABNTabstractname}{\textnormal{\textbf{\normalsize{ABSTRACT}}}}
+
+% altera o título da lista de figuras
+\renewcommand{\listfigurename}
+{\begin{center} {\textnormal{\textbf{\normalsize{LISTA DE FIGURAS}}}} \end{center}}
+
+% altera o título da lista de tabelas
+\renewcommand{\listtablename}
+{\begin{center} {\textnormal{\textbf{\normalsize{LISTA DE TABELAS}}}} \end{center}}
+
+%
+\renewcommand{\listofabreviationsname}
+{\begin{center} {\textnormal{\textbf{\normalsize{LISTA DE ABREVIATURAS E SIGLAS}}}} \end{center}}
+
+% altera o título do Sumário
+\renewcommand{\contentsname}{\textnormal{\textbf{\normalsize{SUMÁRIO}}}}
+
+% altera o tmanho do título dos capítulos
+\renewcommand{\ABNTchaptersize}{\LARGE}
+
+\renewcommand{\figurename}{FIGURA}
+\renewcommand{\tablename}{TABELA}
+\autor{Wagner de Melo Reck}
+
+%Alterar o título para:
+\titulo{\textnormal{\textbf{\large{Emprego de Sistemas Inteligentes para Restabelecimento Automático de Energia Elétrica a partir do uso de Equipamentos Telecomandados}}}}
+
+%Alterar orientador para:
+\orientador{\normalsize{Vinícius Jacques Garcia}}
+% \coorientador{\normalize{Daniel Pinheiro Bernardon}}
+
+% Alterar local e data para:
+\local{\textbf{Alegrete - RS}}
+\data{\textbf{2010}}
+
+% \titulo{Emprego de Sistemas Inteligentes para Restabelecimento Automático de Energia Elétrica a partir do uso de Equipamentos Telecomandados}
+
+% \orientador{Vinícius Jacques Garcia}
+
+\comentario{Dissertação apresentada ao Programa de Pós-graduação \textit{Strictu Sensu} em
+Engenharia Elétrica da Universidade
+Federal do Pampa, como requisito
+parcial para obtenção do Título de
+Mestre em Engenharia Elétrica.}
+
+% \local{Alegrete}
+
+% \data{Junho 2010}
+
+
+% ELEMENTOS PRÉ-TEXTUAIS
+% Capa - Obrg
+\capa
+% Lombada
+% Folha de rosto - Obrg
+\include{folhaderosto}
+\addtocounter{page}{1} %Começa a contar aqui :)
+% Errata
+% Folha de aprovação - Obrg
+\include {termodeaprovacao}
+% Dedicatória(s)
+% Agradecimentos
+% Epígrafe
+\include {dedicatoria}
+
+% Resumo em língua vernácula - Obrg
+\include {resumo}
+% Resumo em língua estrangeira - Obrg
+% Lista de ilustrações
+\listadefiguras
+% Lista de tabelas
+\listadetabelas
+% Lista de abreviaturas e siglas
+\listadesiglas
+% Lista de símbolos
+% Sumário - Obrg
+\sumario
+
+% ELEMENTOS TEXTUAIS
+% Introdução Obrg
+\include{introducao} %Inclui arquivo introducao.tex
+% % Desenvolvimento - Obrg
+\include{Sist.Distr}
+\include{sistemaComputacionais}
+\include{metodologia}
+\include{sistemaDesenvolvido}
+\include {casosDeEstudo}
+% % Conclusão - Obrg
+\include{consideracoesFinais} %Inclui arquivo conclusao.tex
+
+% ELEMENTOS PÓS-TEXTUAIS
+% Referências - Obrg
+\bibliography{bybliography} %Seu arquivo Bibitex
+
+% Glossário
+% Apêndice(s)
+
+% Anexo(s)
+\include {anexo}
+
+
+
+\end{document}
+
+
+

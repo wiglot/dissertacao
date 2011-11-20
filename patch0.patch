@@ -1,0 +1,1191 @@
+diff --git a/Defesa/Apresentacao.lyx b/Defesa/Apresentacao.lyx
+index 9bfdd11..d9dce8c 100644
+--- a/Defesa/Apresentacao.lyx
++++ b/Defesa/Apresentacao.lyx
+@@ -81,6 +81,37 @@ status open
+ \end_inset
+ 
+  
++\lang english
++
++\begin_inset ERT
++status collapsed
++
++\begin_layout Plain Layout
++
++
++\backslash
++and
++\end_layout
++
++\end_inset
++
++
++\lang brazilian
++ 
++\begin_inset Newline newline
++\end_inset
++
++VinÃ­cius Jacques Garcia
++\begin_inset Flex InstituteMark
++status open
++
++\begin_layout Plain Layout
++1
++\end_layout
++
++\end_inset
++
++
+ \begin_inset OptArg
+ status open
+ 
+@@ -1870,7 +1901,17 @@ Random Density
+ HeurÃ­stica idÃªntica a Density, com uma Ãºnica diferenÃ§a na escolha das medianas:
+ \end_layout
+ 
+-\begin_layout Definition
++\begin_layout Block
++\begin_inset ERT
++status open
++
++\begin_layout Plain Layout
++
++{}
++\end_layout
++
++\end_inset
++
+ A escolha da prÃ³xima mediana Ã© feita aleatoriamente entre os 
+ \begin_inset Flex CharStyle:Alert
+ status collapsed
+@@ -1995,7 +2036,17 @@ A cada movimento a mediana Ã© recalculada
+ Shift
+ \end_layout
+ 
+-\begin_layout Definition
++\begin_layout Block
++\begin_inset ERT
++status open
++
++\begin_layout Plain Layout
++
++{}
++\end_layout
++
++\end_inset
++
+ Um dado ponto 
+ \begin_inset Flex CharStyle:Alert
+ status collapsed
+@@ -2119,7 +2170,17 @@ status collapsed
+ Interchange
+ \end_layout
+ 
+-\begin_layout Definition
++\begin_layout Block
++\begin_inset ERT
++status open
++
++\begin_layout Plain Layout
++
++{}
++\end_layout
++
++\end_inset
++
+ Para dois pontos, 
+ \begin_inset Flex CharStyle:Alert
+ status collapsed
+@@ -2658,6 +2719,21 @@ Para casos onde
+ , a capacidade deixa de ser uma restriÃ§Ã£o
+ \end_layout
+ 
++\begin_layout BeginFrame
++Folga da Capacidade
++\end_layout
++
++\begin_layout Standard
++\align center
++\begin_inset Graphics
++	filename images/demands.png
++	height 90theight%
++
++\end_inset
++
++
++\end_layout
++
+ \begin_layout Section
+ Ferramenta de VisualizaÃ§Ã£o
+ \end_layout
+diff --git a/TCC-II/EstudoInstancias.tex b/TCC-II/EstudoInstancias.tex
+index bb13c17..09de7b4 100644
+--- a/TCC-II/EstudoInstancias.tex
++++ b/TCC-II/EstudoInstancias.tex
+@@ -5,20 +5,20 @@ Chamamos de raz
+  F &= \frac{\sum_{p\in P} p_{cap} }{\sum_{i \in I} i_{dem}} \label{folga}
+ \end{align}
+ 
+-Onde $i_{dem}$ é a demanda do indivíduo $i$ e $p_{cap}$ a capacidade do agrupamento $p$. $F$ é maior que 1 se a demanda total é menor que a capacidade total. Para valores de $F$ muito próximos a 1, mas maiores que 1, as heurísticas tendem a não conseguir nem mesmo uma solução factível, principalmente heurísticas que utilizam de procedimentos gulosos para alocação de indivíduos, como por exemplo a escolha do agrupamento com mediana mais próxima do indivíduo a ser alocado. Para valores menores que 1 não existe uma solução válida para a instância, uma vez que existe maior demanda que oferta (capacidade).
++Onde $i_{dem}$ é a demanda do indivíduo $i$ e $p_{cap}$ a capacidade do agrupamento $p$. $F$ é maior que 1 se a demanda total é menor que a capacidade total. Para valores de $F$ muito próximos a 1, mas maiores que 1, as heurísticas tendem a não conseguir uma solução factível, principalmente heurísticas que utilizam de procedimentos gulosos para alocação de indivíduos, como por exemplo a escolha do agrupamento com mediana mais próxima do indivíduo a ser alocado. Essa dificulade se dá uma vez que pode não ser possível associar todas demanda (OS) aos agrupamentos (equipes) uma vez que as demandas não podem ser fracionadas entre várias equipes. Para valores menores que 1 não existe uma solução válida para a instância, uma vez que existe maior demanda que oferta (capacidade).
+ 
+ Para o caso de $ \sum_{i \in I} i_{dem} \geq p_{cap},\forall p \in P $ podemos dizer que o problema é equivalente ao problemas das P-medianas não capacitado, uma vez que a capacidade não chega a ser uma restrição no problema e todos os indivíduos podem ser associados a apenas uma agrupamento.
+ 
+ Essa ultima colocação mostra o quanto o valor de folga pode interferir na geração de soluções das instâncias.
+ Nas instâncias inéditas apresentadas aqui, modificamos a folga de modo a ser possível analisar e registrar o comportamento dos algoritmos e os valores da função objetivo das soluções obtidas. A tabela \ref{tab:varDemandas} mostra as demandas médias, bem com os valores mínimos e máximos, e a folga de cada uma das instâncias.
+ 
++\begin{center}
+ 
+ \begin{threeparttable}
+-\centering
+ \caption {\\variação das demandas dos indivíduos das instâncias.\label{tab:varDemandas}}
+ \begin{tabular}{lrrrr} \hline
+ 
+-Instância&   Folga &   $D_{Med}$\tnote{1}  &   $D_{Min}$\tnote{2} &   $D_{Max}$\tnote{3} \\
++Instância~~~&   Folga ~~~ &   $D_{Med}$\tnote{1} ~~~ &   $D_{Min}$\tnote{2} ~~~&   $D_{Max}$\tnote{3} ~~~\\
+ \midrule
+ SJC1    &1,23988    &58,07  &1  &654 \\
+ SJC2    &1,35937    &46,345 &1  &654 \\
+@@ -51,7 +51,9 @@ AESM\_30 &1,3    &25,0175    &3  &52 \\
+ \end{tablenotes}
+ \end{threeparttable}
+ 
+-Para medir a dispersão dos indivíduos no espaço, Desenvolvemos um método que mede a distância dos pontos de centros de massa calculados usando como peso para cada ponto sua própria demanda. O algoritmo \ref{algMedia} produz como resultado a média das distâncias dos pontos aos centroides e as distâncias mínima e máxima. Para o primeiro centro de massa todos os pontos são considerados. Já para os demais centros de massa, os pontos mais próximos ao último  centro de massa calculado que possuam a soma de suas demandas inferior ou igual a capacidade $Cap$, são removidos do cálculo do próximo centro de massa.
++\end{center}
++
++Para medir a dispersão dos indivíduos no espaço, Desenvolvemos um método que mede a distância dos pontos de centros de massa calculados usando como peso para cada ponto sua própria demanda. O algoritmo \ref{algMedia} produz como resultado a média das distâncias dos pontos aos centroides e as distâncias mínima e máxima. Para o primeiro centro de massa, todos os pontos são considerados. Já para os demais centros de massa, os pontos mais próximos ao último  centro de massa calculado que possuam a soma de suas demandas inferior ou igual a capacidade $Cap$, são removidos do cálculo do próximo centro de massa.
+ 
+ \begin{algorithm}
+ \caption{CalculaDispersão(I, Cap)}\label{algMedia}
+@@ -70,8 +72,8 @@ Para medir a dispers
+       \STATE $MaxD \leftarrow Max(MaxD, d(v,C))$
+       \STATE $MedD \leftarrow MedD + d(v,C)$
+       \ENDFOR
+-      $NumC \leftarrow NumC + 1$
+-      $S \leftarrow S - V$
++      \STATE $NumC \leftarrow NumC + 1$
++      \STATE $S \leftarrow S - V$
+ \ENDWHILE
+ \STATE $MedD \leftarrow MedD/NumC $
+ \end{algorithmic}
+@@ -115,8 +117,34 @@ Para encontrar o centro de massa, as coordenadas (x e y) dos pontos pertencentes
+  \end{algorithmic}
+ \end{algorithm}
+ 
++Antes de apresentar os resultados, separamos na figura \ref{fig:instances} algumas instâncias onde é possível ver a localização dos pontos. Adiantando um pouco os resultados obtidos, temos a instância SJC4a como uma das que apresentou maior média de distância dos centros de massa para os indivíduos e como pode ser visto na figura \ref{fig:sjc4} os indivíduos são distribuídos quase que uniformemente no espaço. Já a instância AECP, apesar de apresentar focos de concentração de pontos, existem vários desses focos o que leva os centros de massa serem calculados entre esses focos afastados das concentrações, e assim ter uma maior distância entre os pontos e os centros de massa. As duas instâncias com menores médias de distâncias foram AENH(\ref{fig:aenh}) e AESM(\ref{fig:aesm}) possuem apenas um grande foco de concentração dos pontos, sendo nesse caso onde se concentrará a maioria dos centros de massa calculados.
++
++\begin{figure}[hp]
++ \centering
++\subfloat[Instância AECP]{
++ \includegraphics[bb=0 0 229 482,scale=0.5]{./images/AECP.png}
++ % AECP.png: 305x643 pixel, 96dpi, 8.07x17.01 cm, bb=0 0 229 482
++ \label{fig:ascp}
++}
++\subfloat[Instância AENH]{
++ \includegraphics[bb=0 0 378 367,scale=0.5]{./images/AENH.png}
++ % AENH.png: 504x490 pixel, 96dpi, 13.33x12.96 cm, bb=0 0 378 367
++ \label{fig:aenh}
++}\\
++\subfloat[Instância AESM]{
++ \includegraphics[bb=0 0 359 367, scale=0.5]{./images/AESM.png}
++ % AESM.png: 479x489 pixel, 96dpi, 12.67x12.94 cm, bb=0 0 359 367
++ \label{fig:aesm}
++}
++\subfloat[Instância SJC4a]{
++ \includegraphics[bb=0 0 375 351,scale=0.5]{./images/SJC4a.png}
++ % SJC4a.png: 500x468 pixel, 96dpi, 13.23x12.38 cm, bb=0 0 375 351
++ \label{fig:sjc4}
++}
++\caption{Localização dos pontos de algumas instâncias}\label{fig:instances}
++\end{figure}
+ 
+-Aplicando o algoritmo sobre as instâncias, obtivemos os dados apresentados na tabela \ref{tab:dispersao}. Colocamos também o gráfico \ref{fig:dispersao} dos dados para melhor visualização. Para comparar as dispersão entre as diferentes instâncias, os valores foram normalizados por $Max(d(i,k)),\;i,k\in I$, sendo 1 a maior distâncias entre 2 pontos de uma instância. O que nós tomamos como medida de dispersão é a medida média de distâncias, apesar da medida mínima e máxima indicar algumas peculiaridades das instâncias, como por exemplo a distância máxima muito alta e a distância média e distância mínima muito baixa pode indicar o que os pontos se encontram agrupados bem próximos, mas que exitem pontos isolados (afastados) dessas concentrações.
++Aplicando o algoritmo sobre as instâncias, obtivemos os dados apresentados na tabela \ref{tab:dispersao}. Colocamos também o gráfico \ref{fig:dispersao} dos dados para melhor visualização. Para comparar as dispersão entre as diferentes instâncias, os valores foram normalizados por $Max(d(i,k)),\;i,k\in I$, sendo 1 a maior distâncias entre 2 pontos de uma instância. O que nós tomamos como medida de dispersão é a medida média de distâncias, apesar da medida mínima e máxima indicar algumas peculiaridades das instâncias, como por exemplo a distância máxima muito alta e a distância média e distância mínima muito baixa pode indicar que os pontos se encontram agrupados bem próximos, mas que exitem pontos isolados (afastados) dessas concentrações.
+ 
+ \begin{figure}[hp]
+  \centering
+@@ -126,12 +154,11 @@ Aplicando o algoritmo sobre as inst
+  \label{fig:dispersao}
+ \end{figure}
+ 
+-
++\begin{center}
+ \begin{threeparttable}[htp]
+-\centering
+ \caption {\\Dispersão dos indivíduos nas instâncias.\label{tab:dispersao}}
+ \begin{tabular}{lrrrr} \hline
+-Instância   &\multicolumn{1}{c}{$D_{min}$\tnote{1}}     &\multicolumn{1}{c}{$D_{max}$\tnote{2}}    &\multicolumn{1}{c}{$D_{med}$\tnote{3} }   &\multicolumn{1}{c}{CM\tnote{4}} \\
++Instância~~~   &\multicolumn{1}{c}{$D_{min}$\tnote{1}}~~~     &\multicolumn{1}{c}{$D_{max}$\tnote{2}}~~~    &\multicolumn{1}{c}{$D_{med}$\tnote{3} }~~~   &\multicolumn{1}{c}{CM\tnote{4}} \\
+ \midrule
+ SJC1         &0,01348  &0,5895   &0,1937   &10 \\
+ SJC2         &0,02145  &0,7027   &0,2725   &12 \\
+@@ -140,7 +167,7 @@ SJC3b        &0,00402 &0,7217   &0,2576   &17 \\
+ SJC4a        &0,02442  &0,6849   &0,2844   &21 \\
+ SJC4b        &0,02442  &0,6849   &0,2844   &21 \\
+ SJC5         &0,02442  &0,6849   &0,2844   &21 \\
+-AEAL\_10     &0,00627 &0,5366   &0,2048   &14 \\
++AEAL\_10~~~     &~~~0,00627 &~~~0,5366   &~~~0,2048   &~~~14 \\
+ AEAL\_20      &0,00620 &0,5337   &0,2004   &13 \\
+ AEAL\_30      &0,00621 &0,6475   &0,1945   &12 \\
+ AECP\_10      &0,04394   &0,4484   &0,2864   &10 \\
+@@ -164,32 +191,8 @@ AESM\_30    &0,00409  &0,8907   &0,0352  &17 \\
+  \item[4]Número de centros de massa calculados
+ \end{tablenotes}
+ \end{threeparttable}
++\end {center}
+ 
+-Na figura \ref{fig:instances} é apresentado algumas instâncias onde é possível perceber que o cálculo de dispersão se encontra bastante coerente com a localização dos indivíduos. A instância SJC4a é umas das que apresentou maior média de distância dos centros de massa para os indivíduos e como pode ser visto na figura \ref{fig:sjc4} os indivíduos são distribuídos quase que uniformemente no espaço. Já a instância AECP, apesar de apresentar focos de concentração de pontos, existem vários desses focos o que leva os centros de massa serem calculados entre esses focos afastados das concentrações, e assim ter uma maior distância entre os pontos e os centros de massa. As duas instâncias com menores médias de distâncias foram AENH(\ref{fig:aenh}) e AESM(\ref{fig:aesm}) possuem apenas um grande foco de concentração dos pontos, sendo nesse caso onde se concentrará a maioria dos centros de massa calculados.
+ 
+-\begin{figure}[hp]
+- \centering
+-\subfloat[Instância AECP]{
+- \includegraphics[bb=0 0 229 482,scale=0.5]{./images/AECP.png}
+- % AECP.png: 305x643 pixel, 96dpi, 8.07x17.01 cm, bb=0 0 229 482
+- \label{fig:ascp}
+-}
+-\subfloat[Instância AENH]{
+- \includegraphics[bb=0 0 378 367,scale=0.5]{./images/AENH.png}
+- % AENH.png: 504x490 pixel, 96dpi, 13.33x12.96 cm, bb=0 0 378 367
+- \label{fig:aenh}
+-}\\
+-\subfloat[Instância AESM]{
+- \includegraphics[bb=0 0 359 367, scale=0.5]{./images/AESM.png}
+- % AESM.png: 479x489 pixel, 96dpi, 12.67x12.94 cm, bb=0 0 359 367
+- \label{fig:aesm}
+-}
+-\subfloat[Instância SJC4a]{
+- \includegraphics[bb=0 0 375 351,scale=0.5]{./images/SJC4a.png}
+- % SJC4a.png: 500x468 pixel, 96dpi, 13.23x12.38 cm, bb=0 0 375 351
+- \label{fig:sjc4}
+-}
+-\caption{Localização dos pontos de algumas instâncias}\label{fig:instances}
+-\end{figure}
+ 
+ 
+diff --git a/TCC-II/MetodosHeuristicosCCP.tex b/TCC-II/MetodosHeuristicosCCP.tex
+index 182f70a..14ebed8 100644
+--- a/TCC-II/MetodosHeuristicosCCP.tex
++++ b/TCC-II/MetodosHeuristicosCCP.tex
+@@ -19,12 +19,12 @@ centros
+ \item [{Density:}] Proposta por Ahmadi e Osman em \cite{ahmadi2004density},
+ visa construir uma solução inicial usando a densidade de pontos para
+ construir a solução inicial.
+-\item [{H-Means:}] O método de Forgy ((também conhecido, e tratado aqui, como H-Means) foi inicialmente proposto por \cite{forgy1965cluster} como melhoria ao método K-Means e tem como principio  a procura iterativa dos melhores centros para os agrupamentos realocando os pontos a cada troca.
+-\item [{J-Means:}] Proposta por Hansen e Mladenovi\'{c}\cite{Hansen_j-means:a}, usa a noção de pontos ocupados e não ocupados (a uma certa distância do agrupamento).
++\item [{H-Means:}] O método de Forgy (também conhecido, e tratado aqui, como H-Means) foi inicialmente proposto por \cite{forgy1965cluster} como melhoria ao método K-Means e tem como principio  a procura iterativa dos melhores centros para os agrupamentos realocando os pontos a cada troca.
++\item [{J-Means:}] Proposta por Hansen e Mladenovi\'{c}\cite{Hansen_j-means:a}, usa a noção de pontos ocupados e não ocupados (a uma certa distância do agrupamento) e a inserção de tais pontos não ocupados como novos agrupamentos, retirando algum agrupamento antigo.
+ \item [{Randon Density:}] Uma alteração na heurística de Density que faz uso da seleção de indivíduos aleatórios para escapar de mínimos locais.
+ \end{description}
+ 
+-Em todos os métodos apresentados, é necessário recalcular o centro dos agrupamentos, ou seja, procurar dentre os indivíduos de cada agrupamento qual é o que minimiza a soma das distâncias de todos indivíduos do seu agrupamento até si mesmo. Testar todos os indivíduos de um agrupamento com $\frac{n}{p}$ objetos, seria necessário medir a distância de cada um dos $\frac{n}{p}$ indivíduos até os demais $\frac{n}{p} - 1$. Como esse esse recálculo dos centros é muito método é muito referenciado nos métodos, foi foi desenvolvido o algoritmo \ref{findBestCenter} que calcula o centroide do agrupamento e mede a distância de todos os pontos com o centroide calculado. Após isso são testados os $k$ pontos mais próximos do centroide como prováveis centros. O valor de $k$ foi de 30\% dos pontos existentes no agrupamento.
++Em todos os métodos apresentados, é necessário recalcular o centro dos agrupamentos, ou seja, procurar dentre os indivíduos de cada agrupamento qual é o que minimiza a soma das distâncias de todos indivíduos do seu agrupamento até si mesmo. Testar todos os indivíduos de um agrupamento com $\frac{n}{p}$ objetos, seria necessário medir a distância de cada um dos $\frac{n}{p}$ indivíduos até os demais $\frac{n}{p} - 1$. Como esse esse recálculo dos centros é muito método é muito referenciado nos métodos, foi foi desenvolvido o algoritmo \ref{findBestCenter} que calcula o centroide do agrupamento e mede a distância de todos os pontos com o centroide calculado. Após isso são testados os $k$ pontos mais próximos do centroide como prováveis centros. O valor de $k$ foi de 30\% dos pontos existentes no agrupamento. Esse valor de $k$ foi escolhido por serem os pontos mais próximos do centroide, usar mais pontos começa a se afastar de mais do centroide e acabam sendo apenas testes extras.
+ \begin{algorithm}[htp]
+ \caption{{FindBestCenterOfCluster(Cluster)}\label{findBestCenter}}
+ \begin{algorithmic}[1]
+@@ -33,24 +33,27 @@ Em todos os m
+ \STATE $k \leftarrow np * 0.3$
+ \STATE $x \leftarrow 0$
+ \STATE $y \leftarrow 0$
++\STATE $foundBetter \leftarrow False$
+ \FORALL {$o \in CLuster.Objects$}
+-\STATE    $x \leftarrow x + o.x$
+-\STATE    $y \leftarrow y + o.y$
++  \STATE    $x \leftarrow x + o.x$
++  \STATE    $y \leftarrow y + o.y$
+ \ENDFOR
+ \STATE $c \leftarrow Centroid( \frac{x}{np} , \frac{y}{np} )$ \COMMENT {Constrói o centroide.}
+ \FORALL {$o \in CLuster.Objects$}
+-\STATE  Map.Insere(D(o,c), o) \COMMENT {D(o,c) é a distância de $o$ até $c$}
++  \STATE  Map.Insere(D(o,c), o) \COMMENT {D(o,c) é a distância de $o$ até $c$}
+ \ENDFOR
+ \FORALL {$j \in Map.first(k)$}
+-\IF {D(j, {Cluster.Objects()-j}) < MinDist}
+-\STATE MinDist = d(j, {Cluster.Objects()-j})
+-\STATE Cluster.center = j
+-\ENDIF
++  \IF {D(j, {Cluster.Objects()-j}) < MinDist}
++    \STATE MinDist = d(j, {Cluster.Objects()-j})
++    \STATE Cluster.center = j
++    \STATE $foundBetter \leftarrow True$
++  \ENDIF
+ \ENDFOR
++\RETURN foundBetter
+ \end{algorithmic}
+ \end{algorithm}
+ 
+-A estrutura $Map$ utilizada no algoritmo é tem o funcionamento semelhante a uma tabela hash com o diferencial de manter as chaves  ordenadas e permitir inserir chaves duplicadas. Essa estrutura facilita a obtenção dos indivíduos mais próximos ao centroide calculado.
++A estrutura $Map$ utilizada no algoritmo tem o funcionamento semelhante a uma tabela hash com o diferencial de manter as chaves ordenadas (crescentente) e permitir inserir chaves duplicadas. Essa estrutura facilita a obtenção dos indivíduos mais próximos ao centroide calculado.
+ 
+ 
+ \section{CCP}
+@@ -65,39 +68,81 @@ no afastamento inicial dos primeiros centros (mais afastados entre
+ si) e após um recálculo dos centros de cada agrupamento. Essa é uma
+ heurística muito rápida mas que, segundo os autores, pode não encontrar soluções factíveis
+ para o caso de a soma de todas demandas seja muito próxima das capacidades
+-de todos agrupamentos. A heurística pode ser apresentada da seguinte
+-forma:
+-\begin{itemize}
+-\item Passo 1 - encontre os pontos $(i,j)$ mais afastados entre si, então
+-$C={i,j}$
+-
+-\begin{itemize}
+-\item Se número desejado de agrupamentos $p = 2$, vá para o passo 3.
+-\end{itemize}
+-\item Passo 2 - enquanto $\mid C \mid < p $, faça
+-
+-\begin{itemize}
+-\item Encontre um cento $k\in O-C$, de modo que:
+-\end{itemize}
+-\[
+-\prod_{j\in C}d_{kj}=\max_{_{k\in O-C}}\;\;\prod_{j\in C}d_{kj}\]
+-
+-\begin{itemize}
+-\item Então faça $C=C\cup k$;
+-\end{itemize}
+-\item Passo 3 - Para cada consumidor, encontre a distância até o centro
+-mais próximo. Organize estas distâncias em ordem crescente. Atribua
+-os consumidores na ordem dessas distâncias aos centros correspondentes,
+-se a capacidade permitir, caso contrário, atribua para o próximo centro com capacidade disponível.
+-\item Passo 4 - Recalcule os centros dos agrupamentos de modo a minimizar
+-as distância entre os pontos e o novo centro.
+-\end{itemize}
+-
+-Essa heurística tem como objetivo a construção rápida de uma solução
+-e para se obter melhores soluções deve-se empregar heurísticas de
++de todos agrupamentos. A heurística pode ser vista no algoritm \ref{alg:farthest}
++
++\begin{algorithm}[htp]
++ \caption{Farthest}\label{alg:farthest}
++\begin{algorithmic}[1]
++\STATE $dist \leftarrow 0$
++\FORALL {$i \in I$}
++\FORALL {$j \in I$}
++\IF {$d(i,j) > dist$}
++\STATE $c1 \leftarrow i$
++\STATE $c2 \leftarrow j$
++\STATE $dist \leftarrow d(i,j)$
++\ENDIF
++\ENDFOR
++\ENDFOR
++\STATE $C \leftarrow {i,j} $
++\WHILE {$\mid C \mid < p$}
++\STATE $dist \leftarrow 0$
++\FORALL {$i \in \{I-C\}$}
++\STATE $tmpDist \leftarrow 1$
++\FORALL {$j \in {C}$}
++\STATE $tmpDist \leftarrow tmpDist \cdot d(i,j)$
++\ENDFOR
++\IF {$tmpDist > dist$}
++\STATE $ dist \leftarrow tmpDist$
++\STATE $nC \leftarrow i$
++\ENDIF
++\ENDFOR
++\ENDWHILE
++\FORALL {$i \in \{I-C\}$}
++  \STATE $tmpDist \leftarrow \infty$
++  \FORALL {$j \in {C}$}
++    \IF {$d(i,j) < tmpDist$ \AND $j.CapacidadeRestante \geq i.Demanda$}
++        \STATE $c \leftarrow j$
++        \STATE $tmpDist \leftarrow d(i,j)$
++    \ENDIF
++  \ENDFOR
++  \STATE $c.adiciona(i)$ \COMMENT {Associa i ao agrupamento mais próximo}
++\ENDFOR
++\end{algorithmic}
++
++\end{algorithm}
++
++% \begin{itemize}
++% \item Passo 1 - encontre os pontos $(i,j)$ mais afastados entre si, então
++% $C={i,j}$
++%
++% \begin{itemize}
++% \item Se número desejado de agrupamentos $p = 2$, vá para o passo 3.
++% \end{itemize}
++% \item Passo 2 - enquanto $\mid C \mid < p $, faça
++%
++% \begin{itemize}
++% \item Encontre um cento $k\in O-C$, de modo que:
++% \end{itemize}
++% \[
++% \prod_{j\in C}d_{kj}=\max_{_{k\in O-C}}\;\;\prod_{j\in C}d_{kj}\]
++%
++% \begin{itemize}
++% \item Então faça $C=C\cup k$;
++% \end{itemize}
++% \item Passo 3 - Para cada consumidor, encontre a distância até o centro
++% mais próximo. Organize estas distâncias em ordem crescente. Atribua
++% os consumidores na ordem dessas distâncias aos centros correspondentes,
++% se a capacidade permitir, caso contrário, atribua para o próximo centro com capacidade disponível.
++% \item Passo 4 - Recalcule os centros dos agrupamentos de modo a minimizar
++% as distância entre os pontos e o novo centro.
++% \end{itemize}
++
++Essa heurística tem como objetivo a construção rápida de uma solução, sendo baseada em escolhas gulosas e não iterativas. Como as soluções geradas são de baixa qualidade, para se obter melhores soluções deve-se empregar heurísticas de
+ busca na vizinhança da solução obtida com essa heurística construtiva.
+ Em \cite{osman1994capacitated} é apresentado um método híbrido que
+-combina Busca tabu e simulated annealing.
++combina Busca Tabu e Simulated Annealing.
++
++
+ 
+ 
+ \subsection{Density}
+@@ -111,141 +156,124 @@ vendo apenas sua densidade sem prever o rumo que essa solu
+ tomando. Para corrigir isso, é apresentado por \cite{ahmadi2004density} um método baseado na ideia
+ de densidade dos pontos, mas que utiliza de aspectos computação adaptativa
+ com uma construção-desconstrução periódica. Essa meta-heurística construtiva
+-apresenta soluções muito boas em uma iteração.
+-
+-Para a etapa construtiva da solução, existem os seguintes métodos:
+-\begin{itemize}
+-\item EncontraVizinhos: Encontra os $m_{i}$vizinhos mais próximos de ponto
+-$i$, sendo que $m_{i}\leq\frac{n}{p}$ e todos os pontos $Y_{i}$
+-(conjunto de pontos vizinhos do centro $i$) tem a soma de suas demandas
+-inferior ou igual a capacidade do agrupamento $i$.
+-\item CalculaDensidade: Com o conjunto de pontos vizinhos do centro $i$,
++apresenta soluções muito boas.
++
++Para a etapa construtiva da solução, são utilizados os seguintes métodos, tendo o início pelo algoritmo ProcedimentoPrincipal \ref{alg:ProcedimentoDensidade}
++
++\begin{algorithm}
++ \caption{EncontraVizinhos(k)}\label{alg:encontraVizinhos}
++\begin{algorithmic}[1]
++ \STATE $maxV \leftarrow \frac{n}{p}$
++ \STATE $V \leftarrow \emptyset$
++ \STATE $demAcum \leftarrow 0$
++ \WHILE {$demAcum < k.Cap$ \AND $\mid V \mid \leq maxV$ }
++    \FORALL {$i \in I$}
++        \IF {$\neg i.estaAssociado()$ \AND $i \notin V$}
++            \IF {$i.Dem + demAcum \leq k.Cap$ }
++             \STATE  $V \leftarrow V \cup i$
++             \STATE  $demAcum \leftarrow demAcum + i.Dem$
++            \ENDIF
++        \ENDIF
++    \ENDFOR
++ \ENDWHILE
++\RETURN V
++\end{algorithmic}
++
++\end{algorithm}
++
++EncontraVizinhos(k) (algoritmo \ref{alg:encontraVizinhos}): Encontra os $m_{k}$vizinhos mais próximos de ponto
++$k$, sendo que $m_{k}\leq\frac{n}{p}$ e todos os pontos $Y_{k}$
++(conjunto de pontos vizinhos do centro $k$) tem a soma de suas demandas
++inferior ou igual a capacidade do agrupamento $k$.
++
++CalculaDensidade(k, Y): Com o conjunto de pontos vizinhos do centro $k$,
+ conseguimos calcular a densidade do centro através de
+-\end{itemize}
++
+ \[
+-D_{i}=\frac{m_{i}}{T(a_{i},Y_{i})}\]
++D_{k}=\frac{m_{k}}{T(a_{k},Y)}\]
++
+ 
++sendo $T(a_{i},Y)$ a função que devolve a soma das distâncias entre o ponto $a_{i}$ até todos os pontos de $Y$.
+ 
+-sendo $T(a_{i},Y_{k})$ a função que devolve a distância total de
+-do ponto $a_{i}$ até todos os pontos de $Y_{k}$.
+-\begin{itemize}
+-\item CalculaArrependimento: Após encontrados os pontos candidatos a centros,
+-é necessário definir os pontos que serão atribuídos a cada um dos
+-agrupamentos. Para essa inserção, é utilizada essa função para calcular
++CalculaArrependimento(k, C): Após encontrados os pontos candidatos a centros ($C$),
++durante a fase iterativa é necessário definir os pontos que serão atribuídos a cada um dos
++agrupamentos. Para priorizar a inserção dos indivíduos é utilizada essa função para calcular
+ o arrependimento de associar um nó com um centro que não seja o mais
+ próximo. Para um ponto $i$, tendo os pontos $j_{1}\; e\; j_{2}$
+ como o centro mais próximo a $i$ e segundo mais próximo, respectivamente, com capacidade disponível para atender a demanda de $i$,
+ calculamos o arrependimento de associar $i$ com um centro que não
+ seja $j_{1}$ como sendo:
+-\end{itemize}
+ \[
+ R_{i}=d_{ij_{2}}-\; d_{ij_{1}}\]
+ 
+-\begin{itemize}
+-\item EncontreOsMelhoresAgrupamentos (C, A): tendo A como um conjunto de
+-pontos e C o conjunto de centros. Essa função tenta associar os pontos
+-em A com os agrupamentos em C e está descrita em \ref{alg:;EncontreOsMelhoresAgrupamentos}.
+-\end{itemize}
++Ao final do método, o centro mais próximo a $i$ é retornado.
++
++EncontreOsMelhoresAgrupamentos (C, A): tendo A como um conjunto de
++pontos e C o conjunto de centros, essa função tenta associar os pontos
++em A com os agrupamentos em C e está descrita no algoritmo \ref{alg:;EncontreOsMelhoresAgrupamentos}. Esse método faz usso também do algoritmo \ref{findBestCenter} para recalcular as medianas.
+ %
++
+ \begin{algorithm}
+ \caption{\label{alg:;EncontreOsMelhoresAgrupamentos}EncontreOsMelhoresAgrupamentos(C,A)} %\protect \\}
+-
+-
+-$t=1$;
+-
+-Minor $\leftarrow$ Máximo de iterações;
+-
+-$alterado\leftarrow Verdadeiro$;
+-
+-Enquanto ($alterado=Verdadeiro$ E $t<Minor$)
+-
+-Faça:
+-
+-~~~~~~$alterado\leftarrow False$;
+-
+-~~~~~~1: Atribua todos os centros aos seus agrupamentos;
+-
+-~~~~~~2: Calcule o arrependimento de todos os pontos em $A$;
+-
+-~~~~~~3: Encontre o maior $R_{i}$ não atribuído;
+-
+-~~~~~~4: Atribua $i$ para o agrupamento mais próximo disponível;
+-
+-~~~~~~5: Atualiza $A$ com os pontos atribuídos;
+-
+-~~~~~~6: Se $A\neq\emptyset$, vá para 2;
+-
+-~~~~~~Para cada $C_{j}$ e seu centro $c_{j}$
+-
+-~~~~~~~~~~~para cada $a_{i}\in C_{j}$
+-
+-~~~~~~~~~~~~~~~~Se ($T(a_{i},C_{j})<T(c_{j},C_{j})$)
+-
+-~~~~~~~~~~~~~~~~~~~~Atualize o novo centro de
+-$C_{j}$ como $a{}_{i}$;
+-
+-~~~~~~~~~~~~~~~~~~~~$alterado\leftarrow Verdadeiro$;
+-
+-~~~~~~~~~~~~~~~~FimSe;
+-
+-~~~~~~~~~~FimPara;
+-
+-~~~~~~FimPara;
+-
+-~~~~~~$t\leftarrow t+1$;
+-
+-FimFunção.
++\begin{algorithmic}
++ \STATE $t=1$;
++ \STATE $Minor \leftarrow MAX_Iter$
++ \STATE $changed \leftarrow True$
++ \WHILE {$changed = True$ \AND $t<Minor$}
++   \STATE $t\leftarrow t +1 $
++   \STATE $chaged \leftarrow False$
++    \WHILE {$A \neq \emptyset$}
++        \STATE $maxA \leftarrow 0$
++        \FORALL {$i \in A$}
++            \STATE $nC \leftarrow CalculaArrependimento(i, C)$
++            \IF {i.Arrependimento > maxA}
++                \STATE $maxA \leftarrow i.Arrependimento$
++                \STATE $greatA \leftarrow i$
++                \STATE $nearCenter \leftarrow nC$
++            \ENDIF
++        \ENDFOR
++        \STATE $nearCenter.associa(greatA)$
++    \ENDWHILE
++    \FORALL {$c \in C$}
++      \IF {FindBestCenterOfCluster(c)}
++        \STATE $changed \leftarrow True$
++      \ENDIF
++    \ENDFOR
++ \ENDWHILE
++\end{algorithmic}
+ \end{algorithm}
+ 
+ 
+ Com as funções definidas, um procedimento principal é chamado e apresenta
+-ao final o conjunto dos agrupamentos $C$. Em \ref{alg:ProcedimentoDensidade}
++ao final o conjunto dos agrupamentos $C$. No algoritmo \ref{alg:ProcedimentoDensidade}
+ é apresentado tal procedimento o qual implementa a computação adaptativa.
+ De modo iterativo, esse método vai construindo um agrupamento por
+-vez e recalculando a densidade ($D)$ e arrependimento ($R$) do conjunto.
++vez e recalculando a densidade $(D)$ do conjunto.
++
+ 
+-%
+ \begin{algorithm}
+ \caption{{ProcedimentoPrincipal}\label{alg:ProcedimentoDensidade}}
+-% \begin{algorithmic}
+-I: conjunto de $n$ pontos
+-
+-C: conjunto de centros
+-
+-X: conjunto de pontos não atribuídos em A
+-
+-Z: conjunto de pontos atribuídos até iteração $k$
+-
+-$Y_{i}$: conjunto dos $m_{i}$ pontos próximos a $a_{i}$, dado pela
+-função $EncontraVizinhos$
+-
+-Passo 1:
+-
+-$k=0;$
+-
+-$X=A,\, C=\emptyset,\, Z=\emptyset$
+-
+-Passo 2:
+-
+-$k\leftarrow k+1;$
+-
+-Para cada $a_{i}\in X$, encontre o conjunto $m_{i}$, $Y_{i}\subseteq X$;
+-
+-Calcule a densidade ($D_{i}$) para cada $a_{i}\in X$;
+-
+-Selecione o maior $D_{i}$ e atribua $a_{i}$ como centro do centro
+-do $k$-ésimo agrupamento, $C_{k}=C_{k}\cup a_{i}$;
+-
+-Elimine os pontos selecionados das próximas seleções: $X=X\setminus Y_{i}$,
+-$Y=Y\cup Y_{i}$;
+-
+-Se $k\geq2$ então chame $EncontreOsMelhoresAgrupamentos(C,Y)$;
+-
+-Se $k<p$ então volte ao passo 2;
+-
+-$EncontreOsMelhoresAgrupamentos(C,A)$
+-
+-% \end{algorithmic}
++\begin{algorithmic}
++
++\STATE $X \leftarrow I$
++\STATE $Y \leftarrow \emptyset$ \COMMENT {conjunto de pontos já atribuídos}
++\STATE $k=0;$
++\WHILE {$k < p$}
++  \STATE $k\leftarrow k+1$
++  \FORALL {$i \in X$}
++    \STATE $V \leftarrow EncontraVizinhos (i)$
++    \STATE CalculaDensidade(i, V)
++  \ENDFOR
++  \STATE $newC \leftarrow FindMaxDensity(X)$ \COMMENT {Encontra o ponto com maior densidade.}
++  \STATE $C_{k} \leftarrow newC$
++  \STATE $Y \leftarrow Y\cup EncontraVizinhos (newC)$
++  \STATE $X \leftarrow X\setminus Y$
++  \IF {$k \geq 2$}
++    \STATE $EncontreOsMelhoresAgrupamentos(C,Y)$
++  \ENDIF
++\ENDWHILE
++\STATE $EncontreOsMelhoresAgrupamentos(C,I)$
++\end{algorithmic}
+ \end{algorithm}
+ 
+ \subsection{H-Means}
+@@ -256,33 +284,80 @@ Move pontos para agrupamentos, depois escolhe os melhores centros. Desassocia os
+ 
+ \begin{algorithm}
+ \caption{{H-Means}\label{alg:HMeans}}
+-\begin{enumerate}
+- \item Selecione $p$ pontos como medianas iniciais;
+-
+- \item Aloque cada indivíduo ao agrupamento com mediana mais próxima a ele;
+-
+-\item Caso não tenha ocorrido alteração de associações Pare.
++\begin{algorithmic}
++ \STATE $C \leftarrow RandonPick(p)$ \COMMENT {Seleciona p pontos aleatóriamente}
++ \STATE $changed \leftarrow True$
++ \WHILE {changed}
++    \STATE $changed \leftarrow False$
++    \FORALL {$i \in {I}$}
++      \STATE allocToNearst(i,C) \COMMENT {Associa i à mediana (C) mais próxima.}
++    \ENDFOR
++    \FORALL {$c \in C$}
++      \IF {FindBestCenterOfCluster(c)}
++        \STATE $chaged \leftarrow True$
++      \ENDIF
++    \ENDFOR
++ \ENDWHILE
++\end{algorithmic}
+ 
+-\item Encontre o melhor centro para cada agrupamento e volte ao passo 2;
+-\end{enumerate}
+ \end{algorithm}
+ 
+ 
+ \subsection{J-Means}
+ \sloppy Essa heurística proposta por \cite{Hansen_j-means:a} utiliza a ideia de indivíduos não ocupados (indivíduos que se encontram afastadas da mediana do agrupamento por uma certa tolerância), para criar um novo agrupamento em alguma desses indivíduos que substitua algum dos agrupamentos existentes, de modo a diminuir o valor da função objetivo.
+ 
+-\begin{algorithm}[ht]
++\begin{algorithm}[htp]
+ \caption{{J-Means}\label{alg:JMeans}}
+-\begin{enumerate}
+- \item Selecione $p$ partições dos pontos que serão os agrupamentos. Armazene essa solução em $S*$.
+-
+- \item Encontre os pontos não ocupados (afastados do centro do agrupamento por uma tolerância)
+-
+- \item Para cada ponto não ocupado, tente substituir um centro existente por ele e atribua os pontos aos agrupamentos de medianas mais próximas. Mantenha o que apresentar maior redução na função objetivo armazenando-a em $S'$
+-
+- \item Se valor da função objetivo da solução nova $S'$ é menor que a de $S*$ faça $S*=S'$'e volte ao passo 2. Caso contrario Pare.
++\begin{algorithmic}[1]
++  \STATE $C \leftarrow RandonPick(p)$
++  \FORALL {$i \in {I}$}
++     \STATE allocToNearst(i,C)
++  \ENDFOR
++  \REPEAT
++    \STATE $optC \leftarrow C$
++    \STATE $unocu \leftarrow \emptyset$
++    \FORALL {$i \in {I}$}
++      \IF {$FarFromMedian(i, \varepsilon)$}
++        \STATE $unocu \leftarrow unocu \cup i$
++      \ENDIF
++    \ENDFOR
++    \STATE $rmC \leftarrow 0$
++    \STATE $newC \leftarrow 0$
++    \STATE $reduction \leftarrow 0;$
++    \FORALL {$u \in unocu$}
++      \FORALL {$c \in C$} %\COMMENT{Tenta trocar um ponto não ocupado por uma mediana}
++        \STATE $C \leftarrow C \setminus c$
++        \STATE $C \leftarrow C \cup u$
++        \FORALL {$i \in {I}$}
++            \STATE allocToNearst(i,C)
++        \ENDFOR
++        \IF {(f(optC) - f(C)) > reduction }
++          \STATE $reduction \leftarrow  f(optC) - f(C))$
++          \STATE $rmC \leftarrow c$
++          \STATE $newC \leftarrow u$
++        \ENDIF
++      \ENDFOR
++    \ENDFOR
++    \IF {$newC \neq 0$} %\COMMENT {Aplica a melhor troca.}
++        \STATE $C \leftarrow C \setminus rmC$
++        \STATE $C \leftarrow C \cup newC$
++        \FORALL {$i \in {I}$}
++            \STATE allocToNearst(i,C)
++        \ENDFOR
++    \ENDIF
++  \UNTIL {f(C) < f(optC)}
++  \RETURN {optC}
++\end{algorithmic}
+ 
+-\end{enumerate}
++% \begin{enumerate}
++%
++%  \item Encontre os pontos não ocupados (afastados do centro do agrupamento por uma tolerância)
++%
++%  \item Para cada ponto não ocupado, tente substituir um centro existente por ele e atribua os pontos aos agrupamentos de medianas mais próximas. Mantenha o que apresentar maior redução na função objetivo armazenando-a em $S'$
++%
++%  \item Se valor da função objetivo da solução nova $S'$ é menor que a de $S*$ faça $S*=S'$'e volte ao passo 2. Caso contrario Pare.
++%
++% \end{enumerate}
+ \end{algorithm}
+ 
+ A escolha das partições inicias é feita de forma aleatória, selecionando as medianas e para todos indivíduos, atribua-os ao agrupamento mais próximo com capacidade disponível para atender a demanda do indivíduo.
+@@ -304,67 +379,57 @@ ser muito alto pela complexidade do algoritmo.
+ \subfloat[]{
+  \includegraphics[scale=0.4,keepaspectratio=true]{../TCC-I/imagens/cluster_Farthest_SJC4a.png}\label{b}
+  % cluster_Farthest_SJC4a.png: 510x508 pixel, 83dpi, 15.61x15.54 cm, bb=0 0 442 441
++}\\
++\subfloat[]{
++ \includegraphics[scale=0.4, bb=0 0 423 427]{./images/HMeans_Example.png}\label{c}
++ % HMeans_Example.png: 564x570 pixel, 96dpi, 14.92x15.08 cm, bb=0 0 423 427
++}
++\subfloat[]{
++\includegraphics[scale=0.5, bb=0 0 423 427]{./images/JMeans_Example.png}\label{d}
+ }
+ \par
+ 
+-\caption[Comparação heurísticas Density-Farthest]{\label{fig:CCP-compara=0000E7=0000E3o}A solução gerada pela heurística
+-Density \subref{a} possui os agrupamentos bem mais compactos que na
+-solução pela heurística Farthest \subref{b}.}
++\caption[Comparação algumas soluções das heurísticas]{\label{fig:CCP-compara=0000E7=0000E3o}A solução gerada pelas heurística
++Density \subref{a}, Farthest \subref{b}, HMeans\subref{c} e JMeans\subref{d}. Para todas soluções foi calculado com o mesmo valor de p (número de agrupamentos).}
+ \end{centering}
+ \end{figure}
+ 
+ \subsection{Random Density}
+-\sloppy A heurística proposta por \cite{ahmadi2004density} produz soluções muito boas, mas que na grande maioria das vezes cai em um minimo local, tanto que o refinamento da solução obtida apresentado no mesmo artigo é através da alteração dos dados de entrada, pela movimentação de alguns indivíduos e recalculando os novos agrupamentos. Com esses novos agrupamentos é recalculado as funções objetivo levando em consideração o posicionamento original dos indivíduos. A ideia de densidade utilizada por Ahmadi dá uma boa ideia da provável localização dos indivíduos candidatos a centros de agrupamentos. Usando dessa ideia e da técnica construtiva/desconstrutiva também representado no mesmo trabalho, criamos o seguinte algoritmo\ref{alg:RandomDensity}:
++\sloppy A heurística proposta por \cite{ahmadi2004density} produz soluções muito boas, mas na grande maioria das vezes cai em um mínimo local, tanto que o refinamento da solução obtida apresentado no mesmo artigo é através da alteração dos dados de entrada, pela perturbação de alguns indivíduos e recalculando os novos agrupamentos. Com esses novos agrupamentos é recalculado a funçõe objetivo levando em consideração o posicionamento original dos indivíduos. A ideia de densidade utilizada por Ahmadi dá uma boa ideia da provável localização dos indivíduos candidatos a centros de agrupamentos. Usando dessa ideia e da técnica construtiva/desconstrutiva também representado no mesmo trabalho, criamos o algoritmo \ref{alg:RandomDensity}:
+ 
+-\begin{algorithm}
++\begin{algorithm}[hpt]
+ \caption{{RandomDensity}\label{alg:RandomDensity}}
+-% \begin{algorithmic}
+-I: conjunto de $n$ pontos
+-
+-C: conjunto de centros
+-
+-X: conjunto de pontos não atribuídos em A
+-
+-Z: conjunto de pontos atribuídos até iteração $k$
+-
+-$Y_{i}$: conjunto dos $m_{i}$ pontos próximos a $a_{i}$, dado pela
+-função $EncontraVizinhos$
+-
+-Passo 1:
+-
+-$k=0;$
+-
+-$X=A,\, C=\emptyset,\, Z=\emptyset$
+-
+-Passo 2:
+-
+-$k\leftarrow k+1;$
+-
+-Para cada $a_{i}\in X$, encontre o conjunto $m_{i}$, $Y_{i}\subseteq X$;
+-
+-Calcule a densidade ($D_{i}$) para cada $a_{i}\in X$;
+-
+-Selecione aleatoriamente um ponto $i$ dos $p$ pontos com maior densidade $D$ e atribua $a_{i}$ como centro do centro
+-do $k$-ésimo agrupamento, $C_{k}=C_{k}\cup a_{i}$;
+-
+-Elimine os pontos selecionados das próximas seleções: $X=X\setminus Y_{i}$,
+-$Y=Y\cup Y_{i}$;
+-
+-Se $k\geq2$ então chame $EncontreOsMelhoresAgrupamentos(C,Y)$;
+-
+-Se $k<p$ então volte ao passo 2;
++\begin{algorithmic}[1]
+ 
+-$EncontreOsMelhoresAgrupamentos(C,A)$
++\STATE $X \leftarrow I$
++\STATE $Y \leftarrow \emptyset$ \COMMENT {conjunto de pontos já atribuídos}
++\STATE $k=0;$
++\WHILE {$k < p$}
++  \STATE $k\leftarrow k+1$
++  \FORALL {$i \in X$}
++    \STATE $V \leftarrow EncontraVizinhos (i)$
++    \STATE CalculaDensidade(i, V)
++  \ENDFOR
++  \STATE $newC \leftarrow GetRandonDensity(X)$ \COMMENT {Seleciona um dos $p$ pontos com maior densidade.}
++  \STATE $C_{k} \leftarrow newC$
++  \STATE $Y \leftarrow Y\cup EncontraVizinhos (newC)$
++  \STATE $X \leftarrow X\setminus Y$
++  \IF {$k \geq 2$}
++    \STATE $EncontreOsMelhoresAgrupamentos(C,Y)$
++  \ENDIF
++\ENDWHILE
++\STATE $EncontreOsMelhoresAgrupamentos(C,I)$
++\end{algorithmic}
+ 
+-% \end{algorithmic}
+ \end{algorithm}
++Note que agora na linha 10 do algoritmo \ref{alg:RandomDensity} não é mais selecionado o indivíduo com maior densidade, mas sim um dos pontos com maior densidade, retirando o movimento guloso do algoritmo original que acabava por conduzir sempre a uma mesma solução. Com essa pequena alteração conseguímos soluções muito boas (na média melhores que os demais métodos na maioria das instâncias) e também que permitem uma aplicação de busca local para melhorar o resultado obtido. Em contrapartida, o tempo de processamento computacional aumentou. Isso se deve pela necessidade de maior número de iterações no procedimento $EncontreOsMelhoresAgrupamentos(C,Y)$ (\ref{alg:;EncontreOsMelhoresAgrupamentos}), agora que as escolhas de indivíduos como centros pode gerar uma maior necessidade de movimentação dos indivíduos entre os agrupamentos na fase de construção/desconstrução.
+ 
+-Note que agora no passo 2 não é mais selecionado o indivíduo com maior densidade, mas sim um dos pontos com maior densidade, retirando o movimento guloso do algoritmo original que acabava por conduzir sempre a uma mesma solução. Com essa pequena alteração conseguímos soluções muito boas e também que permitem uma aplicação de busca local para melhorar o resultado obtido. Conseguimos, com essa pequena alteração, obter soluções médias melhores que os demais métodos na maioria das instâncias. Em contrapartida, o tempo de processamento computacional aumentou. Isso se deve pela necessidade de maios iterações no procedimento $EncontreOsMelhoresAgrupamentos(C,Y)$ \ref{alg:;EncontreOsMelhoresAgrupamentos}, uma vez que agora as escolhas de indivíduos como centros pode gerar uma maior necessidade de movimentação dos indivíduos entre os agrupamentos.
++Uma forma de obter soluções boas é após gera-las com alguma heurística, aplicar algum método de busca local, procurando na solução obtida uma solução melhor na vizinhança da solução atual.
+ 
+ \section{Busca Local}
+-Usando os movimentos descritos por \cite{osman1994capacitated} de interchange (intercâmbio) e shift (mudança) temos os mecanismos de geração da vizinhança de soluções da atual. Ambos respeitam a capacidade cada agrupamento, não inserindo um indivíduo em um agrupamento que ultrapasse sua capacidade.
++Usando os movimentos descritos por \cite{osman1994capacitated} de interchange (intercâmbio) e shift (mudança) temos os mecanismos de geração de soluções vizinhas à solução atual. Ambos movimentos respeitam a capacidade de cada agrupamento, não inserindo um indivíduo em um agrupamento que ultrapasse sua capacidade.
+ 
+-O movimento shift é uma troca simples onde apenas é removido um indivíduo $i$ de um agrupamento $C$ e o mesmo indivíduo é inserido em um outro agrupamento $C'$, sendo $C \neq C'$ e $C'$ possui capacidade suficiente para atender a demanda de $i$. Esse movimento não permite grande exploração da vizinhança, uma vez que para executar-lo é necessário que exista uma capacidade ociosa nos agrupamentos para receber novos pontos. Na figura \ref{shiftExample} é apresentado um exemplo de movimento shift executado em uma solução válida do problema.
++O movimento shift é uma troca simples onde apenas é removido um indivíduo $i$ de um agrupamento $C$ e o mesmo indivíduo é inserido em um outro agrupamento $C'$, sendo $C \neq C'$ e $C'$ possui capacidade suficiente para atender a demanda de $i$. Esse movimento não permite grande exploração da vizinhança, uma vez que para executá-lo é necessário que exista uma capacidade ociosa nos agrupamentos para receber novos pontos. Na figura \ref{shiftExample} é apresentado um exemplo de movimento shift executado em uma solução válida do problema.
+ 
+ \begin{figure}[ht]
+ \begin{centering}
+@@ -390,7 +455,6 @@ Esse movimento permite que sejam encontradas novas solu
+ \subfloat[]{
+  \includegraphics[scale=0.6]{../apresentacao_andamento/before_interchange.png}% \label{a}
+  % before_shift.png: 414x232 pixel, 96dpi, 10.95x6.14 cm, bb=0 0 310 174
+-
+ }
+ \subfloat[]{
+  \includegraphics[scale=0.6]{../apresentacao_andamento/after_interchange.png}% \label{b}
+diff --git a/TCC-II/ProblemaDeAgrupamento.tex b/TCC-II/ProblemaDeAgrupamento.tex
+index 1b89890..04a0a3d 100644
+--- a/TCC-II/ProblemaDeAgrupamento.tex
++++ b/TCC-II/ProblemaDeAgrupamento.tex
+@@ -11,9 +11,8 @@ Um exemplo bem simples de agrupamento seria o ato de separar poucas frutas de ap
+  Para esse exemplo, um ser humano conseguiria executar a tarefa de forma
+ competitiva com um algoritmo executado por um computador, mas quando incluímos um grande de dados de entrada
+ e desejamos que sejam levadas em consideração outras medidas ou outras
+-restrições (ex. dividir as mesmas frutas em 10 grupos, sendo 5 de frutas de melhor aparência , e os objetos
+-de cada grupo devem ser de cores e tamanhos semelhantes), os algoritmos de
+-agrupamento podem chegar a uma solução muito melhor em menor tempo.
++restrições (ex. dividir as mesmas frutas em 10 grupos, sendo 5 de frutas de melhor aparência e 5 de piores, alem de que os objetos
++de cada grupo devem ser de cores e tamanhos semelhantes), os algoritmos de agrupamento podem chegar a uma solução muito melhor em menor tempo.
+ 
+ Dentre as aplicações práticas podemos destacar o uso de agrupamentos para data
+ mining, processamento de imagens, procura por padrões, redução de cores de imagens, localização de facilidades, reconhecimento de
+@@ -54,7 +53,7 @@ Os problemas de particionamento, que ser
+ problemas onde é desejado descobrir partições nos conjuntos de dados de modo que
+ cada partição contenha apenas elementos similares entre si.
+ 
+-A escala de dificuldade de resolver do problema de particionamento, ser vista pela expressão de distintas partições $p$ existente em $n$ pontos,$N(n,p)$,
++A escala de dificuldade de resolver do problema de particionamento, pode ser vista pela expressão de distintas partições $p$ existente em $n$ pontos,$N(n,p)$,
+ definida por \cite{liu1968cl}:
+ \begin{equation}
+  N(p,n) = \frac{1}{p!}\sum_{i=0}^{p}(-1)^{p-1}\binom{p}{i}i^{n}
+@@ -78,7 +77,7 @@ por Taillard \cite{taillard2003heuristic}, onde s
+ pontos, o espaço de busca cresce ainda mais. O uso de métodos exatos é
+ proibitivo pelo tempo computacional que seria necessário para essas instâncias
+ maiores, e sendo esses problema da classe NP-Completo \cite{garey1979computers}
+-não existe um algoritmo que resolva de forma exata em tempo polinomial, o que
++não existe um algoritmo que resolva de forma exata em tempo polinomial, assim o que
+ resta é o uso de métodos heurísticos e híbridos.
+ Outro fato sobre esses dados é que a ocorrência de mais agrupamentos possíveis,
+ ocorra com $p=16$, o que vem a mostrar que o problema é assimétrico em relação
+@@ -90,7 +89,7 @@ resolvidos \cite{ahmadi2004density}
+ 
+ Quando temos um conjunto de pontos no espaço ($\Re^{2}$ por exemplo) e
+ desejamos agrupar os pontos pela sua  localização, podemos utilizar como
+-medida de dispersão dos grupos a distância dos pontos em relação ao centroide
++medida de dispersão dos grupos a distância euclidiana dos pontos em relação ao centroide
+ calculado pelos pontos do agrupamento. Esse é também conhecido como Problema das
+ K-Médias (K-Means) apresentado por \cite{macqueen1966some}
+ 
+@@ -138,7 +137,7 @@ Quando temos o valor de capacidade dos agrupamentos homog
+ seja, o valor de $Q_{j}=Q_{i}\:,\forall j\: e\:\forall i\in P$, podemos
+ dizer que esse é um problema das $p-medianas$ capacitado.
+ 
+-Um problema semelhande ao CCP foi proposto por Negreiros e Palhano em \cite{negreiros2006capacitated}. Ele é o CCCP \sigla{CCCP}{Problema de Agrupamento Centrado Capacitado - Capacitated Centred Clustering Problem} que consiste em agurupar os pontos levando em consideração a distância não para um dos pontos (mediana) mas para o centroide calculados com os pontos de cada agrupamento como apresentado na figura \ref{fig:CCCP}. São propostas 2 variações deste problema: uma onde o número de agrupamentos ($p$)é previamente conhecido ($p-CCCP$) e outra onde desejamos minimizar o número total de agrupamentos ($g-CCCP$). Após analisarmos esse problemas, decidimos permanecer trabalhando apenas com o problema CCP por melhor representar o PDOS.
++Um problema semelhante ao CCP foi proposto por Negreiros e Palhano em \cite{negreiros2006capacitated}. Ele é o CCCP \sigla{CCCP}{Problema de Agrupamento Centrado Capacitado - Capacitated Centred Clustering Problem} que consiste em agrupar os pontos levando em consideração a distância não para um dos pontos (mediana) mas para o centroide calculados com os pontos de cada agrupamento como apresentado na figura \ref{fig:CCCP}. São propostas 2 variações deste problema: uma onde o número de agrupamentos ($p$)é previamente conhecido ($p-CCCP$) e outra onde desejamos minimizar o número total de agrupamentos ($g-CCCP$). Após analisarmos esse problemas, decidimos permanecer trabalhando apenas com o problema CCP por melhor representar o PDOS.
+ 
+ \begin{figure}[hb]
+ \begin{centering}
+@@ -149,95 +148,8 @@ Um problema semelhande ao CCP foi proposto por Negreiros e Palhano em \cite{negr
+ \end{figure}
+ 
+ 
+-% \subsection{CCCP}\sigla{CCCP}{Problema de Agrupamento Centrado Capacitado - Capacitated Centred Clustering Problem}
+-% Este é um outro tipo de problema de agrupamento proposto por Negreiro e Palhano\cite{negreiros2006capacitated},
+-%  onde os agrupamentos passam a ter seu centro
+-% não necessariamente em um ponto (mediana), mas no centroide calculado
+-% entre os pontos pertencentes a cada agrupamento.
+-%
+-% são propostas 2 variações do problema, $p-CCCP$, onde é dado o número
+-% de agrupamentos que se deseja encontrar, e $g-CCCP$ (generic - CCCP)
+-% que se deseja encontrar o menor número de agrupamentos para atender
+-% a todas demandas, sendo a função objetivo em ambas a minimização das
+-% dissimilaridades entre os componentes de cada agrupamento.
+-%
+-% Na figura \ref{fig:CCCP} é apresentada a visualização de uma solução
+-% para o problema $CCCP$.
+-%
+-% %
+-
+-
+-%
+-%
+-% A primeira, $p-CCCP$, possui o número fixo de agrupamentos que se
+-% deseja encontrar e a segunda variação, $g-CCCP$, assume que para
+-% cada novo agrupamento adicionado, é acrescentado um valor de penalização
+-% na função objetivo, levando a minimização de agrupamentos. A definição
+-% para o $p-CCCP$ é:
+-%
+-% \begin{equation}
+-% min\sum_{i\in I}\sum_{j\in P}\parallel a_{i}-\overline{g_{j}}\parallel^{2}x_{ij}\label{eq:obj_CCCP}\end{equation}
+-% Sujeito à,
+-%
+-% \begin{equation}
+-% \sum_{j\in P}x_{ij}=1,\;\forall i\in I,\label{eq:1Cluster_CCCP}\end{equation}
+-% \begin{equation}
+-% \sum_{i\in I}x_{ij}=n_{j},\;\forall j\in P,\label{eq:nPerCluster_CCCP}\end{equation}
+-% \begin{equation}
+-% \sum_{i\in I}a_{i}x_{ij}=n_{j}\overline{g_{j}},\;\forall j\in P,\label{eq:centroid_CCCP}\end{equation}
+-% \begin{equation}
+-% \sum_{i\in I}q_{i}x_{ij}\leq Q_{j},\;\forall j\in P,\label{eq:capacity_CCCP}\end{equation}
+-% \begin{equation}
+-% a_{i}\in\Re^{l},\;\overline{g_{j}}\in\Re^{l},\; n_{j}\in N,\; x_{ij}\in\{0,1\},\;\;\forall i\in I,\;\forall j\in P,\label{eq:sets_CCCP}\end{equation}
+-%
+-% onde, $\overline{g_{j}}$ é o centroide do agrupamento $j$, $n_{j}$o
+-% número de indivíduos associados ao agrupamento $j$, $a_{i}$a posição
+-% do indivíduo $i$ no espaço $\Re^{l}$, $q_{i}$a demanda do indivíduo
+-% $i$, $Q_{j}$ a capacidade de cada agrupamento, $I$ o conjunto de
+-% indivíduos e $P$ o conjunto de agrupamentos.
+-%
+-% A função objetivo (\ref{eq:obj_CCCP}) tem como diferencial em relação
+-% ao problema clássico $CCP$, o fato das similaridades serem medidas
+-% em relação a todos pontos do agrupamento até seu centroide, o qual
+-% não é necessariamente um indivíduo. A eq. (\ref{eq:1Cluster_CCCP})
+-% indica que um indivíduo somente pode estar associado a um agrupamento,
+-% e a restrição (\ref{eq:nPerCluster_CCCP}) associa a $n_{j}$o número
+-% de indivíduos no agrupamento $j$. Em (\ref{eq:centroid_CCCP}) é
+-% definido todos os centroides dos respectivos agrupamentos e em (\ref{eq:capacity_CCCP})
+-% é colocado que cada agrupamento não pode maior demanda dos indivíduos
+-% que sua própria capacidade. A ultima restrição (\ref{eq:sets_CCCP})
+-% indica o domínio das variáveis do problema.
+-%
+-% No $g-CCCP$ o número de agrupamentos não é definido a priori, mas
+-% tem um limitante inferior dado por $\lceil\sum_{i\in I}q_{i}/\sum_{j\in P}Q_{j}\rceil$.
+-% Esse problema a seguinte formulação:
+-% % \begin{singlespace}
+-% \begin{eqnarray}
+-% Min &\;& \left(F\sum_{j\in P}z_{j}\right)+\sum_{j\in P}\left(\sum_{i\in I}\parallel a_{i}-\overline{g_{j}}\parallel^{2}x_{ij}\right)\label{eq:obj_g-CCCP} \\
+-% Sujeito\;A,&& \\
+-% \sum_{j\in P}x_{ij} &=& 1,\;\forall i\in I,\label{eq:1Cluster_g-CCCP} \\
+-% \sum_{i\in I}a_{i}x_{ij} &=&  \overline{g_{j}}\left(\sum_{i\in I}x_{ij}\right),\;\forall j\in P,\label{eq:centroid_g-CCCP} \\
+-% \sum_{i\in I}q_{i}x_{ij} &\leq& Q_{j}z_{j},\;\forall j\in P,\label{eq:capacity_g-CCCP}  \\
+-% \overline{g_{j}}&\in&\Re^{l},\: z_{j},\: x_{ij}\in\{0,1\},\;\forall i\in I,\forall j\in P,\label{eq:sets_g-CCCP}
+-% \end{eqnarray}
+-% % \end{singlespace}
+-% onde, $z_{j}=1$ se o agrupamento $j$ está aberto (em uso), $0$
+-% caso contrário, $Q_{j}$ a capacidade do agrupamento $j$, $q_{i}$a
+-% demanda o indivíduo $i$, $\overline{g_{j}}$ o centroide do agrupamento
+-% $j$. $F$ é o custo fixo para abrir um novo agrupamento.
+-%
+-% A função objetivo (\ref{eq:obj_g-CCCP}) minimiza as dissimilaridades
+-% entre os integrantes de um mesmo agrupamento além do número total
+-% de agrupamentos abertos. A eq. (\ref{eq:1Cluster_g-CCCP}) define
+-% que um indivíduo somente pode estar associado a um agrupamento, (\ref{eq:centroid_g-CCCP})
+-% encontra o centroide de cada agrupamento e (\ref{eq:capacity_g-CCCP})
+-% garante que a capacidade dos agrupamentos não sejam ultrapassados.
+-% As ultimas restrições (\ref{eq:sets_g-CCCP}) especificam as variáveis
+-% de decisão.
+-
+-
+ \section{Métodos de resolução}
+-Devido a características como o tamanho de espaço de busca, a resolução de problemas de particionamento utilizando métodos exatos ou de otimização como \emph{branch and bound} são inefetivos em instâncias maiores \cite{osman1994capacitated}.
++A utilização de métodos exatos ou mesmo de \emph{branch and bound}, não são eficientes para instâncias com maior número de pontos (indivíduos) \cite{osman1994capacitated}, pelo grande tempo de processamento exigido.
+ 
+ Para obter soluções em tempos computacionais viáveis, é necessário a utilização de heurísticas. Métodos heurísticos podem não gerar uma solução ótima, ou mesmo próxima dela, mas conseguem gerar soluções muito boas em um tempo computacional polinomial.
+ 
+@@ -245,4 +157,5 @@ Podemos distinguir 2 tipos de heur
+ \begin{itemize}
+  \item Construtivas: Algoritmos desenvolvidos especificamente para uma determinada classe de problemas. Normalmente as soluções estão em um ótimo local ou muito próximo de um;
+  \item Iterativas: A partir de uma solução inicial válida, e busca na vizinhança iterativamente por outras soluções melhores. A busca na vizinha normalmente conduz a um vale/pico, chegando a um ótimo local ao final das iterações.
+-\end{itemize}
+\ No newline at end of file
++\end{itemize}
++No p?oximo capitulo apresentamos as heurísticas escolhidas para essetrabalho (uma construtiva e 4 iterativas) e sobre a busca local utilizada para melhorar as soluções geradas por as heurísticas.
+\ No newline at end of file
+diff --git a/TCC-II/ResultadosComputacionais.tex b/TCC-II/ResultadosComputacionais.tex
+index dfc67a9..cd509f6 100644
+--- a/TCC-II/ResultadosComputacionais.tex
++++ b/TCC-II/ResultadosComputacionais.tex
+@@ -1,17 +1,17 @@
+ \chapter{Resultados Computacionais}
+ 
+ Todos os testes foram executados em uma máquina AMD X4 de 3GHz com 2 Gigabytes de memória principal rodando o sistema operacional Linux 2.6.
+-Para a execução dos testes foi definido que seriam executados 10 vezes os algoritmos que fazem uso de aleatoriedade para a escolha dos pontos iniciais, sendo utilizada a solução com menor valor de função objetivo para comparação com as demais heísticas. Para mostrar a varição dos valores da solução, também é apresentado a média das soluções bem como o desvio padrão das execuções.
++Para a execução dos testes foi definido que seriam executados 10 vezes os algoritmos que fazem uso de aleatoriedade para a escolha dos pontos iniciais, sendo utilizada a solução com menor valor de função objetivo para comparação com as demais heurísticas. Para mostrar a varição dos valores da solução, também é apresentado a média das soluções bem como o desvio padrão das execuções.
+ 
+-Foram escolhidas 2 conjuntos de instâncias para executar os testes. O primeiro é as instâncias disponibilizadas em http://www.lac.inpe.br/$\sim $lorena/instancias.html criadas através de dados coletados da cidade de São José dos Campos. As instâncias desse primeiro conjunto possuem o prefixo SJC e são utilizadas para comparação dos valores obtidos por nós com valores apresentados na literatura.
++Foram escolhidos 2 conjuntos de instâncias para executar os testes. O primeiro é das instâncias disponibilizadas em http://www.lac.inpe.br/$\sim $lorena/instancias.html criadas através de dados coletados da cidade de São José dos Campos. As instâncias desse primeiro conjunto possuem o prefixo SJC e são utilizadas para comparação dos valores obtidos por nós com valores apresentados na literatura.
+ 
+-O segundo conjunto de 5 instâncias inéditas obtidos de coleta de dados de atendimentos agendados para um certo dia, sendo cada instância em uma determinada cidades. Desses dados possuiamos apenas o tempo necessário para cada atendimento e a localização de cada um deles, bem como o número de equipes que podem atende-los. Apesar de equipes de trabalho possuirem uma jornada fixa de trabalho por dia, foi preciso relaxar essa restrição pois a demanda dos atendimento era maior que a capacidade das equipes. Isso ocorre devido a atendimentos de dias anteriores que são re-agendados para um novo dia por não terem sidos atendidos.
++O segundo conjunto de 5 instâncias, são instâncias reais inéditas obtidos de coleta de dados de atendimentos agendados para um certo dia em uma concessionária, sendo cada instância em uma determinada cidade aqui do estado. Desses dados possuíamos apenas o tempo necessário para cada atendimento e a localização de cada um deles, bem como o número de equipes que podem atende-los. Apesar de equipes de trabalho possuirem uma jornada fixa de trabalho por dia, foi preciso relaxar essa restrição pois a demanda dos atendimentos era maior que a capacidade das equipes. Isso ocorre devido a atendimentos de dias anteriores que são re-agendados para um novo dia por não terem sidos atendidos.
+ 
+-A definição das capacidades das equipes foi definida da por a fórmula
++A definição das capacidades das equipes foi definida por a fórmula
+ $$ Cap = \frac{F \cdot \sum_{i\in I} i_{dem} }{|P|}$$
+ onde $F$ é a folga desejada e $i_{dem}$ a demanda do indivíduo $i$. $Cap$ será a capacidade de cada um dos agrupamentos. Temos com isso o mesmo valor de capacidade para todas equipes. Para mostrar o que influencia uma maior folga da capacidade total, esse último conjunto de instâncias teve as capacidades totais alteradas para 10\%, 20\% e 30\% além da demanda total deles.
+ 
+-Na tabela \ref{tab:valoresInstancias} apresenta os valores obtidos para os 5 algoritmos implementados. Foi colocado também os valores para n (número de indivíduos) e p (número de agrupamentos). Os valores apresentados são os mínimos para as heurísticas que utilizam aleatoriedade. Como comparação, os gráficos \ref{fig:graphicSJC} e \ref{fig:graphicAE} apresentam os valores percentuais que as soluções se encontram acima das melhores soluções encontradas para a instância. Para as instâncias AE, o gráfico foi cortado em 100\% uma vez que as soluçõos da heurística Farthest apresentaram valores que ficaram até 734\% acima da melhor solução encontrada. Logo após, na tabela \ref{tab:TemposInstancias}, apresentamos os tempos tomados para executar o processamento das soluções apresentadas como mínimas.
++A tabela \ref{tab:valoresInstancias} apresenta os valores da função objetivo das soluções obtidas com os 5 algoritmos implementados. Foi colocado também os valores para n (número de indivíduos/OS) e p (número de agrupamentos/equipes). Os valores apresentados são os mínimos para as heurísticas que utilizam aleatoriedade. Como comparação, os gráficos \ref{fig:graphicSJC} e \ref{fig:graphicAE} apresentam os valores percentuais que as soluções se encontram acima das melhores soluções encontradas para a instância. Para as instâncias AE, o gráfico foi cortado em 100\% uma vez que as soluçõos da heurística Farthest apresentaram valores que ficaram até 734\% acima da melhor solução encontrada. Logo após, na tabela \ref{tab:TemposInstancias}, apresentamos os tempos tomados para executar o processamento das soluções apresentadas como mínimas.
+ \begin{table}[htp]
+ \begin{center}
+ \caption [Valores obtidos pelos algoritmos]{\\Valores da obtidos das instâncias pelos algoritmos construtivos.\label{tab:valoresInstancias}}
+diff --git a/TCC-II/TCC-II.siglax b/TCC-II/TCC-II.siglax
+index 4cb70e3..17db3c5 100644
+--- a/TCC-II/TCC-II.siglax
++++ b/TCC-II/TCC-II.siglax
+@@ -4,5 +4,5 @@
+ \indexentry {1004 @CPMP& Problema das P-Medianas Capacitado - Capacitated P-Medians Problem|TSSThePage}{12}
+ \indexentry {1005 @CTSP& Problema do Caixeiro Viajante Agrupado - Clustered Travel Salesman Problem|TSSThePage}{13}
+ \indexentry {1006 @CCCP& Problema de Agrupamento Centrado Capacitado - Capacitated Centred Clustering Problem|TSSThePage}{18}
+-\indexentry {1007 @GCC& Coleção de Compiladores GNU - GNU Compiler Collection|TSSThePage}{31}
+-\indexentry {1008 @GNU& GNU Não é Unix - GNU is Not Unix|TSSThePage}{31}
++\indexentry {1007 @GCC& Coleção de Compiladores GNU - GNU Compiler Collection|TSSThePage}{34}
++\indexentry {1008 @GNU& GNU Não é Unix - GNU is Not Unix|TSSThePage}{34}
+diff --git a/TCC-II/dedicatoria.tex b/TCC-II/dedicatoria.tex
+index ed285c1..3a965d8 100644
+--- a/TCC-II/dedicatoria.tex
++++ b/TCC-II/dedicatoria.tex
+@@ -22,7 +22,7 @@
+     \par Também deve dizer que sem uma outra pessoa eu não estaria aqui, quer dizer, eu até estaria mas possivelmente tomando algum tarja preta ou em uma consulta num psiquiatra, o que eu quero dizer é que se eu mantenho ainda um pouco de lucidez mental é graças a minha amada esposa Joseane (mas chamem-na de Jô). Muito obrigado pelos ótimos momentos ao seu lado, por ser minha companheira nas minhas idéias geniais (leia-se loucas), pela força nas aulas de cálculo e por rir das minhas piadas (pelo menos das boas).
+     \par Agradeço ao meu gato, que tem o nome de POG mas ninguém chama ele por esse nome, por me fazer rir quando tentava pegar o cursor do mouse :).
+     \par Tenho um agradecimento especial aos demais professores que me acompanharam e incentivaram durante a graduação, compartilhando seu tempo, paciência e conhecimento, contribuindo na minha formação. Obrigado Amanda, Vanessa, Diego, MC(Marcelo), Alessandro, Divane, Fabiane, Fernando, Daniel, Rogério, Antônio, Vinícius(Montagner), Deise, Eduardo, Cleo.
+-    \par Além do conhecimento na graduação levo também a amizade e companheirismo de de vários colegas do nosso curso e de outros também. Obrigado pelos momentos divertidos durante os trabalhos e momentos de estudo. Obrigado Parizi, Rodrigo, Tati, Ângela, Igor, Daniel, Peuchibo e outros tantos que encheriam muitas outras páginas.
++    \par Além do conhecimento na graduação levo também a amizade e companheirismo de vários colegas do nosso curso e de outros também. Obrigado pelos momentos divertidos durante os trabalhos e momentos de estudo. Obrigado Parizi, Rodrigo, Tati, Ângela, Igor, Daniel, Peuchibo e outros tantos que encheriam muitas outras páginas.
+     \par \#finalDoTCC
+ 
+ 
+diff --git a/TCC-II/ferramentaComputacional.tex b/TCC-II/ferramentaComputacional.tex
+index 803ed7f..38718e0 100644
+--- a/TCC-II/ferramentaComputacional.tex
++++ b/TCC-II/ferramentaComputacional.tex
+@@ -1,5 +1,5 @@
+ \chapter{Ferramenta Computacional}
+-Para melhor executar os estudos do problema, foi desenvolvida uma ferramenta computacional que prove a visualização dos resultados, permite programar execuções de algoritmos para arquivos abertos, oferecendo com a opção de aplicar ou não os algoritmos de busca local na solução final, além de permitir rodar arquivos em lote.
++Para melhor executar os estudos do problema, foi desenvolvida uma ferramenta computacional que provê a visualização dos resultados, permite programar execuções de algoritmos para arquivos abertos, oferecendo a opção de aplicar ou não os algoritmos de busca local na solução final, além de permitir rodar arquivos em lote.
+ Os resultados são apresentado em uma saída de texto e salvos em um arquivo o que permite manter um histórico das execuções para cada arquivo.
+ 
+ \begin{figure}[ht]
+@@ -9,7 +9,7 @@ Os resultados s
+  \caption{Tela principal da ferramenta desenvolvida\label{fig:FerramentaNossa}}
+ \end{figure}
+ 
+-Os processamentos de algoritmos construtivo e de busca local solicitados pelo utilizador, são armazenados em um fila sendo que o processamento deles ocorre em uma thread (processo leve) separada, permitindo a interface do utilizador não fique bloqueada enquanto o dados são processados.
++Quando o utilizador da aplicação selecional um método para ser executado (alguma das heurísticas, busca local ou ainda uma execução em lote) sobre um instância carregada, tais ações são armazenados em um fila e tem o processamento executado em uma thread (processo leve) separada, permitindo que a interface do utilizador não fique bloqueada enquanto o dados são processados, possibilitando a análise dos dados já processados.
+ 
+ Como os algoritmos de busca local podem ser aplicados nas soluções geradas por eles, foi implementada uma organização dos resultados derivados em formato de árvore. Essa árvore permite a navegação nela, mostrando na janela de visualização de resultados (canvas) os resultados nela selecionados.
+ 
+@@ -19,7 +19,7 @@ Para o desenvolvimento foi escolhida a linguagem de programa
+ 
+ Para efetuar a geração dos arquivos makefiles, utilizados para executar a compilação da ferramenta, foi utilizado o gerador de makefiles CMake pela facilidade de uso, poder no controle de decisões e por possibilitar a execução dos casos de teste de forma automatizada pelo pacote CTest, o qual faz parte do próprio CMake.
+ 
+-Como contribuição, também foi desenvolvido uma primeira versão de um plugin (biblioteca dinâmica) para o Rocs \cite{Rocs2010} do KDE-EDU (conjunto de softwares educacionais do KDE), permitindo uma possível interação com a soluções geradas pelos algoritmos aqui tratados através de comandos na linguagem java script e também a criação de algoritmos para análise de tais soluções. Essa primeira versão do plugin permite a abertura de arquivos do problema CCP e a execução de algum dos algoritmos desenvolvidos aqui. Na figura \ref{fig:DuasFerramentas} temos um exemplo das duas ferramentas com a mesma instância e o mesmo algoritmo rodado (density).
++Como contribuição, também foi desenvolvido uma primeira versão de um plugin (biblioteca dinâmica) para o Rocs (IDE de estudo/pesquisa de algoritmos em grafos)\cite{Rocs2010} do KDE-EDU (conjunto de softwares educacionais do KDE), permitindo uma possível interação com a soluções geradas pelos algoritmos aqui tratados através de comandos na linguagem java script e também a criação de algoritmos para análise de tais soluções. Essa primeira versão do plugin permite a abertura de arquivos do problema CCP e a execução de algum dos algoritmos desenvolvidos aqui. Na figura \ref{fig:DuasFerramentas} temos um exemplo das duas ferramentas com a mesma instância e o mesmo algoritmo rodado (density).
+ 
+ \begin{figure}[ht]
+ \begin{center}
+diff --git a/TCC-II/images/HMeans_Example.png b/TCC-II/images/HMeans_Example.png
+new file mode 100644
+index 0000000..0b0fb2a
+Binary files /dev/null and b/TCC-II/images/HMeans_Example.png differ
+diff --git a/TCC-II/images/JMeans_Example.png b/TCC-II/images/JMeans_Example.png
+new file mode 100644
+index 0000000..d519b93
+Binary files /dev/null and b/TCC-II/images/JMeans_Example.png differ
+diff --git a/TCC-II/introducao.tex b/TCC-II/introducao.tex
+index 84b0be9..b9b603b 100644
+--- a/TCC-II/introducao.tex
++++ b/TCC-II/introducao.tex
+@@ -31,6 +31,7 @@ Nesse cen
+  \item O tempo de atendimento de todas as ordens atribuídas a uma equipe não deve ultrapassarem sua jornada de trabalho que é préviamente estipulada;
+  \item As ordens são as de apenas um dia. As que entrarem durante o atendimento ficam agendadas o próximo dia.
+  \item Não será considerado o tempo de deslocamento entre os atendimentos das OS.
++ \item Será tentado inserir ao menos um atendimento para cada equipe, mesmo que eles execute apenas tal atendimento.
+ \end{itemize}
+ 
+ Essas premissas definem o PDOS \sigla{PDOS} {Problema de Despacho de Ordens de Serviço}, onde
+@@ -56,7 +57,7 @@ outro do que se os atendimentos estivessem agrupados mais pr
+ Um problema que engloba essas características apresentadas é o  CCP \sigla{CCP} {Problema de Agrupamento Capacitado - Capacitated Clustering Problem}, clássico na literatura e também conhecido como (CPMP) \sigla {CPMP}{Problema das P-Medianas Capacitado - Capacitated P-Medians Problem}.
+ Na figura \ref{FigCCPIntro} temos um exemplo de como as ordens de serviço poderiam estar associadas às equipes se associadasutilizando de métodos de agrupamento capacitado.
+ 
+-É possível perceber que ainda assim não foi possível atribuir as OS de modo que todas OS de de uma equipe fique próximas de uma OS escolhida como centro.
++Mesmo com tal cuidado ao executar o despacho das ordens de serviço para as equipes, é possível notar que ainda assim não foi possível atribuir as OS de modo que todas OS de de uma equipe fique próximas de uma OS escolhida como centro.
+  Isso é devido as restrições de capacidade das equipes e demandas das OS.
+ 
+ \begin{figure}
+@@ -67,14 +68,15 @@ Na figura \ref{FigCCPIntro} temos um exemplo de como as ordens de servi
+ \caption{\label{FigCCPIntro} Possível atribuição das Mesmas OS por uma agrupamento capacitado }
+ \end{figure}
+ 
+-As instâncias inéditas desse problema foram retiradas de ordens de atendimento
++As instâncias inéditas desse problema foram retiradas de agendamentos reias de ordens de atendimento
+ de uma empresa e tiveram que ter a capacidade de atendimento normalizadas para ser possível gerar soluções válidas
+-do problema. Esse fato ocorre pelo fato de que para encontrar uma solução factível é necessário
+-existir uma folga entre das demandas e a capacidade. A frente neste trabalho será
+-apresentado um estudo sobre essas folgas.
++do problema. Essa normalização foi necessária uma vez que a demanda dos atendimentos é maior que a capacidade de todas equipes. Esse fato ocorre por existirem demandas adicionais de dias anteriores e possíveis eventos especiais (por exemplo um temporal em uma cidade que tenha causado avarias na rede  elétrica). A frente neste trabalho será apresentado um estudo sobre essas folgas e ajustes executados nas mesmas.
+ 
+-Nesse trabalho não trataremos da geração de rotas entre os atendimentos, mas
++Não será tratado a geração de rotas entre os atendimentos, mas
+ esse problema já foi tratado na literatura como o CTSP \sigla{CTSP} {Problema do Caixeiro Viajante
+ Agrupado - Clustered Travel Salesman Problem}, onde desejamos entrar os menor ciclo Hamiltoniano nos pontos, sendo que os pontos
+ dos agrupamentos devem ser visitados em sequência \cite{jeanCTSP-Genetic}.
+ 
++Esse trabalho foi dividido em 5 partes: na primeira é apresentado uma breve visão do problema de agurpamentos, citando sua complexidade e variações, e no final uma abordagem ao problema de agrupamento e de como o PDOS pode ser visto como um problema de agrupamento capacitado. Na segunda parte apresentamos e explicamos cada uma das heurísticas estudadas, bem como um as técnicas de busca local utilizadas.
++Na terceira parte apresentamos as ferramentas computacionais desenvolvidas. Na quarta parte é mostrado um estudo sobre as características de agrupamento e demanda das instâncias. Na quinta parte foi colocado os resultados obtidos pelos algoritmos implementados e comparações com resultados apresentados na literatura.
++
+diff --git a/TCC-II/resumo.tex b/TCC-II/resumo.tex
+index 9dc57dd..67d55d8 100644
+--- a/TCC-II/resumo.tex
++++ b/TCC-II/resumo.tex
+@@ -2,7 +2,7 @@
+ $\phantom{linha em branco}$\\
+ \noindent Com uma concorrência cada vez maior, as empresas devem tornar suas operações cada vez mais enxutas para evitar gastos desnecessários. Para empresas que atendem clientes distribuídos por uma cidade, esses atendimentos devem ser feitos de maneira otimizada, evitando desperdícios, tanto financeiros quanto de tempo, com deslocamentos desnecessários. Para evitar tais deslocamentos, o despacho dos atendimentos para as equipes  deve levar em consideração a localização dos atendimentos e o tempo necessário para executar tal atendimento. Para representar isso, podemos olhar esse problema como um problema de agrupamento capacitado, onde desejamos associar os atendimentos com as equipes de modo que todos atendimentos associados a uma equipe estejam próximos uns dos outros e que seja possível de executar todos eles dentro de sua jornada de trabalho.
+ 
+-\noindent Este trabalho faz um estudo de alguns métodos heurísticos clássicos na literatura para o problema de agrupamento capacitado e de busca local, tratando também sobre algumas características das instâncias como a capacidade total excedente e a dispersão dos atendimentos no espaço. Além disso, nós desenvolvemos um pequena alteração em um dos métodos já existentes, de modo que o método resultante conseguiu produzir soluções melhores que que obtidas com o método original para a grande maioria das instâncias.\\
++\noindent Este trabalho faz um estudo de alguns métodos heurísticos clássicos na literatura para o problema de agrupamento capacitado e de busca local aplicados ao problema de despacho de ordens de serviço (PDOS), tratando também sobre algumas características das instâncias como a capacidade total excedente e a dispersão dos atendimentos no espaço. Além disso, nós desenvolvemos um pequena alteração em um dos métodos já existentes, de modo que o método resultante conseguiu produzir soluções melhores que que obtidas com o método original para a grande maioria das instâncias.\\
+ $\phantom{linha em branco}$\\
+ \begin{espacosimples}
+ Palavras-chave: PO; Heurísticas; PAC, Agrupamento.
+@@ -14,7 +14,7 @@ Palavras-chave: PO; Heur
+ $\phantom{linha em branco}$\\
+ \noindent With competition increasing, companies must make their operations more lean to avoid unnecessary expenses. For companies that serve customers spread over a city, these services must be made optimally, avoiding waste, both financial and time, with unnecessary travels. To avoid such displacement, dispatching of calls for the teams must take into account the location of call in space and time required to perform such call. To represent this, we can look at this problem as a capacitated clustering problem, where we want to associate the calls with the teams so that all calls associated with a team are close to each other, reducing the distance between the calls, and that it is possible they all run within team's workday.
+ 
+-\noindent This work is a study of some  classical heuristics methods in the literature for the clustering problem and local search, dealing also with some characteristics of the instances as the total capacity surplus and dispersion of care in space. In addition, we developed a small change in one of the existing methods, so that the resulting method could produce better solutions than that obtained with the original method to the vast majority of instances.\\
++\noindent This work is a study of some classical heuristics methods in the literature for the clustering problem and local search apllyed to the service order dispatch problem (SODP), dealing also with some characteristics of the instances as the total capacity surplus and dispersion of care in space. In addition, we developed a small change in one of the existing methods, so that the resulting method could produce better solutions than that obtained with the original method to the vast majority of instances.\\
+ $\phantom{linha em branco}$\\
+ \begin{espacosimples}
+ Key-words: OR; Heuristic; CCP, Clustering;
