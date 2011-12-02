@@ -1,2 +1,235 @@
 \chapter{Metodologia Proposta}
 Modelo do sistema, diagrama de comunicação,  fluxogramas de tomada de decisão
+
+\textbf{Assim, quando ocorrer o desarme de um determinado alimentador, o SCADA
+enviará um alerta para a ferramenta computacional, que por sua vez solicitará ao
+SCADA as informações dos equipamentos telecomandados pertencentes ao
+alimentador atingido e seus vizinhos. As principais informações solicitadas são:
+sinalização da passagem da corrente de curto-circuito, medições de corrente pré-
+falta e estado de comunicação dos equipamentos. De acordo com estas
+informações, o sistema realizará simulações computacionais em tempo real
+considerando o estado atual das redes de distribuição. Como solução tem-se a
+identificação da sequência de manobras a ser executada (isolar defeito ou transferir
+cargas), sendo enviada a matrícula dos equipamentos e os respectivos comandos
+(abrir ou fechar) ao SCADA.}
+
+%
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=0.7\columnwidth]{/home/wagner/Documents/GESEP/Arquitetura-ASE-operation}
+\par\end{centering}
+
+\caption{Arquitetura proposta para o sistema computacional}
+
+\end{figure}
+
+\textbf{Nesta etapa definiram-se os parâmetros de entrada para a metodologia
+proposta e as necessidades de integração com os demais sistemas da empresa,
+usando o conceito de restabelecimento dinâmico e automático de energia,
+dispensando pré-configurações de manobras.
+As principais integrações são com os seguintes sistemas:
+ SCADA: supervisão, controle e aquisição de dados;
+ GIS (Geographic Information System): dados cadastrais das redes de
+distribuição:
+ SGI (Sistema de Gestão de Incidências): estado atual das redes de
+distribuição;
+ GrafMed: histórico de medições usado para os estudos de transferência
+considerando previsão de carga.}
+
+
+\textbf{Quando o sistema receber um evento de desarme permanente de um
+determinado alimentador, as seguintes etapas são executadas em tempo real:
+solicitação do estado de comunicação, medições e se houve sinalização da
+passagem
+da
+corrente
+curto-circuito
+pelos
+equipamentos
+telecomandados;
+identificação das opções de manobra; realização de estudos para verificar a
+viabilidade técnica das transferências; análise multicriterial para escolha da opção
+mais adequada; e envio de comandos a serem executados pelo SCADA. Como
+resultado tem-se a definição e validação das manobras a serem executadas. A
+Figura} \ref{fig:Fluxograma-decisao=0000E7=0000E3o} ilustra o fluxograma deste processo.
+
+
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=0.85\columnwidth]{/home/wagner/Documents/GESEP/FluxogramaChaves}
+\par\end{centering}
+
+\caption{Fluxograma de tomada de decisão\label{fig:Fluxograma-decisao=0000E7=0000E3o}}
+
+\end{figure}
+
+Esta escolha foi em função do número expressivo de equipamentos
+telecomandados e de interligações entre alimentadores. A Figura 2.2 ilustra as redes
+de distribuição atendidas por estas subestações e a Figura 2.3 apresenta o
+diagrama unifilar das redes com a indicação dos equipamentos telecomandados.
+
+
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=0.85\columnwidth]{img/redeDeTestes}
+\par\end{centering}
+
+\caption{Representação da rede escolhida para aplicação dos testes\label{fig:Rede-testes=0000E7=0000E3o}}
+
+\end{figure}
+
+
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=0.85\columnwidth]{img/unifilarRedeDeTestes}
+\par\end{centering}
+
+\caption{Representação unifilar da rede de testes\label{fig:Unifilar-Rede-Testes=0000E7=0000E3o}}
+
+\end{figure}
+
+2.7.2 Funções objetivo e restrições
+As escolhas das funções objetivo e restrições são de extrema importância
+para o processo de restabelecimento de energia elétrica. Podem ser considerados
+vários tipos de funções objetivo. Os mais usuais são a quantidade de consumidores
+restabelecidos e de energia elétrica restaurada.
+Outro fator importante é o tempo necessário para restabelecer o fornecimento
+de energia para esses consumidores. Como este item é difícil de ser calculado
+diretamente, geralmente ele é medido através do número de equipamentos
+escolhidos para realizar as manobras de transferências de cargas. Além disto,
+quanto menos equipamentos a serem comutados, menor a probabilidade de falhas
+na execução em campo, tais como falhas de comunicação entre os equipamentos e
+o sistema SCADA.
+Como restrições, os principais fatores são operar as redes sem sobrecarga
+nos elementos elétricos, sem violar os ajustes de proteção e a queda de tensão
+admissível nas redes primárias. Normalmente, as restrições de não permitir violação
+dos ajustes de proteção e da queda de tensão admissível nos alimentadores são
+definidas como rígidas. Por outro lado, a sobrecarga nos elementos pertencentes às
+redes elétricas é flexibilizada, por tratar-se de uma situação provisória, ou seja, até
+que o defeito seja sanado, para retornar a configuração de operação em regime
+normal. Assim, se aceita um pequeno percentual de sobrecarga nos elementos
+elétricos.
+De acordo com essas considerações, definiram-se as seguintes funções
+objetivo e restrições a serem utilizadas nas análises das transferências de cargas
+em situações de contingências:
+Funções Objetivo
+\begin{enumerate}
+\item restabelecer o número máximo de consumidores;
+\item restabelecer a quantidade máxima de energia elétrica;
+\item realizar o número mínimo necessário de operações de comutação para as transferências de carga;
+\end{enumerate}
+
+
+Restrições
+\begin{itemize}
+
+\item manter a radialidade dos sistemas;
+\item não permitir sobrecarga nos elementos pertencentes às redes elétricas (trechos de rede, chaves, reguladores de tensão, entre outros) superior ao
+percentual permitido:
+\begin{equation}
+ I_{i} \leq I_{i max} \cdot F_{sobrecarga}
+\end{equation}
+
+\item não permitir violação dos ajustes de proteção:
+\begin{equation}
+I_{i} \leq I_{Protj}
+\end{equation}
+
+
+\item não permitir violação da faixa de tensão admissível nas redes primárias:
+\begin{equation}
+V_{j min} \leq V_{j} leq V_{j max}
+\end{equation}
+\end{itemize}
+
+Onde:
+\begin{description}
+        \item[$I_{i}$] - corrente no ramo i;
+	\item[$I_{Protj}$] - corrente de atuação do dispositivo de proteção j;
+\end{description}
+
+I i max
+- corrente máxima admissível no ramo i;
+Vj
+- módulo da tensão no nó j;
+V j min
+- módulo da tensão mínima aceitável no nó j;
+V j max
+- módulo da tensão máxima aceitável no nó j.
+
+
+As verificações de atendimento das funções objetivo e restrições são
+realizadas durante o processo de cálculo de fluxo de potência, para as diferentes
+alternativas analisadas.
+
+
+\subsubsection{Metodologia proposta para operação automática dos equipamentos}
+\textbf{telecomandados para restabelecimento de energia elétrica
+A seguir é apresentada a metodologia proposta para operação automática
+dos equipamentos telecomandados para restabelecimento de energia. Para tanto,
+será apresentada a lógica de restabelecimento considerando o exemplo hipotético
+da rede de distribuição ilustrado na Figura \ref{Exemplorede}.}
+
+\textbf{Considerando que a chave NF-1 (normalmente fechada) e as chaves NA
+(normalmente aberta) da Figura \ref{Exemplorede} são telecomandadas, o processo de
+restabelecimento de energia elétrica se dá da seguinte maneira, considerando o
+desarme do alimentador AL-1:}
+
+\begin{itemize}
+ \item Defeito a jusante da chave telecomandada NF-1: na ocorrência de defeito,
+será sinalizado em tempo real no sistema SCADA (Supervisory Control And Data
+Acquisition) os valores de corrente de curto-circuito medidos na chave NF-1. Neste
+caso, assume-se que a falha ocorreu após a chave, e o sistema enviará
+automaticamente os comandos de abrir a chave telecomanda NF-1 e de religar o
+alimentador AL-1, restabelecendo a energia para os consumidores a montante da
+chave. Como o tempo para abrir a chave, a partir do conhecimento do defeito, é
+inferior a 3 (três) minutos, considera-se que os consumidores a montante não são
+impactos pela falha, para fins de apuração de indicadores técnicos. Já para os
+consumidores a jusante, será computado o tempo de reparo do defeito e
+restabelecimento da energia.
+
+\item Defeito a montante da chave telecomandada NF-1: na ocorrência de defeito,
+não será sinalizado no sistema SCADA os valores de corrente de curto-circuito na
+chave NF-1. Assim, assume-se que a falha ocorreu antes da chave NF-1, e o
+sistema enviará automaticamente os comandos de abrir a chave telecomandada NF-
+1 e de fechar a chave telecomandada NA-1 ou a NA-2, no sentido de transferir os
+consumidores a jusante da chave NF-1 para outro alimentador. A verificação da
+viabilidade técnica das transferências de carga e a definição de qual alimentador
+receberá os consumidores são realizadas em tempo real por meio de simulações
+computacionais. Como o tempo para transferência automática, a partir do
+conhecimento do defeito, é inferior a 3 (três) minutos, considera-se que os
+consumidores transferidos, a jusante da chave, não são impactos pela falha, para
+fins de apuração de indicadores técnicos. Já para os consumidores a montante, será
+computado o tempo de reparo do defeito e restabelecimento da energia.
+\end{itemize}
+
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=0.4\columnwidth]{img/exemploRede}
+\par\end{centering}
+
+\caption{Exemplo de rede de distribuição.\label{fig:Exemplorede}}
+
+\end{figure}
+\textbf{Ressalta-se que não há necessidade de pré-configurar nenhuma manobra no
+programa e, sim, apenas do recebimento da informação de desarme de alimentador.
+A partir desta, a ferramenta identifica os equipamentos telecomandados pertences
+ao alimentador atingido e seus vizinhos, verificando os estados de comunicação,
+medições e sinalização da passagem da corrente de curto-circuito (cc). De acordo
+com a sinalização, ou não, da passagem da corrente de cc, o sistema verifica se as
+manobras serão no sentido de isolar o defeito ou de transferir as cargas.
+No caso de transferências, os estudos são realizados considerando uma
+previsão de carga para três horas a frente de modo a dar mais segurança na
+viabilidade técnica das manobras. As previsões são realizadas com base no histórico
+de medições da semana anterior.}
+
+\textbf{Para identificação das opções de manobra, verifica-se quais equipamentos
+telecomandados NA possuem condições de assumir as cargas a jusante do bloco
+sob defeito isolado, sem violar as restrições. Quando houver mais de uma opção,
+aplica-se o método de análise multicriterial, que será detalhado no próximo item,
+para escolha da opção mais indicada. Se todas as alternativas apresentarem
+violação das restrições, a ferramenta verifica se há possibilidade de transferir
+parcialmente as cargas.}
+
+\subsubsection{Escolha das manobras}
+Com a definição das monobras como escolher entre elas?

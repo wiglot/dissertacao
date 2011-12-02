@@ -1,5 +1,59 @@
 \chapter{Casos de Estudo}
 Apresentar algumas topologias de estudo, mostrar resultados preliminares com o Rocs para o sistema de teste, mostrar algumas redes (pedir permissão para a AES?)
 
+Nesta etapa foram realizados testes da metodologia proposta considerando
+vários cenários operacionais de desarmes de alimentadores, incluindo defeitos a
+montante ou a jusante dos equipamentos telecomandados para diferentes períodos
+de carga.
+Para tanto, implementou-se a metodologia em um sistema protótipo,
+desenvolvido em linguagem C++, a fim de avaliar o desempenho e a eficácia do
+sistema, bem como identificar as adequações necessárias.
+A Figura 2.10 ilustra a tela inicial do sistema, onde os nós em cor azul
+representam os equipamentos telecomandados NF (normalmente fechado) e os de
+cor vermelha os equipamentos NA (normalmente abertos). Também há a indicação
+dos valores de corrente em cada trecho.
+
+\begin{figure}[h]
+\begin{centering}
+\includegraphics[width=0.6\columnwidth]{img/rocsTela1}
+\par\end{centering}
+\caption{Topologia inicial do caso de teste.\label{fig:Exemplorede}}
+\end{figure}
+Figura 2.10 - Tela inicial do sistema.
+
+Para ilustrar a aplicação do sistema serão apresentados dois estudos de
+casos. No primeiro caso, considerou-se os defeitos nos trechos ``0 - 5'' e ``0 - 6'', e
+analisou-se as transferências de carga realizadas pela metodologia proposta. Para o
+defeito no trecho ``0 - 5'', o sistema abriu o equipamento do nó ``5'', isolando o
+defeito, e fechou o equipamento do nó ``3'', restabelecendo a energia para as cargas
+a jusante do defeito. Já para o defeito no trecho ``0 - 6'', o sistema abriu o
+equipamento do nó ``6``, isolando o defeito, e fechou o equipamento do nó ``10'',
+restabelecendo a energia para as cargas a jusante do defeito (Figura 2.11).
+
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=0.6\columnwidth]{img/rocsTela2}
+\par\end{centering}
+\caption{Resultado do estudo do caso 1.\label{fig:Exemplorede}}
+\end{figure}
+No segundo caso, aumentou-se os valores de corrente nos trechos e colocou-
+se como restrição o limite de 99 A para os alimentadores assumirem carga. A
+proposta é verificar se o sistema realizará mais do que uma manobra para transferir
+as cargas a jusante do defeito, isto é, se dividirá as mesmas entre os alimentadores
+que podem assumir para evitar a violação da restrição.
+De acordo com a Figura 2.12 verifica-se que a metodologia respondeu de
+forma satisfatória. Para o defeito no trecho ``0 - 5'', o sistema abriu os equipamentos
+dos nós ``5'' e ``1'', fechando os nós ``4'' e ``3'', de modo a transferir parte da carga para
+um alimentador e parte para o outro, evitando assim a violação da restrição. Já para
+o defeito no trecho ``0 - 6'', o sistema abriu os equipamentos dos nós ``6'' e ``8'',
+fechando os nós ``10'' e ``9'', de modo a transferir parte da carga para um alimentador
+e parte para o outro, evitando assim a violação da restrição.
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[width=0.6\columnwidth]{img/rocsTela3}
+\par\end{centering}
+\caption{Resultado do estudo do caso 2.\label{fig:Exemplorede}}
+\end{figure}
+
 \section{Resultados Obtidos}
 Mostrar alguns resultados de redes reais. Necessário casos fictícios?
