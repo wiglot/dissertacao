@@ -1,44 +1,41 @@
 \chapter{Introdução}
-Abordar falhas em sistemas e como resolver
+%Abordar falhas em sistemas e como resolver
 
-\textbf{A continuidade no fornecimento de energia elétrica para os consumidores é
-um alvo permanente das concessionárias. Isso representa não apenas conforto e
+A continuidade no fornecimento de energia elétrica para os consumidores é
+um alvo permanente da gestão das redes de distribuição. Isso representa não apenas conforto e
 satisfação para os consumidores, mas também uma necessidade cada vez maior
 para as atividades comerciais e industriais, visto que as interrupções comprometem
 sua produção. Por outro lado, estas são inevitáveis para a execução de obras de
 expansão do sistema, para manutenções preventivas e corretivas em componentes
 da rede ou, ainda, pela atuação de dispositivos de proteção em decorrência de
-defeitos.}
+defeitos.
+%Abordar  a organização radial do sistema de distribuição
 
-\textbf{Considerando que a reconfiguração ocorre em condições de contingência,
-deseja-se que a solução seja identificada rapidamente, restringindo ao mínimo a
-área desenergizada. De uma maneira geral, quando ocorrer um defeito em um ponto
-qualquer da rede, as seguintes ações devem ser tomadas: identificar o local onde o
-defeito ocorreu; isolar a menor parte possível do sistema através da abertura de
-chaves; manobrar as chaves para restabelecer o suprimento para os consumidores
-a jusante do bloco isolado; corrigir o problema; realizar novas manobras de chaves
-para retornar ao estado normal das redes.}
+Nesse último caso, a atuação de algum dispositivo de proteção deixa uma parte, ou até mesmo todos consumidores de um alimentador, sem energia elétrica até que as equipes de manutenção da concessionária efetuem os repararos necessários e a energia possa ser restabelecida em todo alimentador. Como a execução de tais reparos pode demorar, uma solução temporária seria a detecção do defeito e o isolamento da área afetada, através da abertura de chaves, e restabelecer os demais consumidores usando o seu próprio alimentador ou mesmo alimentadores que façam fronteira e tenham capacidade de absorver mais carga, caso contrário passar mais carga para eles pode levar a outros dispositivos de proteção venham atuar (por sobrecarga) a fim de proteger o sistema.
 
-\textbf{
-A solução do problema de reconfiguração de redes, após contingência, é de
-suma importância para as concessionárias, contudo de grande complexidade para
-sua realização. Da mesma forma, o sucesso da solução desse problema possibilita
-vários benefícios, tanto para as concessionárias como para os consumidores, já que
-se otimizam as transferências de carga nas redes de distribuição, reduzindo o tempo
-de restauração da energia, além de melhorar a confiabilidade e segurança na
-execução das manobras.}
+Aqui temos dois problemas distintos: a detecção da área afetada pelo defeito e a reconfiguração da rede. O primeiro trata de utilizar medições dos equipamentos em campo, descobrir a área que foi afetada pelo defeito. \textbf{ Essa detecção não pode errar, pois pode levar a isolar uma área sem defeito e a ligar o defeito na rede, levando a um novo acionamento dos equipamentos de proteção, podendo deixar ainda mais consumidores sem energia elétrica caso o defeito seja ligado em outro alimentador}. Já a reconfiguração da rede visa alterar a topologia original de maneira a reduzir as perdas técnicas ou mesmo restabeler a energia para um grupo consumidores afetados por um defeito previamente isolado.
+%A solução de reconfiguração aqui abordada considera o restabelecimento do maior número de consumidores, mesmo que eles tenham uma qualidade menor na energia fornecida. \textbf{Tal queda na qualidade é aceitavel uma vez que essa é uma condição temporária e que tal queda não seja prejudicial para os consumidores afetados.}
 
 \textbf{
 É possível supor que, se a configuração das redes em regime normal de
 operação for próxima da configuração ótima, então, após a reconfiguração, a
 qualidade de energia deve piorar, aumentando as perdas elétricas. Naturalmente,
-ocorre um prejuízo no fornecimento de energia para esses consumidores.
-O desenvolvimento de um método adequado e universal para a análise do
+ocorre um prejuízo no fornecimento de energia para esses consumidores, o que é aceitavel por ser uma solução de contingência, ou seja, o tempo de operação nessa nova configuração é reduzido e não permanente.}
+
+\textbf{O desenvolvimento de um método adequado e universal para a análise do
 problema em questão é extremamente difícil, visto a quantidade de fatores a serem
 considerados. Assim, pode-se atingir soluções mais eficientes quando o problema é
 resolvido para cada concessionária, considerando a sua estrutura de redes de
 distribuição, quantidade e composição dos equipamentos de comutações, operação
 do sistema SCADA, suficiência e adequação das informações disponíveis.}
+
+\textbf{A solução do problema de reconfiguração de redes, após contingência, é de de grande complexidade para
+sua realização. Da mesma forma, o sucesso da solução desse problema possibilita
+vários benefícios, tanto para as redes como para os consumidores, já que
+se otimizam as transferências de carga nas redes de distribuição, reduzindo o tempo
+de restauração da energia, além de melhorar a confiabilidade e segurança na
+execução das manobras.}
+
 
 \textbf{
 Como a solução deve ser identificada rapidamente, independente da
