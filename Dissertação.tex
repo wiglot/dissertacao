@@ -10,6 +10,8 @@
 \usepackage[latin1]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{abnt-alf}
+\usepackage{listings}
+
 
 % \usepackage[none]{hyphenationyphe}
 \usepackage{tabela-simbolos}
@@ -71,6 +73,16 @@
 
 \begin{document}
 
+\autor{Wagner de Melo Reck}
+
+%Alterar o título para:
+\titulo{\textnormal{\textbf{\large{Emprego de Sistemas Inteligentes para Restabelecimento Automático de Energia Elétrica a partir do uso de Equipamentos Telecomandados}}}}
+
+%Alterar orientador para:
+\orientador{\normalsize{Vinícius Jacques Garcia}}
+\coorientador{\normalsize{Daniel Pinheiro Bernardon}}
+
+
 \renewcommand{\resumoname}{\textnormal{\textbf{\normalsize{RESUMO}}}}
 
 \renewcommand{\ABNTabstractname}{\textnormal{\textbf{\normalsize{ABSTRACT}}}}
@@ -95,24 +107,13 @@
 
 \renewcommand{\figurename}{FIGURA}
 \renewcommand{\tablename}{TABELA}
-\autor{Wagner de Melo Reck}
 
-%Alterar o título para:
-\titulo{\textnormal{\textbf{\large{Emprego de Sistemas Inteligentes para Restabelecimento Automático de Energia Elétrica a partir do uso de Equipamentos Telecomandados}}}}
-
-%Alterar orientador para:
-\orientador{\normalsize{Vinícius Jacques Garcia}}
-% \coorientador{\normalize{Daniel Pinheiro Bernardon}}
 
 % Alterar local e data para:
 \local{\textbf{Alegrete - RS}}
-\data{\textbf{2010}}
+\data{\textbf{2012}}
 
-% \titulo{Emprego de Sistemas Inteligentes para Restabelecimento Automático de Energia Elétrica a partir do uso de Equipamentos Telecomandados}
-
-% \orientador{Vinícius Jacques Garcia}
-
-\comentario{Dissertação apresentada ao Programa de Pós-graduação \textit{Strictu Sensu} em
+\comentario{Exame de qualificação apresentada ao Programa de Pós-graduação \textit{Strictu Sensu} em
 Engenharia Elétrica da Universidade
 Federal do Pampa, como requisito
 parcial para obtenção do Título de
@@ -136,7 +137,7 @@ Mestre em Engenharia Elétrica.}
 % Dedicatória(s)
 % Agradecimentos
 % Epígrafe
-\include {dedicatoria}
+% \include {dedicatoria}
 
 % Resumo em língua vernácula - Obrg
 \include {resumo}
@@ -155,23 +156,24 @@ Mestre em Engenharia Elétrica.}
 % Introdução Obrg
 \include{introducao} %Inclui arquivo introducao.tex
 % % Desenvolvimento - Obrg
-\include{Sist.Distr}
-\include{sistemaComputacionais}
+\include{revisaoBibliografica}
+% \include{Sist.Distr}
+% \include{sistemaComputacionais}
 \include{metodologia}
-\include{sistemaDesenvolvido}
-\include {casosDeEstudo}
+% \include{sistemaDesenvolvido}
+% \include {casosDeEstudo}
 % % Conclusão - Obrg
 \include{consideracoesFinais} %Inclui arquivo conclusao.tex
 
 % ELEMENTOS PÓS-TEXTUAIS
 % Referências - Obrg
-\bibliography{bybliography} %Seu arquivo Bibitex
+\bibliography{bibliography} %Seu arquivo Bibitex
 
 % Glossário
 % Apêndice(s)
 
 % Anexo(s)
-\include {anexo}
+% \include {anexo}
 
 
 

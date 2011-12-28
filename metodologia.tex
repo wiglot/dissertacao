@@ -1,5 +1,6 @@
 \chapter{Metodologia Proposta}
-Modelo do sistema, diagrama de comunicação,  fluxogramas de tomada de decisão
+
+%\textbf{Modelo do sistema, diagrama de comunicação,  fluxogramas de tomada de decisão}
 
 Em uma rede de distribuição supervisionada por um SCADA, tal sistema supervisório tem o estado atual de cada equipamento controlado por ele. Quando um equipamento sofre uma alteração de estado, seja dos dados de medição como corrente e voltagem ou mesmo de aberto para fechado, o sistema é atualizado com esse no estado do equipamento.
 
@@ -22,7 +23,7 @@ Além do SCADA, também é necessário buscar mais informações em outros sistemas, u
 
 \begin{figure}[h]
 \begin{centering}
-\includegraphics[width=0.7\columnwidth]{/home/wagner/Documents/GESEP/Arquitetura-ASE-operation}
+\includegraphics[width=0.7\columnwidth]{img/ArquiteturaSistema}
 \par\end{centering}
 
 \caption{Arquitetura proposta para o sistema computacional\label{fig:Arquitetura_sistema}}
@@ -55,10 +56,10 @@ O procedimento tem um desvio no seu fluxo caso algum equipamento tenha sido atra
 
 \end{figure}
 
-Antes de explicar o procedimento de tomada de decisão sobre as transferências de carga, será explicado como é feita a detecção da área com defeito usando as chaves telecomandadas. Inicialmente consideremos a rede apresentada na Figura \ref{fig:Rede_defeito} onde todas as chaves apresentadas são telecomandadas. Considerando o defeito apresentado (entre as chaves Ch2 e Ch3), que tal defeito desarmou a chave Ch1, que a chave Ch2 foi sinalizada como tendo sido atravessada pelo curto e que o alimentador F-2 tenha capacidade suficiente para receber novos consumidores sem nenhuma sobrecarga nos equipamentos. Quando o SCADA receber o evento de desarme da chave Ch1 é possível saber, usando os dados das demais chaves, que:
-O defeito está a frente da chaves Ch2, a chave mais a jusante da chaves Ch1, pois a mesma foi sinalizada como tendo sido atravessada pelo curto
+Antes de entrar em detalhes sobre o procedimento de tomada de decisão sobre as transferências de carga, será explicado como é feita a detecção da área com defeito usando as chaves telecomandadas. Inicialmente consideremos a rede apresentada na Figura \ref{fig:Rede_defeito} onde todas as chaves apresentadas são telecomandadas. Considerando o defeito apresentado (entre as chaves Ch2 e Ch3), que tal defeito desarmou a chave Ch1, que a chave Ch2 foi sinalizada como tendo sido atravessada pelo curto e que o alimentador F-2 tenha capacidade suficiente para receber novos consumidores sem nenhuma sobrecarga nos equipamentos. Quando o SCADA receber o evento de desarme da chave Ch1 é possível saber, usando os dados das demais chaves, que:
+O defeito está após a chave Ch2, a chave mais a jusante da chave Ch1, pois a mesma foi sinalizada como tendo sido atravessada pelo curto
 O defeito está antes da chave Ch3 pois a mesma não foi sinalizada.
-Nesse exemplo a reconfiguração da rede através da abertura das chaves Ch2 e Ch3 e o fechamento das chaves Ch1 e NA, reduziu a área afetada de todos clientes a jusante da chave Ch1, que atuou com o defeito, para uma área menor no entorno do defeito. Vale resaltar que as equipes de manutenção podem ainda reduzir ainda mais a área afetada usando equipamentos não telecomandados, mas o objetivo aqui é ter uma metodologia que restabeleça os clientes usando apenas as chaves telecomandadas de  modo rápido.
+Nesse exemplo a reconfiguração da rede através da abertura das chaves Ch2 e Ch3 e o fechamento das chaves Ch1 e NA, reduziu a área afetada de todos clientes protegidos pela chave Ch1, a qual atuou com o defeito, para uma área menor no entorno do defeito entre as chaves Ch2 e Ch3. Vale resaltar que as equipes de manutenção podem ainda reduzir ainda mais a área afetada usando equipamentos não telecomandados, mas o objetivo aqui é ter uma metodologia que restabeleça os clientes usando apenas as chaves telecomandadas de  modo rápido.
 
 \begin{figure}
 \begin{centering}
@@ -81,7 +82,8 @@ Com o conjunto de chaves que podem ser usadas nas manobras, o sistema computacio
 \end{itemize}
 
 
-Com as informações requisitadas, é procurado por equipamentos com alguma fase sinalizada. Caso exista pelo menos um equipamento sinalizado (diferente do equipamento que desarmou), pode ser possível isolar o defeito e religar o equipamento atuado.  \textbf{Desenho da rede com uma chave desenhada e sinalizada que possa ser isolada. Explicar como é feita a analise de qual chave deve ser aberta e que se acontecer de precisar de 2 ou mais aberturas elas serão feitas}. Com as chaves a serem abertas selecionadas, o comando de abri-las é enviado para o SCADA e com a confirmação, o comando de fechar o equipamento atuado é enviado. Com isso alguns clientes antes do defeito são restabelecidos de forma direta. Uma vez que não exite problema de sobrecarga do alimentador e nem dos equipamento pois somente foi cortada carga e não foi alterada a topologia da rede, as manobras de isolamento não necessitam de simulações de fluxo e nem decisão entre uma manobra ou outra (\textbf{ pq não precisam decisão? As manobras já são executadas? Falar sobre forks com mais de um eq. sinalizado?}).
+Com as informações requisitadas, é procurado por equipamentos com alguma fase sinalizada. Caso exista pelo menos um equipamento sinalizado (diferente do equipamento que desarmou), pode ser possível isolar o defeito e religar o equipamento atuado. Para encontrar as chaves a serem utilizadas para isolar o defeito, inicialemnte é escolhido o equipamento mais a jusante do equipamento atuado e este é marcado como sendo um equipamento a ser aberto. Após, todos equipamentos entre o equipamento escolhido e o atuado são removidos da lista de equipamentos sinalizados. Caso ainda existam equipamentos sinalizados, o procedimento é executado novamente e a chaves escolhidas vão sendo colocadas em uma lista. Com as chaves a serem abertas selecionadas, o comando de abri-las é enviado para o SCADA e com a confirmação, o comando de fechar o equipamento atuado é enviado. Com isso alguns clientes antes do defeito são restabelecidos de forma direta. Uma vez que não exite problema de sobrecarga do alimentador e nem dos equipamento pois somente foi cortada carga e não foi alterada a topologia da rede, as manobras de isolamento não necessitam de simulações de fluxo e nem decisão entre uma manobra ou outra.
+%  (\textbf{ pq não precisam decisão? As manobras já são executadas? Falar sobre forks com mais de um eq. sinalizado?}).
 
 Tendo o defeito passado por algumas chaves sinalizando suas fases ou não, o procedimento continua agora tentado transferir a carga após a falta para outros alimentadores que suportarem uma carga extra. Para isso é necessário ajustar as cargas do alimentador afetado pelo defeito os alimentadores que fazem fronteira ele, assim a simulação fica bem mais próxima da realidade. Como o estado de contingência pode durar algumas horas até o defeito ser resolvido a rede possa voltar a configuração inicial, a simulação é feita com a carga máxima nas próximas horas. Para calcular essa carga, ser utilizado um histórico de carga da semana anterior, onde é analizada a tendência da carga nas próximas horas e depois a carga atual é ajustada segundo esse valor. A Equação \ref{eq:Historico_carga}  mostra o cálculo do ajuste da carga com base no histórico da semana anterior considerando $n$ horas a frente e a Equação \ref{eq:Ajuste_carga} o ajuste da carga atual de um alimentador.
 
@@ -101,175 +103,177 @@ O ajuste das cargas é extremamente importante para que não sejam propostas manob
 
 Com as cargas ajustas, o sistema computacional procura por as chaves que podem ser utilizadas para transferir consumidores para os alimentadores vizinhos. Caso não existam chaves telecomandadas na fronteira com outros alimentadores, o sistema para pois não há manobras mais manobras a serem executadas.
 
-A definição das manobras a serem executadas para transferir clientes para os alimentadores vizinhos não é tão trivial quanto isolar o curto e religar o equipamento atuado. Inicialmente são definidas as chaves que se localizam após o defeito. Para isso, deve se levar em consideração o equipamento que atuou ou, caso algum equipamento tenha sido sinalizado e tenha sido operado, o equipamento operado, sendo ele utilizado como equipamento de origem, pois é o que marca o inicio do defeito e será usado de base .
+A definição das manobras a serem executadas para transferir clientes para os alimentadores vizinhos não é tão trivial quanto isolar o curto e religar o equipamento atuado. Inicialmente são definidas as chaves que se localizam após o defeito. Para isso, deve se levar em consideração o equipamento que atuou ou, caso algum equipamento tenha sido sinalizado e tenha sido operado, o equipamento operado é utilizado como equipamento de origem, pois é ele que marca o inicio da área defeituosa.
 
-Esta escolha foi em função do número expressivo de equipamentos
-telecomandados e de interligações entre alimentadores. A Figura 2.2 ilustra as redes
-de distribuição atendidas por estas subestações e a Figura 2.3 apresenta o
-diagrama unifilar das redes com a indicação dos equipamentos telecomandados.
+Para encontrar o limite final da área defeituosa, a rede é percorrida de cada chave telecomandada de fronteira do alimentador afetado até o equipamento de origem (atuado ou operado). Se não existir outrar chaves entre a chave de fronteira e o equipamento de origem, não existe nenhuma transferência possível usando tal chave. Se existir pelo menos uma chave existe uma possibilidade de transferência. Nessa etapa todas as possibilidades de transferência são armazendas, sendo guardada também a distância entre a chave NF e a chave de origem, para análise usando as restrições e funções objetivo apresentadas a seguir na seção \ref {sec:Functions}. Caso não seja possível a transferência usando a chave mais próxima ao equipamento de origem por violar alguma das restrinransferir a carga para o alimentador vizinho. Pra melhor apresentar a metodologia da escolha das chaves a serem usadas na transferência de carga, vamos considerar o pedaço de rede da Figura \ref{fig:Exemplo_transferencia}.
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=0.5\columnwidth]{img/exemploTransferencias}
 
-\begin{figure}[H]
-\begin{centering}
-\includegraphics[width=0.85\columnwidth]{img/redeDeTestes}
-\par\end{centering}
-
-\caption{Representação da rede escolhida para aplicação dos testes\label{fig:Rede-testes=0000E7=0000E3o}}
-
+\caption{Exemplo de possíveis transferências de uma rede \label {fig:Exemplo_transferencia}}
 \end{figure}
 
+ Considerando o defeito após a chaves Origem, a qual se encontra aberta, e antes das demais chaves NF (verde), uma vez que nenhuma delas foi sinalizada pelo curto, temos as seguintes manobras como possibilidade de transferência de carga.
+\begin{enumerate}
+  \item CH 1-A <-> NA-1
+  \item CH 1-A <-> NA-2
+  \item CH 1-B <-> NA-1
+  \item CH 2-B <-> NA-2
+  \item Combinação do item 1 e 4
+  \item Combinação do item 2 e 3
+  \item Combinação do item 3 e 4
+\end{enumerate}
 
-\begin{figure}[H]
-\begin{centering}
-\includegraphics[width=0.85\columnwidth]{img/unifilarRedeDeTestes}
-\par\end{centering}
+Nessa lista são apresentadas opções que transferem todos consumidores para os alimentadores vizinhos (1,2,5,6) e também a transferência parcial dos consumidores (3,4,7).
 
-\caption{Representação unifilar da rede de testes\label{fig:Unifilar-Rede-Testes=0000E7=0000E3o}}
+Inicialmente são tentadas as transferências que usam a chave mais próxima ao defeito (CH 1-A), nesse caso as transferências 1 e 2. Caso ambas permitam transferir sem violar nenhuma restrição, é escolhida a manobra que apresenta um melhor valor da função objetivo. Se nenhuma delas satisfazer as restrições, então é tentadoa transferência usando as próximas chaves mais próximas do defeito (CH 1-B e CH 2-B), as transferências 3 e 4, procedendo da mesma forma na escolha de qual executar. Se ainda assim houver violações em todas tentativas, é testada as próximas chaves mais perto da área afetada.
 
-\end{figure}
+A partir do segundo nível de chaves próximas ao defeito, nesse caso as chaves CH 1-B e CH 2-B, se existir a possibilidade de executar alguma das transferências testas sem comprometer nenhuma restrição, é escolhida a melhor dentre as opções e ela é aplicada, logo após as tentativas de transferência são reiniciadas a partir das chaves mais próximas ao defeito, considerando que as transferências escolhidas já foram aplicadas (chaves NA usadas fazem mais parte das opções). Essa metodologia permite que, se não for possível transferir toda carga, então parte dela será transferida para um alimentador e o restante, que será uma carga reduzida pela primeira transferência, é testada novamente gerando assim as combinações 5, 6 e 7.
 
-2.7.2 Funções objetivo e restrições
+\section{Funções objetivo e restrições\label{sec:Functions}}
+
 As escolhas das funções objetivo e restrições são de extrema importância
-para o processo de restabelecimento de energia elétrica. Podem ser considerados
-vários tipos de funções objetivo. Os mais usuais são a quantidade de consumidores
-restabelecidos e de energia elétrica restaurada.
-Outro fator importante é o tempo necessário para restabelecer o fornecimento
-de energia para esses consumidores. Como este item é difícil de ser calculado
-diretamente, geralmente ele é medido através do número de equipamentos
-escolhidos para realizar as manobras de transferências de cargas. Além disto,
-quanto menos equipamentos a serem comutados, menor a probabilidade de falhas
-na execução em campo, tais como falhas de comunicação entre os equipamentos e
-o sistema SCADA.
-Como restrições, os principais fatores são operar as redes sem sobrecarga
-nos elementos elétricos, sem violar os ajustes de proteção e a queda de tensão
-admissível nas redes primárias. Normalmente, as restrições de não permitir violação
-dos ajustes de proteção e da queda de tensão admissível nos alimentadores são
-definidas como rígidas. Por outro lado, a sobrecarga nos elementos pertencentes às
-redes elétricas é flexibilizada, por tratar-se de uma situação provisória, ou seja, até
-que o defeito seja sanado, para retornar a configuração de operação em regime
-normal. Assim, se aceita um pequeno percentual de sobrecarga nos elementos
-elétricos.
-De acordo com essas considerações, definiram-se as seguintes funções
-objetivo e restrições a serem utilizadas nas análises das transferências de cargas
+para o processo de restabelecimento de energia elétrica. Quando tratamos do problema de reconfiguração em um estado de contingência, podemos considerar que é desejado reduzir a área afetada pelo defeito (minimizar o número de clientes afetados) e também é esperado um número de manobras reduzido, uma vez que essas modificações são temporárias e será necessário retornar a rede ao estado anterior após a correção dos defeitos\cite{Garcia2005}.
+
+Ao restabelecer os consumidores usando outro alimentador, deve-se tomar cuidado para não deixar a rede operando com algum equipamento de proteção sobrecarregado, tanto do alimentador defeituoso como dos alimentadores que irão receber mais carga, uma vez que isso pode levar a um desarme do mesmo em caso de um elevação inesperada da carga. Os níveis de queda de tensão também devem ser observados de modo que eles fiquem dentro de um limite aceitável. Quando o caso do restabelecimento acontecer dentro do mesmo alimentador (área restabelecida antes do defeito), nenhum equipamento será sobrecarregado, uma vez que houve apenas uma redução de carga em relação a operação normal. Quanto a sobrecarga dos elementos da rede elétrica (condutores) é aceitável uma sobrecarga por ser uma situação provisória.
+
+% \textbf{Como restrições, os principais fatores são operar as redes sem sobrecarga
+% nos elementos elétricos, sem violar os ajustes de proteção e a queda de tensão
+% admissível nas redes primárias. Normalmente, as restrições de não permitir violação
+% dos ajustes de proteção e da queda de tensão admissível nos alimentadores são
+% definidas como rígidas. Por outro lado, a sobrecarga nos elementos pertencentes às
+% redes elétricas é flexibilizada, por tratar-se de uma situação provisória, ou seja, até
+% que o defeito seja sanado, para retornar a configuração de operação em regime
+% normal. Assim, se aceita um pequeno percentual de sobrecarga nos elementos
+% elétricos.}
+
+Com base nessas considerações, definiram-se as seguintes funções
+objetivo e restrições a serem utilizadas nas análises das reconfigurações da rede
 em situações de contingências:
-Funções Objetivo
+
+Funções Objetivo:
 \begin{enumerate}
 \item restabelecer o número máximo de consumidores;
 \item restabelecer a quantidade máxima de energia elétrica;
 \item realizar o número mínimo necessário de operações de comutação para as transferências de carga;
 \end{enumerate}
 
-
-Restrições
+Restrições:
 \begin{itemize}
-
 \item manter a radialidade dos sistemas;
-\item não permitir sobrecarga nos elementos pertencentes às redes elétricas (trechos de rede, chaves, reguladores de tensão, entre outros) superior ao
-percentual permitido:
+\item não permitir sobrecarga nos elementos pertencentes às redes elétricas (trechos de rede, chaves, reguladores de tensão, entre outros) superior ao percentual permitido:
 \begin{equation}
  I_{i} \leq I_{i max} \cdot F_{sobrecarga}
 \end{equation}
 
 \item não permitir violação dos ajustes de proteção:
 \begin{equation}
-I_{i} \leq I_{Protj}
+I_{i} \leq I_{Prot i}
 \end{equation}
-
 
 \item não permitir violação da faixa de tensão admissível nas redes primárias:
 \begin{equation}
-V_{j min} \leq V_{j} leq V_{j max}
+V_{j min} \leq V_{j} \leq V_{j max}
 \end{equation}
 \end{itemize}
 
 Onde:
 \begin{description}
-        \item[$I_{i}$] - corrente no ramo i;
-	\item[$I_{Protj}$] - corrente de atuação do dispositivo de proteção j;
+    \item[$I_{i}$] - corrente no ramo i;
+    \item[$I_{Prot i}$] - corrente de atuação do dispositivo de proteção i;
+
+    \item [$I_{i max}$] - corrente máxima admissível no ramo i;
+    \item [$V_{j}$] - módulo da tensão no nó j;
+    \item [$V_{j min}$] - módulo da tensão mínima aceitável no nó j;
+    \item [$V_{j max}$] - módulo da tensão máxima aceitável no nó j.
 \end{description}
 
-I i max
-- corrente máxima admissível no ramo i;
-Vj
-- módulo da tensão no nó j;
-V j min
-- módulo da tensão mínima aceitável no nó j;
-V j max
-- módulo da tensão máxima aceitável no nó j.
+
+A verificação do atendimento das restrições é executada para cada manobra indicada pela metodologia de restabelecimento, sendo que se alguma manobra violar alguma das restrições ela é marcada como inválida e que não pode ser executada. Assim, para cada manobra a ser testada, é executada a simulação completa da manobra para os demais alimentadores.
+
+A análise das funções objetivo é executada quando existem várias manobras que podem ser executadas sem exeder nenhuma restrição.
 
 
-As verificações de atendimento das funções objetivo e restrições são
-realizadas durante o processo de cálculo de fluxo de potência, para as diferentes
-alternativas analisadas.
+\section{Metodologia proposta para operação automática dos equipamentos}
+Tendo a metodologia de definição das manobras de restabelecimento, as restrições e as funções objetivo bem definidas, fica fácil agregar esses métodos a possibilidade de enviar comandos para os equipamentos telecomandados e ter uma operação automática e autônoma da rede de distribuição.
 
+A grande vantagem desse método é que ele por si só descobre as possibilidades de transferência, ou seja, não existe um cadastro prévio das manobras do tipo 'se acontecer um defeito após a chave X, opere as chaves Z e Y', somente sendo necessário cadastras as chaves telecomandadas do sistema e a comunicação com o SCADA. Isso permite o uso dessa metodologia em diferentes topologias de rede de modo que ela irá definir as mobra a serem executadas de forma automática.
 
-\subsubsection{Metodologia proposta para operação automática dos equipamentos}
-\textbf{telecomandados para restabelecimento de energia elétrica
-A seguir é apresentada a metodologia proposta para operação automática
-dos equipamentos telecomandados para restabelecimento de energia. Para tanto,
-será apresentada a lógica de restabelecimento considerando o exemplo hipotético
-da rede de distribuição ilustrado na Figura \ref{Exemplorede}.}
-
-\textbf{Considerando que a chave NF-1 (normalmente fechada) e as chaves NA
-(normalmente aberta) da Figura \ref{Exemplorede} são telecomandadas, o processo de
-restabelecimento de energia elétrica se dá da seguinte maneira, considerando o
-desarme do alimentador AL-1:}
-
+Para a operação das chaves os comandos de abertura e fechamento das mesmas é enviado ao sistema supervisório, sendo que para cada par de chaves, primeiro é enviado o comando de abertura da chave que irá isolar o defeito, se o mesmo falhar (erro de comunicação), o SCADA irá rejeitar o comando e a manobra desse par de chaves será abortada. Se houverem mais manobras elas podem continuar se alguns critérios forem satisfeitos como por exemplo:
 \begin{itemize}
- \item Defeito a jusante da chave telecomandada NF-1: na ocorrência de defeito,
-será sinalizado em tempo real no sistema SCADA (Supervisory Control And Data
-Acquisition) os valores de corrente de curto-circuito medidos na chave NF-1. Neste
-caso, assume-se que a falha ocorreu após a chave, e o sistema enviará
-automaticamente os comandos de abrir a chave telecomanda NF-1 e de religar o
-alimentador AL-1, restabelecendo a energia para os consumidores a montante da
-chave. Como o tempo para abrir a chave, a partir do conhecimento do defeito, é
-inferior a 3 (três) minutos, considera-se que os consumidores a montante não são
-impactos pela falha, para fins de apuração de indicadores técnicos. Já para os
-consumidores a jusante, será computado o tempo de reparo do defeito e
-restabelecimento da energia.
-
-\item Defeito a montante da chave telecomandada NF-1: na ocorrência de defeito,
-não será sinalizado no sistema SCADA os valores de corrente de curto-circuito na
-chave NF-1. Assim, assume-se que a falha ocorreu antes da chave NF-1, e o
-sistema enviará automaticamente os comandos de abrir a chave telecomandada NF-
-1 e de fechar a chave telecomandada NA-1 ou a NA-2, no sentido de transferir os
-consumidores a jusante da chave NF-1 para outro alimentador. A verificação da
-viabilidade técnica das transferências de carga e a definição de qual alimentador
-receberá os consumidores são realizadas em tempo real por meio de simulações
-computacionais. Como o tempo para transferência automática, a partir do
-conhecimento do defeito, é inferior a 3 (três) minutos, considera-se que os
-consumidores transferidos, a jusante da chave, não são impactos pela falha, para
-fins de apuração de indicadores técnicos. Já para os consumidores a montante, será
-computado o tempo de reparo do defeito e restabelecimento da energia.
+    \item A manobra que falhou é fechar uma chave;
+    \item A monobra que falhou é de abrir, mas a chave encontra-se a montante da chave que será aberta;
 \end{itemize}
 
-\begin{figure}[H]
-\begin{centering}
-\includegraphics[width=0.4\columnwidth]{img/exemploRede}
-\par\end{centering}
 
-\caption{Exemplo de rede de distribuição.\label{fig:Exemplorede}}
 
-\end{figure}
-\textbf{Ressalta-se que não há necessidade de pré-configurar nenhuma manobra no
-programa e, sim, apenas do recebimento da informação de desarme de alimentador.
-A partir desta, a ferramenta identifica os equipamentos telecomandados pertences
-ao alimentador atingido e seus vizinhos, verificando os estados de comunicação,
-medições e sinalização da passagem da corrente de curto-circuito (cc). De acordo
-com a sinalização, ou não, da passagem da corrente de cc, o sistema verifica se as
-manobras serão no sentido de isolar o defeito ou de transferir as cargas.
-No caso de transferências, os estudos são realizados considerando uma
-previsão de carga para três horas a frente de modo a dar mais segurança na
-viabilidade técnica das manobras. As previsões são realizadas com base no histórico
-de medições da semana anterior.}
+% \textbf{telecomandados para restabelecimento de energia elétrica
+% A seguir é apresentada a metodologia proposta para operação automática
+% dos equipamentos telecomandados para restabelecimento de energia. Para tanto,
+% será apresentada a lógica de restabelecimento considerando o exemplo hipotético
+% da rede de distribuição ilustrado na Figura \ref{fig:Exemplorede}.}
+%
+% \textbf{Considerando que a chave NF-1 (normalmente fechada) e as chaves NA
+% (normalmente aberta) da Figura \ref{fig:Exemplorede} são telecomandadas, o processo de
+% restabelecimento de energia elétrica se dá da seguinte maneira, considerando o
+% desarme do alimentador AL-1:}
+%
+% \begin{itemize}
+%  \item \textbf{Defeito a jusante da chave telecomandada NF-1: na ocorrência de defeito,
+% será sinalizado em tempo real no sistema SCADA (Supervisory Control And Data
+% Acquisition) os valores de corrente de curto-circuito medidos na chave NF-1. Neste
+% caso, assume-se que a falha ocorreu após a chave, e o sistema enviará
+% automaticamente os comandos de abrir a chave telecomanda NF-1 e de religar o
+% alimentador AL-1, restabelecendo a energia para os consumidores a montante da
+% chave. Como o tempo para abrir a chave, a partir do conhecimento do defeito, é
+% inferior a 3 (três) minutos, considera-se que os consumidores a montante não são
+% impactos pela falha, para fins de apuração de indicadores técnicos. Já para os
+% consumidores a jusante, será computado o tempo de reparo do defeito e
+% restabelecimento da energia.}
+%
+% \item \textbf{Defeito a montante da chave telecomandada NF-1: na ocorrência de defeito,
+% não será sinalizado no sistema SCADA os valores de corrente de curto-circuito na
+% chave NF-1. Assim, assume-se que a falha ocorreu antes da chave NF-1, e o
+% sistema enviará automaticamente os comandos de abrir a chave telecomandada NF-
+% 1 e de fechar a chave telecomandada NA-1 ou a NA-2, no sentido de transferir os
+% consumidores a jusante da chave NF-1 para outro alimentador. A verificação da
+% viabilidade técnica das transferências de carga e a definição de qual alimentador
+% receberá os consumidores são realizadas em tempo real por meio de simulações
+% computacionais. Como o tempo para transferência automática, a partir do
+% conhecimento do defeito, é inferior a 3 (três) minutos, considera-se que os
+% consumidores transferidos, a jusante da chave, não são impactos pela falha, para
+% fins de apuração de indicadores técnicos. Já para os consumidores a montante, será
+% computado o tempo de reparo do defeito e restabelecimento da energia.}
+% \end{itemize}
+%
+% \begin{figure}
+% \begin{centering}
+% \includegraphics[width=0.4\columnwidth]{img/exemploRede}
+% \par\end{centering}
+%
+% \caption{Exemplo de rede de distribuição.\label{fig:Exemplorede}}
+%
+% \end{figure}
+% \textbf{Ressalta-se que não há necessidade de pré-configurar nenhuma manobra no
+% programa e, sim, apenas do recebimento da informação de desarme de alimentador.
+% A partir desta, a ferramenta identifica os equipamentos telecomandados pertences
+% ao alimentador atingido e seus vizinhos, verificando os estados de comunicação,
+% medições e sinalização da passagem da corrente de curto-circuito (cc). De acordo
+% com a sinalização, ou não, da passagem da corrente de cc, o sistema verifica se as
+% manobras serão no sentido de isolar o defeito ou de transferir as cargas.
+% No caso de transferências, os estudos são realizados considerando uma
+% previsão de carga para três horas a frente de modo a dar mais segurança na
+% viabilidade técnica das manobras. As previsões são realizadas com base no histórico
+% de medições da semana anterior.}
 
-\textbf{Para identificação das opções de manobra, verifica-se quais equipamentos
-telecomandados NA possuem condições de assumir as cargas a jusante do bloco
-sob defeito isolado, sem violar as restrições. Quando houver mais de uma opção,
-aplica-se o método de análise multicriterial, que será detalhado no próximo item,
-para escolha da opção mais indicada. Se todas as alternativas apresentarem
-violação das restrições, a ferramenta verifica se há possibilidade de transferir
-parcialmente as cargas.}
-
-\subsubsection{Escolha das manobras}
-Com a definição das monobras como escolher entre elas?
+% \textbf{Para identificação das opções de manobra, verifica-se quais equipamentos
+% telecomandados NA possuem condições de assumir as cargas a jusante do bloco
+% sob defeito isolado, sem violar as restrições. Quando houver mais de uma opção,
+% aplica-se o método de análise multicriterial, que será detalhado no próximo item,
+% para escolha da opção mais indicada. Se todas as alternativas apresentarem
+% violação das restrições, a ferramenta verifica se há possibilidade de transferir
+% parcialmente as cargas.}
+%
+% \subsubsection{Escolha das manobras}
+% Com a definição das monobras como escolher entre elas?
