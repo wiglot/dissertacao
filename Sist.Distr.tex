@@ -1,14 +1,40 @@
 \chapter {Sistema de distribuição de energia elétrica}
-qual o objetivo de uma rede de distribuição?
+% 3 - Sistemas de Distribuição de Energia Elétrica
+% 3.1 - Introdução à Sistemas de Distribuição
+% 3.2 - Automação de Sistemas de Distribuição
+% 3.3 - Procedimento Convencional para Restabelecimento de Energia Elétrica
 
-quais suas características? (divisão em alimentadores , radialidade , possibilidade reconfigurações (dentro dela mesma e entre diferentes alimentadores) )
+Nesse capítulo serão descritos os sistemas de distribuição de energia elétrica em média tensão, abordando conceitos básicos sobre distribuição que servirão de base para a apresentação da metodologia no decorrer deste trabalho. Além dos conceitos sobre o funcionamento de tais sistemas, também será abordado a ocorrência e solução de defeitos (situações de contingência) bem como a automação dos sistemas de distribuição.
+
+Um sistema elétrico de potência tem por função primária a entrega de energia elétrica para consumidores finais (casas, industrias,...) sendo composto por uma fonte geradora, que irá transformar algum tipo de energia, seja ela hidráulica, térmica ou outra, em energia elétrica a qual será distribuída para os consumidores através de diferentes redes de transmissão/distribuição até os consumidores finais\cite{Nelson_Kagan_Introd}. Como não é possível de efetuar o armazenamento de tal energia, o sistema deve estar pronto para suportar a demanda imediata de seus consumidores sem sofrer de nenhum tipo de sobrecarga nos equipamentos de transporte de energia (condutores, disjuntores) ou mesmo dos equipamentos de geração.
+
+Os sistemas elétricos de potência possuem a topologia apresentada na figura \ref{fig:SEP}. Podem ser vistos 3 grandes blocos: um de geração, um de transmissão e outro de distribuição. Estes blocos maiores também podem ser subdivididos em outros blocos, como a distribuição pode ser dividida em sub-transmissão e distribuição primária e secundária. O acoplamento entre esses diferentes blocos é dados através de estações elevadoras ou rebaixadoras de tensão.
+
+A etapa de geração trata da transformação de alguma energia em energia elétrica, como por exemplo uma hidroelétrica que faz uso de alguma queda d'água para fazer as turbinas girarem que por sua vez são acopladas a conjuntos geradores como alternadores. Existem também outras formas de geração de energia como por fissão nuclear, queima de combustíveis como madeira, bagaço de cana, óleo combustível entre outros, tem nesses casos o objetivo de aquecer a água de modo a produzir vapor que faz as turbinas girarem.
+
+Com a energia elétrica gerada, ela deve ser levada até os consumidores. Uma vez que as grandes centrais geradora se encontram afastadas dos principais centros consumidores, é necessário um sistema que transporte a energia por longas distâncias e tenha uma baixa perda de energia. Para isso a energia gerada é elevada para a casa de centenas de milhares de volts e só então é transmitida por longas distâncias. 
+% A necessidade da elevação da tensão de umas poucas dezenas de milhares de volts para a casa das centenas de milhares é a redução das perdas na transmissão devido a resistência dos condutores, uma vez que com a tensão elevada a corrente diminui, já que a potência permanece a mesma, e com isso as perdas também irão diminuir (lei de ohm)
+
+O último bloco, a distribuição trata de obter a energia do bloco de transmissão e entregar para o consumidor final em tensões apropriadas conforme a necessidade de cada um. A próxima secção tratará sobre esse tema de modo mais abrangente.
 
 
-\section{Situações de Contigência}
-O que é um defeito na rede?
-Como tal defeito é solucionado? (citar isolamento, transferência, mostrar exemplos gráficos de redes)
+\section{Introdução à Sistemas de Distribuição}
+
+Os sistemas de distribuição de energia elétrica tratam sobre como a energia, depois de ter sido transmitida de um estação geradora, é entregue para os consumidores. Para isso o sistema pode ser dividido em sub-transmissão, que trata da distribuição para as subestações e consumidores de de grande porte, e em dois tipos de distribuição propriamente dita, uma primária e outra secundária, que cuidam de como a energia é distribuída de forma segura e eficiente para a grande parte dos consumidores (residências e pequenas/médias industrias).
+
+A distribuição primária tem dois componentes importantes as subestações e as redes de distribuição primária, também conhecidas como alimentadores. As primeiras tem o papel de rebaixar a tensão recebida da sub-transmissão e de protege-la contra defeitos de curto circuito. Já as redes de distribuição primária são derivações da subestação, ou seja, podem existir mais de uma rede de distribuição em uma subestação, e tais redes tem por objetivo entregar energia elétrica diretamente para os consumidores de médio porte, como industrias, universidades como também para os transformadores que rebaixarão a tensão para níveis residenciais para ser distribuída pelas rede de tensão secundária.
+
+
+Uma representação de uma rede de distribuição primária juntamente com os seus componentes pode ser vista na Fig. \ref{redeDistribuição}. Cada alimentador tem inicio na subestação e possui um equipamentos de proteção, chamado de disjuntor, localizado logo após a saída sendo ele responsável por impedir que defeitos que apareçam da rede, como postes caídos ou contato entre condutores que gerariam uma corrente muito elevada, se propaguem para dentro da subestação, que por sua vez poderia afetar os sistemas de transmissão ou mesmo o de geração, além de impedir que defeitos ocorridos em um alimentar afetem os consumidores que são atendidos por outros alimentadores.
+
+
 
 \section{Automação da Distribuição}
 Smart Grids
 O que é um sistema SCADA
-O que é a automação de redes? como isso pode ajudar no trabalho (leitura em tempo real dos dados de opereção e comando remoto das chaves)
+O que é a automação de redes? como isso pode ajudar no trabalho (leitura em tempo real dos dados de operação e comando remoto das chaves)
+
+\section{Situações de contingência}
+O que é um defeito na rede?
+Como tal defeito é solucionado? (citar isolamento, transferência, mostrar exemplos gráficos de redes)
+

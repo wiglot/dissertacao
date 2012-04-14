@@ -40,7 +40,7 @@
 
 % % % % % % % % % % Linhas de tablelas
 \usepackage{booktabs}
-\usepackage{threeparttable}
+% \usepackage{threeparttable}
 
 % \floatstyle{boxed} \restylefloat{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% PDF % % % % % % % % % % % % % % % % %
@@ -153,28 +153,52 @@ Mestre em Engenharia Elétrica.}
 \sumario
 
 % ELEMENTOS TEXTUAIS
-% Introdução Obrg
+% 1 - Introdução
+% 
+% 
 \include{introducao} %Inclui arquivo introducao.tex
-% % Desenvolvimento - Obrg
+% 2 - Revisão Bibliográfica
+% (aqui desenvolver uma analise do que cada trabalho contribuiu para a tua dissertacao)
 \include{revisaoBibliografica}
-% \include{Sist.Distr}
-% \include{sistemaComputacionais}
+
+% 3 - Sistemas de Distribuição de Energia Elétrica
+% 3.1 - Introdução à Sistemas de Distribuição
+% 3.2 - Automação de Sistemas de Distribuição
+% 3.3 - Procedimento Convencional para Restabelecimento de Energia Elétrica
+\include{Sist.Distr} 
+
+% 4 - Modelagem de Cargas Elétricas e Fluxo de Potência
+% 4.1 - Curvas Típicas de Carga
+% 4.2 - Metodologia para Cálculo de Fluxo de Potência em Redes de Distribuição Radiais
+\include{modelagemDeCargas}
+
+% 5 - Metodologia Proposta para Restabelecimento Automático de Energia Elétrica
+% 5.1 - Caracterização e modelagem do Problema
+% Aqui envolve a descrição e discussão das particularidades do problema assim como do  modelo matemático que envolve as funções objetivo e as restrições
 \include{metodologia}
+% 5.2 - Arquitetura do Sistema
+% \include{sistemaComputacionais}
 % \include{sistemaDesenvolvido}
-% \include {casosDeEstudo}
-% % Conclusão - Obrg
+% 5.3 - Método Proposto para Seleção das Configurações
+% 
+% 5.4 - Algoritmo de Tomada de Decisão
+
+% 6 - Análises Experimentais
+% 6.1 - Ferramenta Computacional Desenvolvida
+% 6.2 - Estudos de Casos
+\include {casosDeEstudo}
+
+% 7 - Conclusões
+% 
 \include{consideracoesFinais} %Inclui arquivo conclusao.tex
 
 % ELEMENTOS PÓS-TEXTUAIS
-% Referências - Obrg
+% 8 - Referências Bibliográficas
 \bibliography{bibliography} %Seu arquivo Bibitex
 
-% Glossário
-% Apêndice(s)
-
+% Apêndices
 % Anexo(s)
 % \include {anexo}
-
 
 
 \end{document}
