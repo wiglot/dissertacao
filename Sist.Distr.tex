@@ -25,16 +25,39 @@ Os sistemas de distribuição de energia elétrica tratam sobre como a energia, dep
 A distribuição primária tem dois componentes importantes as subestações e as redes de distribuição primária, também conhecidas como alimentadores. As primeiras tem o papel de rebaixar a tensão recebida da sub-transmissão e de protege-la contra defeitos de curto circuito. Já as redes de distribuição primária são derivações da subestação, ou seja, podem existir mais de uma rede de distribuição em uma subestação, e tais redes tem por objetivo entregar energia elétrica diretamente para os consumidores de médio porte, como industrias, universidades como também para os transformadores que rebaixarão a tensão para níveis residenciais para ser distribuída pelas rede de tensão secundária.
 
 
-Uma representação de uma rede de distribuição primária juntamente com os seus componentes pode ser vista na Fig. \ref{redeDistribuição}. Cada alimentador tem inicio na subestação e possui um equipamentos de proteção, chamado de disjuntor, localizado logo após a saída sendo ele responsável por impedir que defeitos que apareçam da rede, como postes caídos ou contato entre condutores que gerariam uma corrente muito elevada, se propaguem para dentro da subestação, que por sua vez poderia afetar os sistemas de transmissão ou mesmo o de geração, além de impedir que defeitos ocorridos em um alimentar afetem os consumidores que são atendidos por outros alimentadores.
+Uma representação de uma rede de distribuição primária, juntamente com os seus principais componentes, pode ser vista na Fig. \ref{redeDistribuição}. Cada alimentador tem inicio na subestação e possui um equipamentos de proteção, chamado de disjuntor. Localizado logo após a saída da subestação, ele responsável por impedir que defeitos que apareçam da rede, como postes caídos ou contato entre condutores que geram um curto circuito, se propaguem para dentro da subestação, o que por sua vez poderia afetar os sistemas de transmissão ou mesmo o de geração, além de impedir que defeitos ocorridos em um alimentar afetem os consumidores que são atendidos por outros alimentadores.
+
+Os pontos de carga são ou clientes de maior porte como industrias e grandes centros comerciais, ou transformadores rebaixadores que reduzem a tensão para ser então distribuída pelas redes de distribuição secundária.  A energia é transmitida até esses pontos de carga através de condutores, os quais possuem características elétricas que serão melhor apresentada no próximo capitulo onde será explicado o método de simulação da operação das redes de distribuição.
+
+A rede ali apresentada é um modelo de rede de distribuição radial (que não apresenta ciclos) sendo esse modelo muito utilizado nas redes aéreas onde existem postes (de concreto ou madeira) que sustentam os condutores. Esse é um dos diversos modelos possíveis, sendo outros exemplos as redes subterrâneas do tipo spot ou aéreas com primário seletivo\cite{Nelson_Kagan_Introd} mas que não serão  escopo desse trabalho. Quando é tratado de redes de distribuição do tipo radial, alguns termos são utilizados para descrever o sentido que estamos percorrendo a rede. Partindo do início do alimentador e percorrendo a rede até algum ponto de carga, dizemos que estamos percorrendo a rede à jusante, no caso contrário, quando vamos de um ponto de carga no sentido do início do alimentador, a percorremos no sentido à montante.
 
 
+As redes de distribuição contam com diversos tipos de equipamentos seccionadores, chamados de chaves, sendo alguns deles do tipo de proteção contra correntes elevadas, originárias de defeitos ou sobrecargas, e outros de manobras, o que permite que a topologia da rede possa ser alterada de modo a isolar defeitos ou áreas para que possa ser possível a manutenção como a troca de condutores ou postes. Normalmente a operação de tais chaves de manobra é executada por equipes que deve se deslocar até a chave para executar a manobra de abertura, quando é desejado que a energia seja interrompida naquele ponto ou de fechamento quando é desejado restabelecer o fluxo a partir daquele ponto.
 
-\section{Automação da Distribuição}
+%#Exemplo de como seria operar uma chave para isolar um defeito na rede de exemplo.
+
+
+\section{Automação de Sistemas de Distribuição}
+%#Pegar algum livro sobre isso.
 Smart Grids
 O que é um sistema SCADA
 O que é a automação de redes? como isso pode ajudar no trabalho (leitura em tempo real dos dados de operação e comando remoto das chaves)
 
-\section{Situações de contingência}
+\section{Procedimento Convencional para Restabelecimento de Energia Elétrica}
+Os sistemas de distribuição estão sujeitos a condições anormais de operação como falha em equipamentos como isoladores, descargas elétricas, contato entre condutores, ou mesmo interferência no sistema por algum animal. Essas condições anormais fazem com que os equipamentos de proteção, atuem para evitar a propagação do defeito, tendo como consequência a interrupção do fornecimento de energia elétrica para um conjunto de consumidores de um alimentador. 
+
+A rede de distribuição possui três estados de operação \cite{SilvaAloca2010}:
+\begin{enumerate}
+ \item Estado normal, onde o nenhuma restrição de nenhum equipamento está violada;
+ \item Estado de emergência, quando acontece um defeito e algum equipamento está com alguma restrição violada;
+ \item Estado restaurativo, se dá após a atuação de algum equipamento de proteção (devido a algum defeito).
+\end{enumerate}
+
+O primeiro estado, a rede está configurada para que nenhum equipamento esteja sobrecarregado e que o máximo possível de consumidores está com o fornecimento de energia elétrica normalizado. O segundo estado tem início quando acontece algum defeito e pode convergir de volta ao estado normal, se era apenas um defeito temporário, como um galho de árvore que tocou em algum condutor, ou, se a falta é permanente, o sistema irá isolar o defeito indo para o estado restaurativo. Nesse último estado, o sistema de distribuição tem um interrupção parcial ou mesmo total de fornecimento de energia elétrica para os seus consumidores, sendo necessário a mobilização de equipes de atendimento para localizar onde o defeito se encontra e logo após executar o seu isolamento e transferência de carga para outros alimentadores.
+
+
+
+
 O que é um defeito na rede?
 Como tal defeito é solucionado? (citar isolamento, transferência, mostrar exemplos gráficos de redes)
 

@@ -216,10 +216,10 @@ order=1
 
 [item:Sist.Distr.tex]
 archive=true
-column=302
+column=123
 encoding=ISO-8859-15
 highlight=LaTeX
-line=8
+line=29
 mode=LaTeX
 open=true
 order=3
@@ -551,8 +551,8 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:Sist.Distr.tex]
-CursorColumn=302
-CursorLine=8
+CursorColumn=123
+CursorLine=29
 JumpList=
 ViMarks=
 
