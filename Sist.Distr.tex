@@ -9,6 +9,13 @@ Nesse capítulo serão descritos os sistemas de distribuição de energia elétrica e
 Um sistema elétrico de potência tem por função primária a entrega de energia elétrica para consumidores finais (casas, industrias,...) sendo composto por uma fonte geradora, que irá transformar algum tipo de energia, seja ela hidráulica, térmica ou outra, em energia elétrica a qual será distribuída para os consumidores através de diferentes redes de transmissão/distribuição até os consumidores finais\cite{Nelson_Kagan_Introd}. Como não é possível de efetuar o armazenamento de tal energia, o sistema deve estar pronto para suportar a demanda imediata de seus consumidores sem sofrer de nenhum tipo de sobrecarga nos equipamentos de transporte de energia (condutores, disjuntores) ou mesmo dos equipamentos de geração.
 
 Os sistemas elétricos de potência possuem a topologia apresentada na figura \ref{fig:SEP}. Podem ser vistos 3 grandes blocos: um de geração, um de transmissão e outro de distribuição. Estes blocos maiores também podem ser subdivididos em outros blocos, como a distribuição pode ser dividida em sub-transmissão e distribuição primária e secundária. O acoplamento entre esses diferentes blocos é dados através de estações elevadoras ou rebaixadoras de tensão.
+\begin{figure}
+\begin{centering}
+\includegraphics[width=0.8\columnwidth]{img/SEP}
+\par\end{centering}
+
+\caption{Exemplo de Sistema Elétrico de Potência \label {fig:SEP}}
+\end{figure}
 
 A etapa de geração trata da transformação de alguma energia em energia elétrica, como por exemplo uma hidroelétrica que faz uso de alguma queda d'água para fazer as turbinas girarem que por sua vez são acopladas a conjuntos geradores como alternadores. Existem também outras formas de geração de energia como por fissão nuclear, queima de combustíveis como madeira, bagaço de cana, óleo combustível entre outros, tem nesses casos o objetivo de aquecer a água de modo a produzir vapor que faz as turbinas girarem.
 
@@ -25,11 +32,19 @@ Os sistemas de distribuição de energia elétrica tratam sobre como a energia, dep
 A distribuição primária tem dois componentes importantes as subestações e as redes de distribuição primária, também conhecidas como alimentadores. As primeiras tem o papel de rebaixar a tensão recebida da sub-transmissão e de protege-la contra defeitos de curto circuito. Já as redes de distribuição primária são derivações da subestação, ou seja, podem existir mais de uma rede de distribuição em uma subestação, e tais redes tem por objetivo entregar energia elétrica diretamente para os consumidores de médio porte, como industrias, universidades como também para os transformadores que rebaixarão a tensão para níveis residenciais para ser distribuída pelas rede de tensão secundária.
 
 
-Uma representação de uma rede de distribuição primária, juntamente com os seus principais componentes, pode ser vista na Fig. \ref{redeDistribuição}. Cada alimentador tem inicio na subestação e possui um equipamentos de proteção, chamado de disjuntor. Localizado logo após a saída da subestação, ele responsável por impedir que defeitos que apareçam da rede, como postes caídos ou contato entre condutores que geram um curto circuito, se propaguem para dentro da subestação, o que por sua vez poderia afetar os sistemas de transmissão ou mesmo o de geração, além de impedir que defeitos ocorridos em um alimentar afetem os consumidores que são atendidos por outros alimentadores.
+Uma representação de uma rede de distribuição primária, juntamente com os seus principais componentes, pode ser vista na Fig. \ref{fig:redeDistribuição}. Cada alimentador tem inicio na subestação e possui um equipamentos de proteção, chamado de disjuntor. Localizado logo após a saída da subestação, ele responsável por impedir que defeitos que apareçam da rede, como postes caídos ou contato entre condutores que geram um curto circuito, se propaguem para dentro da subestação, o que por sua vez poderia afetar os sistemas de transmissão ou mesmo o de geração, além de impedir que defeitos ocorridos em um alimentar afetem os consumidores que são atendidos por outros alimentadores.
+
+\begin{figure}
+\begin{centering}
+\includegraphics[width=0.8\columnwidth]{img/RedeDist}
+\par\end{centering}
+
+\caption{Exemplo de uma Rede Distribuição Primária \label {fig:redeDistribuição}}
+\end{figure}
 
 Os pontos de carga são ou clientes de maior porte como industrias e grandes centros comerciais, ou transformadores rebaixadores que reduzem a tensão para ser então distribuída pelas redes de distribuição secundária.  A energia é transmitida até esses pontos de carga através de condutores, os quais possuem características elétricas que serão melhor apresentada no próximo capitulo onde será explicado o método de simulação da operação das redes de distribuição.
 
-A rede ali apresentada é um modelo de rede de distribuição radial (que não apresenta ciclos) sendo esse modelo muito utilizado nas redes aéreas onde existem postes (de concreto ou madeira) que sustentam os condutores. Esse é um dos diversos modelos possíveis, sendo outros exemplos as redes subterrâneas do tipo spot ou aéreas com primário seletivo\cite{Nelson_Kagan_Introd} mas que não serão  escopo desse trabalho. Quando é tratado de redes de distribuição do tipo radial, alguns termos são utilizados para descrever o sentido que estamos percorrendo a rede. Partindo do início do alimentador e percorrendo a rede até algum ponto de carga, dizemos que estamos percorrendo a rede à jusante, no caso contrário, quando vamos de um ponto de carga no sentido do início do alimentador, a percorremos no sentido à montante.
+A rede ali apresentada é um modelo de rede de distribuição radial (que não apresenta ciclos) sendo esse modelo muito utilizado nas redes aéreas onde existem postes (de concreto ou madeira) que sustentam os condutores. Esse é um dos diversos modelos possíveis, sendo outros exemplos as redes subterrâneas do tipo \textit{spot} ou aéreas com primário seletivo \cite{Nelson_Kagan_Introd}, mas que não serão o escopo desse trabalho. Quando é tratado de redes de distribuição do tipo radial, alguns termos são utilizados para descrever o sentido que a rede está sendo percorrida. Partindo do início do alimentador e percorrendo a rede até algum ponto de carga, é dito que a rede está sendo percorrida à jusante, no caso contrário, quando a rede é percorrida no sentido de um ponto de carga para o início do alimentador, é dito que se está percorrendo a rede à montante.
 
 
 As redes de distribuição contam com diversos tipos de equipamentos seccionadores, chamados de chaves, sendo alguns deles do tipo de proteção contra correntes elevadas, originárias de defeitos ou sobrecargas, e outros de manobras, o que permite que a topologia da rede possa ser alterada de modo a isolar defeitos ou áreas para que possa ser possível a manutenção como a troca de condutores ou postes. Normalmente a operação de tais chaves de manobra é executada por equipes que deve se deslocar até a chave para executar a manobra de abertura, quando é desejado que a energia seja interrompida naquele ponto ou de fechamento quando é desejado restabelecer o fluxo a partir daquele ponto.
@@ -53,11 +68,35 @@ A rede de distribuição possui três estados de operação \cite{SilvaAloca2010}:
  \item Estado restaurativo, se dá após a atuação de algum equipamento de proteção (devido a algum defeito).
 \end{enumerate}
 
-O primeiro estado, a rede está configurada para que nenhum equipamento esteja sobrecarregado e que o máximo possível de consumidores está com o fornecimento de energia elétrica normalizado. O segundo estado tem início quando acontece algum defeito e pode convergir de volta ao estado normal, se era apenas um defeito temporário, como um galho de árvore que tocou em algum condutor, ou, se a falta é permanente, o sistema irá isolar o defeito indo para o estado restaurativo. Nesse último estado, o sistema de distribuição tem um interrupção parcial ou mesmo total de fornecimento de energia elétrica para os seus consumidores, sendo necessário a mobilização de equipes de atendimento para localizar onde o defeito se encontra e logo após executar o seu isolamento e transferência de carga para outros alimentadores.
+No primeiro estado, a rede está configurada para que nenhum equipamento esteja sobrecarregado e que o máximo possível de consumidores estejam com o fornecimento de energia elétrica normalizado. O segundo estado tem início quando acontece algum defeito e pode convergir de volta ao estado normal, se era apenas um defeito temporário, como um galho de árvore que tocou em algum condutor, ou, se a falta é permanente, o sistema irá isolar o defeito indo para o estado restaurativo. Nesse último estado, o sistema de distribuição tem um interrupção parcial ou mesmo total de fornecimento de energia elétrica para os seus consumidores, sendo necessário a mobilização de equipes de atendimento para determinar a localização do defeito e logo após executar o seu isolamento e a transferência de carga para outros alimentadores.
 
+Os religadores, equipamentos de proteção capazes de atuar para isolar um defeito e, após alguns instantes, tentar restabelecer o fornecimento, ajudam a amenizar os defeitos temporários, uma vez que na ocorrência do defeito o religador atua interrompendo o fornecimento e, depois de alguns instantes, volta a religar a energia se mantendo nesse estado se o defeito não existe mais. Normalmente esse ciclo de atuação e religamento acontece algumas vezes caso o defeito permaneça presente até que o defeito não exista mais ou o número máximo de ciclos tenha acontecido, quando o religador é dito que entrou em bloqueio e se mantém no estado aberto (atuado). Já os equipamentos de proteção como os fusíveis, atuam apenas uma vez não voltando a religar após isso.
 
+Quando algum equipamento de proteção atua ou vai a bloqueio, uma parcela ou mesmo a totalidade dos consumidores ficam com o fornecimento comprometido e se faz necessário o trabalho das equipes de manutenção para detectar e corrigir o problema para que seja possível o restabelecimento total dos consumidores. 
 
+Em alguns casos é possível que o restabelecimento seja parcial através do isolamento do defeito e transferência de parte da carga para outros alimentador com uso das chaves existentes nos alimentadores, melhorando com isso a continuidade para alguns consumidores uma vez que eles não necessitarão ficar sem fornecimento de energia elétrica durante todo o tempo de conserto, mas apenas por uma pequena fração de tempo. Considerando a Fig. \ref{fig:exemploDefeito} onde é apresentado um alimentador e um defeito que fez o disjuntor do alimentador atuar, seria necessário a equipe de manutenção executar os seguintes passos:
+\begin{enumerate}
+ \item Localizar o defeito: isso é feito percorrendo a rede a jusante a partir da chave que atuou.
+ \item com o defeito localizado, são definidas quais chaves serão operadas
+  \begin{enumerate}
+   \item A chave X é escolhida para ser aberta e assim isolar o defeito do restante da rede a montante
+   \item A chave Y e Z são escolhidas para serem manobradas e assim transferir parte para um alimentador vizinho
+  \end{enumerate}
+ \item A equipe executa as manobras
+ \item O defeito é consertado
+ \item As chaves são retornadas ao seu estado original
+\end{enumerate}
 
+\begin{figure}
+\begin{centering}
+\includegraphics[width=0.8\columnwidth]{img/redeDefeito}
+\par\end{centering}
+
+\caption{Exemplo de uma Rede Distribuição Primária \label{fig:exemploDefeito}}
+\end{figure}
+
+\huge{Ver desenho, ver exemplos de manobras, falar sobre os tempos, falar sobre DEC, FEC, ETC? }
+\normalsize
 O que é um defeito na rede?
 Como tal defeito é solucionado? (citar isolamento, transferência, mostrar exemplos gráficos de redes)
 
