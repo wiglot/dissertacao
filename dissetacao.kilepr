@@ -4,7 +4,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.1.1
-lastDocument=Sist.Distr.tex
+lastDocument=Dissertação.tex
 masterDocument=
 name=Dissertação
 pkg_extIsRegExp=false
@@ -47,6 +47,8 @@ ReadWrite=true
 [document-settings,item:bibliography.bib]
 Bookmarks=
 Encoding=ISO-8859-15
+FoldedColumns=
+FoldedLines=
 Highlighting=BibTeX
 Indentation Mode=
 Mode=BibTeX
@@ -55,6 +57,8 @@ ReadWrite=true
 [document-settings,item:casosDeEstudo.tex]
 Bookmarks=
 Encoding=ISO-8859-15
+FoldedColumns=
+FoldedLines=
 Highlighting=LaTeX
 Indentation Mode=
 Mode=LaTeX
@@ -89,6 +93,8 @@ ReadWrite=true
 [document-settings,item:introducao.tex]
 Bookmarks=
 Encoding=ISO-8859-15
+FoldedColumns=
+FoldedLines=
 Highlighting=LaTeX
 Indentation Mode=
 Mode=LaTeX
@@ -97,6 +103,8 @@ ReadWrite=true
 [document-settings,item:metodologia.tex]
 Bookmarks=
 Encoding=ISO-8859-15
+FoldedColumns=
+FoldedLines=
 Highlighting=LaTeX
 Indentation Mode=
 Mode=LaTeX
@@ -139,6 +147,8 @@ ReadWrite=true
 [document-settings,item:termodeaprovacao.tex]
 Bookmarks=
 Encoding=ISO-8859-15
+FoldedColumns=
+FoldedLines=
 Highlighting=LaTeX
 Indentation Mode=
 Mode=LaTeX
@@ -209,17 +219,17 @@ archive=true
 column=0
 encoding=ISO-8859-15
 highlight=LaTeX
-line=8
+line=172
 mode=LaTeX
 open=true
 order=1
 
 [item:Sist.Distr.tex]
 archive=true
-column=123
+column=505
 encoding=ISO-8859-15
 highlight=LaTeX
-line=29
+line=100
 mode=LaTeX
 open=true
 order=3
@@ -236,23 +246,23 @@ order=7
 
 [item:bibliography.bib]
 archive=true
-column=23
+column=15
 encoding=ISO-8859-15
 highlight=BibTeX
-line=409
+line=437
 mode=BibTeX
-open=false
+open=true
 order=4
 
 [item:casosDeEstudo.tex]
 archive=true
-column=65
+column=0
 encoding=ISO-8859-15
 highlight=LaTeX
-line=56
+line=19
 mode=LaTeX
-open=false
-order=4
+open=true
+order=6
 
 [item:consideracoesFinais.tex]
 archive=true
@@ -476,23 +486,23 @@ order=-1
 
 [item:introducao.tex]
 archive=true
-column=0
+column=536
 encoding=ISO-8859-15
 highlight=LaTeX
-line=50
+line=21
 mode=LaTeX
-open=false
-order=1
+open=true
+order=7
 
 [item:metodologia.tex]
 archive=true
-column=14
+column=0
 encoding=ISO-8859-15
 highlight=LaTeX
-line=92
+line=63
 mode=LaTeX
-open=false
-order=2
+open=true
+order=5
 
 [item:resumo.tex]
 archive=true
@@ -536,23 +546,23 @@ order=5
 
 [item:termodeaprovacao.tex]
 archive=true
-column=30
+column=0
 encoding=ISO-8859-15
 highlight=LaTeX
-line=68
+line=0
 mode=LaTeX
-open=false
-order=6
+open=true
+order=8
 
 [view-settings,view=0,item:Dissertação.tex]
 CursorColumn=0
-CursorLine=8
+CursorLine=172
 JumpList=
 ViMarks=
 
 [view-settings,view=0,item:Sist.Distr.tex]
-CursorColumn=123
-CursorLine=29
+CursorColumn=505
+CursorLine=100
 JumpList=
 ViMarks=
 
@@ -561,12 +571,16 @@ CursorColumn=0
 CursorLine=15
 
 [view-settings,view=0,item:bibliography.bib]
-CursorColumn=23
-CursorLine=409
+CursorColumn=15
+CursorLine=437
+JumpList=
+ViMarks=
 
 [view-settings,view=0,item:casosDeEstudo.tex]
-CursorColumn=65
-CursorLine=56
+CursorColumn=0
+CursorLine=19
+JumpList=
+ViMarks=
 
 [view-settings,view=0,item:consideracoesFinais.tex]
 CursorColumn=71
@@ -583,12 +597,16 @@ CursorColumn=62
 CursorLine=50
 
 [view-settings,view=0,item:introducao.tex]
-CursorColumn=0
-CursorLine=50
+CursorColumn=536
+CursorLine=21
+JumpList=
+ViMarks=
 
 [view-settings,view=0,item:metodologia.tex]
-CursorColumn=14
-CursorLine=92
+CursorColumn=0
+CursorLine=63
+JumpList=
+ViMarks=
 
 [view-settings,view=0,item:resumo.tex]
 CursorColumn=0
@@ -609,5 +627,7 @@ CursorColumn=63
 CursorLine=1
 
 [view-settings,view=0,item:termodeaprovacao.tex]
-CursorColumn=30
-CursorLine=68
+CursorColumn=0
+CursorLine=0
+JumpList=
+ViMarks=

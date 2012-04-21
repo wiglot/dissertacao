@@ -74,28 +74,75 @@ Os religadores, equipamentos de proteção capazes de atuar para isolar um defeito
 
 Quando algum equipamento de proteção atua ou vai a bloqueio, uma parcela ou mesmo a totalidade dos consumidores ficam com o fornecimento comprometido e se faz necessário o trabalho das equipes de manutenção para detectar e corrigir o problema para que seja possível o restabelecimento total dos consumidores. 
 
-Em alguns casos é possível que o restabelecimento seja parcial através do isolamento do defeito e transferência de parte da carga para outros alimentador com uso das chaves existentes nos alimentadores, melhorando com isso a continuidade para alguns consumidores uma vez que eles não necessitarão ficar sem fornecimento de energia elétrica durante todo o tempo de conserto, mas apenas por uma pequena fração de tempo. Considerando a Fig. \ref{fig:exemploDefeito} onde é apresentado um alimentador e um defeito que fez o disjuntor do alimentador atuar, seria necessário a equipe de manutenção executar os seguintes passos:
+Em alguns casos é possível que o restabelecimento seja parcial através do isolamento do defeito e transferência de parte da carga para outros alimentador com uso das chaves existentes nos alimentadores, melhorando com isso a continuidade para alguns consumidores uma vez que eles não necessitarão ficar sem fornecimento de energia elétrica durante todo o tempo de reparo do defeito, mas apenas por uma pequena fração de tempo como será apresentado a seguir. Considerando a Fig. \ref{fig:exemploDefeito} onde é apresentado um alimentador e um defeito que fez o disjuntor do alimentador atuar no instante $t_0$, seria necessário a equipe de manutenção executar os seguintes passos:
 \begin{enumerate}
- \item Localizar o defeito: isso é feito percorrendo a rede a jusante a partir da chave que atuou.
- \item com o defeito localizado, são definidas quais chaves serão operadas
+  \item Localizar o defeito e sua abrangência: isso é feito percorrendo a rede a jusante a partir da chave que atuou.
+  \item com o defeito localizado, são definidas quais chaves serão operadas
   \begin{enumerate}
-   \item A chave X é escolhida para ser aberta e assim isolar o defeito do restante da rede a montante
-   \item A chave Y e Z são escolhidas para serem manobradas e assim transferir parte para um alimentador vizinho
+    \item A chave X é escolhida para ser aberta e assim isolar o defeito do restante da rede a montante
+    \item A chave Y e Z são escolhidas para serem manobradas e assim transferir parte para um alimentador vizinho
   \end{enumerate}
- \item A equipe executa as manobras
+  \item A equipe executa as manobras
+  \begin{enumerate}
+    \item Manobrando a chave X é possível religar a chave atuada restabelecendo os consumidores a montante do defeito, isso é feito no instante $t_1$
+    \item A manobra de transferência usando as chaves Y e Z é concluída no instante $t_2$
+\end{enumerate}
  \item O defeito é consertado
- \item As chaves são retornadas ao seu estado original
+ \item As chaves são retornadas ao seu estado original no instante $t_3$
 \end{enumerate}
 
 \begin{figure}
 \begin{centering}
 \includegraphics[width=0.8\columnwidth]{img/redeDefeito}
 \par\end{centering}
-
 \caption{Exemplo de uma Rede Distribuição Primária \label{fig:exemploDefeito}}
 \end{figure}
 
-\huge{Ver desenho, ver exemplos de manobras, falar sobre os tempos, falar sobre DEC, FEC, ETC? }
+Com base na sequência de ações da equipe, podemos concluir que os clientes antes do defeito ficaram sem fornecimento entre $t_0$ e $t_1$. Os consumidores após a área defeituosa ficaram sem energia elétrica entre os instantes $t_0$ e $t_2$ e os demais consumidores na área afetada ficaram sem fornecimento entre os instantes de tempo $t_0$ até o final do conserto em $t_3$. Sabendo que $t_1 -t_0 < t_2 - t_0 < t_3 - t_0$, é possível afirmar que os consumidores mais prejudicados foram os da região próxima ao defeito.
+
+\huge{explicar um pouco melhor o atendimento das equipes}
+\normalsize
+
+As interrupções por causa de defeitos levam a uma diminuição da continuidade de fornecimento de energia elétrica. A continuidade é mediada por indicadores que apresentam o tempo total que um grupo de consumidores ficaram sem fornecimento além da frequência que os mesmos tiveram o fornecimento interrompido. Tais indicadores são definidos por agências reguladoras, como a ANEEL no Brasil que apresenta tais indicadores com seu respectivos limites no módulo 8 do PRODIST \sigla{PRODIST}{Procedimentos de Distribuição de Energia Elétrica no Sistema Elétrico Nacional} (Procedimentos de Distribuição de Energia Elétrica no Sistema Elétrico Nacional). O cálculo dos indicadores após o defeito apresentado na Fig. \ref{fig:exemploDefeito} é executado usado as fórmulas  \ref{eq:DEC}, \ref{eq:FEC} para os indicadores globais da rede e \ref{eq:DIC}, \ref{eq:FIC} e \ref{eq:DMIC} para os indicadores individuais de cada unidade consumidora.
+
+DEC:\sigla{DEC} { Duração Equivalente por Consumidor } (Duração Equivalente por Unidade Consumidora): 
+\begin{equation} \label{eq:DEC}
+ DEC=\frac{\sum_{i=1}^{k}Ca(i)\cdot t(i)}{Cc}
+\end{equation} 
+
+DEC:\sigla{FEC} { Frequência Equivalente por Consumidor } (Frequência Equivalente por Unidade Consumidora)
+\begin{equation}\label{eq:FEC}
+ FEC=\frac{\sum_{i=1}^{k}Ca(i)}{Cc}
+\end{equation}
+Onde:
+\begin{description}
+ \item [k] Número eventos sendo analisados.
+\end{description}
+
+
+DIC\sigla{DIC} { Duração Individual por Consumidor } (Duração Individual por Consumidor)
+\begin{equation}\label{eq:DIC}
+ DIC = \sum_{i=1}^{n}t(i)
+\end{equation}
+
+FIC\sigla{FIC} { Frequência Individual por Consumidor } (Frequência Individual por Consumidor)
+\begin{equation}\label{eq:FIC}
+ FIC = n
+\end{equation}
+
+DMIC\sigla{DMIC} { Duração Máxima Individual por Consumidor } (Duração Máxima Individual por Consumidor)
+\begin{equation}\label{eq:DMIC}
+ DMIC = max_{i=1}^n(t(i))
+\end{equation}
+
+Onde:
+\begin{description}
+  \item [n:] total de interrupções do cliente
+  \item [t(i):] tempo de interrupção do evento $i$
+\end{description}
+
+
+\huge{Ver desenho, ver exemplos de manobras, falar sobre os tempos, ETC? }
 \normalsize
 O que é um defeito na rede?
 Como tal defeito é solucionado? (citar isolamento, transferência, mostrar exemplos gráficos de redes)
