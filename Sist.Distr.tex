@@ -19,8 +19,7 @@ Os sistemas elétricos de potência possuem a topologia apresentada na figura \ref
 
 A etapa de geração trata da transformação de alguma energia em energia elétrica, como por exemplo uma hidroelétrica que faz uso de alguma queda d'água para fazer as turbinas girarem que por sua vez são acopladas a conjuntos geradores como alternadores. Existem também outras formas de geração de energia como por fissão nuclear, queima de combustíveis como madeira, bagaço de cana, óleo combustível entre outros, tem nesses casos o objetivo de aquecer a água de modo a produzir vapor que faz as turbinas girarem.
 
-Com a energia elétrica gerada, ela deve ser levada até os consumidores. Uma vez que as grandes centrais geradora se encontram afastadas dos principais centros consumidores, é necessário um sistema que transporte a energia por longas distâncias e tenha uma baixa perda de energia. Para isso a energia gerada é elevada para a casa de centenas de milhares de volts e só então é transmitida por longas distâncias. 
-% A necessidade da elevação da tensão de umas poucas dezenas de milhares de volts para a casa das centenas de milhares é a redução das perdas na transmissão devido a resistência dos condutores, uma vez que com a tensão elevada a corrente diminui, já que a potência permanece a mesma, e com isso as perdas também irão diminuir (lei de ohm)
+Com a energia elétrica gerada, ela deve ser levada até os consumidores. Uma vez que as grandes centrais geradora se encontram afastadas dos principais centros consumidores, é necessário um sistema que transporte a energia por longas distâncias e tenha uma baixa perda de energia. Para isso a energia gerada é elevada para a casa de centenas de milhares de volts e só então é transmitida por longas distâncias.
 
 O último bloco, a distribuição trata de obter a energia do bloco de transmissão e entregar para o consumidor final em tensões apropriadas conforme a necessidade de cada um. A próxima secção tratará sobre esse tema de modo mais abrangente.
 
@@ -47,10 +46,10 @@ Os pontos de carga são ou clientes de maior porte como industrias e grandes cent
 A rede ali apresentada é um modelo de rede de distribuição radial (que não apresenta ciclos) sendo esse modelo muito utilizado nas redes aéreas onde existem postes (de concreto ou madeira) que sustentam os condutores. Esse é um dos diversos modelos possíveis, sendo outros exemplos as redes subterrâneas do tipo \textit{spot} ou aéreas com primário seletivo \cite{Nelson_Kagan_Introd}, mas que não serão o escopo desse trabalho. Quando é tratado de redes de distribuição do tipo radial, alguns termos são utilizados para descrever o sentido que a rede está sendo percorrida. Partindo do início do alimentador e percorrendo a rede até algum ponto de carga, é dito que a rede está sendo percorrida à jusante, no caso contrário, quando a rede é percorrida no sentido de um ponto de carga para o início do alimentador, é dito que se está percorrendo a rede à montante.
 
 
-As redes de distribuição contam com diversos tipos de equipamentos seccionadores, chamados de chaves, sendo alguns deles do tipo de proteção contra correntes elevadas, originárias de defeitos ou sobrecargas, e outros de manobras, o que permite que a topologia da rede possa ser alterada de modo a isolar defeitos ou áreas para que possa ser possível a manutenção como a troca de condutores ou postes. Normalmente a operação de tais chaves de manobra é executada por equipes que deve se deslocar até a chave para executar a manobra de abertura, quando é desejado que a energia seja interrompida naquele ponto ou de fechamento quando é desejado restabelecer o fluxo a partir daquele ponto.
+As redes de distribuição contam com diversos tipos de equipamentos seccionadores, chamados de chaves, sendo alguns deles do tipo de proteção contra correntes elevadas, originárias de defeitos ou sobrecargas, e outros de manobras. Tais equipamentos possuem 2 estados: Aberto quando o fluxo de corrente é interrompida e Fechado caso contrário. Tais estados são referenciados como NA(normalmente aberto) e NF(normalmente fechado) quando é referenciada o seu estado na topologia original da rede. Tais equipamentos permitem que a topologia da rede possa ser seccionada seja para isolar defeitos ou regiões para que manutenção como a troca de condutores ou postes, e também podem ser utilizados para executar transferências de parte da carga de um alimentador para outro alimentador, sendo possível diminuir a carga de um alimentador, ou em caso de defeito, restabelecer o fornecimento para parte dos consumidores que se encontram a jusante da área afetada. Isto é obtido através do seccionamento da rede após o defeito e o 
+fechamento de alguma chave de fronteira, sendo necessário executar simulações, que serão descritas no próximo capítulo, para verificar se nenhuma parte dos alimentadores ficará sobrecarregada com a nova topologia da rede.
 
-%#Exemplo de como seria operar uma chave para isolar um defeito na rede de exemplo.
-
+Normalmente a operação de tais chaves de manobra é executada por equipes que deve se deslocar até a chave para executar a manobra de abertura, quando é desejado que a energia seja interrompida naquele ponto ou de fechamento quando é desejado restabelecer o fluxo a partir daquele ponto. Uma solução para evitar esse deslocamento, que pode ser problemático em uma cidade grande devido a problemas do trânsito, é a automação da operação de tais equipamentos de manobra.
 
 \section{Automação de Sistemas de Distribuição}
 %#Pegar algum livro sobre isso.
@@ -76,48 +75,65 @@ Quando algum equipamento de proteção atua ou vai a bloqueio, uma parcela ou mesm
 
 Em alguns casos é possível que o restabelecimento seja parcial através do isolamento do defeito e transferência de parte da carga para outros alimentador com uso das chaves existentes nos alimentadores, melhorando com isso a continuidade para alguns consumidores uma vez que eles não necessitarão ficar sem fornecimento de energia elétrica durante todo o tempo de reparo do defeito, mas apenas por uma pequena fração de tempo como será apresentado a seguir. Considerando a Fig. \ref{fig:exemploDefeito} onde é apresentado um alimentador e um defeito que fez o disjuntor do alimentador atuar no instante $t_0$, seria necessário a equipe de manutenção executar os seguintes passos:
 \begin{enumerate}
-  \item Localizar o defeito e sua abrangência: isso é feito percorrendo a rede a jusante a partir da chave que atuou.
+  \item Localizar o defeito e sua abrangência: isto é feito percorrendo a rede a jusante a partir da chave que atuou.
   \item com o defeito localizado, são definidas quais chaves serão operadas
   \begin{enumerate}
-    \item A chave X é escolhida para ser aberta e assim isolar o defeito do restante da rede a montante
-    \item A chave Y e Z são escolhidas para serem manobradas e assim transferir parte para um alimentador vizinho
+    \item A chave CH1 é escolhida para ser aberta e assim isolar o defeito do restante da rede a montante
+    \item A chave CH2 e NA1 são escolhidas para serem manobradas e assim transferir parte para um alimentador vizinho
   \end{enumerate}
   \item A equipe executa as manobras
   \begin{enumerate}
-    \item Manobrando a chave X é possível religar a chave atuada restabelecendo os consumidores a montante do defeito, isso é feito no instante $t_1$
-    \item A manobra de transferência usando as chaves Y e Z é concluída no instante $t_2$
+    \item Manobrando a chave CH1 é possível religar a chave atuada restabelecendo os consumidores a montante do defeito, isso é feito no instante $t_1$
+    \item A manobra de transferência usando as chaves CH2 e NA1 é concluída no instante $t_2$
 \end{enumerate}
  \item O defeito é consertado
  \item As chaves são retornadas ao seu estado original no instante $t_3$
 \end{enumerate}
 
-\begin{figure}
+\begin{figure}[hb]
 \begin{centering}
 \includegraphics[width=0.8\columnwidth]{img/redeDefeito}
 \par\end{centering}
-\caption{Exemplo de uma Rede Distribuição Primária \label{fig:exemploDefeito}}
+\caption{Rede de Distribuição Primária com defeito \label{fig:exemploDefeito}}
 \end{figure}
 
-Com base na sequência de ações da equipe, podemos concluir que os clientes antes do defeito ficaram sem fornecimento entre $t_0$ e $t_1$. Os consumidores após a área defeituosa ficaram sem energia elétrica entre os instantes $t_0$ e $t_2$ e os demais consumidores na área afetada ficaram sem fornecimento entre os instantes de tempo $t_0$ até o final do conserto em $t_3$. Sabendo que $t_1 -t_0 < t_2 - t_0 < t_3 - t_0$, é possível afirmar que os consumidores mais prejudicados foram os da região próxima ao defeito.
+Com base nessa sequência de ações, é possível concluir que os clientes antes do defeito ficaram sem fornecimento entre $t_0$ e $t_1$ que corresponde ao tempo de localização do defeito, de abertura da chave CH1 e de religamento do disjuntor. Os consumidores após a área defeituosa (a jusante da chave CH2) ficaram sem energia elétrica entre os instantes $t_0$ e $t_2$ que corresponde ao tempo de localização do defeito, abertura da chave CH2, deslocamento até a chave NA1 e seu fechamento. A diferença do segundo grupo é que a equipe de manutenção deve se deslocar após operar a chave CH2 até a chave NA1, o que não é necessário no primeiro caso já que existem operadores na subestação para religar o disjuntor. Os demais consumidores na área afetada ficaram sem fornecimento entre os instantes de tempo $t_0$ até o final do conserto e restabelecimento do fornecimento no instante $t_3$, sendo necessário o deslocamento entre entre todas as chaves a serem operadas.
 
-\huge{explicar um pouco melhor o atendimento das equipes}
-\normalsize
+Esses tempos são chamados de tempo de isolamento, transferência e de restabelecimento, respectivamente e são dados por:\\
+$T_{i} = t_{1} - t_{0}$\\
+$T_{t} = t_{2} - t_{0}$\\
+$T_{r} = t_{3} - t_{0}$\\
 
-As interrupções por causa de defeitos levam a uma diminuição da continuidade de fornecimento de energia elétrica. A continuidade é mediada por indicadores que apresentam o tempo total que um grupo de consumidores ficaram sem fornecimento além da frequência que os mesmos tiveram o fornecimento interrompido. Tais indicadores são definidos por agências reguladoras, como a ANEEL no Brasil que apresenta tais indicadores com seu respectivos limites no módulo 8 do PRODIST \sigla{PRODIST}{Procedimentos de Distribuição de Energia Elétrica no Sistema Elétrico Nacional} (Procedimentos de Distribuição de Energia Elétrica no Sistema Elétrico Nacional). O cálculo dos indicadores após o defeito apresentado na Fig. \ref{fig:exemploDefeito} é executado usado as fórmulas  \ref{eq:DEC}, \ref{eq:FEC} para os indicadores globais da rede e \ref{eq:DIC}, \ref{eq:FIC} e \ref{eq:DMIC} para os indicadores individuais de cada unidade consumidora.
+Onde:
+\begin{description}
+  \item [$T_i$:] Tempo de isolamento do defeito.
+  \item [$T_t$:] Tempo de transferência de carga.
+  \item [$T_r$:] Tempo de restabelecimento total do alimentador.
+\end{description}
+
+
+%\textbf{explicar um pouco melhor o atendimento das equipes, transformar as diferenças de tempo em $\Delta$}
+
+As interrupções por causa de defeitos levam a uma diminuição da continuidade de fornecimento de energia elétrica. A continuidade é medida por indicadores que apresentam o tempo total que um grupo de consumidores ficaram sem fornecimento além da frequência que os mesmos tiveram o fornecimento interrompido. Tais indicadores são definidos por agências reguladoras, como a ANEEL no Brasil que apresenta tais indicadores com seu respectivos limites no módulo 8 do PRODIST \sigla{PRODIST}{Procedimentos de Distribuição de Energia Elétrica no Sistema Elétrico Nacional} (Procedimentos de Distribuição de Energia Elétrica no Sistema Elétrico Nacional)\cite{prodist2010}. O cálculo dos indicadores após o defeito apresentado na Fig. \ref{fig:exemploDefeito} é executado usado as fórmulas  \ref{eq:DEC}, \ref{eq:FEC} para os indicadores globais da rede e \ref{eq:DIC}, \ref{eq:FIC} e \ref{eq:DMIC} para os indicadores individuais de cada unidade consumidora.
 
 DEC:\sigla{DEC} { Duração Equivalente por Consumidor } (Duração Equivalente por Unidade Consumidora): 
 \begin{equation} \label{eq:DEC}
- DEC=\frac{\sum_{i=1}^{k}Ca(i)\cdot t(i)}{Cc}
+ DEC=\frac{\sum\limits_{i=1}^{k}Ca(i)\cdot t(i)}{Cc}
 \end{equation} 
 
 DEC:\sigla{FEC} { Frequência Equivalente por Consumidor } (Frequência Equivalente por Unidade Consumidora)
 \begin{equation}\label{eq:FEC}
- FEC=\frac{\sum_{i=1}^{k}Ca(i)}{Cc}
+ FEC=\frac{\sum\limits_{i=1}^{k}Ca(i)}{Cc}
 \end{equation}
 Onde:
 \begin{description}
- \item [k] Número eventos sendo analisados.
+ \item [k] Número eventos sendo analisados;
+ \item [t(i):] duração da interrupção $i$;
+ \item [Ca(i):] Número de consumidores afetados pelo evento $i$;
+ \item [Cc:] Total de consumidores da rede.
 \end{description}
+
+Os indicadores globais oferecem uma ótima visão geral da rede em termos de continuidade, apresentando a média de interrupções por consumidor e o tempo médio que cada um deles ficou sem fornecimento de energia elétrica. Apesar disso, os valores podem mascarar situação que um pequeno grupo de consumidores ficaram sem energia por um longo período de tempo por exemplo o caso de uma rede que atende 100.000 consumidores e em período o tempo total de interrupções foi de 100 horas (6000 minutos) e atingiu apenas 100 consumidores, o DEC resultante 6, o que indica que na média cada consumidor ficou 6 minutos sem energia elétrica.
 
 
 DIC\sigla{DIC} { Duração Individual por Consumidor } (Duração Individual por Consumidor)
@@ -137,13 +153,35 @@ DMIC\sigla{DMIC} { Duração Máxima Individual por Consumidor } (Duração Máxima In
 
 Onde:
 \begin{description}
-  \item [n:] total de interrupções do cliente
-  \item [t(i):] tempo de interrupção do evento $i$
+  \item [n:] total de interrupções do cliente;
+  \item [t(i):] tempo de interrupção do evento $i$.
 \end{description}
 
+Já os indicadores individuais apresentam uma visão focada em apenas um cliente mas permite identificar pontos críticos como frequências elevadas de interrupções e demora para restabelecimento de alguns consumidores.
 
-\huge{Ver desenho, ver exemplos de manobras, falar sobre os tempos, ETC? }
-\normalsize
-O que é um defeito na rede?
-Como tal defeito é solucionado? (citar isolamento, transferência, mostrar exemplos gráficos de redes)
+Considerando as fórmulas dos indicadores apresentados, a ocorrência do defeito apresentado na Fig. \ref{fig:exemploDefeito} e que os tempos de de isolamento, transferência e restabelecimento respectivamente 10, 20 e 40 minutos, o valor do DEC para o alimentador 1 é apresentado em \ref{eq:DECcalculado}.
+
+\begin{eqnarray}\label{eq:DECcalculado}
+DEC_{Alimentador1}&=&\frac{(10 \cdot 1000) + (40 \cdot 2000) + (20 \cdot 500)}{3500}\nonumber\\
+&=&\frac{100000}{3500}\nonumber \\
+&=&28,57
+\end{eqnarray}
+
+
+Ou seja, cada consumidor ficou cerca de 28,57 minutos sem fornecimento de energia elétrica durante este defeito que teve duração total de 40 minutos. 
+
+Considerando um outro cenário onde o alimentador possui automação a nível de operação das chaves apresentadas, ou seja, um operador pode opera-las via telecomando, evitando assim a necessidade do deslocamento da equipe até as chaves para executar as manobras. Nesse cenário obtém-se a diminuição do tempo de operação das chaves uma vez que não existirá a necessidade de deslocar equipes entre as chaves e o conserto pode ser inciado antes.  Para esse cenário se a equipe levar 5 minutos para detectar o defeito, o operador pode executar as manobras de isolamento em tempo real e a de transferência após alguns poucos minutos (3 minutos para exemplificar), uma vez que isso depende de simulações e a equipe já pode iniciar os trabalhos de reparo da rede. Como pode ser notado, o conserto da rede tem um início mais rápido, uma vez que a área afetado foi isolada em cerca de 8 minutos, e também que tanto os consumidores antes do defeito quanto os após ficaram bem menos tempo sem fornecimento, 5 minutos contra os 10 
+anteriores para os consumidores à montante do defeito e de 20 para 8 minutos para os à jusante do defeito. Os consumidores da área afetada ficaram o tempo de isolamento total do defeito, nesse caso a transferência de carga para outro alimentador, e o tempo de conserto, que são respectivamente 8 e 20 minutos, totalizando 28 minutos no total. Com esses novos tempos temos o seguinte cálculo do DEC desse alimentador:
+
+\begin{eqnarray}\label{eq:DECautomatizado}
+DEC_{Alimentador1}&=&\frac{(5 \cdot 1000) + (28 \cdot 2000) + (8 \cdot 500)}{3500}\nonumber\\
+&=&\frac{59000}{3500}\nonumber \\
+&=&17,57
+\end{eqnarray}
+
+Apenas com a automação da abertura e fechamento das chaves foi possível reduzir o DEC em quase 11 minutos (cerca de 38\% do tempo anterior). Se considerar o uso de um sistema computacional inteligente que detecte a localização do defeito e defina as chaves a serem manobradas, o tempo pode ser ainda menor, uma vez que a equipe de manutenção poderá se deslocar para para a área defeituosa enquanto o sistema isola a mesma e restabelece o fornecimento em tempo menor ainda.
+
+
+%\huge{Ver desenho, ver exemplos de manobras, falar sobre os tempos, ETC? }
+%\normalsize
 

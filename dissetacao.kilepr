@@ -4,7 +4,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.1.1
-lastDocument=Dissertação.tex
+lastDocument=metodologia.tex
 masterDocument=
 name=Dissertação
 pkg_extIsRegExp=false
@@ -96,17 +96,27 @@ Encoding=ISO-8859-15
 FoldedColumns=
 FoldedLines=
 Highlighting=LaTeX
+Indentation Mode=normal
+Mode=LaTeX
+ReadWrite=false
+
+[document-settings,item:metodologia.tex]
+Bookmarks=
+Encoding=ISO-8859-15
+FoldedColumns=0,0,0,0,0,0,0
+FoldedLines=43,57,69,84,89,104,112
+Highlighting=LaTeX
 Indentation Mode=
 Mode=LaTeX
 ReadWrite=true
 
-[document-settings,item:metodologia.tex]
+[document-settings,item:modelagemDeCargas.tex]
 Bookmarks=
 Encoding=ISO-8859-15
 FoldedColumns=
 FoldedLines=
 Highlighting=LaTeX
-Indentation Mode=
+Indentation Mode=normal
 Mode=LaTeX
 ReadWrite=true
 
@@ -150,7 +160,7 @@ Encoding=ISO-8859-15
 FoldedColumns=
 FoldedLines=
 Highlighting=LaTeX
-Indentation Mode=
+Indentation Mode=normal
 Mode=LaTeX
 ReadWrite=true
 
@@ -219,20 +229,20 @@ archive=true
 column=0
 encoding=ISO-8859-15
 highlight=LaTeX
-line=172
+line=139
 mode=LaTeX
-open=true
+open=false
 order=1
 
 [item:Sist.Distr.tex]
 archive=true
-column=505
+column=472
 encoding=ISO-8859-15
 highlight=LaTeX
-line=100
+line=181
 mode=LaTeX
-open=true
-order=3
+open=false
+order=2
 
 [item:anexo.tex]
 archive=true
@@ -246,13 +256,13 @@ order=7
 
 [item:bibliography.bib]
 archive=true
-column=15
+column=1
 encoding=ISO-8859-15
 highlight=BibTeX
-line=437
+line=397
 mode=BibTeX
-open=true
-order=4
+open=false
+order=3
 
 [item:casosDeEstudo.tex]
 archive=true
@@ -261,8 +271,8 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=19
 mode=LaTeX
-open=true
-order=6
+open=false
+order=1
 
 [item:consideracoesFinais.tex]
 archive=true
@@ -281,8 +291,8 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=4
 mode=LaTeX
-open=true
-order=2
+open=false
+order=3
 
 [item:dissetacao.kilepr]
 archive=true
@@ -486,23 +496,33 @@ order=-1
 
 [item:introducao.tex]
 archive=true
-column=536
+column=0
 encoding=ISO-8859-15
 highlight=LaTeX
-line=21
+line=0
 mode=LaTeX
-open=true
+open=false
 order=7
 
 [item:metodologia.tex]
 archive=true
+column=1103
+encoding=ISO-8859-15
+highlight=LaTeX
+line=14
+mode=LaTeX
+open=true
+order=0
+
+[item:modelagemDeCargas.tex]
+archive=true
 column=0
 encoding=ISO-8859-15
 highlight=LaTeX
-line=63
+line=0
 mode=LaTeX
-open=true
-order=5
+open=false
+order=2
 
 [item:resumo.tex]
 archive=true
@@ -511,7 +531,7 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=2
 mode=LaTeX
-open=true
+open=false
 order=0
 
 [item:revisaoBibliografica.tex]
@@ -551,18 +571,18 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=0
 mode=LaTeX
-open=true
+open=false
 order=8
 
 [view-settings,view=0,item:Dissertação.tex]
 CursorColumn=0
-CursorLine=172
+CursorLine=139
 JumpList=
 ViMarks=
 
 [view-settings,view=0,item:Sist.Distr.tex]
-CursorColumn=505
-CursorLine=100
+CursorColumn=472
+CursorLine=181
 JumpList=
 ViMarks=
 
@@ -571,8 +591,8 @@ CursorColumn=0
 CursorLine=15
 
 [view-settings,view=0,item:bibliography.bib]
-CursorColumn=15
-CursorLine=437
+CursorColumn=1
+CursorLine=397
 JumpList=
 ViMarks=
 
@@ -603,8 +623,14 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:metodologia.tex]
+CursorColumn=1103
+CursorLine=14
+JumpList=
+ViMarks=
+
+[view-settings,view=0,item:modelagemDeCargas.tex]
 CursorColumn=0
-CursorLine=63
+CursorLine=0
 JumpList=
 ViMarks=
 

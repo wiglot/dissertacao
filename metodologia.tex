@@ -1,51 +1,47 @@
 \chapter{Metodologia Proposta}
 
 %\textbf{Modelo do sistema, diagrama de comunicação,  fluxogramas de tomada de decisão}
+%%%EXPLICAR MELHOR QUAL O OBJETIVO DO 
+Esse capítulo descreve a metodologia desenvolvida para restabelecimento automático com o uso de chaves telecomandadas. A criação de tal metodologia teve como objetivo a criação de um conjunto de ações universais que possam ser aplicadas, a diferentes topologias de redes de distribuição radial, para restabelecer o máximo de consumidores após um defeito permanente, sem que isso ocasione sobrecarga no sistema de distribuição.
 
-Em uma rede de distribuição supervisionada por um SCADA, tal sistema supervisório tem o estado atual de cada equipamento controlado por ele. Quando um equipamento sofre uma alteração de estado, seja dos dados de medição como corrente e voltagem ou mesmo de aberto para fechado, o sistema é atualizado com esse no estado do equipamento.
 
-Usando como base essa funcionalidade do sistema supervisório, foi desenvolvida uma metodologia que detecta:
+A metodologia desenvolvida é capaz de:
 \begin{itemize}
-\item Detecta a ocorrência de um defeito permanente;
-\item Localiza a área a ser isolada (área defeituosa);
-\item Define um conjunto de manobras a serem executadas para restabelecer máximo possível de clientes.
+\item Detectar a ocorrência de um defeito permanente (através de um SCADA);
+\item Localizar a área a ser isolada (área defeituosa);
+\item Definir um conjunto de manobras a serem executadas para restabelecer máximo possível de clientes através do isolamento e transferência de carga.
 \end {itemize}
 
-Antes de continuar, é necessário considerar alguns pontos:
-\begin{itemize}
-\item Os equipamentos monitorados pelo SCADA (chaves telecomandadas) possuem um evento que indica que entraram em bloqueio, ou seja, na ocorrência de um curto elas já executaram todo o ciclo de religamento sem sucesso;
-\item todos equipamentos telecomandados possuem uma variavél que indica se a chave se encontra incluída ou excluída de manobras (por exemplo se existem equipes trabalhando com a rede em funcionamento);
-\item Toda comunicação entre o equipamento e o sistema supervisório tem um limite superior não elevado (consideremos 90 segundos o tempo máximo de uma informação trafegar até o SCADA);
-\item As informação são tratadas no SCADA na ordem em aconteceram e não na ordem que elas chegam;
-\end{itemize}
-
-Além do SCADA, também é necessário buscar mais informações em outros sistemas, uma vez que nem todos equipamentos são telecomandados e o cadastro da rede (topologia, cargas, tipos de condutores,...) não são cadastrados no sistema supervisório. Para essa razão foi imaginada a arquitetura de sistema apresentada na figura \ref{fig:Arquitetura_sistema} onde podemos ver 3 fontes de dados (Estado das Chaves, SCADA e Cadastro da Rede) e o sistema computacional que implementa essa metodologia. O estado das chaves é um banco de dados onde o estado atual de todas as chaves se encontram atualizadas, uma vez que a rede pode ter sido reconfigurada em relação a topologia inicial descrita no Cadastro da Rede
+Para isso, é necessário o acesso em tempo real a informações como o estado de comunicação das chaves telecomandadas, o qual é obtido através do SCADA, o cadastro da rede (topologia original, cargas, tipos de condutores,...), o estado atual de todas as chaves do alimentador sendo testado, além do acesso ao histórico de carregamento dos alimentadores. Com base nessas necessidades, foi imaginada a arquitetura de sistema apresentada na figura \ref{fig:Arquitetura_sistema}, onde podemos ver 4 fontes de dados (Estado das Chaves, Histórico de carga, SCADA e Cadastro da Rede) e o sistema computacional, o qual implementa a metodologia aqui descrita. O estado das chaves é um banco de dados onde o estado atual de todas as chaves se encontram atualizadas, tal informação é importante uma vez que a rede pode ter sido reconfigurada em relação a topologia inicial descrita no Cadastro da Rede, sendo essa alteração proveniente de um defeito ou mesmo para isolar alguma área para manutenção preventiva. O Histórico de carga armazena as leituras de carga dos alimentadores, sendo então possível estimar o comportamento da carga nas próximas horas, como será visto no mais a frente nesse capítulo.
 
 \begin{figure}[h]
-\begin{centering}
-\includegraphics[width=0.7\columnwidth]{img/ArquiteturaSistema}
-\par\end{centering}
+\centering
+% \includegraphics[width=0.7\columnwidth]{img/ArquiteturaSistema}
 
 \caption{Arquitetura proposta para o sistema computacional\label{fig:Arquitetura_sistema}}
 
 \end{figure}
 
-Quando ocorre de um equipamento telecomandado entrar em bloqueio após as tentativas de
-religamento, o SCADA envia um alerta para a ferramenta computacional indicando esse
- evento, esta por sua vez solicita ao
-SCADA algumas informações dos equipamentos telecomandados pertencentes ao
-alimentador atingido e seus vizinhos. As principais informações solicitadas são:
-sinalização da passagem da corrente de curto-circuito, medições de corrente pré-
-falta, se o equipamento não está excluído de manobras e estado de comunicação
-dos equipamentos. De acordo com estas
-informações, o sistema realizará simulações computacionais considerando o estado
-atual das redes de distribuição. Como solução tem-se a identificação da sequência de
-manobras a ser executada (isolar defeito ou transferir
-cargas), sendo enviada a matrícula dos equipamentos e os respectivos comandos
-(abrir ou fechar) ao SCADA. A Figura \ref{fig:Fluxograma_decisao} apresenta os procedimentos
-adotados nessa metodologia.
+%  Essa metodologia é um conjunto de procedimentos para, a partir da ocorrência de um defeito e do estado atual das chaves, determinar quais chaves devem ser operadas para tanto isolar o defeito e religar o equipamento atuado quanto para transferir partes da carga para diferentes alimentadores, contanto que os mesmos possam receber mais carga sem sofrer sobrecargas. Para obter esse resultado, essa metodologia faz uso do sistema SCADA de onde obtém os estados atuais das chaves e, principalmente, as mudanças de tais estados ocasionadas por defeitos, sendo essas mudanças o gatilho para o início do procedimento a seguir descrito.
 
-O procedimento tem um desvio no seu fluxo caso algum equipamento tenha sido atravessado pelo curto mas não tenha atuado (por exemplo um equipamento programado para agir como chave e não como religador). Nesse desvio, é procurada a chave mais próxima ao curto para isolar o curto para isolar o curto do alimentador e assim poder religar o disjuntor. Após o isolamento, o procedimento continua para tentar transferir os clientes após o curto para os alimentadores vizinhos ou para o próprio alimentador se o mesmo possuir a possibilidade.
+% Em uma rede de distribuição supervisionada por um SCADA, tal sistema supervisório tem o estado atual de cada equipamento controlado por ele. Quando um equipamento sofre uma alteração de estado, seja dos dados de medição como corrente e voltagem ou mesmo de aberto para fechado, o sistema é atualizado com esse no estado do equipamento.
+
+% Antes de continuar, é necessário considerar alguns itens:
+% \begin{itemize}
+% \item Os equipamentos monitorados pelo SCADA (chaves telecomandadas) possuem um evento que indica que entraram em bloqueio, ou seja, na ocorrência de uma corrente de curto-circuito  as mesmas já executaram todo o ciclo de religamento sem sucesso;
+% \item todos equipamentos telecomandados possuem uma variável que indica se a chave se encontra incluída ou excluída de manobras (por exemplo se existem equipes trabalhando com a rede em funcionamento);
+% \item 
+% % \item Toda comunicação entre o equipamento e o sistema supervisório tem um limite superior não elevado (consideremos 90 segundos o tempo máximo de uma informação trafegar até o SCADA);
+% % \item As informação são tratadas no SCADA na ordem em aconteceram e não na ordem que elas chegam;
+% \end{itemize}
+
+
+Quando acontece algum defeito na rede de distribuição que faça com que algum equipamento telecomandado atue, o
+
+Quando ocorre de um equipamento telecomandado entrar em bloqueio após as tentativas de religamento, o SCADA envia um alerta para a ferramenta computacional indicando esse acontecimento. A primeira ação da metodologia é a atualização da topologia da rede, uma vez que a mesma pode ter sofrido alterações em relação a rede original. Com a topologia atualizada, são determinadas quais chaves podem ser utilizadas para isolar o defeito,  determina quais chaves podem ser utilizadas para manobras de isolamento ou transferência.  e esta por sua vez solicita ao SCADA algumas informações dos equipamentos telecomandados pertencentes ao
+alimentador atingido e seus vizinhos. As principais informações solicitadas são: sinalização da passagem da corrente de curto-circuito, medições de corrente pré-falta, se o equipamento não está excluído de manobras e estado de comunicação dos equipamentos. De acordo com estas informações, o sistema realizará simulações computacionais considerando o estado atual das redes de distribuição. Como solução tem-se a identificação da sequência de manobras a serem executadas (isolar defeito ou transferir cargas), sendo enviada a matrícula dos equipamentos e os respectivos comandos (abrir ou fechar) ao SCADA. A Figura \ref{fig:Fluxograma_decisao} apresenta os procedimentos adotados nessa metodologia.
+
+O procedimento tem um desvio no seu fluxo caso algum equipamento tenha sido atravessado pela corrente de curto circuito mas não tenha atuado (por exemplo um equipamento programado para agir como chave e não como equipamento de proteção). Nesse desvio, é procurada a chave mais próxima ao curto para isolar o curto para isolar o curto do alimentador e assim poder religar o disjuntor. Após o isolamento, o procedimento continua para tentar transferir os clientes após o curto para os alimentadores vizinhos ou para o próprio alimentador se o mesmo possuir a possibilidade.
 
 \begin{figure}
 \begin{centering}
