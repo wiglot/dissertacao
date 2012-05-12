@@ -39,6 +39,8 @@ ReadWrite=true
 [document-settings,item:anexo.tex]
 Bookmarks=
 Encoding=ISO-8859-15
+FoldedColumns=
+FoldedLines=
 Highlighting=LaTeX
 Indentation Mode=
 Mode=LaTeX
@@ -103,8 +105,8 @@ ReadWrite=false
 [document-settings,item:metodologia.tex]
 Bookmarks=
 Encoding=ISO-8859-15
-FoldedColumns=0,0,0,0,0,0,0
-FoldedLines=43,57,69,84,89,104,112
+FoldedColumns=
+FoldedLines=
 Highlighting=LaTeX
 Indentation Mode=
 Mode=LaTeX
@@ -149,6 +151,8 @@ ReadWrite=true
 [document-settings,item:sistemaDesenvolvido.tex]
 Bookmarks=
 Encoding=ISO-8859-15
+FoldedColumns=
+FoldedLines=
 Highlighting=LaTeX
 Indentation Mode=
 Mode=LaTeX
@@ -226,13 +230,13 @@ order=-1
 
 [item:Dissertação.tex]
 archive=true
-column=0
+column=8
 encoding=ISO-8859-15
 highlight=LaTeX
-line=139
+line=178
 mode=LaTeX
-open=false
-order=1
+open=true
+order=4
 
 [item:Sist.Distr.tex]
 archive=true
@@ -241,8 +245,8 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=181
 mode=LaTeX
-open=false
-order=2
+open=true
+order=3
 
 [item:anexo.tex]
 archive=true
@@ -251,8 +255,8 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=15
 mode=LaTeX
-open=false
-order=7
+open=true
+order=1
 
 [item:bibliography.bib]
 archive=true
@@ -506,10 +510,10 @@ order=7
 
 [item:metodologia.tex]
 archive=true
-column=1103
+column=1025
 encoding=ISO-8859-15
 highlight=LaTeX
-line=14
+line=74
 mode=LaTeX
 open=true
 order=0
@@ -561,8 +565,8 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=1
 mode=LaTeX
-open=false
-order=5
+open=true
+order=2
 
 [item:termodeaprovacao.tex]
 archive=true
@@ -575,8 +579,8 @@ open=false
 order=8
 
 [view-settings,view=0,item:Dissertação.tex]
-CursorColumn=0
-CursorLine=139
+CursorColumn=8
+CursorLine=178
 JumpList=
 ViMarks=
 
@@ -589,6 +593,8 @@ ViMarks=
 [view-settings,view=0,item:anexo.tex]
 CursorColumn=0
 CursorLine=15
+JumpList=
+ViMarks=
 
 [view-settings,view=0,item:bibliography.bib]
 CursorColumn=1
@@ -623,8 +629,8 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:metodologia.tex]
-CursorColumn=1103
-CursorLine=14
+CursorColumn=1025
+CursorLine=74
 JumpList=
 ViMarks=
 
@@ -651,6 +657,8 @@ CursorLine=6
 [view-settings,view=0,item:sistemaDesenvolvido.tex]
 CursorColumn=63
 CursorLine=1
+JumpList=
+ViMarks=
 
 [view-settings,view=0,item:termodeaprovacao.tex]
 CursorColumn=0
