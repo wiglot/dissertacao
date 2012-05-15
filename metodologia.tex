@@ -2,13 +2,13 @@
 
 %\textbf{Modelo do sistema, diagrama de comunicação,  fluxogramas de tomada de decisão}
 %%%EXPLICAR MELHOR QUAL O OBJETIVO DO 
-Esse capítulo descreve a metodologia desenvolvida para restabelecimento automático com o uso de chaves telecomandadas. A criação de tal metodologia teve como objetivo a criação de um conjunto de ações universais que possam ser aplicadas, a diferentes topologias de redes de distribuição radial, para restabelecer o máximo de consumidores após um defeito permanente, sem que isso ocasione sobrecarga no sistema de distribuição.
+Esse capítulo descreve a metodologia desenvolvida para restabelecimento automático com o uso de chaves telecomandadas. A criação de tal metodologia teve como objetivo a definição de um conjunto de ações universais que possam ser aplicadas a diferentes topologias de redes de distribuição radial, para restabelecer o máximo de consumidores após um defeito permanente, sem que isso ocasione sobrecarga no sistema de distribuição.
 
 A metodologia aqui apresentada é capaz de:
 \begin{itemize}
 \item Detectar a ocorrência de um defeito permanente (através de um SCADA);
 \item Localizar a área a ser isolada (área defeituosa);
-\item Definir um conjunto de manobras a serem executadas para restabelecer máximo possível de clientes através do isolamento e transferência de carga.
+\item Definir um conjunto de manobras a serem executadas para restabelecer o máximo possível de clientes através do isolamento e transferência de carga.
 \end {itemize}
 
 \section{Caracterização e modelagem do Problema}
@@ -16,7 +16,7 @@ A metodologia aqui apresentada é capaz de:
 \textbf{Descrever/modelar o problema, }
 
 \section{Arquitetura do Sistema}
-Para implementar a metodologia, é necessário o acesso em tempo real a algumas informações como o estado de comunicação das chaves telecomandadas, o qual é obtido através do SCADA, o cadastro da rede (topologia original, cargas, tipos de condutores,...), o estado atual de todas as chaves do alimentador sendo testado, além do acesso ao histórico de carregamento dos alimentadores. Com base nessas necessidades, foi imaginada a arquitetura de sistema apresentada na figura \ref{fig:Arquitetura_sistema}, onde podemos ver 4 fontes de dados (Estado das Chaves, Histórico de carga, SCADA e Cadastro da Rede) e o sistema computacional, o qual implementa a metodologia aqui descrita. O estado das chaves é um banco de dados onde o estado atual de todas as chaves se encontram atualizadas, tal informação é importante uma vez que a rede pode ter sido reconfigurada em relação a topologia inicial descrita no Cadastro da Rede, sendo essa alteração proveniente de um defeito ou mesmo para isolar alguma área para 
+Para implementar a metodologia, é necessário o acesso em tempo real a algumas informações como o estado de comunicação das chaves telecomandadas, o qual é obtido através do SCADA, o cadastro da rede (topologia original, cargas, tipos de condutores,...), o estado atual de todas as chaves do alimentador sendo testado, além do acesso ao histórico de carregamento dos alimentadores. Com base nessas necessidades, foi imaginada a arquitetura de sistema apresentada na figura \ref{fig:Arquitetura_sistema}, onde podemos ver 4 fontes de dados (Estado das Chaves, Histórico de carga, SCADA e Cadastro da Rede) e o sistema computacional, o qual implementa a metodologia aqui descrita. O sistema Estado das Chaves mantém um banco de dados onde se encontra o estado atualizado de todas as chaves, tal informação é importante uma vez que a rede pode ter sido reconfigurada em relação a topologia inicial descrita no Cadastro da Rede, sendo essa alteração proveniente de um defeito ou mesmo para isolar alguma área para 
 manutenção preventiva. O Histórico de carga armazena as leituras de corrente dos alimentadores, sendo então possível estimar o comportamento da carga nas próximas horas com base no comportamento passado, como será melhor detalhado mais a frente nesse capítulo.
 
 \begin{figure}[h]
@@ -28,18 +28,18 @@ manutenção preventiva. O Histórico de carga armazena as leituras de corrente dos
 \end{figure}
 
 
-Quando um defeito na rede de distribuição faz com que algum equipamento telecomandado entre em bloqueio, o SCADA comunica esse fato através de um evento que nada mais é do que um sinal computacional que pode ser capturado e tratado por outros sistemas, contanto que estejam registrados no servidor do sistema supervisório. Tal  evento é uma indicação do que aconteceu, por exemplo a mudança de estado de aberto para fechado, e com qual equipamento isso aconteceu, normalmente indicado pela matrícula do equipamento. A ocorrência do bloqueio de algum equipamento telecomandado, é o gatilho que dá inicio aos procedimentos de restabelecimento desta metodologia. Tais procedimentos tem início com a atualização da topologia da rede, usando o cadastro do Estado das chaves, seguido do ajuste da carga, o qual usa uma previsão para as próximas horas da corrente máxima de carga para  ajustar a demanda dos consumidores. Antes de continuar com o procedimento de seleção das manobras, é verificado no sistema SCADA o estado de 
+Quando um defeito na rede de distribuição faz com que algum equipamento telecomandado entre em bloqueio, o SCADA comunica esse fato através de um evento, que nada mais é do que um sinal computacional que pode ser capturado e tratado por outros sistemas, contanto que estejam registrados no servidor do sistema supervisório. Tal  evento é uma indicação de que aconteceu, por exemplo, a mudança de estado de aberto para fechado, e com qual equipamento isso aconteceu, normalmente indicado pela sua matrícula. A ocorrência do bloqueio de algum equipamento telecomandado, é o gatilho que dá inicio aos procedimentos de restabelecimento desta metodologia. Tais procedimentos tem início com a atualização da topologia da rede, usando o cadastro do Estado das chaves, seguido do ajuste da carga, o qual usa uma previsão para as próximas horas da corrente máxima de carga para  ajustar a demanda dos consumidores. Antes de continuar com o procedimento de seleção das manobras, é verificado no sistema SCADA o estado de 
 comunicação das chaves que podem ser utilizadas para executar o restabelecimento, bem como outras informações que serão melhor detalhadas a seguir. Essas chaves que podem ser utilizadas é o conjunto de todas as chaves telecomandadas do alimentador que o equipamento que entrou em bloqueio faz parte, as chaves de fronteira desse alimentador com os alimentadores vizinhos e os disjuntores desses alimentadores.
 
 Com o conjunto de chaves que podem ser usadas nas manobras, o sistema computacional solicita as seguintes informações ao SCADA:
 \begin{itemize}
- \item Estado do equipamento (aberto/fechado) - esse valor sobrepõe o valor do banco de estado das chaves por ser mais atual (tempo real)
+ \item Estado do equipamento (aberto/fechado): esse valor sobrepõe o valor do banco de estado das chaves por ser mais atual (tempo real);
  \item Estado de comunicação: Chaves com estado ruim de comunicação são excluídas do restante do processo de definição das manobras;
- \item Inclusão/exclusão: Se uma chave está excluída significa que ela não pode ser religada nem manobrada.
+ \item Inclusão/exclusão: Se uma chave está excluída significa que ela não pode ser religada nem manobrada;
  \item Sinalizações das fases: Os equipamentos quando configurados como chaves sobcarga não desarmam quando atravessados pela corrente de curto circuito, mas guardam quais fases foram afetadas por tal corrente.
 \end{itemize}
 
-Normalmente chaves são excluídas quando existem equipes trabalhando com rede viva (energizada) ou por qualquer outra razão a chave não deve ser operada, assim, se qualquer equipamento pertencente ao conjunto de chaves estiver excluído, todo processo de restabelecimento é cancelado, uma vez que isso envolve questões de segurança dos operários.
+Normalmente as chaves são excluídas quando existem equipes trabalhando com rede viva (energizada) ou por qualquer outra razão a chave não deve ser operada, assim, se qualquer equipamento pertencente ao conjunto de chaves estiver excluído, todo processo de restabelecimento é cancelado, uma vez que isso envolve questões de segurança dos operários.
 
 Após essas atualizações, é aplicado o procedimento de seleção das chaves que devem ser manobradas e, por fim, são enviados ao SCADA os comandos das chaves (Abrir ou Fechar) que devem ser executados a fim de restabelecer o máximo de consumidores. A Figura \ref{fig:ComunicacoesSistemas} apresenta o diagrama de sequência em que essas trocas de informações acontecem.
 
@@ -55,9 +55,9 @@ Após essas atualizações, é aplicado o procedimento de seleção das chaves que dev
 
 %% Remover essa seção
 %\section{Atualização de carga}
-A necessidade de ajustar as demandas dos consumidores pertencentes ao alimentador afetado pelo defeito e seus vizinhos, reside no fato que se houver alguma simulação de manobra de transferência de carga do primeiro para um de seus vizinhos, a mesma deve ser feita com uma carga muito próxima do estado do real dos alimentadores, evitando assim que alguma manobra sugerida provoque algum problema de sobrecarga, tanto de equipamentos de proteção, que poderiam vir a atuar, quanto de condutores que poderiam romper-se. Como o estado de contingência pode durar algumas horas, até que o defeito seja resolvido e, consequentemente, a rede ter que ficar no estado manobrado durante esse período, o ajuste é executado com a carga máxima nas próximas horas evitando que, se a demanda crescer durante o período de contingência, não existam problemas de sobrecarga.
+A necessidade de ajustar as demandas dos consumidores pertencentes ao alimentador afetado pelo defeito e seus vizinhos, reside no fato que se houver alguma simulação de manobra de transferência de carga do primeiro para um de seus vizinhos, a mesma deve ser feita com uma carga muito próxima do estado real dos alimentadores, evitando assim que alguma manobra sugerida provoque algum problema de sobrecarga, tanto de equipamentos de proteção, que poderiam vir a atuar, quanto de condutores que poderiam romper-se. Como o estado de contingência pode durar algumas horas, até que o defeito seja resolvido e, consequentemente, a rede ter que ficar no estado manobrado durante esse período, o ajuste é executado com a carga máxima nas próximas horas evitando que, se a demanda crescer durante o período de contingência, não existam problemas de sobrecarga.
 
-Para calcular essa carga máxima, para cada alimentador é feita uma estimativa com base no histórico de carga da semana anterior, onde é analisada a tendência da carga nas próximas horas, e depois a carga atual é ajustada segundo esse valor. A tendência de crescimento é sempre do pior cenário do histórico, assim ou a corrente de carga aumenta ou se mantém estável, sendo esse último caso quando a carga está diminuindo e a maior carga do sistema é a atual. A seguir são apresentas as equações para determinação da tendência da carga, que é o ajuste que deve ser aplicada a carga pré-defeito, e também a equação de ajuste da carga pré-defeito para o pior patamar.   A Equação \ref{eq:Historico_carga}  mostra o cálculo do ajuste da carga com base no histórico da semana anterior considerando $n$ horas a frente e a Equação \ref{eq:Ajuste_carga} o ajuste da carga pré-defeito de um alimentador.
+Para calcular essa carga máxima, para cada alimentador é feita uma estimativa com base no histórico de carga da semana anterior, onde é analisada a tendência da carga nas próximas horas, e depois a carga atual é ajustada segundo esse valor. A tendência de crescimento é sempre do pior cenário do histórico, assim, ou a corrente de carga aumenta, ou se mantém estável, sendo esse último caso quando a carga está diminuindo e a maior carga do sistema é a atual. A seguir são apresentas as equações para determinação da tendência da carga, que é o ajuste que deve ser aplicada a carga pré-defeito, e também a equação de ajuste da carga pré-defeito para o pior patamar.   A Equação \ref{eq:Historico_carga}  mostra o cálculo do ajuste da carga com base no histórico da semana anterior considerando $n$ horas a frente e a Equação \ref{eq:Ajuste_carga} o ajuste da carga pré-defeito de um alimentador.
 
 \begin{eqnarray}
  A_{carga} &=& \frac{Max(H_{h}, H_{h+1}, \cdots , H_{h+n})}{H_{h}} \label{eq:Historico_carga}\\
@@ -72,7 +72,7 @@ Onde:
   \item $A_{carga}$: Ajuste a ser aplicado na carga. Esse valor é sempre maior ou igual a 1.
 \end{itemize}
 
-O ajuste das demandas dos consumidores é relativo a carga prevista e a carga simulada através de um algoritmo de fluxo de potência. É necessário executar os ajustes das potências ativa e capacitiva demandada pelos consumidores no mesma proporção da carga prevista pela simulada. Assim se a carga prevista for o dobro da carga simulada, a potencia ativa e capacitiva de cada consumidor é duplicada também.
+O ajuste das demandas dos consumidores é relativo à carga prevista e à carga simulada através de um algoritmo de fluxo de potência. É necessário executar os ajustes das potências ativa e capacitiva demandada pelos consumidores na mesma proporção da carga prevista pela simulada. Assim se a carga prevista for o dobro da carga simulada, a potência ativa e capacitiva de cada consumidor é duplicada também.
 
 Após a atualização da topologia da rede, via SCADA ou banco de estados, e de suas cargas, o sistema computacional está pronto para computar as manobras que devem ser realizadas para isolar o defeito e restabelecer os demais consumidores. Na próxima seção é apresentada a metodologia de seleção das manobras a serem executadas.
 
