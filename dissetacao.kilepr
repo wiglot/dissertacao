@@ -230,13 +230,13 @@ order=-1
 
 [item:Dissertação.tex]
 archive=true
-column=8
+column=30
 encoding=ISO-8859-15
 highlight=LaTeX
-line=178
+line=175
 mode=LaTeX
 open=true
-order=4
+order=1
 
 [item:Sist.Distr.tex]
 archive=true
@@ -245,7 +245,7 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=181
 mode=LaTeX
-open=true
+open=false
 order=3
 
 [item:anexo.tex]
@@ -255,7 +255,7 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=15
 mode=LaTeX
-open=true
+open=false
 order=1
 
 [item:bibliography.bib]
@@ -510,10 +510,10 @@ order=7
 
 [item:metodologia.tex]
 archive=true
-column=1025
+column=17
 encoding=ISO-8859-15
 highlight=LaTeX
-line=74
+line=85
 mode=LaTeX
 open=true
 order=0
@@ -565,7 +565,7 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=1
 mode=LaTeX
-open=true
+open=false
 order=2
 
 [item:termodeaprovacao.tex]
@@ -579,8 +579,8 @@ open=false
 order=8
 
 [view-settings,view=0,item:Dissertação.tex]
-CursorColumn=8
-CursorLine=178
+CursorColumn=30
+CursorLine=175
 JumpList=
 ViMarks=
 
@@ -629,8 +629,8 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:metodologia.tex]
-CursorColumn=1025
-CursorLine=74
+CursorColumn=17
+CursorLine=85
 JumpList=
 ViMarks=
 
