@@ -3,6 +3,7 @@
 % 3.1 - Introdução à Sistemas de Distribuição
 % 3.2 - Automação de Sistemas de Distribuição
 % 3.3 - Procedimento Convencional para Restabelecimento de Energia Elétrica
+Livro: O menino do  Vale
 
 Nesse capítulo serão descritos os sistemas de distribuição de energia elétrica em média tensão, abordando conceitos básicos sobre distribuição que servirão de base para a apresentação da metodologia no decorrer deste trabalho. Além dos conceitos sobre o funcionamento de tais sistemas, também será abordado a ocorrência e solução de defeitos (situações de contingência) bem como a automação dos sistemas de distribuição.
 
@@ -46,16 +47,17 @@ Os pontos de carga são ou clientes de maior porte, como industrias e grandes cen
 A rede apresentada (Fig.\ref{fig:redeDistribuição}) é um modelo de rede de distribuição radial (que não apresenta ciclos) sendo esse modelo muito utilizado nas redes aéreas onde existem postes (de concreto ou madeira) que sustentam os condutores. Esse é um dos diversos modelos possíveis, sendo outros exemplos as redes subterrâneas do tipo \textit{spot} ou aéreas com primário seletivo \cite{Nelson_Kagan_Introd}, mas que não serão tratadas desse trabalho. Quando tratamos de redes de distribuição do tipo radial, alguns termos são utilizados para descrever o sentido que a rede está sendo percorrida: partindo do início do alimentador e percorrendo a rede até algum ponto de carga, é dito que a rede está sendo percorrida à jusante; quando a rede é percorrida no sentido de um ponto de carga para o início do alimentador, é dito que se está percorrendo a rede à montante.
 
 
-As redes de distribuição contam com diversos tipos de equipamentos seccionadores, chamados de chaves, sendo alguns deles do tipo de proteção contra correntes elevadas, originárias de defeitos ou sobrecargas, e outros de manobras. Tais equipamentos possuem 2 estados: Aberto quando o fluxo de corrente é interrompida e Fechado caso contrário. Tais estados são referenciados como NA(normalmente aberto) e NF(normalmente fechado) quando é referenciada o seu estado na topologia original da rede. As chaves permitem que a topologia da rede possa ser seccionada, seja para isolar defeitos ou regiões para manutenção, como a troca de condutores ou postes, e também podem ser utilizados para executar transferências de parte da carga de um alimentador para outro alimentador, sendo possível diminuir a carga de um alimentador, ou em caso de defeito, restabelecer o fornecimento para parte dos consumidores que se encontram a jusante da área afetada. Isto é obtido através do seccionamento da rede após o defeito e o 
+As redes de distribuição contam com diversos tipos de equipamentos seccionadores, chamados de chaves, sendo alguns deles do tipo de proteção contra correntes elevadas, originárias de defeitos ou sobrecargas, e outros de manobras. Uma descrição mais detalhada sobre tais equipamentos pode ser encontrada em \cite{FAULKENBERRY1996}. Tais equipamentos possuem 2 estados: Aberto quando o fluxo de corrente é interrompida e Fechado caso contrário. Tais estados são referenciados como NA(normalmente aberto) e NF(normalmente fechado) quando é referenciada o seu estado na topologia original da rede. As chaves permitem que a topologia da rede possa ser seccionada, seja para isolar defeitos ou regiões para manutenção, como a troca de condutores ou postes, e também podem ser utilizados para executar transferências de parte da carga de um alimentador para outro alimentador, sendo possível diminuir a carga de um alimentador, ou em caso de defeito, restabelecer o fornecimento para parte dos consumidores que se encontram a 
+jusante da área afetada. Isto é obtido através do seccionamento da rede após o defeito e o 
 fechamento de alguma chave de fronteira, sendo necessário executar simulações, que serão descritas no capítulo 4, para verificar se nenhuma parte dos alimentadores ficará sobrecarregada com a nova topologia da rede.
 
 Normalmente a operação de tais chaves de manobra é executada por equipes que devem se deslocar até a chave para executar a manobra de abertura, quando é desejado que a energia seja interrompida naquele ponto ou de fechamento quando é desejado restabelecer o fluxo a partir daquele ponto. Uma solução para evitar esse deslocamento, que pode ser problemático em uma cidade grande devido a problemas do trânsito, é a automação da operação de tais equipamentos de manobra.
 
-\section{Automação de Sistemas de Distribuição}
-%#Pegar algum livro sobre isso.
-Smart Grids
-O que é um sistema SCADA
-O que é a automação de redes? como isso pode ajudar no trabalho (leitura em tempo real dos dados de operação e comando remoto das chaves)
+% \section{Automação de Sistemas de Distribuição}
+% %#Pegar algum livro sobre isso.
+% Smart Grids
+% O que é um sistema SCADA
+% O que é a automação de redes? como isso pode ajudar no trabalho (leitura em tempo real dos dados de operação e comando remoto das chaves)
 
 \section{Procedimento Convencional para Restabelecimento de Energia Elétrica}
 Os sistemas de distribuição estão sujeitos a condições anormais de operação, como falha em equipamentos isoladores, descargas elétricas, contato entre condutores, ou mesmo interferência no sistema por algum fator externo. Essas condições anormais fazem com que os equipamentos de proteção, atuem para evitar a propagação do defeito, tendo como consequência a interrupção do fornecimento de energia elétrica para um conjunto de consumidores de um alimentador. 
@@ -173,7 +175,8 @@ DEC_{Alimentador1}&=&\frac{(10 \cdot 1000) + (40 \cdot 2000) + (20 \cdot 500)}{3
 
 Ou seja, cada consumidor ficou cerca de 28,57 minutos sem fornecimento de energia elétrica durante este defeito, que teve duração total de 40 minutos. 
 
-Considerando um outro cenário, onde o alimentador possui automação a nível de operação das chaves apresentadas, ou seja, um operador pode operá-las via telecomando, obtém-se a diminuição do tempo de operação das chaves, uma vez que não existirá a necessidade de deslocar equipes entre as chaves, e o conserto pode ser inciado antes.  Para esse cenário, se a equipe levar 5 minutos para detectar o defeito, o operador pode executar as manobras de isolamento em tempo real e a de transferência após alguns poucos minutos, uma vez que isso depende de simulações para garantir que nenhum tipo de equipamento ficará sobrecarregado (considerar que na média essas simulações são executadas em 3 minutos), e a equipe já pode iniciar os trabalhos de reparo da rede. Como pode ser notado, o conserto da rede tem um início mais rápido, uma vez que a área afetado foi isolada em cerca de 8 minutos (5 minutos para detectar mais os 3 minutos de transferir os clientes a jusante do defeito), e também que tanto os consumidores antes quanto os após o defeito ficaram bem menos tempo sem fornecimento (5 minutos contra os 10 
+Considerando um outro cenário, onde o alimentador possui automação a nível de operação das chaves apresentadas, ou seja, um operador pode operá-las via telecomando, obtém-se a diminuição do tempo de operação das chaves, uma vez que não existirá a necessidade de deslocar equipes entre as chaves, e o conserto pode ser inciado antes.  Para esse cenário, se a equipe levar 5 minutos para detectar o defeito, o operador pode executar as manobras de isolamento em tempo real e a de transferência após alguns poucos minutos, uma vez que isso depende de simulações para garantir que nenhum tipo de equipamento ficará sobrecarregado (considerar que na média essas simulações são executadas em 3 minutos), e a equipe já pode iniciar os trabalhos de reparo da rede. Como pode ser notado, o conserto da rede tem um início mais rápido, uma vez que a área afetado foi isolada em cerca de 8 minutos (5 minutos para detectar mais os 3 minutos de transferir os clientes a jusante do defeito), e também que tanto os consumidores antes 
+quanto os após o defeito ficaram bem menos tempo sem fornecimento (5 minutos contra os 10 
 anteriores para os consumidores à montante do defeito e de 20 para 8 minutos para os à jusante do defeito). Os consumidores da área afetada ficaram  no total 28 minutos (8 minutos, do tempo de isolamento total após transferência dos consumidores a jusante, mais 20 minutos do tempo de reparo do defeito). Com esses novos tempos temos o seguinte cálculo do DEC desse alimentador:
 
 \begin{eqnarray}\label{eq:DECautomatizado}
@@ -183,6 +186,12 @@ DEC_{Alimentador1}&=&\frac{(5 \cdot 1000) + (28 \cdot 2000) + (8 \cdot 500)}{350
 \end{eqnarray}
 
 Apenas com a automação da abertura e fechamento das chaves foi possível reduzir o DEC em quase 11 minutos (cerca de 38\% do tempo anterior). Se considerar o uso de um sistema computacional inteligente que detecte a localização do defeito e defina as chaves a serem manobradas, o tempo pode ser ainda menor, uma vez que a equipe de manutenção poderá se deslocar para para a área defeituosa enquanto o sistema isola a mesma e restabelece o fornecimento em tempo menor ainda.
+
+Em um sistema real existem muito mais possibilidades de chaves a serem manobradas do que foi mostrado aqui, tornando difícil definir as possíveis manobras e dessas quais são as que trazem melhor beneficio para a continuidade da rede.
+
+Existe uma tendência de automação dos equipamentos de manobras das redes de distribuição sendo necessário o desenvolvimento de sistemas computacionais inteligentes que possam tirar o melhor proveito de tais equipamentos para melhorar a continuidade de fornecimento. 
+
+O método apresentado no Capítulo \ref{cap:metodologia} é apresentada a proposta de uma metodologia que faz uso da automação da rede de distribuição para obter informações em tempo real e assim oferecer soluções para restabelecimento do maior número possível de consumidores de modo automático e inteligente.
 
 
 %\huge{Ver desenho, ver exemplos de manobras, falar sobre os tempos, ETC? }

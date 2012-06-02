@@ -1,25 +1,104 @@
-\chapter{Metodologia Proposta para Restabelecimento Automático de Energia Elétrica}
+\chapter{Metodologia Proposta para Restabelecimento Automático de Energia Elétrica\label{cap:metodologia}}
 
 %\textbf{Modelo do sistema, diagrama de comunicação,  fluxogramas de tomada de decisão}
 %%%EXPLICAR MELHOR QUAL O OBJETIVO DO 
-Esse capítulo descreve a metodologia desenvolvida para restabelecimento automático com o uso de chaves telecomandadas. A criação de tal metodologia teve como objetivo a definição de um conjunto de ações universais que possam ser aplicadas a diferentes topologias de redes de distribuição radial, para restabelecer o máximo de consumidores após um defeito permanente, sem que isso ocasione sobrecarga no sistema de distribuição.
+Esse capítulo descreve a metodologia desenvolvida para restabelecimento automático com o uso de chaves telecomandadas. A criação de tal metodologia teve como objetivo a definição de um conjunto de ações universais que possam ser aplicadas a diferentes topologias de redes de distribuição radial, para restabelecer o máximo de consumidores após um defeito permanente, sem que isso ocasione sobrecargas no sistema de distribuição.
 
-A metodologia aqui apresentada é capaz de:
+
+
+\section{Caracterização e modelagem do Problema \label{sec:modelagem_problema}}
+
+%\textbf{Descrever/modelar o problema, Aqui entram as restrições/objetivo????}
+
+% \textbf{Qual é o problema?}
+Como foi apresentado no capítulo 3, a automação da rede de distribuição pode reduzir o tempo de interrupção de energia elétrica para os consumidores. O uso de um sistema computacional pode melhorar ainda mais esse tempo, uma vez que ele pode analisar todas as possibilidades e executar as simulações necessárias para cada uma das possibilidade enumeradas de forma automática, tudo isso em questão de poucos instantes. Para isso é necessário definir qual o objetivo que o sistema computacional irá buscar, ou seja, qual é a melhor manobra dentre um conjunto de opções, e quais são suas restrições, de modo que ele possa calcular uma resposta factível, ou seja, a resposta que possa ser aplicada a realidade da rede de distribuição.
+
+%Descrever a modelagem da rede de distribuição com um grafo e definir a representação do estado das chaves como sendo binárias. Depois modelar o sistema função objetivo e restrições.
+
+% \textbf{Que restrições consideramos?}
+Não é desejado que nenhuma resposta dessa metodologia provoque danos ao invés de soluções, por exemplo, uma manobra que sobrecarregue um condutor a ponto de rompê-lo. Para isso, a metodologia utilizará as seguintes restrições para evitar esses casos:
+\begin{enumerate}
+\item manter a radialidade dos sistemas;
+\item não permitir sobrecarga nos elementos pertencentes às redes elétricas (trechos de rede, chaves, reguladores de tensão, entre outros) superior ao percentual permitido:
+\begin{equation}
+ I_{i} \leq I_{i max} \cdot F_{sobrecarga}
+\end{equation}
+
+\item não permitir violação dos ajustes de proteção:
+\begin{equation}
+I_{i} \leq I_{Prot i} \cdot F_{p}
+\end{equation}
+
+\item não permitir violação da faixa de tensão admissível nas redes primárias:
+\begin{equation}
+V_{min} \leq V_{j} \leq V_{max}
+\end{equation}
+\end{enumerate}
+
+Onde:
+\begin{description}
+    \item[$I_{i}$] - corrente no ramo i;
+    \item[$F_{sobrecarga}$] - Fator de sobrecarga aceitável para os condutores.
+    \item[$I_{Prot i}$] - corrente de atuação do dispositivo de proteção i;
+    \item[$F_{p}$] - Fator máximo de uso dos equipamentos de proteção.
+    \item [$I_{i max}$] - corrente máxima admissível no ramo i;
+    \item [$V_{j}$] - módulo da tensão no nó j;
+    \item [$V_{min}$] - módulo da tensão mínima aceitável na rede;
+    \item [$V_{max}$] - módulo da tensão máxima aceitável na rede.
+\end{description}
+
+A primeira restrição é que as manobras de restabelecimento não podem inserir ciclos na rede de distribuição. A forma como foi concebido o método de enumeração das manobras de transferência já cuida dessa restrição e o isolamento usando as chaves a montante do defeito não deve gerar nenhum ciclo também.
+
+A restrição de carregamento dos condutores, segunda restrição, garante que não haverá sobrecarga além do permitido nos mesmos. Como o tempo em que a rede irá permanecer no estado de contingência é de poucas horas, é permitido uma pequena carga acima do limite de operação dos condutores. Esse limite é dado por $F_{sobrecarga}$ e indica o quanto de sobrecarga será aceito.
+
+Os equipamentos de proteção da rede possuem uma corrente máxima de operação, sendo que se esse limite for ultrapassado ele virá a atuar, gerando um novo desligamento. Se isso acontecer, ainda mais consumidores podem ficar sem fornecimento de energia elétrica, por exemplo se tal equipamento for de um alimentador vizinho que recebeu mais carga que suportaria. Para isso a terceira restrição indica que apenas um certo percentual ($F_{p}$) da corrente de atuação do equipamento de proteção deva ser utilizado. Essa restrição é importante pois evita que os alimentadores fiquem com os equipamentos de proteção com correntes de operação muito próximas da corrente de atuação, deixando uma margem para picos de carga não previstos. 
+
+Mesmo no estado de contingência é necessário manter a qualidade de energia disponibilizadas para os consumidores, assim a quarta restrição impõem os limites de tensão. Essa restrição tem como principal objetivo evitar que manobras de transferência deixe os consumidores com uma tensão muito abaixo ou acima dos padrões. 
+
+A verificação do atendimento das restrições é executada para cada manobra indicada pela metodologia de restabelecimento. Para isso é necessário que sejam executadas as simulações de fluxo de potência nos alimentadores afetados pela manobra após a aplicação da mesma. Se alguma das restrições for violada, essa manobra é marcada como inválida e que não pode deve executada diretamente.
+
+%\textbf{Qual é a solução que propomos? Qual é a nossa melhor solução? (func. Objetivo)}
+A solução que apresentamos aqui para esse problema de automatização do restabelecimento, é capaz de:
 \begin{itemize}
 \item Detectar a ocorrência de um defeito permanente (através de um SCADA);
 \item Localizar a área a ser isolada (área defeituosa);
-\item Definir um conjunto de manobras a serem executadas para restabelecer o máximo possível de clientes através do isolamento e transferência de carga.
+\item Definir um conjunto de manobras a serem executadas para restabelecer o máximo possível de consumidores através do isolamento e transferência de carga.
 \end {itemize}
 
-\section{Caracterização e modelagem do Problema}
+Para isso, essa metodologia faz uso de informações em tempo real obtidas de diferentes fontes para realizar simulações muito próximas da rede atual, e assim definir o conjunto de manobras a serem avaliadas.
 
-\textbf{Descrever/modelar o problema, }
+A escolha dentre essas manobras é dada pela função objetivo, que prioriza as manobras que restabeleçam mais consumidores (usando o carregamento como desempate) e que tenham violando nenhuma das restrições. 
+
+%\textbf{Exemplo de uma escolha entre manobras}
+Para exemplificar a escolha da melhor manobra, considere as manobras de transferência fictícias apresentadas na Tabela \ref{tab:listaManobras}. Os percentuais apresentados nos condutores, proteção e queda de tensão, são os carregamentos máximos e a maior queda de tensão apresentados durante as simulações, considerando os limites da rede. Como restrições, foram definidos os valores de sobrecarga dos condutores de 120\% ($F_{sobrecarga}=1.2$), carregamento de equipamentos de proteção 80 \% ($F_{p}=0.8$) e queda máxima de tensão de 7\% (em relação a tensão nominal, sendo nesse caso $V_{min} = V \cdot 0.93$, onde $V$ é a tensão nominal da rede). 
+
+\begin{table}[htbp]
+\caption{Exemplos de Manobras }
+\begin{tabular}{|c|c|c|r|r|r|r|}
+\hline
+\multicolumn{1}{|l|}{Manobra} & \multicolumn{1}{l|}{Abrir} & \multicolumn{1}{l|}{Fechar} & \multicolumn{1}{l|}{Clientes} & \multicolumn{1}{l|}{Condutores (\%)} & \multicolumn{1}{l|}{Proteção (\%)} & \multicolumn{1}{l|}{Queda Tensão (\%)} \\ \hline
+1 & CH-1 & NA-1 & 1400 & 90 & 30 & 3 \\ \hline
+2 & CH-2 & NA-2 & 2000 & 95 & 50 & 8 \\ \hline
+3 & CH-3 & NA-1 & 1300 & 80 & 70 & 4 \\ \hline
+4 & CH-4 & NA-1 & 2500 & 105 & 83 & 9 \\ \hline
+5 & CH-1 & NA-2 & 1400 & 88 & 35 & 3 \\ \hline
+\end{tabular}
+\label{tab:listaManobras}
+\end{table}
+
+Se apenas for analisado o número de consumidores restabelecidos, a manobra número 4 seria a melhor a ser aplicada. Agora se forem também consideradas as restrições definidas anteriormete, a manobra 4 não poderia ser executada, pois viola as restrições de carregamento dos equipamentos de proteção (limite é 80\%) e de queda de tensão máxima (limite é 7\%). Outra manobra que viola ao menos uma das restrições é a manobra 2, que tem uma queda de tensão de 8\%.
+
+As manobras restantes (1, 3 e 5) são válidas por não violarem nenhuma das restrições. Dentre elas é escolhida a melhor manobra que deverá ser aplicada. A melhor manobra é aquela que restabelece o maior número de consumidores. Existe um empate nesse quesito entre as manobras 1 e 5, ambas restabelecendo 1400 consumidores. Como somente uma deve ser aplica, é escolhida a manobra que gera a menor carregamento da rede, nesse caso é escolhida a manobra 5 que possui um carregamento um pouco menor dos condutores.
+
+Referente as manobras de isolamento (abertura da chave a montante do defeito e religamento do equipamento atuado), elas não devem violar nenhuma restrição uma vez que a rede volta a ter sua topologia anterior com uma redução da carga após a chave a montante, ou seja, a carga total do alimentador diminuirá reduzindo também o carregamento dos condutores e equipamentos de proteção. Para essas manobras, também se aplica a escolha por manobras que restabeleçam o máximo de consumidores, sendo que isso é garantido pela escolha do equipamento mais próximo ao defeito como equipamento a ser manobrado. Na seção \ref{sec:metodo_proposto} é explicado como a metodologia consegue fazer essa escolha de manobra.
+
+A seguir é detalhada a arquitetura imaginada para implementação dessa metodologia, ou seja, quais são os sistemas necessários para adquirir informações em tempo real sobre o sistema de distribuição e como a metodologia aqui proposta se comunica com eles.
 
 \section{Arquitetura do Sistema}
 Para implementar a metodologia, é necessário o acesso em tempo real a algumas informações como o estado de comunicação das chaves telecomandadas, o qual é obtido através do SCADA, o cadastro da rede (topologia original, cargas, tipos de condutores,...), o estado atual de todas as chaves do alimentador sendo testado, além do acesso ao histórico de carregamento dos alimentadores. Com base nessas necessidades, foi imaginada a arquitetura de sistema apresentada na figura \ref{fig:Arquitetura_sistema}, onde podemos ver 4 fontes de dados (Estado das Chaves, Histórico de carga, SCADA e Cadastro da Rede) e o sistema computacional, o qual implementa a metodologia aqui descrita. O sistema Estado das Chaves mantém um banco de dados onde se encontra o estado atualizado de todas as chaves, tal informação é importante uma vez que a rede pode ter sido reconfigurada em relação a topologia inicial descrita no Cadastro da Rede, sendo essa alteração proveniente de um defeito ou mesmo para isolar alguma área para 
 manutenção preventiva. O Histórico de carga armazena as leituras de corrente dos alimentadores, sendo então possível estimar o comportamento da carga nas próximas horas com base no comportamento passado, como será melhor detalhado mais a frente nesse capítulo.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 % \includegraphics[width=0.7\columnwidth]{img/ArquiteturaSistema}
 
@@ -43,7 +122,7 @@ Normalmente as chaves são excluídas quando existem equipes trabalhando com rede 
 
 Após essas atualizações, é aplicado o procedimento de seleção das chaves que devem ser manobradas e, por fim, são enviados ao SCADA os comandos das chaves (Abrir ou Fechar) que devem ser executados a fim de restabelecer o máximo de consumidores. A Figura \ref{fig:ComunicacoesSistemas} apresenta o diagrama de sequência em que essas trocas de informações acontecem.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.7\columnwidth]{img/SystemsComm}
 
@@ -57,17 +136,17 @@ Após essas atualizações, é aplicado o procedimento de seleção das chaves que dev
 %\section{Atualização de carga}
 A necessidade de ajustar as demandas dos consumidores pertencentes ao alimentador afetado pelo defeito e seus vizinhos, reside no fato que se houver alguma simulação de manobra de transferência de carga do primeiro para um de seus vizinhos, a mesma deve ser feita com uma carga muito próxima do estado real dos alimentadores, evitando assim que alguma manobra sugerida provoque algum problema de sobrecarga, tanto de equipamentos de proteção, que poderiam vir a atuar, quanto de condutores que poderiam romper-se. Como o estado de contingência pode durar algumas horas, até que o defeito seja resolvido e, consequentemente, a rede ter que ficar no estado manobrado durante esse período, o ajuste é executado com a carga máxima nas próximas horas evitando que, se a demanda crescer durante o período de contingência, não existam problemas de sobrecarga.
 
-Para calcular essa carga máxima, para cada alimentador é feita uma estimativa com base no histórico de carga da semana anterior, onde é analisada a tendência da carga nas próximas horas, e depois a carga atual é ajustada segundo esse valor. A tendência de crescimento é sempre do pior cenário do histórico, assim, ou a corrente de carga aumenta, ou se mantém estável, sendo esse último caso quando a carga está diminuindo e a maior carga do sistema é a atual. A seguir são apresentas as equações para determinação da tendência da carga, que é o ajuste que deve ser aplicada a carga pré-defeito, e também a equação de ajuste da carga pré-defeito para o pior patamar.   A Equação \ref{eq:Historico_carga}  mostra o cálculo do ajuste da carga com base no histórico da semana anterior considerando $n$ horas a frente e a Equação \ref{eq:Ajuste_carga} o ajuste da carga pré-defeito de um alimentador.
+Para calcular essa carga máxima, para cada alimentador é feita uma estimativa com base no histórico de carga da semana anterior, onde é analisada a tendência da carga nas próximas horas, e depois a carga atual é ajustada segundo esse valor. A tendência de crescimento é sempre do pior cenário do histórico, assim, ou a corrente de carga aumenta, ou se mantém estável, sendo esse último caso quando a carga está diminuindo e a maior carga do sistema é a atual. A seguir são apresentas as equações para determinação da tendência da carga, que é o ajuste que deve ser aplicada a carga pré-defeito, e também a equação de ajuste da carga pré-defeito para o pior patamar. A Equação \ref{eq:Historico_carga}  mostra o cálculo do ajuste da carga com base no histórico da semana anterior considerando $n$ horas a frente e a Equação \ref{eq:Ajuste_carga} o ajuste da carga pré-defeito de um alimentador.
 
 \begin{eqnarray}
  A_{carga} &=& \frac{Max(H_{h}, H_{h+1}, \cdots , H_{h+n})}{H_{h}} \label{eq:Historico_carga}\\
- C_{prev} &=& C_{pré} \cdot A_{carga} \label{eq:Ajuste_carga}
+ C_{prev} &=& C_{p} \cdot A_{carga} \label{eq:Ajuste_carga}
 \end{eqnarray}
 Onde:
 \begin{itemize}
   \item $H_{h}$: Valor de carga de um dado alimentador a uma semana atrás na hora h
   \item $h$: Hora da ocorrência do defeito (atual)
-  \item $C_{pré}$: Carga pré-defeito do alimentador em questão
+  \item $C_{p}$: Carga pré-defeito do alimentador em questão
   \item $C_{prev}$: Carga máxima prevista para o alimentador no horizonte de n horas a frente.
   \item $A_{carga}$: Ajuste a ser aplicado na carga. Esse valor é sempre maior ou igual a 1.
 \end{itemize}
@@ -76,14 +155,20 @@ O ajuste das demandas dos consumidores é relativo à carga prevista e à carga sim
 
 Após a atualização da topologia da rede, via SCADA ou banco de estados, e de suas cargas, o sistema computacional está pronto para computar as manobras que devem ser realizadas para isolar o defeito e restabelecer os demais consumidores. Na próxima seção é apresentada a metodologia de seleção das manobras a serem executadas.
 
-\section {Método Proposto para Seleção das Configurações}
+\section {Método Proposto para Seleção das Configurações \label{sec:metodo_proposto}}
+
+O método que será detalhado aqui, tem como papel indicar que chaves devem ser operadas para isolar o defeito da rede a montante, para poder religar o equipamento atuado, e também enumerar as possibilidades de manobras para transferir os consumidores a jusante do defeito.
+
+Esse método é executado após as atualizações de estados e cargas. Uma representação gráfica é apresentada na Fig. \ref{fig:Fluxograma_decisao}, onde os passos 1 e 2 são compreendidos pelas atualizações de estados e cargas descritos anteriormente. 
+
+
 % Quando um equipamento telecomandado entra em bloqueio após as tentativas de religamento, o SCADA envia um alerta para a ferramenta computacional indicando esse acontecimento. A primeira ação da metodologia é a atualização da topologia da rede, uma vez que a mesma pode ter sofrido alterações em relação a rede original. Com a topologia atualizada, são determinadas quais chaves podem ser utilizadas para isolar o defeito,  determina quais chaves podem ser utilizadas para manobras de isolamento ou transferência.  e esta por sua vez solicita ao SCADA algumas informações dos equipamentos telecomandados pertencentes ao alimentador atingido e seus vizinhos. As principais informações solicitadas são: sinalização da passagem da corrente de curto-circuito, medições de corrente pré-falta, se o equipamento não está excluído de manobras e estado de comunicação dos equipamentos. De acordo com estas informações, o sistema realizará simulações computacionais considerando o estado atual das redes de distribuição. Como 
 solução  tem-se a identificação da sequência de manobras a serem executadas (isolar defeito ou transferir cargas), sendo enviada a matrícula dos equipamentos e os respectivos comandos (abrir ou fechar) ao SCADA.
 A Figura \ref{fig:Fluxograma_decisao} apresenta os procedimentos adotados nessa metodologia.
 
 O procedimento tem um desvio no seu fluxo caso algum equipamento tenha sido atravessado pela corrente de curto circuito mas não tenha atuado (por exemplo um equipamento programado para agir como chave e não como equipamento de proteção). Nesse desvio, é procurada a chave mais próxima ao curto para isolar o curto para isolar o curto do alimentador e assim poder religar o disjuntor. Após o isolamento, o procedimento continua para tentar transferir os clientes após o curto para os alimentadores vizinhos ou para o próprio alimentador se o mesmo possuir a possibilidade.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \begin{centering}
 \includegraphics[width=0.5\columnwidth]{img/FluxogramaChaves}
 \par\end{centering}
@@ -97,7 +182,7 @@ O defeito está após a chave Ch2, a chave mais a jusante da chave Ch1, pois a mes
 O defeito está antes da chave Ch3 pois a mesma não foi sinalizada.
 Nesse exemplo a reconfiguração da rede através da abertura das chaves Ch2 e Ch3 e o fechamento das chaves Ch1 e NA, reduziu a área afetada de todos clientes protegidos pela chave Ch1, a qual atuou com o defeito, para uma área menor no entorno do defeito entre as chaves Ch2 e Ch3. Vale resaltar que as equipes de manutenção podem ainda reduzir ainda mais a área afetada usando equipamentos não telecomandados, mas o objetivo aqui é ter uma metodologia que restabeleça os clientes usando apenas as chaves telecomandadas de  modo rápido.
 
-\begin{figure}
+\begin{figure}[H]
 \begin{centering}
 \includegraphics[width=0.5\columnwidth]{img/redeDefeito}
 \par\end{centering}
@@ -117,7 +202,7 @@ equipamento pois somente foi cortada carga e não foi alterada a topologia da red
 
 A definição das manobras a serem executadas para transferir clientes para os alimentadores vizinhos não é tão trivial quanto isolar o curto e religar o equipamento atuado. Inicialmente são definidas as chaves que se localizam após o defeito. Para isso, deve se levar em consideração o equipamento que atuou ou, caso algum equipamento tenha sido sinalizado e tenha sido operado, o equipamento operado é utilizado como equipamento de origem, pois é ele que marca o inicio da área defeituosa.
 
-Para encontrar o limite final da área defeituosa, a rede é percorrida de cada chave telecomandada de fronteira do alimentador afetado até o equipamento de origem (atuado ou operado). Se não existir outras chaves entre a chave de fronteira e o equipamento de origem, não existe nenhuma transferência possível usando tal chave. Se existir pelo menos uma chave existe uma possibilidade de transferência. Nessa etapa todas as possibilidades de transferência são armazenadas, sendo guardada também a distância entre a chave NF e a chave de origem, para análise usando as restrições e funções objetivo apresentadas a seguir na seção \ref {sec:Functions}. Caso não seja possível a transferência usando a chave mais próxima ao equipamento de origem por violar alguma das restrições a carga para o alimentador vizinho. Pra melhor apresentar a metodologia da escolha das chaves a serem usadas na transferência de carga, vamos considerar o pedaço de rede da Figura \ref{fig:Exemplo_transferencia}.
+Para encontrar o limite final da área defeituosa, a rede é percorrida de cada chave telecomandada de fronteira do alimentador afetado até o equipamento de origem (atuado ou operado). Se não existir outras chaves entre a chave de fronteira e o equipamento de origem, não existe nenhuma transferência possível usando tal chave. Se existir pelo menos uma chave existe uma possibilidade de transferência. Nessa etapa todas as possibilidades de transferência são armazenadas, sendo guardada também a distância entre a chave NF e a chave de origem, para análise usando as restrições e funções objetivo apresentadas a seguir na seção \ref {sec:modelagem_problema}. Caso não seja possível a transferência usando a chave mais próxima ao equipamento de origem por violar alguma das restrições a carga para o alimentador vizinho. Pra melhor apresentar a metodologia da escolha das chaves a serem usadas na transferência de carga, vamos considerar o pedaço de rede da Figura \ref{fig:Exemplo_transferencia}.
 
 \begin{figure}[ht!]
 \centering
@@ -171,40 +256,8 @@ A partir do segundo nível de chaves próximas ao defeito, nesse caso as chaves CH
 % \item realizar o número mínimo necessário de operações de comutação para as transferências de carga;
 % \end{enumerate}
 % 
-% Restrições:
-% \begin{itemize}
-% \item manter a radialidade dos sistemas;
-% \item não permitir sobrecarga nos elementos pertencentes às redes elétricas (trechos de rede, chaves, reguladores de tensão, entre outros) superior ao percentual permitido:
-% \begin{equation}
-%  I_{i} \leq I_{i max} \cdot F_{sobrecarga}
-% \end{equation}
 % 
-% \item não permitir violação dos ajustes de proteção:
-% \begin{equation}
-% I_{i} \leq I_{Prot i}
-% \end{equation}
-% 
-% \item não permitir violação da faixa de tensão admissível nas redes primárias:
-% \begin{equation}
-% V_{j min} \leq V_{j} \leq V_{j max}
-% \end{equation}
-% \end{itemize}
-% 
-% Onde:
-% \begin{description}
-%     \item[$I_{i}$] - corrente no ramo i;
-%     \item[$I_{Prot i}$] - corrente de atuação do dispositivo de proteção i;
-% 
-%     \item [$I_{i max}$] - corrente máxima admissível no ramo i;
-%     \item [$V_{j}$] - módulo da tensão no nó j;
-%     \item [$V_{j min}$] - módulo da tensão mínima aceitável no nó j;
-%     \item [$V_{j max}$] - módulo da tensão máxima aceitável no nó j.
-% \end{description}
-% 
-% 
-% A verificação do atendimento das restrições é executada para cada manobra indicada pela metodologia de restabelecimento, sendo que se alguma manobra violar alguma das restrições ela é marcada como inválida e que não pode ser executada. Assim, para cada manobra a ser testada, é executada a simulação completa da manobra para os demais alimentadores.
-% 
-% A análise das funções objetivo é executada quando existem várias manobras que podem ser executadas sem exeder nenhuma restrição.
+% A análise das funções objetivo é executada quando existem várias manobras que podem ser executadas sem exceder nenhuma restrição.
 % 
 % 
 % \section{Metodologia proposta para operação automática dos equipamentos}
