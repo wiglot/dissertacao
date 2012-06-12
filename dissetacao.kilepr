@@ -4,7 +4,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.1.2
-lastDocument=casosDeEstudo.tex
+lastDocument=bibliography.bib
 masterDocument=
 name=Dissertação
 pkg_extIsRegExp=false
@@ -236,10 +236,10 @@ order=-1
 
 [item:Dissertação.tex]
 archive=true
-column=30
+column=47
 encoding=ISO-8859-15
 highlight=LaTeX
-line=119
+line=68
 mode=LaTeX
 open=true
 order=1
@@ -252,7 +252,7 @@ highlight=LaTeX
 line=5
 mode=LaTeX
 open=true
-order=3
+order=2
 
 [item:anexo.tex]
 archive=true
@@ -266,33 +266,33 @@ order=1
 
 [item:bibliography.bib]
 archive=true
-column=14
+column=7
 encoding=ISO-8859-15
 highlight=BibTeX
-line=426
+line=85
 mode=BibTeX
-open=true
-order=6
-
-[item:casosDeEstudo.tex]
-archive=true
-column=26
-encoding=ISO-8859-15
-highlight=LaTeX
-line=71
-mode=LaTeX
 open=true
 order=4
 
-[item:consideracoesFinais.tex]
+[item:casosDeEstudo.tex]
 archive=true
-column=155
+column=32
 encoding=ISO-8859-15
 highlight=LaTeX
-line=8
+line=0
 mode=LaTeX
 open=true
-order=2
+order=3
+
+[item:consideracoesFinais.tex]
+archive=true
+column=18
+encoding=ISO-8859-15
+highlight=LaTeX
+line=0
+mode=LaTeX
+open=true
+order=6
 
 [item:dedicatoria.tex]
 archive=true
@@ -322,7 +322,7 @@ highlight=LaTeX
 line=67
 mode=LaTeX
 open=true
-order=7
+order=5
 
 [item:images/AECP.png]
 archive=true
@@ -571,7 +571,7 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=4
 mode=LaTeX
-open=true
+open=false
 order=5
 
 [item:termodeaprovacao.tex]
@@ -581,12 +581,12 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=53
 mode=LaTeX
-open=true
+open=false
 order=8
 
 [view-settings,view=0,item:Dissertação.tex]
-CursorColumn=30
-CursorLine=119
+CursorColumn=47
+CursorLine=68
 JumpList=
 ViMarks=
 
@@ -603,20 +603,20 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:bibliography.bib]
-CursorColumn=14
-CursorLine=426
+CursorColumn=7
+CursorLine=85
 JumpList=
 ViMarks=
 
 [view-settings,view=0,item:casosDeEstudo.tex]
-CursorColumn=26
-CursorLine=71
+CursorColumn=32
+CursorLine=0
 JumpList=
 ViMarks=
 
 [view-settings,view=0,item:consideracoesFinais.tex]
-CursorColumn=155
-CursorLine=8
+CursorColumn=18
+CursorLine=0
 JumpList=
 ViMarks=
 

@@ -1,12 +1,23 @@
-\chapter{Considerações Finais}
-Este trabalho trouxe uma apresentação da metodologia usada para o restabelecimento automático de energia elétrica considerando o uso de equipamentos telecomandados. Apesar de não constar nesse relatório, já existe um sistema computacional que implementa a metodologia apresentada aqui e os resultados estão satisfatórios e dentro do esperado.
+\chapter{Conclusão}
 
-O desenvolvimento dessa metodologia para restabelecimento automático, traz vantagens em relação a outras metodologias \cite{Gris2010} por ser aplicável em diferentes topologias de rede sem a necessidade de configuração das manobras que podem ser executadas. Isso se dá pela forma que essa metodologia utiliza as informações em campo (medições, controle) com inteligência computacional (simulações, definições das manobras) para obter o conjunto de manobras a serem executadas para restabelecimento máximo do fornecimento de energia elétrica para os consumidores.
 
-Possíveis trabalhos futuros: desconsiderar a restrição de radialidade e permitir a transferência para mais de uma alimentador.
-Uso de um outro método de definição das manobras a serem executadas (função multi objetivo, usando AHP ou outro método), uso de sistemas evolutivos (AG por exemplo) para escolha de quais manobras podem ser executadas.
+Este trabalho tem por objetivo a apresentação e demostração de uma metodologia desenvolvida para ser usada no restabelecimento automático de energia elétrica considerando o uso de equipamentos telecomandados. 
 
-Uso de Redes neurais para armazenar fatos do passado e se a mesma situação ocorrer não precisar recalcular/esperar operador aceitar violações de restrição.
+A metodologia aqui apresentada foi implementada em um software e testada com redes de distribuição reais, onde ofereceu respostas factíveis  muito boas em um tempo computacional baixo (poucos segundos para casos com maior número de transferências e menos de meio segundo para casos simples). Esse tempo e resposta reduzido se deve pelo fato da metodologia gerar apenas as manobras de transferência necessárias, evitando a enumeração e todas possibilidades.
 
+O desenvolvimento dessa metodologia para restabelecimento automático, traz vantagens em relação a outras metodologias \cite{Gris2010} por ser aplicável em diferentes topologias de rede sem a necessidade de uma pré configuração das manobras que podem ser executadas. Isso se dá pela forma que essa metodologia utiliza as informações em campo (medições, controle) com inteligência computacional (simulações, definições das manobras) para obter o conjunto de manobras a serem executadas para restabelecimento máximo do fornecimento de energia elétrica para os consumidores.
+
+
+É deixado aqui algumas idéias de possíveis trabalhos futuros dentro desse tema.
+\begin{itemize}
+ \item Desconsiderar a restrição de radialidade e permitir a transferência de uma única parte de um alimentador para mais de um alimentador vizinho, sendo que para isso seria necessário incluir a modelagem de transitórios, os quais podem fazer equipamentos e proteção atuarem \cite{BernaronATP}. 
+ \item A escolha das manobras pode utilizar algum método multi objetivo, como AHP ou mesmo métodos evolutivos como algoritmos genéticos, sendo que para isso seria necessário enumerar todas as possibilidades para então compará-las utilizando alguma função multi objetivo. 
+ \item Para evitar enumerar todas as manobras a cada desarme, pode ser aplicado algum tipo de inteligência computacional, como redes neurais ou outras técnicas de `\textbf{`memoização''} , a qual poderia ser treinada durante a ocorrência dos desarmes com soluções da metodologia aqui apresentada para que em ocorrências futuras desses mesmos desarmes, a inteligência computacional iria procurar por eventos com cargas semelhantes e recuperar as manobras anteriormente sugeridas, sem a necessidade de simular novamente todas essas manobras.
+ \item Essa última técnica poderia também levar em consideração decisões tomadas por operadores em cima das soluções anteriores, por exemplo a aceitação de uma manobra que viole alguma restrição, seja pelo operador conhecer a rede e saber que é aceitável ou pelo mesmo saber de algum erro de cadastro como o que foi apresentada nos casos de estudo.
+% Uso de Redes neurais para armazenar fatos do passado e se a mesma situação ocorrer não precisar recalcular/esperar operador aceitar violações de restrição.
+ \item Ainda referente a escolha das manobras, o uso de critérios de desempate que escolhem a manobra, a partir do segundo nível de chaves, com maior carregamento, mas que ainda estejam dentro das restrição, transferindo assim grande parte da carga com essa manobra e permitir que a transferência do primeiro nível tenha uma carga menor a ser transferida, aumentado assim a possibilidade dela poder ser executada.
+\end{itemize}
+
+Mesmo com essas ideias que poderia melhorar tanto as soluções quanto o tempo tomado para o cálculo e tais soluções, a metodologia aqui apresentada já apresenta soluções factíveis que podem ser aplicadas a redes reais, como foi apresentado no capítulo \ref{cap:casosestudos}
 
 
