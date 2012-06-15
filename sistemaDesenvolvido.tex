@@ -5,14 +5,15 @@ Para validar a metodologia, foi desenvolvido um sistema computacional capaz de r
 O sistema foi desenvolvido utilizando a linguagem de programação C++, a qual oferece robustez e extensibilidade, tendo sido  utilizado o framework Qt \cite{QtSite} para o desenvolvido mais rápido.
 
 
-A Fig. \ref{fig:mainWindow} apresenta as principais janelas do sistema. A principal, número 1 é onde são apresentadas as mensagens de resposta da metodologia e onde estão os menus de acesso as opções.  A janela número 2 permite simular a ocorrência de defeitos. Na parte superior dessa segunda janela, existe um campo o qual contém a lista dos disjuntores das redes carregadas. Nesse campo é indicado qual equipamento a metodologia irá considerar como equipamento desarmado pela corrente de curto circuito. Apesar da lista conter apenas os disjuntores, é possível executar a simulação de desarme para qualquer equipamento telecomandado das redes carregadas. Os campos pré-falta e data da falha são utilizadas para ajuste de carga, sendo a corrente campo pré-falta utilizada para o ajuste de carga e a data e hora usada para as simulações de fluxo de potência. Os demais campos são informações que o SCADA iria fornecer em relação ao estado do equipamento, tais como como fases sinalizadas (ABCN) e os estados de não religar (excluído) e controle está travado (bloqueio). A janela número 3 apresenta algumas opções da metodologia que podem ser configuradas, como o percentual de sobrecarga dos condutores e dos equipamentos de proteção, a queda máxima de tensão. A quarta janela apenas uma apresenta uma visão da topologia da rede carregada.
+A Fig. \ref{fig:mainWindow} apresenta as principais janelas do sistema. A principal, número 1 é onde são apresentadas as mensagens de resposta da metodologia e onde estão os menus de acesso as opções.  A janela número 2 permite simular a ocorrência de defeitos. Na parte superior dessa segunda janela, existe um campo o qual contém a lista dos disjuntores das redes carregadas. Nesse campo é indicado qual equipamento a metodologia irá considerar como equipamento desarmado pela corrente de curto circuito. Apesar da lista conter apenas os disjuntores, é possível executar a simulação de desarme para qualquer equipamento telecomandado das redes carregadas. Os campos pré-falta e data da falha são utilizadas para ajuste de carga, sendo a corrente campo pré-falta utilizada para o ajuste de carga e a data e hora usada para as simulações de fluxo de potência. Os demais campos são informações que o SCADA iria fornecer em relação ao estado do equipamento, tais como como fases sinalizadas (ABCN) e os estados de não religar 
+(excluído) e controle está travado (bloqueio). A janela número 3 apresenta algumas opções da metodologia que podem ser configuradas, como o percentual de sobrecarga dos condutores e dos equipamentos de proteção, a queda máxima de tensão. A quarta janela apenas uma apresenta uma visão da topologia da rede carregada.
 
 %%Fig aqui.
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.8\columnwidth]{img/ASE-Restoration}
+\includegraphics[width=0.9\columnwidth]{img/ASE-Restoration}
 
-\caption{Principais janelas do sistema desenvolvido\label{fig:mainWindow}}
+\caption[Principais janelas do sistema desenvolvido]{Principais janelas do sistema desenvolvido\\A) Janela principal,\\B) Janela de simulação de eventos,\\C) Visualização das redes carregadas,\\D) Configurações de restrições.\label{fig:mainWindow}}
 
 \end{figure}
 

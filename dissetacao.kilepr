@@ -4,7 +4,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.1.2
-lastDocument=bibliography.bib
+lastDocument=metodologia.tex
 masterDocument=
 name=Dissertação
 pkg_extIsRegExp=false
@@ -236,10 +236,10 @@ order=-1
 
 [item:Dissertação.tex]
 archive=true
-column=47
+column=34
 encoding=ISO-8859-15
 highlight=LaTeX
-line=68
+line=127
 mode=LaTeX
 open=true
 order=1
@@ -266,10 +266,10 @@ order=1
 
 [item:bibliography.bib]
 archive=true
-column=7
+column=1
 encoding=ISO-8859-15
 highlight=BibTeX
-line=85
+line=93
 mode=BibTeX
 open=true
 order=4
@@ -286,10 +286,10 @@ order=3
 
 [item:consideracoesFinais.tex]
 archive=true
-column=18
+column=178
 encoding=ISO-8859-15
 highlight=LaTeX
-line=0
+line=12
 mode=LaTeX
 open=true
 order=6
@@ -519,7 +519,7 @@ archive=true
 column=0
 encoding=ISO-8859-15
 highlight=LaTeX
-line=76
+line=206
 mode=LaTeX
 open=true
 order=0
@@ -585,8 +585,8 @@ open=false
 order=8
 
 [view-settings,view=0,item:Dissertação.tex]
-CursorColumn=47
-CursorLine=68
+CursorColumn=34
+CursorLine=127
 JumpList=
 ViMarks=
 
@@ -603,8 +603,8 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:bibliography.bib]
-CursorColumn=7
-CursorLine=85
+CursorColumn=1
+CursorLine=93
 JumpList=
 ViMarks=
 
@@ -615,8 +615,8 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:consideracoesFinais.tex]
-CursorColumn=18
-CursorLine=0
+CursorColumn=178
+CursorLine=12
 JumpList=
 ViMarks=
 
@@ -640,7 +640,7 @@ ViMarks=
 
 [view-settings,view=0,item:metodologia.tex]
 CursorColumn=0
-CursorLine=76
+CursorLine=206
 JumpList=
 ViMarks=
 

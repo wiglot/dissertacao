@@ -98,7 +98,7 @@ A seguir é detalhada a arquitetura imaginada para implementação dessa metodologi
 Para implementar a metodologia, é necessário o acesso em tempo real a algumas informações como o estado de comunicação das chaves telecomandadas, o qual é obtido através do SCADA, o cadastro da rede (topologia original, cargas, tipos de condutores,...), o estado atual de todas as chaves do alimentador sendo testado, além do acesso ao histórico de carregamento dos alimentadores. Com base nessas necessidades, foi imaginada a arquitetura de sistema apresentada na figura \ref{fig:Arquitetura_sistema}, onde podemos ver 4 fontes de dados (Estado das Chaves, Histórico de carga, SCADA e Cadastro da Rede) e o sistema computacional, o qual implementa a metodologia aqui descrita. O sistema Estado das Chaves mantém um banco de dados onde se encontra o estado atualizado de todas as chaves, tal informação é importante uma vez que a rede pode ter sido reconfigurada em relação a topologia inicial descrita no Cadastro da Rede, sendo essa alteração proveniente de um defeito ou mesmo para isolar alguma área para 
 manutenção preventiva. O Histórico de carga armazena as leituras de corrente dos alimentadores, sendo então possível estimar o comportamento da carga nas próximas horas com base no comportamento passado, como será melhor detalhado mais a frente nesse capítulo.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \centering
 % \includegraphics[width=0.7\columnwidth]{img/ArquiteturaSistema}
 
@@ -122,7 +122,7 @@ Normalmente as chaves são excluídas quando existem equipes trabalhando com rede 
 
 Após essas atualizações, é aplicado o procedimento de seleção das chaves que devem ser manobradas e, por fim, são enviados ao SCADA os comandos das chaves (Abrir ou Fechar) que devem ser executados a fim de restabelecer o máximo de consumidores. A Figura \ref{fig:ComunicacoesSistemas} apresenta o diagrama de sequência em que essas trocas de informações acontecem.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.7\columnwidth]{img/SystemsComm}
 
@@ -157,32 +157,55 @@ Após a atualização da topologia da rede, via SCADA ou banco de estados, e de sua
 
 \section {Método Proposto para Seleção das Configurações \label{sec:metodo_proposto}}
 
-O método que será detalhado aqui, tem como papel indicar que chaves devem ser operadas para isolar o defeito da rede a montante, para poder religar o equipamento atuado, e também enumerar as possibilidades de manobras para transferir os consumidores a jusante do defeito.
+O método que será detalhado aqui faz parte da metodologia proposta e tem como papel indicar que chaves devem ser operadas para isolar o defeito da rede a montante além de enumerar as possibilidades de manobras para transferir os consumidores a jusante do defeito. Esse método é executado após as atualizações de estados e cargas.
 
-Esse método é executado após as atualizações de estados e cargas. Uma representação gráfica é apresentada na Fig. \ref{fig:Fluxograma_decisao}, onde os passos 1 e 2 são compreendidos pelas atualizações de estados e cargas descritos anteriormente. 
+Esse método é a parte principal da metodologia de restabelecimento automático, uma vez que detecta a localização do defeito gera as soluções de restabelecimento. Ele é composto de algumas etapas que podem ser visualizadas na Figura \ref{fig:Fluxograma_decisao}.
+
+ 
 
 
-% Quando um equipamento telecomandado entra em bloqueio após as tentativas de religamento, o SCADA envia um alerta para a ferramenta computacional indicando esse acontecimento. A primeira ação da metodologia é a atualização da topologia da rede, uma vez que a mesma pode ter sofrido alterações em relação a rede original. Com a topologia atualizada, são determinadas quais chaves podem ser utilizadas para isolar o defeito,  determina quais chaves podem ser utilizadas para manobras de isolamento ou transferência.  e esta por sua vez solicita ao SCADA algumas informações dos equipamentos telecomandados pertencentes ao alimentador atingido e seus vizinhos. As principais informações solicitadas são: sinalização da passagem da corrente de curto-circuito, medições de corrente pré-falta, se o equipamento não está excluído de manobras e estado de comunicação dos equipamentos. De acordo com estas informações, o sistema realizará simulações computacionais considerando o estado atual das redes de distribuição. Como 
-solução  tem-se a identificação da sequência de manobras a serem executadas (isolar defeito ou transferir cargas), sendo enviada a matrícula dos equipamentos e os respectivos comandos (abrir ou fechar) ao SCADA.
-A Figura \ref{fig:Fluxograma_decisao} apresenta os procedimentos adotados nessa metodologia.
 
-O procedimento tem um desvio no seu fluxo caso algum equipamento tenha sido atravessado pela corrente de curto circuito mas não tenha atuado (por exemplo um equipamento programado para agir como chave e não como equipamento de proteção). Nesse desvio, é procurada a chave mais próxima ao curto para isolar o curto para isolar o curto do alimentador e assim poder religar o disjuntor. Após o isolamento, o procedimento continua para tentar transferir os clientes após o curto para os alimentadores vizinhos ou para o próprio alimentador se o mesmo possuir a possibilidade.
-
-\begin{figure}[H]
+\begin{figure}[htbp]
 \begin{centering}
-\includegraphics[width=0.5\columnwidth]{img/FluxogramaChaves}
-\par\end{centering}
+% \includegraphics[width=0.5\columnwidth]{img/FluxogramaChaves}    
+\begin{tikzpicture}[node distance = 4cm,auto, scale=0.5]
+    % Place nodes
+    \node [block] (start) {a) Início metodologia};
+    \node [decision, below of=start,] (checkFlags) {b) Existem equipamentos sinalizados?};
+    \node [block, left of=checkFlags, node distance = 6cm ] (findFlaged) {c) Encontre as chaves sinalizadas mais a jusante};
+    \node [block, below of=findFlaged] (isolate) {d) Abrir tais chaves e rearme equipamento desarmador};
+    \node [block, below of=checkFlags] (findOptions) {e) Encontre as opções de transferência após defeito};
+    \node [block, below of=findOptions, node distance = 3cm] (choseBest) {f) Escolha as melhores opções de transferência};
+    
 
+    % Draw edges
+    \path [line] (start) -- (checkFlags);
+    \path [line] (checkFlags)   -- node [midway] {Sim} (findFlaged);
+    \path [line] (findFlaged) -- (isolate);
+    \path [line] (isolate) --  (findOptions);
+    \path [line] (checkFlags) -- node [midway] {Não} (findOptions);
+    \path [line] (findOptions) -- (choseBest);
+\end{tikzpicture}
+\par\end{centering}
 \caption{Fluxograma de tomada de decisão\label{fig:Fluxograma_decisao}}
 
 \end{figure}
 
+A parte inicial do método (\ref{fig:Fluxograma_decisao}-a) compreende as ações de desarme de um equipamento telecomandado e comunicação com os sistmas SCADA, de estado da rede e a obtenção da previsão de carga, a qual será utilizada para ajuste da rede. Essa etapa está descrita nas secções anteriores, mas basicamente trata do início da metodologia devido a algum desarme e da atualização das informações da rede com dado mais próximos a hora do evento. É importante ressaltar que essas atualização som importantes para se obter o estado da rede simulada o mais próximo do estado atual da mesma.
+
+Com as informação de estado da rede atualizados, o método procura se alguma chave foi sinalizada como tendo sido atravessada pela corrente de curto circuito. Essa procura definirá se é possível isolar o defeito e restabelecer os clientes a montante do mesmo. 
+% Quando um equipamento telecomandado entra em bloqueio após as tentativas de religamento, o SCADA envia um alerta para a ferramenta computacional indicando esse acontecimento. A primeira ação da metodologia é a atualização da topologia da rede, uma vez que a mesma pode ter sofrido alterações em relação a rede original. Com a topologia atualizada, são determinadas quais chaves podem ser utilizadas para isolar o defeito,  determina quais chaves podem ser utilizadas para manobras de isolamento ou transferência.  e esta por sua vez solicita ao SCADA algumas informações dos equipamentos telecomandados pertencentes ao alimentador atingido e seus vizinhos. As principais informações solicitadas são: sinalização da passagem da corrente de curto-circuito, medições de corrente pré-falta, se o equipamento não está excluído de manobras e estado de comunicação dos equipamentos. De acordo com estas informações, o sistema realizará simulações computacionais considerando o estado atual das redes de distribuição. Como 
+% solução  tem-se a identificação da sequência de manobras a serem executadas (isolar defeito ou transferir cargas), sendo enviada a matrícula dos equipamentos e os respectivos comandos (abrir ou fechar) ao SCADA.
+% A Figura \ref{fig:Fluxograma_decisao} apresenta os procedimentos adotados nessa metodologia.
+
+% O procedimento tem um desvio no seu fluxo caso algum equipamento tenha sido atravessado pela corrente de curto circuito mas não tenha atuado (por exemplo um equipamento programado para agir como chave e não como equipamento de proteção). Nesse desvio, é procurada a chave mais próxima ao curto para isolar o curto para isolar o curto do alimentador e assim poder religar o disjuntor. Após o isolamento, o procedimento continua para tentar transferir os clientes após o curto para os alimentadores vizinhos ou para o próprio alimentador se o mesmo possuir a possibilidade.
+
 Antes de entrar em detalhes sobre o procedimento de tomada de decisão sobre as transferências de carga, será explicado como é feita a detecção da área com defeito usando as chaves telecomandadas. Inicialmente consideremos a rede apresentada na Figura \ref{fig:Rede_defeito} onde todas as chaves apresentadas são telecomandadas. Considerando o defeito apresentado (entre as chaves Ch2 e Ch3), que tal defeito desarmou a chave Ch1, que a chave Ch2 foi sinalizada como tendo sido atravessada pelo curto e que o alimentador F-2 tenha capacidade suficiente para receber novos consumidores sem nenhuma sobrecarga nos equipamentos. Quando o SCADA receber o evento de desarme da chave Ch1 é possível saber, usando os dados das demais chaves, que:
 O defeito está após a chave Ch2, a chave mais a jusante da chave Ch1, pois a mesma foi sinalizada como tendo sido atravessada pelo curto
 O defeito está antes da chave Ch3 pois a mesma não foi sinalizada.
-Nesse exemplo a reconfiguração da rede através da abertura das chaves Ch2 e Ch3 e o fechamento das chaves Ch1 e NA, reduziu a área afetada de todos clientes protegidos pela chave Ch1, a qual atuou com o defeito, para uma área menor no entorno do defeito entre as chaves Ch2 e Ch3. Vale resaltar que as equipes de manutenção podem ainda reduzir ainda mais a área afetada usando equipamentos não telecomandados, mas o objetivo aqui é ter uma metodologia que restabeleça os clientes usando apenas as chaves telecomandadas de  modo rápido.
+Nesse exemplo a reconfiguração da rede através da abertura das chaves Ch2 e Ch3 e o fechamento das chaves Ch1 e NA, reduziu a área afetada de todos clientes protegidos pela chave Ch1, a qual atuou com o defeito, para uma área menor no entorno do defeito entre as chaves Ch2 e Ch3. É importante ressaltar que as equipes de manutenção podem ainda reduzir ainda mais a área afetada usando equipamentos não telecomandados, mas o objetivo aqui é ter uma metodologia que restabeleça os clientes usando apenas os equipamentos telecomandadas de  modo ágil e sem a necessidade de interação de operadores.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
 \begin{centering}
 \includegraphics[width=0.5\columnwidth]{img/redeDefeito}
 \par\end{centering}
@@ -204,7 +227,7 @@ A definição das manobras a serem executadas para transferir clientes para os ali
 
 Para encontrar o limite final da área defeituosa, a rede é percorrida de cada chave telecomandada de fronteira do alimentador afetado até o equipamento de origem (atuado ou operado). Se não existir outras chaves entre a chave de fronteira e o equipamento de origem, não existe nenhuma transferência possível usando tal chave. Se existir pelo menos uma chave existe uma possibilidade de transferência. Nessa etapa todas as possibilidades de transferência são armazenadas, sendo guardada também a distância entre a chave NF e a chave de origem, para análise usando as restrições e funções objetivo apresentadas a seguir na seção \ref {sec:modelagem_problema}. Caso não seja possível a transferência usando a chave mais próxima ao equipamento de origem por violar alguma das restrições a carga para o alimentador vizinho. Pra melhor apresentar a metodologia da escolha das chaves a serem usadas na transferência de carga, vamos considerar o pedaço de rede da Figura \ref{fig:Exemplo_transferencia}.
 
-\begin{figure}[ht!]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.5\columnwidth]{img/exemploTransferencias}
 

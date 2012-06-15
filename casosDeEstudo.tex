@@ -82,25 +82,14 @@ Nessas rede foram executados simulações de defeito em diferentes pontos, antes e
 Para executar os casos de testes foram consideradas as restrições de carregamento máximo dos equipamentos de proteção de 90\%, sobrecarga máxima dos condutores de 110\% e queda máxima de tensão de 7\%.
 Os testes aqui apresentados foram definidos de modo a contemplar as possíveis topologias e demostrar que as escolhas feitas pela metodologia são as melhores entre as aceitáveis, ou seja, dentre as que não violam nenhuma restrição são escolhidas as que restabelecem o maior número de consumidores. Para os casos onde a metodologia não apresentou nenhuma solução, são apresentadas a manobras possíveis e são indicadas as restrições violadas.
 
-Foram definidos os seguintes casos de teste:
-\begin{description}
-  \item [Caso 1] Transferência de carga simples para alimentador vizinho;
-  \item [Caso 2] Isolamento simples;
-  \item [Caso 3] Defeito já isolado, sem opções de manobras;
-  \item [Caso 4] Transferência e isolamento simultâneos;
-  \item [Caso 5] Possibilidade de transferência para alimentadores diferentes;
-  \item [Caso 6] Transferências para diferentes alimentadores;
-  \item [Caso 7] Transferência para diferentes alimentadores, com divisão de carga;
-\end{description}
-
-
+\subsection[Caso 1]{Caso 1: Transferência de carga simples para alimentador vizinho}
 Os primeiros casos de teste consideram apenas um equipamento telecomandados no alimentador mais um de fronteira que pode ser utilizando para executar transferências. A Figura \ref{fig:Unifilar-Caso1} apresenta o alimentador escolhido para os primeiros testes.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.7\columnwidth]{img/Caso1Unifilar}
 
-\caption[Representação Unifilar para casos 1,2 e 3]{Representação unifilar dos alimentadores envolvidos no caso de teste Nº 1, 2 e 3\label{fig:Unifilar-Caso1}}
+\caption[Representação unifilar para casos 1,2 e 3]{Representação unifilar dos alimentadores envolvidos no caso de teste Nº 1, 2 e 3\label{fig:Unifilar-Caso1}}
 \end{figure}
 
 O primeiro teste realizado foi a simulação do desarme do disjuntor do alimentador ``SLE - 3'' sem a sinalização de passagem de corrente de curto circuito em nenhum outro equipamento telecomandado. Analisando a topologia apresenta, é possível deduzir que, como o defeito não foi detectado (sinalização de alguma fase) por nenhum equipamento a não ser o disjuntor, o defeito se encontra no primeiro trecho (entre a saída do alimentador  e o equipamento ``SLE - 2103''). Quando o disjuntor desarmou, todos os consumidores do alimentador ``SLE - 3'' ficarem sem fornecimento de energia elétrica. Na topologia apresenta existe uma chave de fronteira (``SLE - 48'') que pode ser utilizando em conjunto com a chave ``SLE - 2103'' para transferir os clientes situados após o defeito para o alimentador vizinho (ZOO - 3). O resultado esperado da metodologia é que ele indique a chave ``SLE - 2103'' para ser aberta e a chave ``SLE - 48'' para ser fechada, se isso não violar nenhuma das restrições impostas. Num primeiro instante a 
@@ -138,6 +127,9 @@ Manobra & Abrir & Fechar & Clientes & Condutores (\%) & Proteção (\%) & Queda (\
 
 A manobra sugerida poderia inicialmente restabelecer 1867 consumidores, isolando o defeito sem a necessidade do deslocamento de nenhuma equipe para executar essa manobra, podem elas se concentrarem em solucionar rapidamente o defeito da área sem fornecimento ou mesmo executando mais manobras para transferir mais consumidores. %Os resultados desse primeiro caso de teste foram bom para ver que a metodologia é capaz de evitar sobrecargas no sistema de distribuição.
 
+\subsection[Caso 2]{Caso 2: Isolamento simples}
+
+
 O segundo caso teste, a região do defeito foi modificada para a região após a chave ``SLE - 2103'' e os eventos enviados como entrada na metodologia foram: o desarme do disjuntor do alimentador ``SLE - 3'' e a sinalizado de passagem do curto pelo equipamento ``SLE - 2103''. Os demais estados dos demais equipamentos, foram passados seus estados de operação, uma vez que nenhum sofreu nenhuma alteração em decorrência do curto circuito. O esperado da metodologia é que ela indique uma manobra que isole o fornecimento de energia ao defeito, utilizando a chave ``SLE - 2103'', de modo que o disjuntor possa ser religado novamente. O resultado obtido pela metodologia está descrito na Tabela \ref{caso2-Resultados}, onde pode ser visto que a metodologia apresentou o resultado esperado. %Note que não existem valores de carregamentos e queda de tensão uma vez que essa manobra apenas restabelece o fornecimento de energia elétrica para uma região menor mas sem modificar o caminho que a energia percorria para chegar aos 
 % consumidores, assim se não
 
@@ -151,10 +143,12 @@ Manobra & Abrir & Fechar & Clientes & Condutores (\%) & Proteção (\%) & Queda (\
 \label{caso2-Resultados}
 \end{table}
 
-Uma variação desse caso de teste é quando o equipamento ``SLE - 2103'' está configurado como equipamento de proteção, ou seja, na ocorrência de uma corrente de curto circuito o mesmo atua para interromper o fluxo de corrente. Nesse caso como o defeito aconteceu à jusante do equipamento, ele irá atuar e isolar o defeito. Como não existe nenhum outro equipamento NF após o defeito  que possa ser usado para transferir parte da carga para outro alimentador, não existe nenhuma manobra que possa ser executada utilizando os equipamentos telecomandados e a metodologia não apresenta nenhuma resposta, o que era o esperado.
+\subsection[Caso 3] {Caso 3: Defeito já isolado, sem opções de manobras}
+O terceiro caso de teste é uma variação do caso 2 caso de teste é quando o equipamento ``SLE - 2103'' está configurado como equipamento de proteção, ou seja, na ocorrência de uma corrente de curto circuito o mesmo atua para interromper o fluxo de corrente. Nesse caso como o defeito aconteceu à jusante do equipamento, ele irá atuar e isolar o defeito. Como não existe nenhum outro equipamento NF após o defeito  que possa ser usado para transferir parte da carga para outro alimentador, não existe nenhuma manobra que possa ser executada utilizando os equipamentos telecomandados e a metodologia não apresenta nenhuma resposta, o que era o esperado.
 
 Os casos apresentados até aqui visavam testar se a metodologia era capaz de realizar as operações simples de isolamento e transferência de carga de forma automática
 
+\subsection [Caso 4] {Caso 4: Transferência e isolamento simultâneos}
 Os próximos casos de testes envolvem diversas possibilidades de transferência para diferentes alimentadores e o uso de isolamento e transferência juntas para restabelecer o maior número de consumidores. As redes escolhidas para teste apresentam mais de um equipamento telecomandado em série e fronteira com mais de uma alimentador.
 
 O caso de teste 4 envolverá as redes apresentadas na Figura \ref{fig:Unifilar-Caso4}, tendo como objetivo verificar se a metodologia é capaz de isolar e transferir carga para um alimentador vizinho ao mesmo tempo, para isso será simulada a ocorrência de um defeito no trecho entre os equipamentos ``SLE - 74'' e ``SLE - 72'' que levou ao disjuntor do alimentador ``SPC - 2'' desarmar.
@@ -163,7 +157,7 @@ O caso de teste 4 envolverá as redes apresentadas na Figura \ref{fig:Unifilar-Ca
 \centering
 \includegraphics[width=0.7\columnwidth]{img/Caso3Unifilar}
 
-\caption{Representação unifilar dos alimentadores envolvidos no caso de teste Nº 3\label{fig:Unifilar-Caso4}}
+\caption[Representação unifilar para os casos 4 e 5]{Representação unifilar dos alimentadores envolvidos nos casos de teste 4 e 5\label{fig:Unifilar-Caso4}}
 \end{figure}
 
 Como o defeito foi a jusante do equipamento ``SLE - 74'' e o mesmo não desarmou com a passagem da corrente de curto circuito, ele é sinalizado para a metodologia como tendo sido atravessado por tal corrente. Com as informações do estado atual das demais chaves, a metodologia apresentou as manobras da Tabela \ref{caso3-Resultados}, onde a manobra 1 é de isolamento e as manobras 2 e 3 são duas opções distintas de transferência, sendo que apresentada pela metodologia foi a manobra 3, que apresar de ter um carregamento maior nos equipamentos de proteção, ela possui um carregamento dos condutores da rede menor.
@@ -180,7 +174,9 @@ Manobra & Abrir & Fechar & \multicolumn{1}{c|}{Clientes} & Condutores (\%) & Pro
 \label{caso3-Resultados}
 \end{table}
 
-Um outro caso de testes (5) que pode ser feito sobre essa mesma topologia é a simulação da ocorrência de um defeito a montante da chaves ``SLE - 72'', que atingiria apenas os consumidores do primeiro trecho do alimentador ``SPC - 2''. Para isso também foi simulado o desarme do disjuntor do alimentador ``SPC - 2'' mas nenhum equipamento foi sinalizado. A metodologia respondeu com as possibilidades apresentadas na Tabela \ref{caso4-Resultados}.
+
+\subsection[Caso 5] {Caso 5: Possibilidade de transferência para alimentadores diferentes}
+Um outro caso de testes (5) que pode ser feito sobre a mesma topologia do caso de estudo 4, é a simulação da ocorrência de um defeito a montante da chaves ``SLE - 72'', que atingiria apenas os consumidores do primeiro trecho do alimentador ``SPC - 2''. Para isso também foi simulado o desarme do disjuntor do alimentador ``SPC - 2'' mas nenhum equipamento foi sinalizado. A metodologia respondeu com as possibilidades apresentadas na Tabela \ref{caso4-Resultados}.
 
 \begin{table}[htbp]
 \caption{Resultados para o caso de estudo 5}
@@ -196,14 +192,15 @@ Manobra & \multicolumn{1}{c|}{Abrir} & Fechar & \multicolumn{1}{c|}{Clientes} & 
 
 Todas manobras apresentas restauram o mesmo número de consumidores, mas 2 delas, as que utilizam o alimentador ``EST - 2'', não puderam ser consideradas por violarem a restrição de carregamento dos equipamentos de proteção. A manobra escolhida como aplicável foi a manobra 2, que utilizam o alimentador ``ZOO - 7'' para transferir a carga dos 4460 consumidores.
 
+
+\subsection[Caso 6] {Caso 6: Transferências para diferentes alimentadores}
 Um caso mais detalhado dessa possibilidade de transferência para diferentes alimentadores é apresentado no próximo caso de estudo. Nessa caso será utilizada uma terceira topologia que é apresentada na Figura \ref{fig:Unifilar-Caso5}. Para esse caso, também foi simulado a ocorrência de um defeito no primeiro trecho do alimentador ``EST - 3'', o que levou ao desarme do disjuntor de tal alimentador.
 
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.7\columnwidth]{img/Caso5Unifilar}
-
-\caption{Representação unifilar dos alimentadores envolvidos no caso de teste Nº 5\label{fig:Unifilar-Caso5}}
+\caption[Representação unifilar para os casos 6 e 7]{Representação unifilar dos alimentadores envolvidos no caso de teste Nº 6 e 7\label{fig:Unifilar-Caso5}}
 \end{figure}
 
  Para o defeito simulado, existem diferentes possibilidades de transferência, inclusive dividindo parte da carga para um alimentador e parte para outro caso não seja possível transferir toda carga para um alimentador apenas. A metodologia detectou 3 possíveis transferências válidas que estão apresentadas na Tabela \ref{caso5-Resultados}. As manobras 2 e 3 não podem ser aplicadas simultaneamente, uma vez que elas colocariam os alimentadores ``GRA - 212'' e ``SPC - 3'' em um ciclo, o que não seria uma solução válida. Dessa forma somente uma das duas será executada, nesse caso, a que possui menor carregamento nos condutores, a manobra 2.
@@ -220,7 +217,9 @@ Um caso mais detalhado dessa possibilidade de transferência para diferentes alim
 \label{caso5-Resultados}
 \end{table}
 
-Para testar o caso de dividir a carga em diferentes alimentadores, foi feita uma simulação em horário diferente dos demais e com um ajunte de carga. A simulação foi realizada para o horário das 6:00 e os alimentadores tiveram o seguinte ajuste de carga:
+
+\subsection[Caso 7] {Caso 7: Transferência para diferentes alimentadores, com divisão de carga}
+Para testar o caso de dividir a carga em diferentes alimentadores, foi feita uma simulação em horário diferente dos demais (6:00) e com o seguinte ajuste de carga:
 \begin{description}
  \item [EST - 3:] 130 A;
  \item [SPC - 3:] 80 A;
@@ -230,7 +229,7 @@ Para testar o caso de dividir a carga em diferentes alimentadores, foi feita uma
 Em comparação com as manobras anteriores, apresentadas na Tabela \ref{caso5-Resultados}, se as mesmas fossem aplicadas nessa condição do sistema de distribuição, os resultados possuiriam restrições e poderiam transferir apenas 2663 consumidores. Os valores de tais manobras estão na Tabela \ref{tab:caso5-Manobras-invalidas}, onde pode-se notar o violamento das restrições de carregamento (118\%) e de proteção (96\%), cada um em uma das manobras. Apenas a manobra entre as chaves ``SSU - 805'' e ``SSU - 368'' pode ser aplicada.
 
 \begin{table}[htbp]
-\caption{Caso 7 - Manobras anteriores com restrições}
+\caption{Manobras do caso 6 aplicadas às 6:00}
 \begin{tabular}{|r|c|c|r|r|r|r|}
 \hline
 \multicolumn{1}{|c|}{Manobra} & Abrir & Fechar & \multicolumn{1}{c|}{Clientes} & \multicolumn{1}{c|}{Condutores (\%)} & \multicolumn{1}{c|}{Proteção (\%)} & \multicolumn{1}{c|}{Queda (\%)} \\ \hline
