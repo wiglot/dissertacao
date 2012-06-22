@@ -272,7 +272,36 @@ Antes de apresentar o algoritmo, será apresentado aqui uma visão geral de como o
 
 Se existir pelo menos uma manobra válida para cada equipamento NF do primeiro nível, então todos os consumidores após o defeito podem ser transferidos e as manobras podem ser enviadas ao SCADA. Esse é o melhor caso onde apenas as manobras do primeiro nível foram simuladas, ou seja, apenas as manobras 1 e 2 foram simuladas, da qual uma delas poderá executada automaticamente. 
 
-Caso não seja possível transferir usando os equipamentos NF de primeiro nível devido a violação de alguma restrição, o algoritmo passa para o próximo nível (2) e testa as possibilidades desse nível. A enumeração e escolha pelas manobras desse segundo nível é feita  da mesma forma como foi feita no nível anterior(1). Usando a topologia de exemplo, o algoritmo agora iria simular as manobras 3 e 4. Caso ainda assim, não houvesse nenhuma possibilidade de transferência, ou o algoritmo iria para o próximo nível ou, caso não existisse mais nenhum equipamento NF depois desses equipamentos, não existiriam manobras factíveis para transferir.
+Caso não seja possível transferir usando os equipamentos NF de primeiro nível devido a alguma restrição ser violada, o algoritmo passa para o próximo nível (2) e testa as possibilidades desse nível. A enumeração e escolha pelas manobras desse segundo nível é feita  da mesma forma como foi feita no nível anterior(1). Usando a topologia de exemplo, o algoritmo agora simularia as manobras 3 e 4 que estão no nível 2.
+
+A partir desses próximos níveis(incluindo o segundo), o algoritmo irá tentar transferir as cargas do nível atual, e, caso tenha executado tal manobra, o algoritmo retorna para o primeiro nível(1) de onde tenta transferir o restante dos consumidores sem utilizar as chaves utilizadas na última manobra. Se ainda assim não for possível transferir os consumidores do primeiro nível, o algoritmo irá novamente tentar transferir os clientes dos próximos níveis repetindo o mesmo procedimento. No momento que não houver mais manobras nem níveis para avançar, o procedimento para pois não existe mais a possibilidade de transferir mais clientes e oferece as manobras válidas anteriormente.
+
+Utilizando a rede da Figura \ref{fig:Exemplo_transferencia}, um exemplo de aplicação do algoritmo seria a tentativa inicial de transferir os consumidores usando os equipamento NF do primeiro nível, gerando as manobras 1 e 2, como apresentado anteriormente. Supondo que nenhuma das manobras era válida (ambas violavam alguma das das restrições), elas não podem ser executas, assim o algoritmo desce para o segundo nível que tem as manobras 3 e 4 como correspondentes. Caso ambas manobras possam ser executas, é escolhida apenas a melhor delas e o método retorna para as manobras do nível 1. Caso a manobra escolhida no segundo nível seja a manobra 3 (equipamentos ``CH 1-B'' e ``NA-1''), agora o algoritmo irá simular apenas a manobra 2, uma vez que a chave ``NA-1'' que compõem a manobra 1 já foi utilizada na manobra 3.
+
+Se agora for possível de transferir usando a manobra 2 sem que isso viole nenhuma restrição, essa manobra é colocada junto com a manobra 3 para ser executada. Caso a manobra 2 ainda apresentar violações nas restrições, o algoritmo irá avançar um nível (2) e  tentará executar a manobra 4. Se não houver restrições nessa transferência, o algoritmo volta no nível 1, sendo que agora não existem mais transferências válidas, uma vez que todas possibilidades do primeiro nível usam equipamentos NA que já foram utilizados nas manobras aceitas (3 e 4), então o algoritmo encerra e devolve a lista de manobras que podem ser executadas.
+  %Usando 2 pares de chaves foi possível restabelecer todos consumidores após o defeito
+Alg(EQ,n)
+m
+para cada equipamento eq à frente de EQ
+  op <- \empty
+  Ts <- lista possíveis transferências usando eq
+  Se TS é vázio {
+    para cada t em Ts faça
+      simule a transferência(t)
+      Se (t é Válida)
+	op <- op + t
+    fim para
+    se (op = \empty){
+	m <- Alg(eq, n + 1)
+    }senão{
+	m <- m + Escolhe a melhor (op)
+    }
+  }
+fim para
+
+retorn m
+
+% Para os próximos níveis, incluindo o nível 2, a escolha das manobras não termina quando existe uma manobra. Se existir a possibilidade de aplicar uma manobra desses níveis, essa manobra é marcada para ser apicada e o algoritmo volta para o primeiro, mas não considera as chaves utilizadas nessa manobra. Esse comportamento do algoritmo permite que se não é possível aplicar uma manobra de um nível, ele desce um nível para tentar transferir menos consumidores, e assim não violar as restrições além de reduzir a carga que seria que deve ser transferida do nível 1. Se não existir nenhuma transferência válida o algoritmo iria para o próximo nível ou, caso não existisse mais nenhum equipamento NF depois desse nível, então não existiriam manobras factíveis para transferir.
 
 
 

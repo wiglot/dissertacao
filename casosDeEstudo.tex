@@ -1,24 +1,24 @@
 \chapter{Casos de Estudo \label{cap:casosestudos}}
 % Apresentar algumas topologias de estudo, mostrar resultados preliminares com o Rocs para o sistema de teste, mostrar algumas redes (pedir permissão para a AES?)
 
-Foram realizados testes da metodologia proposta, utilizando o sistema computacional desenvolvido, considerando
+Foram realizados testes da metodologia proposta utilizando o sistema computacional desenvolvido, considerando
 vários cenários operacionais de desarmes de alimentadores, incluindo defeitos a
 montante ou a jusante dos equipamentos telecomandados para diferentes períodos
 de carga.
 
-Anterior a esses testes e do desenvolvido da aplicação computacional, o algoritmo de escolha das manobras de transferência foi testado para avaliar sua eficácia de gerar resultados válidos para diferentes topologias de rede. 
+Anterior a esses testes e ao desenvolvido da aplicação computacional, o algoritmo de escolha das manobras de transferência foi testado para avaliar sua eficácia de gerar resultados válidos para diferentes topologias de rede. 
 
-Para tanto, foi implementado um protótipo do algoritmo na ferramenta Rocs \cite{Rocs2012}, a qual é uma ferramenta de pesquisa em teoria de grafos que permite visualizar e interagir utilizando algoritmos escritos em linguagem javascript.
+Para tanto, foi implementado um protótipo do algoritmo na ferramenta Rocs \cite{Rocs2012}, que é uma ferramenta de pesquisa em Teoria de Grafos que permite visualizar e interagir utilizando algoritmos escritos em linguagem Javascript\footnote{Linguagem de programação. Muito utilizada para programação em tempo de execução.}.
 
-\begin{figure}[h]
+\begin{figure}[htp]
 \centering
-\includegraphics[width=0.7\columnwidth]{img/rocsTela1}
+\includegraphics[width=0.8\columnwidth]{img/rocsTela1}
 \caption{Topologia inicial do caso de teste.\label{fig:ExemploredeRocs}}
 \end{figure}
 
 A Figura \ref{fig:ExemploredeRocs} ilustra a tela inicial do Rocs com um representação simplificada de uma rede de distribuição, onde os nós em cor azul representam os equipamentos telecomandados NF (normalmente fechado) e os de
 cor vermelha os equipamentos NA (normalmente abertos). Também há a indicação 
-dos valores de carga em cada trecho, sendo que nas simulações foi considerado que qualquer transferência pode ser executada contanto que a carga total te tal transferência não ultrapasse 100 UC (Unidades de Carregamento). Foi considerado que todos os trechos entre os equipamentos possuem o mesmo número de consumidores, assim quanto mais o número de trechos transferidos maior o número de consumidores restabelecidos.
+dos valores de carga em cada trecho, sendo que nas simulações foi considerado que qualquer transferência pode ser executada contanto que a carga total te tal transferência não ultrapasse 100 UC\footnote{Optou-se por não usar Amperes pois não existe uma simulação da rede, apenas um valor de carregamento arbitrário.} (Unidades de Carregamento). Foi considerado que todos os trechos entre os equipamentos possuem o mesmo número de consumidores, assim quanto mais o número de trechos transferidos maior o número de consumidores restabelecidos.
 
 
 Para ilustrar a aplicação do algoritmo de seleção de chaves para transferência, serão apresentados dois estudos de
@@ -30,33 +30,34 @@ a jusante do defeito. Já para o defeito no trecho ``0 - 6'', o sistema abriu o
 equipamento ``6``, isolando o defeito, e fechou o equipamento  ``10'',
 restabelecendo a energia para as cargas a jusante do defeito. A figura \ref{fig:ResultadoRocs1} apresenta a topologia final após essas manobras.
 
-\begin{figure}[h]
+\begin{figure}[htp]
 \centering
-\includegraphics[width=0.7\columnwidth]{img/rocsTela2}
+\includegraphics[width=0.8\columnwidth]{img/rocsTela2}
 \caption{Resultado do estudo do caso 1.\label{fig:ResultadoRocs1}}
 \end{figure}
 
-No segundo caso, aumentou-se os valores de corrente no trecho ``5 - 1'' de 1 para 80 e no trecho ``8 - 9'' de 10 para 90, invalidando a resposta dada para o caso anterior uma vez que a carga total seria de 120 no equipamento ``3'' e 140 no equipamento 10. A proposta desse segundo caso é verificar se o sistema realizará mais do que uma manobra para transferir
+No segundo caso, aumentou-se os valores de corrente no trecho ``5 - 1'' de 1 para 80 e no trecho ``8 - 9'' de 10 UC para 90 UC. Nesse novo cenário, a resposta oferecida anteriormente deixa de ser válida, uma vez que a carga total seria de 120 UC no equipamento ``3'' e 140 UC no equipamento ``10''. A proposta desse segundo caso é verificar se o sistema realizará mais do que uma manobra para transferir
 as cargas a jusante do defeito, isto é, se dividirá as cargas entre diferentes equipamentos NA
  para que nenhum deles venha a violar a restrição definida.
+
 De acordo com a Figura \ref{fig:ExemploredeRocs2} verifica-se que a metodologia respondeu de
 forma satisfatória. Para o defeito no trecho ``0 - 5'', o sistema abriu os equipamentos
 dos nós ``5'' e ``1'', fechando os nós ``4'' e ``3'', de modo a transferir parte da carga para
-equipamento e parte para o outro, evitando assim a violação da restrição, já que o equipamento ``4'' recebeu 100 de carregamento e ``3'' recebeu 20. Já para
+equipamento e parte para o outro, evitando assim a violação da restrição, já que o equipamento ``4'' recebeu 100 UC  e o ``3'' recebeu 20 UC. Já para
 o defeito no trecho ``0 - 6'', o sistema abriu os equipamentos dos nós ``6'' e ``8'',
 fechando os nós ``10'' e ``9'', de modo a transferir parte da carga para um alimentador
-e parte para o outro, evitando assim a violação da restrição uma vez que o equipamento ``9'' recebeu 90 de carregamento e o equipamento ``10'' recebeu 50.
+e parte para o outro, evitando assim a violação da restrição uma vez que o equipamento ``9'' recebeu 90 UC e o equipamento ``10'' recebeu 50 UC.
 
-\begin{figure}[h]
+\begin{figure}[htp]
 \begin{centering}
-\includegraphics[width=0.7\columnwidth]{img/rocsTela3}
+\includegraphics[width=0.8\columnwidth]{img/rocsTela3}
 \par\end{centering}
 \caption{Resultado do estudo do caso 2.\label{fig:ExemploredeRocs2}}
 \end{figure}
 
 Esses estudos preliminares ajudaram a escolher a melhor implementação da metodologia de modo que a mesma fosse aplicável a redes maiores, como por exemplo a apresentada na Figura \ref{fig:Rede-testes}, onde o número de equipamentos é maior e a disposição é diferente para cada rede, uma vez que são diferentes topologias para cada alimentador.
 
-\begin{figure}[h]
+\begin{figure}[htp]
 \centering
 \includegraphics[width=0.85\columnwidth]{img/redeDeTestes}
 
@@ -64,17 +65,17 @@ Esses estudos preliminares ajudaram a escolher a melhor implementação da metodol
 
 \end{figure}
 
-As redes representadas graficamente na Figura \ref{fig:Rede-testes} foram as redes escolhidas para realizar os casos de teste. Elas são redes reais de uma concessionária do Rio Grande do Sul e possuem 132.890 consumidores e um total de 41 equipamentos telecomandados distribuídos entre esses 21 alimentadores. Uma visão simplificada dos alimentadores e alguns equipamentos telecomandados está apresenta no diagrama unifilar da Figura \ref{fig:Unifilar-Rede-Testes}.
+As redes representadas graficamente na Figura \ref{fig:Rede-testes} foram as redes escolhidas para realizar os casos de teste. Elas são redes reais de uma concessionária do Rio Grande do Sul e possuem 132.890 consumidores e um total de 41 equipamentos telecomandados distribuídos entre seus 21 alimentadores. Uma visão simplificada dos alimentadores e alguns equipamentos telecomandados está apresenta no diagrama unifilar da Figura \ref{fig:Unifilar-Rede-Testes}.
 
 
-\begin{figure}[h]
+\begin{figure}[htp]
 \centering
 \includegraphics[width=0.9\columnwidth]{img/Unifilar-Com_Nomes}
 
 \caption{Representação unifilar da rede de testes\label{fig:Unifilar-Rede-Testes}}
 \end{figure}
 
-Nessas rede foram executados simulações de defeito em diferentes pontos, antes e após equipamentos telecomandados, através do envio de desarmes com bloqueio dos equipamentos. Também foi executado o teste de equipamentos sinalizados pela corrente de curto, ou seja, casos onde o defeito se encontrava a montante do equipamento sinalizado, por exemplo por não estar programado para agir como equipamento de proteção. A secção seguinte apresenta os resultados desses testes indicando as manobras sugeridas e informações, como consumidores restabelecidos, carregamento e queda de tensão, de cada uma dessas opções.
+Nessas redes foram executadas simulações de defeito em diferentes pontos, antes e após equipamentos telecomandados, através do envio de desarmes com bloqueio dos equipamentos. Também foi executado o teste de equipamentos sinalizados pela corrente de curto, ou seja, casos onde o defeito se encontrava a montante do equipamento sinalizado, por exemplo por não estar programado para agir como equipamento de proteção. A secção seguinte apresenta os resultados desses testes indicando as manobras sugeridas e informações, como consumidores restabelecidos, carregamento e queda de tensão, de cada uma dessas opções.
 
 \section{Resultados Obtidos}
 % Mostrar alguns resultados de redes reais. Necessário casos fictícios?
@@ -92,7 +93,7 @@ Os primeiros casos de teste consideram apenas um equipamento telecomandados no a
 \caption[Representação unifilar para casos 1,2 e 3]{Representação unifilar dos alimentadores envolvidos no caso de teste Nº 1, 2 e 3\label{fig:Unifilar-Caso1}}
 \end{figure}
 
-O primeiro teste realizado foi a simulação do desarme do disjuntor do alimentador ``SLE - 3'' sem a sinalização de passagem de corrente de curto circuito em nenhum outro equipamento telecomandado. Analisando a topologia apresenta, é possível deduzir que, como o defeito não foi detectado (sinalização de alguma fase) por nenhum equipamento a não ser o disjuntor, o defeito se encontra no primeiro trecho (entre a saída do alimentador  e o equipamento ``SLE - 2103''). Quando o disjuntor desarmou, todos os consumidores do alimentador ``SLE - 3'' ficarem sem fornecimento de energia elétrica. Na topologia apresenta existe uma chave de fronteira (``SLE - 48'') que pode ser utilizando em conjunto com a chave ``SLE - 2103'' para transferir os clientes situados após o defeito para o alimentador vizinho (ZOO - 3). O resultado esperado da metodologia é que ele indique a chave ``SLE - 2103'' para ser aberta e a chave ``SLE - 48'' para ser fechada, se isso não violar nenhuma das restrições impostas. Num primeiro instante a 
+O primeiro teste realizado foi a simulação do desarme do disjuntor do alimentador ``SLE - 3'' sem a sinalização de passagem de corrente de curto circuito em nenhum outro equipamento telecomandado. Analisando a topologia apresenta, é possível deduzir que, como o defeito não foi detectado (sinalização de alguma fase) por nenhum equipamento a não ser o disjuntor, o defeito se encontra no primeiro trecho (entre a saída do alimentador  e o equipamento ``SLE - 2103''). Quando o disjuntor desarmou, todos os consumidores do alimentador ``SLE - 3'' ficaram sem fornecimento de energia elétrica. Na topologia apresentada existe um equipamento de fronteira (``SLE - 48'') que pode ser utilizado em conjunto com a chave ``SLE - 2103'' para transferir os clientes situados após o defeito para o alimentador vizinho (ZOO - 3). O resultado esperado da metodologia é que ele indique a chave ``SLE - 2103'' para ser aberta e a chave ``SLE - 48'' para ser fechada, se isso não violar nenhuma das restrições impostas. Num primeiro instante a 
 metodologia indicou que existia um equipamento sobrecarregado e que a manobra não poderia ser executada, como pode ser visto nos resultados apresentados na Tabela \ref{caso1-Sobrecarga}.
 
 \begin{threeparttable}[htbp]
