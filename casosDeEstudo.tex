@@ -100,20 +100,23 @@ metodologia indicou que existia um equipamento sobrecarregado e que a manobra nã
 \caption{Resultados caso de teste 1 - Cadastro original da rede}
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
-Manobra & Abrir\tnote{1} & Fechar\tnote{2} & Clientes\tnote{3} & Condutores (\%) & Proteção (\%) & Queda\tnote{6} (\%) \\ \hline
-\multicolumn{1}{|c|}{1} & \multicolumn{1}{c|}{SLE - 2103} & \multicolumn{1}{c|}{SLE - 48} & \multicolumn{1}{r|}{1867} & \multicolumn{1}{r|}{47,2635} & \multicolumn{1}{r|}{2203,83} & \multicolumn{1}{r|}{0,8358} \\ \hline
+Manobra & Abrir & Fechar & Clientes & Condutores (\%) & Proteção (\%) & Queda (\%) \\ \hline
+\multicolumn{1}{|c|}{$1^\dag$} & \multicolumn{1}{c|}{SLE - 2103} & \multicolumn{1}{c|}{SLE - 48} & \multicolumn{1}{r|}{1867} & \multicolumn{1}{r|}{47,2635} & \multicolumn{1}{r|}{2203,83} & \multicolumn{1}{r|}{0,8358} \\ \hline
 \end{tabular}
 \label{caso1-Sobrecarga}
-\begin{tablenotes}
-  \item[1]Chave a ser aberta;
-  \item[2]Chave a ser fechada;
-  \item[3]Número de consumidores;
-  \item[4]Carregamento máximos dos condutores;
-  \item[5]Carregamento máximo dos equipamentos de proteção;
-  \item[6]Queda máxima de tensão.
-\end{tablenotes}
+% \begin{tablenotes}
+%   \item[1]Chave a ser aberta;
+%   \item[2]Chave a ser fechada;
+%   \item[3]Número de consumidores;
+%   \item[4]Carregamento máximos dos condutores;
+%   \item[5]Carregamento máximo dos equipamentos de proteção;
+%   \item[6]Queda máxima de tensão.
+% \end{tablenotes}
 \end{threeparttable}
 \\
+Nas tabelas de resultado da metodologia cada linha é uma manobra que a metodologia considerou, incluindo as que apresentaram restrições violadas. Cada manobra possui um número na coluna Manobra e é composta por um equipamento que deve ser aberto, indicado na coluna Abrir, e um que deve ser fechado, coluna Fechar . A coluna Clientes indica quantos clientes a manobra irá restabelecer se executada. As três colunas restantes são as indicações dos percentuais de carregamento máximo  de condutores na coluna Condutores, de carregamento máximo dos equipamentos de proteção na coluna Proteção e o percentual máximo de queda de tensão na coluna Queda. As manobras que violam alguma das restrições possuem uma marca ($^\dag$) ao lado no número da manobra.
+
+
 A manobra apresentada é a esperada, mas como pode ser visto na coluna Proteção, que indica o percentual máximo de carga nos equipamentos de proteção, o valor  2203,83\% indicado é muito superior a restrição de 90\% definida anteriormente, por isso ela não foi indicada para ser executada. Ao analisar a topologia da rede, foi notada a existência de um possível erro de cadastro na rede. Um equipamento de proteção possuía capacidade máxima de 3A sendo que a corrente média simulada, em regime normal de operação, era de 50A. Após acertar o ajuste desse equipamento para uma corrente superior (100A), a metodologia apresentou os resultados na Tabela \ref{caso1-Resultados} e indicou que a manobra poderia ser executada de forma automática, ou seja, os comandos de abertura e fechamento dos equipamento poderiam ser enviados para o SCADA executá-los.
 
 \begin{table}[htbp]
@@ -131,7 +134,7 @@ A manobra sugerida poderia inicialmente restabelecer 1867 consumidores, isolando
 \subsection[Caso 2]{Caso 2: Isolamento simples}
 
 
-O segundo caso teste, a região do defeito foi modificada para a região após a chave ``SLE - 2103'' e os eventos enviados como entrada na metodologia foram: o desarme do disjuntor do alimentador ``SLE - 3'' e a sinalizado de passagem do curto pelo equipamento ``SLE - 2103''. Os demais estados dos demais equipamentos, foram passados seus estados de operação, uma vez que nenhum sofreu nenhuma alteração em decorrência do curto circuito. O esperado da metodologia é que ela indique uma manobra que isole o fornecimento de energia ao defeito, utilizando a chave ``SLE - 2103'', de modo que o disjuntor possa ser religado novamente. O resultado obtido pela metodologia está descrito na Tabela \ref{caso2-Resultados}, onde pode ser visto que a metodologia apresentou o resultado esperado. %Note que não existem valores de carregamentos e queda de tensão uma vez que essa manobra apenas restabelece o fornecimento de energia elétrica para uma região menor mas sem modificar o caminho que a energia percorria para chegar aos 
+O segundo caso teste, a região do defeito foi modificada para a região após a chave ``SLE - 2103'' e os eventos enviados como entrada na metodologia foram: o desarme do disjuntor do alimentador ``SLE - 3'' e a sinalizado de passagem do curto pelo equipamento ``SLE - 2103''. Os demais estados dos demais equipamentos, foram passados seus estados de operação, uma vez que nenhum sofreu nenhuma alteração em decorrência do curto circuito. O esperado da metodologia é que ela indique uma manobra que isole o fornecimento de energia ao defeito, utilizando a chave ``SLE - 2103'', de modo que o disjuntor possa ser religado novamente. O resultado obtido pela metodologia está descrito na Tabela \ref{caso2-Resultados}, onde pode ser visto que a metodologia apresentou o resultado esperado. Note que não existem valores de carregamentos e queda de tensão uma vez que essa manobra apenas restabelece o fornecimento de energia elétrica para uma região que antes era alimentada utilizando tendo como única diferença a redução da área de fornecimento em relação a topologia antes do defeito.
 % consumidores, assim se não
 
 \begin{table}[htbp]
@@ -184,9 +187,9 @@ Um outro caso de testes (5) que pode ser feito sobre a mesma topologia do caso d
 \begin{tabular}{|c|l|c|r|r|r|r|}
 \hline
 Manobra & \multicolumn{1}{c|}{Abrir} & Fechar & \multicolumn{1}{c|}{Clientes} & \multicolumn{1}{c|}{Condutores (\%)} & \multicolumn{1}{c|}{Proteção (\%)} & \multicolumn{1}{c|}{Queda (\%)} \\ \hline
-1 &   SSU - 74  & SSU - 376 & 4460 & 54,5453 & 100,236 & 1,90574 \\ \hline
+1$^\dag$ &   SSU - 74  & SSU - 376 & 4460 & 54,5453 & 100,236 & 1,90574 \\ \hline
 2 &   SSU - 74  & SSU - 1830 & 4460 & 53,6057 & 50,8109 & 1,47402 \\ \hline
-3 &   SSU - 74  & SSU - 867 & 4460 & 32,2247 & 99,9072 & 1,45342 \\ \hline
+3$^\dag$ &   SSU - 74  & SSU - 867 & 4460 & 32,2247 & 99,9072 & 1,45342 \\ \hline
 \end{tabular}
 \label{caso4-Resultados}
 \end{table}
@@ -227,16 +230,16 @@ Para testar o caso de dividir a carga em diferentes alimentadores, foi feita uma
  \item [GRA - 212:] 140 A.
 \end{description}
 
-Em comparação com as manobras anteriores, apresentadas na Tabela \ref{caso5-Resultados}, se as mesmas fossem aplicadas nessa condição do sistema de distribuição, os resultados possuiriam restrições e poderiam transferir apenas 2663 consumidores. Os valores de tais manobras estão na Tabela \ref{tab:caso5-Manobras-invalidas}, onde pode-se notar o violamento das restrições de carregamento (118\%) e de proteção (96\%), cada um em uma das manobras. Apenas a manobra entre as chaves ``SSU - 805'' e ``SSU - 368'' pode ser aplicada.
+Em comparação com as manobras anteriores, apresentadas na Tabela \ref{caso5-Resultados}, se as mesmas fossem aplicadas nessa condição do sistema de distribuição, os resultados possuiriam restrições e poderiam transferir apenas 2663 consumidores. Os valores de tais manobras estão na Tabela \ref{tab:caso5-Manobras-invalidas}, onde pode-se notar o violamento das restrições das manobras 1 e 3, sendo 118\% de carregamento dos condutores e de 96\% dos equipamentos de proteção respectivamente nas manobras. Apenas a manobra entre as chaves ``SSU - 805'' e ``SSU - 368'' pode ser aplicada.
 
 \begin{table}[htbp]
 \caption{Manobras do caso 6 aplicadas às 6:00}
 \begin{tabular}{|r|c|c|r|r|r|r|}
 \hline
 \multicolumn{1}{|c|}{Manobra} & Abrir & Fechar & \multicolumn{1}{c|}{Clientes} & \multicolumn{1}{c|}{Condutores (\%)} & \multicolumn{1}{c|}{Proteção (\%)} & \multicolumn{1}{c|}{Queda (\%)} \\ \hline
-1 &  SSU - 967  &  SSU - 1707  & 4806 & 118,340 & 67,4538 & 1,69866 \\ \hline
+1$^\dag$ &  SSU - 967  &  SSU - 1707  & 4806 & 118,340 & 67,4538 & 1,69866 \\ \hline
 2 &  EST - 919  &  SSU - 899  & 4806 & 77,514 & 96,8924 & 3,90202 \\ \hline
-3 &  SSU - 805  &  SSU - 368  & 2663 & 102,482 & 58,4148 & 1,01778 \\ \hline
+3$^\dag$ &  SSU - 805  &  SSU - 368  & 2663 & 102,482 & 58,4148 & 1,01778 \\ \hline
 \end{tabular}
 \label{tab:caso5-Manobras-invalidas}
 \end{table}
