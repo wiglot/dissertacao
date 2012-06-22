@@ -96,35 +96,27 @@ Os primeiros casos de teste consideram apenas um equipamento telecomandados no a
 O primeiro teste realizado foi a simulação do desarme do disjuntor do alimentador ``SLE - 3'' sem a sinalização de passagem de corrente de curto circuito em nenhum outro equipamento telecomandado. Analisando a topologia apresenta, é possível deduzir que, como o defeito não foi detectado (sinalização de alguma fase) por nenhum equipamento a não ser o disjuntor, o defeito se encontra no primeiro trecho (entre a saída do alimentador  e o equipamento ``SLE - 2103''). Quando o disjuntor desarmou, todos os consumidores do alimentador ``SLE - 3'' ficaram sem fornecimento de energia elétrica. Na topologia apresentada existe um equipamento de fronteira (``SLE - 48'') que pode ser utilizado em conjunto com a chave ``SLE - 2103'' para transferir os clientes situados após o defeito para o alimentador vizinho (ZOO - 3). O resultado esperado da metodologia é que ele indique a chave ``SLE - 2103'' para ser aberta e a chave ``SLE - 48'' para ser fechada, se isso não violar nenhuma das restrições impostas. Num primeiro instante a 
 metodologia indicou que existia um equipamento sobrecarregado e que a manobra não poderia ser executada, como pode ser visto nos resultados apresentados na Tabela \ref{caso1-Sobrecarga}.
 
-\begin{threeparttable}[htbp]
+\begin{table}[htbp]
 \caption{Resultados caso de teste 1 - Cadastro original da rede}
-\begin{tabular}{|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|r|r|r|r|}
 \hline
 Manobra & Abrir & Fechar & Clientes & Condutores (\%) & Proteção (\%) & Queda (\%) \\ \hline
 \multicolumn{1}{|c|}{$1^\dag$} & \multicolumn{1}{c|}{SLE - 2103} & \multicolumn{1}{c|}{SLE - 48} & \multicolumn{1}{r|}{1867} & \multicolumn{1}{r|}{47,2635} & \multicolumn{1}{r|}{2203,83} & \multicolumn{1}{r|}{0,8358} \\ \hline
 \end{tabular}
 \label{caso1-Sobrecarga}
-% \begin{tablenotes}
-%   \item[1]Chave a ser aberta;
-%   \item[2]Chave a ser fechada;
-%   \item[3]Número de consumidores;
-%   \item[4]Carregamento máximos dos condutores;
-%   \item[5]Carregamento máximo dos equipamentos de proteção;
-%   \item[6]Queda máxima de tensão.
-% \end{tablenotes}
-\end{threeparttable}
-\\
-Nas tabelas de resultado da metodologia cada linha é uma manobra que a metodologia considerou, incluindo as que apresentaram restrições violadas. Cada manobra possui um número na coluna Manobra e é composta por um equipamento que deve ser aberto, indicado na coluna Abrir, e um que deve ser fechado, coluna Fechar . A coluna Clientes indica quantos clientes a manobra irá restabelecer se executada. As três colunas restantes são as indicações dos percentuais de carregamento máximo  de condutores na coluna Condutores, de carregamento máximo dos equipamentos de proteção na coluna Proteção e o percentual máximo de queda de tensão na coluna Queda. As manobras que violam alguma das restrições possuem uma marca ($^\dag$) ao lado no número da manobra.
+\end{table}
+
+Nas tabelas de resultado da metodologia cada linha é uma manobra que a metodologia considerou, incluindo as que apresentaram restrições violadas. Cada manobra possui um número na coluna Manobra e é composta por um equipamento que deve ser aberto, indicado na coluna Abrir, e um que deve ser fechado, coluna Fechar . A coluna Clientes indica quantos clientes a manobra irá restabelecer se executada. As três colunas restantes são as indicações dos percentuais de carregamento máximo  de condutores na coluna Condutores, de carregamento máximo dos equipamentos de proteção na coluna Proteção e o percentual máximo de queda de tensão na coluna Queda. As manobras que violam alguma das restrições possuem uma marca ($^\dag$) ao lado no número da manobra. Já as manobras indicadas pela metodologia como podendo ser aplicadas diretamente possuem a marca \textdegree.
 
 
 A manobra apresentada é a esperada, mas como pode ser visto na coluna Proteção, que indica o percentual máximo de carga nos equipamentos de proteção, o valor  2203,83\% indicado é muito superior a restrição de 90\% definida anteriormente, por isso ela não foi indicada para ser executada. Ao analisar a topologia da rede, foi notada a existência de um possível erro de cadastro na rede. Um equipamento de proteção possuía capacidade máxima de 3A sendo que a corrente média simulada, em regime normal de operação, era de 50A. Após acertar o ajuste desse equipamento para uma corrente superior (100A), a metodologia apresentou os resultados na Tabela \ref{caso1-Resultados} e indicou que a manobra poderia ser executada de forma automática, ou seja, os comandos de abertura e fechamento dos equipamento poderiam ser enviados para o SCADA executá-los.
 
 \begin{table}[htbp]
 \caption{Resultados para o caso de teste 1}
-\begin{tabular}{|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|r|r|r|r|}
 \hline
 Manobra & Abrir & Fechar & Clientes & Condutores (\%) & Proteção (\%) & Queda (\%) \\ \hline
-1 & SLE - 2103 & SLE - 48 & \multicolumn{1}{r|}{1867} & \multicolumn{1}{r|}{47,2635} & \multicolumn{1}{r|}{46,5248} & \multicolumn{1}{r|}{0,8358} \\ \hline
+1\textdegree & SLE - 2103 & SLE - 48 & \multicolumn{1}{r|}{1867} & \multicolumn{1}{r|}{47,2635} & \multicolumn{1}{r|}{46,5248} & \multicolumn{1}{r|}{0,8358} \\ \hline
 \end{tabular}
 \label{caso1-Resultados}
 \end{table}
@@ -134,15 +126,15 @@ A manobra sugerida poderia inicialmente restabelecer 1867 consumidores, isolando
 \subsection[Caso 2]{Caso 2: Isolamento simples}
 
 
-O segundo caso teste, a região do defeito foi modificada para a região após a chave ``SLE - 2103'' e os eventos enviados como entrada na metodologia foram: o desarme do disjuntor do alimentador ``SLE - 3'' e a sinalizado de passagem do curto pelo equipamento ``SLE - 2103''. Os demais estados dos demais equipamentos, foram passados seus estados de operação, uma vez que nenhum sofreu nenhuma alteração em decorrência do curto circuito. O esperado da metodologia é que ela indique uma manobra que isole o fornecimento de energia ao defeito, utilizando a chave ``SLE - 2103'', de modo que o disjuntor possa ser religado novamente. O resultado obtido pela metodologia está descrito na Tabela \ref{caso2-Resultados}, onde pode ser visto que a metodologia apresentou o resultado esperado. Note que não existem valores de carregamentos e queda de tensão uma vez que essa manobra apenas restabelece o fornecimento de energia elétrica para uma região que antes era alimentada utilizando tendo como única diferença a redução da área de fornecimento em relação a topologia antes do defeito.
+No segundo caso teste, a região do defeito foi modificada para a região após a chave ``SLE - 2103''. Os eventos enviados como entrada na metodologia foram o desarme do disjuntor do alimentador ``SLE - 3'' e a sinalização da passagem da corrente de curto pelo equipamento ``SLE - 2103''. O esperado da metodologia é que ela indique uma manobra que isole o fornecimento de energia ao defeito, utilizando a chave ``SLE - 2103'', de modo que o disjuntor possa ser religado novamente. O resultado obtido pela metodologia está descrito na Tabela \ref{caso2-Resultados}, onde pode ser visto que a metodologia apresentou o resultado esperado. Note que não existem valores de carregamentos e queda de tensão uma vez que essa manobra apenas restabelece o fornecimento de energia elétrica para uma região que antes era alimentada utilizando tendo como única diferença a redução da área de fornecimento em relação a topologia antes do defeito.
 % consumidores, assim se não
 
 \begin{table}[htbp]
 \caption{Resultados para o caso de teste 2}
-\begin{tabular}{|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|r|r|r|r|}
 \hline
 Manobra & Abrir & Fechar & Clientes & Condutores (\%) & Proteção (\%) & Queda (\%) \\ \hline
-1 & SLE - 2103 & 5103 (disjuntor) & \multicolumn{1}{r|}{7} & - & - & - \\ \hline
+1\textdegree & SLE - 2103 & 5103 (disjuntor) & \multicolumn{1}{r|}{7} & - & - & - \\ \hline
 \end{tabular}
 \label{caso2-Resultados}
 \end{table}
@@ -164,16 +156,16 @@ O caso de teste 4 envolverá as redes apresentadas na Figura \ref{fig:Unifilar-Ca
 \caption[Representação unifilar para os casos 4 e 5]{Representação unifilar dos alimentadores envolvidos nos casos de teste 4 e 5\label{fig:Unifilar-Caso4}}
 \end{figure}
 
-Como o defeito foi a jusante do equipamento ``SLE - 74'' e o mesmo não desarmou com a passagem da corrente de curto circuito, ele é sinalizado para a metodologia como tendo sido atravessado por tal corrente. Com as informações do estado atual das demais chaves, a metodologia apresentou as manobras da Tabela \ref{caso3-Resultados}, onde a manobra 1 é de isolamento e as manobras 2 e 3 são duas opções distintas de transferência, sendo que apresentada pela metodologia foi a manobra 3, que apresar de ter um carregamento maior nos equipamentos de proteção, ela possui um carregamento dos condutores da rede menor.
+Como o defeito foi a jusante do equipamento ``SLE - 74'' e o mesmo não desarmou com a passagem da corrente de curto circuito, ele é sinalizado para a metodologia como tendo sido atravessado por tal corrente. Com as informações do estado atual das demais chaves, a metodologia apresentou as manobras da Tabela \ref{caso3-Resultados}, onde a manobra 1 é de isolamento, que será indicada para ser executada, e as manobras 2 e 3 são duas opções distintas de transferência, sendo que a apresentada pela metodologia para ser executada automaticamente foi a manobra 3, que apesar de ter um carregamento maior nos equipamentos de proteção, possui um carregamento menor dos condutores da rede.
 
 \begin{table}[htbp]
 \caption{Resultados para o caso de teste 4}
-\begin{tabular}{|c|c|c|r|c|c|c|}
+\begin{tabular}{|c|c|c|r|r|r|r|}
 \hline
 Manobra & Abrir & Fechar & \multicolumn{1}{c|}{Clientes} & Condutores (\%) & Proteção (\%) & Queda (\%) \\ \hline
-1 & SSU - 74 & 3202 (Disjuntor) & 767 & -  & -  & -  \\ \hline
+1\textdegree & SSU - 74 & 3202 (Disjuntor) & 767 & -  & -  & -  \\ \hline
 2 & SSU - 72 & SSU - 1830 & 1959 & \multicolumn{1}{r|}{44,0482} & \multicolumn{1}{r|}{43,4664} & \multicolumn{1}{r|}{1,23235} \\ \hline
-3 & SSU - 72 & SSU - 867 & 1959 & \multicolumn{1}{r|}{27,6828} & \multicolumn{1}{r|}{85,7334} & \multicolumn{1}{r|}{1,21642} \\ \hline
+3\textdegree & SSU - 72 & SSU - 867 & 1959 & \multicolumn{1}{r|}{27,6828} & \multicolumn{1}{r|}{85,7334} & \multicolumn{1}{r|}{1,21642} \\ \hline
 \end{tabular}
 \label{caso3-Resultados}
 \end{table}
@@ -184,17 +176,17 @@ Um outro caso de testes (5) que pode ser feito sobre a mesma topologia do caso d
 
 \begin{table}[htbp]
 \caption{Resultados para o caso de estudo 5}
-\begin{tabular}{|c|l|c|r|r|r|r|}
+\begin{tabular}{|c|c|c|r|r|r|r|}
 \hline
 Manobra & \multicolumn{1}{c|}{Abrir} & Fechar & \multicolumn{1}{c|}{Clientes} & \multicolumn{1}{c|}{Condutores (\%)} & \multicolumn{1}{c|}{Proteção (\%)} & \multicolumn{1}{c|}{Queda (\%)} \\ \hline
 1$^\dag$ &   SSU - 74  & SSU - 376 & 4460 & 54,5453 & 100,236 & 1,90574 \\ \hline
-2 &   SSU - 74  & SSU - 1830 & 4460 & 53,6057 & 50,8109 & 1,47402 \\ \hline
+2\textdegree &   SSU - 74  & SSU - 1830 & 4460 & 53,6057 & 50,8109 & 1,47402 \\ \hline
 3$^\dag$ &   SSU - 74  & SSU - 867 & 4460 & 32,2247 & 99,9072 & 1,45342 \\ \hline
 \end{tabular}
 \label{caso4-Resultados}
 \end{table}
 
-Todas manobras apresentas restauram o mesmo número de consumidores, mas 2 delas, as que utilizam o alimentador ``EST - 2'', não puderam ser consideradas por violarem a restrição de carregamento dos equipamentos de proteção. A manobra escolhida como aplicável foi a manobra 2, que utilizam o alimentador ``ZOO - 7'' para transferir a carga dos 4460 consumidores.
+Todas manobras apresentas restauram o mesmo número de consumidores, mas 2 delas, as que utilizam o alimentador ``EST - 2'', não puderam ser consideradas por violarem a restrição de carregamento da rede e dos equipamentos de proteção. A manobra escolhida como aplicável foi a manobra 2, que utiliza o alimentador ``ZOO - 7'' para transferir a carga dos 4460 consumidores.
 
 
 \subsection[Caso 6] {Caso 6: Transferências para diferentes alimentadores}
@@ -207,15 +199,15 @@ Um caso mais detalhado dessa possibilidade de transferência para diferentes alim
 \caption[Representação unifilar para os casos 6 e 7]{Representação unifilar dos alimentadores envolvidos no caso de teste Nº 6 e 7\label{fig:Unifilar-Caso5}}
 \end{figure}
 
- Para o defeito simulado, existem diferentes possibilidades de transferência, inclusive dividindo parte da carga para um alimentador e parte para outro caso não seja possível transferir toda carga para um alimentador apenas. A metodologia detectou 3 possíveis transferências válidas que estão apresentadas na Tabela \ref{caso5-Resultados}. As manobras 2 e 3 não podem ser aplicadas simultaneamente, uma vez que elas colocariam os alimentadores ``GRA - 212'' e ``SPC - 3'' em um ciclo, o que não seria uma solução válida. Dessa forma somente uma das duas será executada, nesse caso, a que possui menor carregamento nos condutores, a manobra 2.
+ Para o defeito simulado, existem diferentes possibilidades de transferência, inclusive dividindo parte da carga para um alimentador e parte para outro, caso não seja possível transferir toda carga para um alimentador apenas. A metodologia detectou 3 possíveis transferências válidas que estão apresentadas na Tabela \ref{caso5-Resultados}. As manobras 2 e 3 não podem ser aplicadas simultaneamente, uma vez que elas colocariam os alimentadores ``GRA - 212'' e ``SPC - 3'' em um ciclo, o que não seria uma solução válida. Dessa forma somente uma das duas será executada, nesse caso, a que possui menor carregamento nos condutores, a manobra 2.
 
 \begin{table}[htbp]
 \caption{Resultados para o caso de estudo 6}
-\begin{tabular}{|r|c|c|r|r|r|r|}
+\begin{tabular}{|c|c|c|r|r|r|r|}
 \hline
 \multicolumn{1}{|c|}{Manobra} & Abrir & Fechar & \multicolumn{1}{c|}{Clientes} & \multicolumn{1}{c|}{Condutores (\%)} & \multicolumn{1}{c|}{Proteção (\%)} & \multicolumn{1}{c|}{Queda (\%)} \\ \hline
-1 &  SSU - 805  &  SSU - 368  & 2663 & 33,8778 & 19,3103 & 0,3302 \\ \hline
-2 & EST - 919 & SSU - 899 & 4806 & 47,0291 & 58,7864 & 2,4695 \\ \hline
+1\textdegree &  SSU - 805  &  SSU - 368  & 2663 & 33,8778 & 19,3103 & 0,3302 \\ \hline
+2\textdegree & EST - 919 & SSU - 899 & 4806 & 47,0291 & 58,7864 & 2,4695 \\ \hline
 3 & EST - 919 & SSU - 1707 & 4806 & 51,2545 & 31,1837 & 0,7775 \\ \hline
 \end{tabular}
 \label{caso5-Resultados}
@@ -230,16 +222,16 @@ Para testar o caso de dividir a carga em diferentes alimentadores, foi feita uma
  \item [GRA - 212:] 140 A.
 \end{description}
 
-Em comparação com as manobras anteriores, apresentadas na Tabela \ref{caso5-Resultados}, se as mesmas fossem aplicadas nessa condição do sistema de distribuição, os resultados possuiriam restrições e poderiam transferir apenas 2663 consumidores. Os valores de tais manobras estão na Tabela \ref{tab:caso5-Manobras-invalidas}, onde pode-se notar o violamento das restrições das manobras 1 e 3, sendo 118\% de carregamento dos condutores e de 96\% dos equipamentos de proteção respectivamente nas manobras. Apenas a manobra entre as chaves ``SSU - 805'' e ``SSU - 368'' pode ser aplicada.
+Em comparação com as manobras anteriores, apresentadas na Tabela \ref{caso5-Resultados}, se as mesmas fossem aplicadas nessa condição do sistema de distribuição, os resultados possuiriam restrições e poderiam transferir apenas 2663 consumidores. Os valores de tais manobras estão na Tabela \ref{tab:caso5-Manobras-invalidas}, onde pode-se notar o violamento das restrições das manobras 1 e 2, sendo 118\% de carregamento dos condutores e de 96\% dos equipamentos de proteção respectivamente nas manobras. Apenas a manobra entre as chaves ``SSU - 805'' e ``SSU - 368'' pode ser aplicada.
 
 \begin{table}[htbp]
 \caption{Manobras do caso 6 aplicadas às 6:00}
-\begin{tabular}{|r|c|c|r|r|r|r|}
+\begin{tabular}{|c|c|c|r|r|r|r|}
 \hline
 \multicolumn{1}{|c|}{Manobra} & Abrir & Fechar & \multicolumn{1}{c|}{Clientes} & \multicolumn{1}{c|}{Condutores (\%)} & \multicolumn{1}{c|}{Proteção (\%)} & \multicolumn{1}{c|}{Queda (\%)} \\ \hline
 1$^\dag$ &  SSU - 967  &  SSU - 1707  & 4806 & 118,340 & 67,4538 & 1,69866 \\ \hline
-2 &  EST - 919  &  SSU - 899  & 4806 & 77,514 & 96,8924 & 3,90202 \\ \hline
-3$^\dag$ &  SSU - 805  &  SSU - 368  & 2663 & 102,482 & 58,4148 & 1,01778 \\ \hline
+2$^\dag$ &  EST - 919  &  SSU - 899  & 4806 & 77,514 & 96,8924 & 3,90202 \\ \hline
+3\textdegree &  SSU - 805  &  SSU - 368  & 2663 & 102,482 & 58,4148 & 1,01778 \\ \hline
 \end{tabular}
 \label{tab:caso5-Manobras-invalidas}
 \end{table}
@@ -248,12 +240,12 @@ A metodologia foi capaz de contornar essas violações com o uso transferências qu
 
 \begin{table}[htbp]
 \caption{Resultados para o caso de estudo 7. Simulado às 6:00}
-\begin{tabular}{|r|c|c|r|r|r|r|}
+\begin{tabular}{|c|c|c|r|r|r|r|}
 \hline
 \multicolumn{1}{|c|}{Manobra} & Abrir & Fechar & \multicolumn{1}{c|}{Clientes} & \multicolumn{1}{c|}{Condutores (\%)} & \multicolumn{1}{c|}{Proteção (\%)} & \multicolumn{1}{c|}{Queda (\%)} \\ \hline
-1 &  SSU - 967  &  SSU - 1707  & 2083 & 91,5521 & 52,1847 & 0,90991 \\ \hline
-2 &  EST - 919  &  SSU - 899  & 2723 & 67,9839 & 84,9799 & 3,33808 \\ \hline
-3 &  SSU - 805  &  SSU - 368  & 2663 & 102,482 & 58,4148 & 1,01778 \\ \hline
+1\textdegree &  SSU - 967  &  SSU - 1707  & 2083 & 91,5521 & 52,1847 & 0,90991 \\ \hline
+2\textdegree &  EST - 919  &  SSU - 899  & 2723 & 67,9839 & 84,9799 & 3,33808 \\ \hline
+3\textdegree &  SSU - 805  &  SSU - 368  & 2663 & 102,482 & 58,4148 & 1,01778 \\ \hline
 \end{tabular}
 \label{caso5-Resultados-600}
 \end{table}
