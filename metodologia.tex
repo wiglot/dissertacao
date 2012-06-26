@@ -86,7 +86,7 @@ Para exemplificar a escolha da melhor manobra, considere as manobras de transfer
 \label{tab:listaManobras}
 \end{table}
 
-Se apenas for analisado o número de consumidores restabelecidos, a manobra número 4 seria a melhor a ser aplicada. Agora se forem também consideradas as restrições definidas anteriormete, a manobra 4 não poderia ser executada, pois viola as restrições de carregamento dos equipamentos de proteção (limite é 80\%) e de queda de tensão máxima (limite é 7\%). Outra manobra que viola ao menos uma das restrições é a manobra 2, que tem uma queda de tensão de 8\%.
+Se apenas for analisado o número de consumidores restabelecidos, a manobra número 4 seria a melhor a ser aplicada. Agora se forem também consideradas as restrições definidas anteriormente, a manobra 4 não poderia ser executada, pois viola as restrições de carregamento dos equipamentos de proteção (limite é 80\%) e de queda de tensão máxima (limite é 7\%). Outra manobra que viola ao menos uma das restrições é a manobra 2, que tem uma queda de tensão de 8\%.
 
 As manobras restantes (1, 3 e 5) são válidas por não violarem nenhuma das restrições. Dentre elas é escolhida a melhor manobra que deverá ser aplicada. A melhor manobra é aquela que restabelece o maior número de consumidores. Existe um empate nesse quesito entre as manobras 1 e 5, ambas restabelecendo 1400 consumidores. Como somente uma deve ser aplica, é escolhida a manobra que gera a menor carregamento da rede, nesse caso é escolhida a manobra 5 que possui um carregamento um pouco menor dos condutores.
 
@@ -151,21 +151,18 @@ Onde:
   \item $A_{carga}$: Ajuste a ser aplicado na carga. Esse valor é sempre maior ou igual a 1.
 \end{itemize}
 
-O ajuste das demandas dos consumidores é relativo à carga prevista e à carga simulada através de um algoritmo de fluxo de potência. É necessário executar os ajustes das potências ativa e capacitiva demandada pelos consumidores na mesma proporção da carga prevista pela simulada. Assim se a carga prevista for o dobro da carga simulada, a potência ativa e capacitiva de cada consumidor é duplicada também.
+O ajuste das demandas dos consumidores é relativo a carga prevista e a carga simulada através de um algoritmo de fluxo de potência. É necessário executar os ajustes das potências ativa e capacitiva demandada pelos consumidores na mesma proporção da carga prevista pela simulada. Assim se a carga prevista for o dobro da carga simulada, a potência ativa e capacitiva de cada consumidor é duplicada também.
 
 Após a atualização da topologia da rede, via SCADA ou banco de estados, e de suas cargas, o sistema computacional está pronto para computar as manobras que devem ser realizadas para isolar o defeito e restabelecer os demais consumidores. Na próxima seção é apresentada a metodologia de seleção das manobras a serem executadas.
 
 \section {Método Proposto para Seleção das Configurações \label{sec:metodo_proposto}}
 
-O método que será detalhado aqui faz parte da metodologia proposta e tem como papel indicar que chaves devem ser operadas para isolar o defeito da rede a montante além de enumerar as possibilidades de manobras para transferir os consumidores a jusante do defeito. Esse método é executado após as atualizações de estados e cargas.
+O método que será detalhado aqui faz parte da metodologia proposta e tem como papel indicar que chaves devem ser operadas para isolar o defeito. Esse método irá cuidar do isolamento do defeito da rede à montante do mesmo, além de enumerar as possibilidades de manobras para transferir os consumidores a jusante do defeito. A execução desse método se dá após as atualizações de estados e cargas, uma vez que os resultados obtidos dependem da maior fidelidade da rede simulada com a rede real.
 
-Esse método é a parte principal da metodologia de restabelecimento automático, uma vez que detecta a localização do defeito gera as soluções de restabelecimento. Ele é composto de algumas etapas que podem ser visualizadas na Figura \ref{fig:Fluxograma_decisao}.
-
- 
+Esse método é a parte principal da metodologia de restabelecimento automático, já que é ele que irá detecta a localização do defeito e com isso gerar as soluções de restabelecimento. Ele é composto de algumas etapas que podem ser visualizadas na Figura \ref{fig:Fluxograma_decisao}.
 
 
-
-\begin{figure}[htbp]
+\begin{figure}[htb]
 \begin{centering}
 % \includegraphics[width=0.5\columnwidth]{img/FluxogramaChaves}    
 \begin{tikzpicture}[node distance = 4cm,auto, scale=0.5]
@@ -187,7 +184,7 @@ Esse método é a parte principal da metodologia de restabelecimento automático, u
     \path [line] (findOptions) -- (choseBest);
 \end{tikzpicture}
 \par\end{centering}
-\caption{Fluxograma de tomada de decisão\label{fig:Fluxograma_decisao}}
+\caption{Método de seleção de manobras\label{fig:Fluxograma_decisao}}
 
 \end{figure}
 
@@ -205,7 +202,7 @@ A próxima etapa (\ref{fig:Fluxograma_decisao}-d) é o envio dos comandos para o S
 
 O método prossegue agora tentando executar a transferência para alimentadores vizinhos dos consumidores localizados após o defeito. Essa parte do método independe se houve equipamentos sinalizados ou não, ou seja, mesmo que o método já tivesse restabelecido os consumidores a montante do defeito o método irá analisar as possibilidades de transferência.
 
-O início da análise de transferência inicia com o passo \ref{fig:Fluxograma_decisao}-e onde são procuradas todas possibilidades de transferência de carga para os alimentadores vizinhos e tem continuidade com passo \ref{fig:Fluxograma_decisao}-f, onde é feita a análise de tais possibilidades para decidir quais restabelecem mais consumidores e devem ser executadas.  Essas etapas serão apresentadas na próxima secção (\ref{section:Algoritmo}), onde será apresentado o algoritmo de enumeração das opções de transferências e a decisão sobre quais devem ser executadas.
+O início da análise de transferência inicia com o passo \ref{fig:Fluxograma_decisao}-e onde são procuradas todas possibilidades de transferência de carga para os alimentadores vizinhos e tem continuidade com passo \ref{fig:Fluxograma_decisao}-f, onde é feita a análise de tais possibilidades para decidir quais restabelecem mais consumidores e devem ser executadas.  Essas etapas serão apresentadas na próxima secção (\ref{section:Algoritmo}), onde será apresentado o algoritmo de enumeração das opções de transferências e de decisão sobre quais devem ser executadas.
 
 \section{Algoritmo de Tomada de Decisão \label{section:Algoritmo}}
 
@@ -244,7 +241,7 @@ Para exemplificar a enumeração completa de todas as manobras, sem ainda utilizar
 
 Para encontrar o limite final (jusante) da área defeituosa, a rede é percorrida de cada chave telecomandada de fronteira do alimentador afetado até o equipamento de origem. Se não existirem outras chaves entre a chave de fronteira e o equipamento de origem, não existe nenhuma transferência possível usando tal chave. Se existir pelo menos um equipamento, então existe uma possibilidade de transferência.
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
 \centering
 \includegraphics[width=0.5\columnwidth]{img/exemploTransferencias}
 
@@ -268,38 +265,130 @@ Para uma topologia pequena, como a apresentada na Figura \ref{fig:Exemplo_transf
 
 Para não enumerar todas as possibilidades de manobras, foi desenvolvido um algoritmo que escolhe as manobras devem ser executadas de maneira inteligente, enumerando o menor número possível das mesmas. Tal algoritmo de escolha das manobras, já leva em consideração a função objetivo e as restrições quanto está gerando o conjunto de manobras a serem executados, assim a saída do algoritmo é as manobras que podem ser executadas automaticamente pelo SCADA.
 
-Antes de apresentar o algoritmo, será apresentado aqui uma visão geral de como o algoritmo funciona. Basicamente o algoritmo tenta transferir os consumidores usando as chaves mais próximas ao equipamento de origem (nível 1) e caso não consiga, vai para o próximo nível (2) e tenta novamente, podendo descer ainda mais nos níveis e voltar para o primeiro nível caso consiga executar uma transferência parcial dos consumidores. Para cada nível são testados todos os equipamentos NF e para cada um deles são testadas todas as possibilidades de transferência com as chaves NA. Em comparação com a topologia apresentada na Figura \ref{fig:Exemplo_transferencia}, nessa primeira parte são enumeradas as manobras 1 e 2. Caso existam mais de uma manobra válida  de transferência (sem violar nenhuma restrição), para um determinado equipamento NF, é escolhida a que tem um melhor valor da função objetivo, ou seja, a que restabelece mais consumidores. 
+Antes de apresentar o algoritmo, será apresentado aqui uma visão geral de como o algoritmo funciona. Basicamente o algoritmo tenta transferir os consumidores usando as chaves mais próximas ao equipamento de origem (nível 1) e caso não consiga, avança para o próximo nível (2) e tenta novamente, podendo descer ainda mais nos níveis e depois retornar para o primeiro nível caso consiga executar uma transferência parcial dos consumidores em algum dos níveis a frente. Para cada nível são testados todos os equipamentos NF e para cada um deles são testadas todas as possibilidades de transferência com as chaves NA. Em comparação com a topologia apresentada na Figura \ref{fig:Exemplo_transferencia}, no primeiro nível são enumeradas as manobras 1 e 2. Caso existam mais de uma manobra válida  de transferência (sem violar nenhuma restrição), é escolhida a que tem um melhor valor da função objetivo, ou seja, a que restabelece mais consumidores. 
 
-Se existir pelo menos uma manobra válida para cada equipamento NF do primeiro nível, então todos os consumidores após o defeito podem ser transferidos e as manobras podem ser enviadas ao SCADA. Esse é o melhor caso onde apenas as manobras do primeiro nível foram simuladas, ou seja, apenas as manobras 1 e 2 foram simuladas, da qual uma delas poderá executada automaticamente. 
+Se existir pelo menos uma manobra válida para cada equipamento NF do primeiro nível, então todos os consumidores após o defeito podem ser transferidos e as manobras podem ser enviadas ao SCADA. Esse é o melhor caso onde apenas as manobras do primeiro nível foram simuladas, ou seja, apenas as manobras 1 e 2 foram simuladas, sendo que somente uma delas poderá executada automaticamente. 
 
-Caso não seja possível transferir usando os equipamentos NF de primeiro nível devido a alguma restrição ser violada, o algoritmo passa para o próximo nível (2) e testa as possibilidades desse nível. A enumeração e escolha pelas manobras desse segundo nível é feita  da mesma forma como foi feita no nível anterior(1). Usando a topologia de exemplo, o algoritmo agora simularia as manobras 3 e 4 que estão no nível 2.
+Caso não seja possível transferir usando os equipamentos NF de primeiro nível devido a violação de alguma restrição, o algoritmo passa para o próximo nível (2) e testa as possibilidades desse nível. A enumeração das manobras desse segundo nível é feita  da mesma forma como foi feita no nível anterior(1) e usando a topologia de exemplo, o algoritmo agora simularia as manobras 3 e 4.
 
-A partir desses próximos níveis(incluindo o segundo), o algoritmo irá tentar transferir as cargas do nível atual, e, caso tenha executado tal manobra, o algoritmo retorna para o primeiro nível(1) de onde tenta transferir o restante dos consumidores sem utilizar as chaves utilizadas na última manobra. Se ainda assim não for possível transferir os consumidores do primeiro nível, o algoritmo irá novamente tentar transferir os clientes dos próximos níveis repetindo o mesmo procedimento. No momento que não houver mais manobras nem níveis para avançar, o procedimento para pois não existe mais a possibilidade de transferir mais clientes e oferece as manobras válidas anteriormente.
+A partir desses próximos níveis(incluindo o segundo), o algoritmo irá tentar aplicar (executar dentro da simulação) apenas a melhor transferência e irá retornar ao primeiro nível de onde irá tentar transferir o restante dos consumidores sem considerar as chaves utilizadas nas  manobras aplicadas. Se ainda assim não for possível transferir os consumidores do primeiro nível, o algoritmo irá novamente tentar transferir os clientes dos próximos níveis repetindo o mesmo procedimento. No momento que não houver mais manobras nem níveis para avançar, o procedimento oferece as manobras aplicadas como sendo as manobras a serem executadas pelo SCADA.
 
-Utilizando a rede da Figura \ref{fig:Exemplo_transferencia}, um exemplo de aplicação do algoritmo seria a tentativa inicial de transferir os consumidores usando os equipamento NF do primeiro nível, gerando as manobras 1 e 2, como apresentado anteriormente. Supondo que nenhuma das manobras era válida (ambas violavam alguma das das restrições), elas não podem ser executas, assim o algoritmo desce para o segundo nível que tem as manobras 3 e 4 como correspondentes. Caso ambas manobras possam ser executas, é escolhida apenas a melhor delas e o método retorna para as manobras do nível 1. Caso a manobra escolhida no segundo nível seja a manobra 3 (equipamentos ``CH 1-B'' e ``NA-1''), agora o algoritmo irá simular apenas a manobra 2, uma vez que a chave ``NA-1'' que compõem a manobra 1 já foi utilizada na manobra 3.
+Antes de apresentar o algoritmo que define as manobras a serem executas, é apresentado o método que aplica a melhor transferência de uma lista de transferências válidas. O método ApliqueMelhorManobra, mostrado no Algoritmo \ref{alg:AplicaMelhor}, apenas escolhe a transferência com maior número de consumidores (linhas 3 e 4) ou, caso duas manobras possuam o mesmo número de consumidores restabelecidos, escolhe a que possui um menor carregamento (linhas 5 e 6). No final (linha 9) a manobra é aplicada (executada na simulação, não enviada ao SCADA) e os equipamentos utilizados nesta manobra são marcados para que não sejam utilizados em outras de transferências da simulação. Por fim a melhor transferência é retornada.
 
-Se agora for possível de transferir usando a manobra 2 sem que isso viole nenhuma restrição, essa manobra é colocada junto com a manobra 3 para ser executada. Caso a manobra 2 ainda apresentar violações nas restrições, o algoritmo irá avançar um nível (2) e  tentará executar a manobra 4. Se não houver restrições nessa transferência, o algoritmo volta no nível 1, sendo que agora não existem mais transferências válidas, uma vez que todas possibilidades do primeiro nível usam equipamentos NA que já foram utilizados nas manobras aceitas (3 e 4), então o algoritmo encerra e devolve a lista de manobras que podem ser executadas.
+\begin{algorithm}[htb]
+\caption{{ApliqueMelhorManobra(op)}\label{alg:AplicaMelhor}}
+\begin{algorithmic}[1]
+
+\STATE $melhor \leftarrow op[1]$
+\FORALL {$\alpha \in$ op}
+    \IF {$\alpha.Consumidores > melhor.Consumidores$}
+      \STATE $melhor \leftarrow \alpha $
+    \ELSIF {($\alpha.Consumidores = melhor.Consumidores$ E\\\hspace{4em} $\alpha.Carregamento < melhor.Carregamento$)}
+      \STATE $melhor \leftarrow \alpha $
+    \ENDIF
+  \ENDFOR
+\STATE Aplique manobra (melhor)
+\RETURN $melhor$
+\end{algorithmic}
+\end{algorithm}
+
+O método de seleção de manobras está definido no Algoritmo \ref{alg:encontraManobras}. O algoritmo é denominado \textit{EncontraManobras} e recebe 2 equipamentos, o $EqAtual$ que é o equipamento que está sendo processado e o $EqOrigem$ que é o equipamento de origem do defeito. A medição dos níveis é através da comparação de ambos equipamentos, sendo que sabe-se que o procedimento está no primeiro nível quando ambos são iguais. Com esses dois equipamentos o algoritmo não precisa contar os níveis, uma vez que apenas é necessário saber se o equipamento atual está no primeiro nível ou não. Cabe salientar que os equipamentos passados para esse algoritmo são os equipamentos do nível anterior ao que se deseja processar. O algoritmo foi definido assim para simplificar a sua construção e evitar alguns casos especiais, mas o funcionamento é o mesmo descrito anteriormente.
+
+\begin{algorithm}[htb]
+\caption{{EncontraManobras(EqAtual, EqOrigem)}\label{alg:encontraManobras}}
+\begin{algorithmic}[1]
+\STATE $manVld\leftarrow \emptyset$
+\STATE $manLst \leftarrow \emptyset$
+\FORALL {$\beta \in$ Equipamentos NF a frente de EqAtual}
+\STATE $op \leftarrow \emptyset$
+\STATE $Ts \leftarrow$ Lista de possíveis transferências usando $\beta$
+\IF {$Ts$ NÃO é vazio}
+  \FORALL {$t \in Ts$}
+    \STATE {Simule a manobra $t$}
+    \IF {$t$ é Válida}
+      \STATE $op \leftarrow t\; \cup\; op$
+    \ENDIF
+  \ENDFOR
+  \IF {$op$ é Vazio}
+    \STATE $manVld\leftarrow manVld\; \cup\; EncontraManobras(\beta, EqOrigem)$
+  \ELSE
+    \IF {$EqAtual \neq EqOrigem$}
+	\STATE $manLst \leftarrow manLst\; \cup\; op$
+    \ELSE 
+	\STATE $manVld\leftarrow manVld\; \cup\; ApliqueMelhorManobra(op)$
+    \ENDIF
+  \ENDIF
+\ENDIF
+\ENDFOR
+\IF {$EqAtual \neq EqOrigem$ \textbf{E} (manVld ou manLst não são vazios)}
+	\STATE $manVld\leftarrow manVld\; \cup\; ApliqueMelhorManobra(manLst)$
+	\STATE $manVld\leftarrow manVld\; \cup\; EncontraManobras(EqOrigem, EqOrigem)$
+\ENDIF
+\RETURN $manVld$
+\end{algorithmic}
+\end{algorithm}
+
+A variável $manVld$ é o conjunto que contém todas as manobras válidas a serem executas e é inicializado vazio. A lista de manobras do nível atual $manLst$  é utilizada apenas nos níveis a frente do primeiro e também é inicializado como um conjunto vazio. Da linha 3 até a linha 23 o algoritmos itera sobre a lista de equipamentos a frente do equipamento atual. Caso não exista nenhum equipamento, a execução termina sem oferecer nenhuma manobra, uma vez que não existe nenhuma opção de transferência ($manVld$ e $manLst$ serão vazios).
+
+Para cada equipamento NF ($\beta$), o algoritmo obterá uma lista de opções de transferência ($Ts$). Nessa lista estão contidas as transferências usando o equipamento $\beta$ e as chaves telecomandas de fronteira com os alimentadores vizinhos. Se algum equipamento, incluindo $\beta$, já foi utilizado em outra manobra que foi aplicada pelo método ApliqueMelhorManobra, essa manobra não irá ser incluída na lista $Ts$. Se existir pelo menos uma opção de transferência, o algoritmo executa as simulações e adiciona ao conjunto $op$ apenas as manobras válidas (linhas 7 até 12). As simulações são a aplicação da manobra $t$ e o armazenamento dos valores necessários para comparação posterior, como consumidores transferidos, carregamentos e queda de tensão.
+
+Se $op$ for vazio, significa que nenhuma das transferências contidas em $Ts$ são válidas, ou seja, todas violaram pelo menos uma das restrições impostas. Nesse caso o algoritmo é aplicado no próximo nível (linha 14) e o resultado de tal aplicação é adicionado ao conjunto de manobras a serem aplicadas. A chamada a função na linha 14 passa como argumentos de EqAtual o equipamento NF ($\beta$) do qual as transferências estavam sendo testadas e o equipamento EqOrigem é passado como ele mesmo.
+
+Existindo opções de manobras válidas, a melhor delas será escolhida (linhas 16-20). Caso o método não esteja no primeiro nível ($EqAtual \neq EqOrigem$), todas opções de manobra do conjunto $op$ são adicionas à lista de manobras do nível atual (linha 17). Caso o algoritmo esteja sendo aplicado no primeiro nível ($EqAtual = EqOrigem$), a melhor manobra para o equipamento $\beta$ é escolhida e aplicada à simulação com uso do método ApliqueMelhorManobra \ref{alg:AplicaMelhor} e então é colocada na lista de manobras válidas para ser executada diretamente. 
+
+% 
+% Com a melhor transferência escolhida, o algoritmo de busca das manobras \ref{alg:encontraManobras} adiciona tal manobra a lista de manobras a serem executadas (linha 15). Nesse ponto o algoritmo avalia se ele se encontra no primeiro nível ou não. Isso é feito comparando os parâmetros EqAtual e EqOrigem. Se eles forem diferentes significa que o algoritmo está processando um nível diferente do primeiro e como foi encontrada uma manobra válida, ele deve voltar para o primeiro nível para reavaliar as transferências daquele nível. Para isso o método é chamado o método passando ambos parâmetros, EqAtual e EqOrigem, são atribuídos com o o valor do EqOrigem na linha 17.
+
+Após enumerar todas as possibilidades de transferências do nível atual, o algoritmo agora verifica se ele se encontra no primeiro nível ou não e se ele necessita retornar para o primeiro nível para tentar novas transferências. Isso é feito na linha 24 onde é testado se o nível atual é diferente do nível atual ($EqAtual \neq EqOrigem$) e se existem ou transferências válidas a serem executadas ou transferências no nível atual. Se o nível atual não for o primeiro mas não existirem transferências ou válidas ou a serem executadas, significa que todas as transferências possuem alguma restrição e não foi possível transferir parte da carga para algum alimentador vizinho. Se o algoritmo já está num nível diferente do primeiro do primeiro, significa que não existiam transferências no primeiro nível e o mesmo avançou para tentar transferir parte da carga e assim poder retornar e tentar transferir novamente os consumidores do primeiro nível. Assim, se não existirem transferências válidas nos níveis a frente do primeiro, 
+não há a necessidade de tentar transferir os clientes do primeiro nível.
+
+Caso existam possibilidades no nível atual, é necessário aplicar apenas a melhor delas e retornar ao primeiro nível para tentar novamente transferir os clientes. Se existirem manobras a serem executas, provenientes de outros níveis, as mesmas não podem ser perdidas, assim o conjunto de manobras válidas passar a ser a união delas juntamente com o a melhor manobra do nível atual (linha 25). Na linha 26 o algoritmo retorna ao primeiro nível e une as manobras encontradas lá com as manobras válidas atuais.
+
+Utilizando a rede da Figura \ref{fig:Exemplo_transferencia}, será apresentado um exemplo de aplicação do algoritmo. Para questão desempate entre as manobras, caso o número de consumidores restabelecidos ser igual entre as possibilidades, será considerado que as transferências que  utilizam a chave NA-1 possuem um carregamento menor.
+
+O início do procedimento é dado pela chama do algoritmo EncontraManobras (\ref{alg:encontraManobras}) passando como parâmetro inicial o equipamento ``Origem'' tanto para EqAtual quanto EqOrigem. A primeira ação do algoritmo (linha 3) é iterar por todos equipamento NF a frente do equipamento atual (``Origem''). O único equipamento a frente de tal equipamento é ``CH1-A'' e agora o algoritmo irá  enumera as possibilidades de transferência utilizando tal equipamento (linha 5). São possíveis duas manobras com o equipamento ``CH1-A'': ``CH1-A - NA-1'' e ``CH1-A - NA-2''. As manobras são simuladas e, se não violarem nenhuma restrição, são colocadas na lista opções válidas (linhas 7 à 11).
+
+Considerando que ambas manobras são válidas, o algoritmo então escolhe a melhor (a que utiliza ``NA-1``), que é então adicionada ao conjunto de manobras (linha 19), uma vez que os parâmetros EqAtual e EqOrigem são iguais (''Origem``). Por já estar no primeiro nível, o algoritmo não retorna ao primeiro nível (linhas 25 e 26). Ao final, a lista de manobras a serem realizadas é retornada, nesse caso contendo a manobra ``CH1-A - NA-1''.
+
+Caso as manobras do primeiro nível não possam ser aplicadas, a lista de opções válidas ficará vazia e o algoritmo irá passar para a linha 14, onde irá avançar para o próximo nível, passando o equipamento atual (``CH1-A'') como equipamento atual e o próprio equipamento EqOrigem como seu valor de parâmetro. Como as chamadas estão sendo feitas de forma recursiva, os algoritmos referenciados pela sua ordem de chamada. Na segunda chamada do algoritmo, o algoritmo agora irá enumerar os equipamento NF a frente do equipamento atual (``CH1-A''), para cada um deles serão enumeradas as possibilidades de transferência, e ao final será escolhida apenas a melhor transferência desse nível.
+
+O primeiro equipamento enumerado é ``CH1-B'' que possui apenas uma transferência com o equipamento NA-1, que será considerada válida. Como a segunda chamada do algoritmo não está no primeiro nível (EqAtual é diferente de EqOrigem), o algoritmo escolhe a melhor manobra e adiciona à lista de manobras do nível atual (linha 17). Note que é utilizado o método EscolhaMelhorManobra, uma vez que a manobra não deve ainda ser aplicada. A segunda chamada do algoritmo agora passa para o próximo equipamento NF (``CH2-B'') o queal também possui apenas uma transferência utilizando o equipamento ``NA-2'', a qual será considerada válida. Essa manobra também será adiciona à lista de manobras do nível atual (linha 17). Não tendo mais equipamento NF, a segunda chamada do algoritmo agora escolhe a melhor manobra do nível atual (linha 25) e volta para o primeiro nível (linha 26). Considerando que a manobra ``CH1-B - NA-1'' é a melhor, ela então é aplicada e adicionada ao conjunto de manobras a serem executadas.
+
+A terceira chamada do algoritmo na linha 26 na segunda chamada do algoritmo, retorna ao primeiro nível, mas agora a enumeração das manobras não irá considerar a transferência utilizando o equipamento ``NA-1'', uma vez que a manobra ``CH1-B - NA-1'' no segundo nível foi aplicada e utilizava aquele equipamento. Dessa forma, sobrou apenas a manobra ``CH1-A - NA-2'' que agora será considerada seja válida uma vez que parte da carga já foi transferida com a manobra ``CH1-B - NA-1''. Sendo a manobra válida, ela é então retornada como executável encerrando a terceira chamada do algoritmo. Na segunda chamada do algoritmo, a manobra retornada pela terceira chamada do algoritmo (``CH1-A - NA-2'') é acrescentada ao conjunto de manobras a serem executados, ficando o conjunto composto pelas manobras \{`CH1-B - NA-1'', ``CH1-A - NA-2''\}, o
+qual é retornado ao final da segunda execução. Voltando a primeira execução do algoritmo, as manobras retornadas da chamada do próximo nível (linha 14) são adicionadas ao conjunto de manobras executáveis, que estava vazio antes disso. Não existindo mais nenhum equipamento NF e estando no primeiro nível, a execução do algoritmo termina retornando as manobras \{``CH1-B - NA-1'', ``CH1-A - NA-2''\} para serem executadas, na ordem que elas estão no conjunto, pelo SCADA. Esse envio corresponde ao passo \ref{fig:Fluxograma_decisao}-f da metodologia de escolha das chaves.
+
+Maiores detalhes sobre os resultados que o algoritmo oferece, estarão melhor apresentados no capítulo \refname{cap:casosestudos}, onde são apresentado casos de aplicação da metodologia em redes reais. Vale ressaltar que o número total de transferências simuladas nunca será completa, uma vez que dentre as transferência a partir do segundo nível apenas uma escolhida a para ser testadas com as manobras do primeiro nível, como no exemplo de aplicação descrito acima que não teve uma simulação entre das manobras  ``CH1-A - NA-1'' após a aplicação da manobra ``CH2-B - NA-2''.
+
+% A tentativa inicial de transferir os consumidores usando os equipamento NF do primeiro nível (CH1-A), gerando as manobras 1 e 2, e nenhuma das manobras era válida (ambas violavam alguma das das restrições), elas não podem ser executas, assim o algoritmo desce para o segundo nível que tem as manobras 3 e 4 como correspondentes. Caso ambas manobras possam ser executas, é escolhida apenas a melhor delas e o método retorna para as manobras do nível 1. Caso a manobra escolhida no segundo nível seja a manobra 3 (equipamentos ``CH 1-B'' e ``NA-1''), agora o algoritmo irá simular apenas a manobra 2, uma vez que a chave ``NA-1'' que compõem a manobra 1 já foi utilizada na manobra 3.
+% 
+% Se agora for possível de transferir usando a manobra 2 sem que isso viole nenhuma restrição, essa manobra é colocada junto com a manobra 3 para ser executada. Caso a manobra 2 ainda apresentar violações nas restrições, o algoritmo irá avançar um nível (2) e  tentará executar a manobra 4. Se não houver restrições nessa transferência, o algoritmo volta no nível 1, sendo que agora não existem mais transferências válidas, uma vez que todas possibilidades do primeiro nível usam equipamentos NA que já foram utilizados nas manobras aceitas (3 e 4), então o algoritmo encerra e devolve a lista de manobras que podem ser executadas.
   %Usando 2 pares de chaves foi possível restabelecer todos consumidores após o defeito
-Alg(EQ,n)
-m
-para cada equipamento eq à frente de EQ
-  op <- \empty
-  Ts <- lista possíveis transferências usando eq
-  Se TS é vázio {
-    para cada t em Ts faça
-      simule a transferência(t)
-      Se (t é Válida)
-	op <- op + t
-    fim para
-    se (op = \empty){
-	m <- Alg(eq, n + 1)
-    }senão{
-	m <- m + Escolhe a melhor (op)
-    }
-  }
-fim para
 
-retorn m
+
+
+% Alg(EQ, EqOrigem)
+% m
+% para cada equipamento eq a frente de EQ
+%   op <- \empty
+%   Ts <- lista possíveis transferências usando eq
+%   Se TS é vázio {
+%     para cada t em Ts faça
+%       simule a transferência(t)
+%       Se (t é Válida)
+% 	op <- op + t
+%     fim para
+%     se (op = \empty){
+% 	m <- Alg(eq, EqOrigem)
+%     }senão{
+% 	m <- m + Escolhe a melhor (op)
+% 	se (EQ != EqOrigem)
+% 	    m <- m + Alg (EqOrigem, EqOrigem)
+%     }
+%   }
+% fim para
+% 
+% retorn m
+
 
 % Para os próximos níveis, incluindo o nível 2, a escolha das manobras não termina quando existe uma manobra. Se existir a possibilidade de aplicar uma manobra desses níveis, essa manobra é marcada para ser apicada e o algoritmo volta para o primeiro, mas não considera as chaves utilizadas nessa manobra. Esse comportamento do algoritmo permite que se não é possível aplicar uma manobra de um nível, ele desce um nível para tentar transferir menos consumidores, e assim não violar as restrições além de reduzir a carga que seria que deve ser transferida do nível 1. Se não existir nenhuma transferência válida o algoritmo iria para o próximo nível ou, caso não existisse mais nenhum equipamento NF depois desse nível, então não existiriam manobras factíveis para transferir.
 

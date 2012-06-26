@@ -236,10 +236,10 @@ order=-1
 
 [item:Dissertação.tex]
 archive=true
-column=34
+column=31
 encoding=ISO-8859-15
 highlight=LaTeX
-line=127
+line=28
 mode=LaTeX
 open=false
 order=1
@@ -276,13 +276,13 @@ order=4
 
 [item:casosDeEstudo.tex]
 archive=true
-column=294
+column=48
 encoding=ISO-8859-15
 highlight=LaTeX
-line=196
+line=0
 mode=LaTeX
-open=false
-order=3
+open=true
+order=2
 
 [item:consideracoesFinais.tex]
 archive=true
@@ -516,10 +516,10 @@ order=7
 
 [item:metodologia.tex]
 archive=true
-column=17
+column=137
 encoding=ISO-8859-15
 highlight=LaTeX
-line=287
+line=344
 mode=LaTeX
 open=true
 order=0
@@ -566,13 +566,13 @@ order=3
 
 [item:sistemaDesenvolvido.tex]
 archive=true
-column=51
+column=799
 encoding=ISO-8859-15
 highlight=LaTeX
-line=15
+line=43
 mode=LaTeX
-open=false
-order=7
+open=true
+order=1
 
 [item:termodeaprovacao.tex]
 archive=true
@@ -585,8 +585,8 @@ open=false
 order=8
 
 [view-settings,view=0,item:Dissertação.tex]
-CursorColumn=34
-CursorLine=127
+CursorColumn=31
+CursorLine=28
 JumpList=
 ViMarks=
 
@@ -609,8 +609,8 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:casosDeEstudo.tex]
-CursorColumn=294
-CursorLine=196
+CursorColumn=48
+CursorLine=0
 JumpList=
 ViMarks=
 
@@ -639,8 +639,8 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:metodologia.tex]
-CursorColumn=17
-CursorLine=287
+CursorColumn=137
+CursorLine=344
 JumpList=
 ViMarks=
 
@@ -667,8 +667,8 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:sistemaDesenvolvido.tex]
-CursorColumn=51
-CursorLine=15
+CursorColumn=799
+CursorLine=43
 JumpList=
 ViMarks=
 
