@@ -16,7 +16,7 @@ src_extensions=.tex .ltx .latex .dtx .ins
 MakeIndex=
 QuickBuild=
 
-[document-settings,item:Dissertação.tex]
+[document-settings,item:Dissertacao.tex]
 Bookmarks=
 Encoding=ISO-8859-15
 FoldedColumns=
@@ -234,7 +234,7 @@ mode=
 open=false
 order=-1
 
-[item:Dissertação.tex]
+[item:Dissertacao.tex]
 archive=true
 column=31
 encoding=ISO-8859-15
@@ -584,7 +584,7 @@ mode=LaTeX
 open=false
 order=8
 
-[view-settings,view=0,item:Dissertação.tex]
+[view-settings,view=0,item:Dissertacao.tex]
 CursorColumn=31
 CursorLine=28
 JumpList=
