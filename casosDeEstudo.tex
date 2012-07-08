@@ -1,25 +1,26 @@
 \chapter{Casos de Estudo \label{cap:casosestudos}}
 % Apresentar algumas topologias de estudo, mostrar resultados preliminares com o Rocs para o sistema de teste, mostrar algumas redes (pedir permissão para a AES?)
 
-Foram realizados testes da metodologia proposta utilizando o sistema computacional desenvolvido, considerando
+Foram realizados testes da metodologia proposta, inicialmente para validar o método de enumeração de possibilidades de transferências, e posteriormente considerando
 vários cenários operacionais de desarmes de alimentadores, incluindo defeitos a
 montante ou a jusante dos equipamentos telecomandados para diferentes períodos
 de carga.
 
-Anterior a esses testes e ao desenvolvido da aplicação computacional, o algoritmo de escolha das manobras de transferência foi testado para avaliar sua eficácia de gerar resultados válidos para diferentes topologias de rede. 
+Para o estudo da eficiência da busca por manobras, foi implementado um protótipo do algoritmo na ferramenta Rocs \cite{Rocs2012}. O Rocs é uma ferramenta de pesquisa em Teoria de Grafos que permite visualizar e interagir utilizando algoritmos escritos em linguagem Javascript\footnote{Linguagem de programação. Muito utilizada para programação em tempo de execução.}.
 
-Para tanto, foi implementado um protótipo do algoritmo na ferramenta Rocs \cite{Rocs2012}, que é uma ferramenta de pesquisa em Teoria de Grafos que permite visualizar e interagir utilizando algoritmos escritos em linguagem Javascript\footnote{Linguagem de programação. Muito utilizada para programação em tempo de execução.}.
+Após tal estudo do funcionamento do algoritmo de busca, foi desenvolvida uma ferramenta computacional para a simulação da operação de redes de distribuição e também a simulação da ocorrência de defeitos. A descrição do sistema desenvolvido se encontra na secção \refname{sistemaDesenvolvido}.
+
+
+
+A Figura \ref{fig:ExemploredeRocs} ilustra a tela inicial do Rocs com um representação simplificada de uma rede de distribuição, onde os nós em cor azul representam os equipamentos telecomandados NF (normalmente fechado) e os de
+cor vermelha os equipamentos NA (normalmente abertos). Também há a indicação 
+dos valores de carga em cada trecho, sendo que nas simulações foi considerado que qualquer transferência pode ser executada contanto que a carga total te tal transferência não ultrapasse 100 UC\footnote{Optou-se por não usar Amperes pois não existe uma simulação da rede, apenas um valor de carregamento arbitrário.} (Unidades de Carregamento). Foi considerado que todos os trechos entre os equipamentos possuem o mesmo número de consumidores, assim quanto mais o número de trechos transferidos maior o número de consumidores restabelecidos.
 
 \begin{figure}[htp]
 \centering
 \includegraphics[width=0.8\columnwidth]{img/rocsTela1}
 \caption{Topologia inicial do caso de teste.\label{fig:ExemploredeRocs}}
 \end{figure}
-
-A Figura \ref{fig:ExemploredeRocs} ilustra a tela inicial do Rocs com um representação simplificada de uma rede de distribuição, onde os nós em cor azul representam os equipamentos telecomandados NF (normalmente fechado) e os de
-cor vermelha os equipamentos NA (normalmente abertos). Também há a indicação 
-dos valores de carga em cada trecho, sendo que nas simulações foi considerado que qualquer transferência pode ser executada contanto que a carga total te tal transferência não ultrapasse 100 UC\footnote{Optou-se por não usar Amperes pois não existe uma simulação da rede, apenas um valor de carregamento arbitrário.} (Unidades de Carregamento). Foi considerado que todos os trechos entre os equipamentos possuem o mesmo número de consumidores, assim quanto mais o número de trechos transferidos maior o número de consumidores restabelecidos.
-
 
 Para ilustrar a aplicação do algoritmo de seleção de chaves para transferência, serão apresentados dois estudos de
 casos. No primeiro caso, considerou-se o defeito após o equipamento ``0'', ou seja, nos trechos ``0 - 5'' e ``0 - 6'', e
@@ -55,7 +56,65 @@ e parte para o outro, evitando assim a violação da restrição uma vez que o equip
 \caption{Resultado do estudo do caso 2.\label{fig:ExemploredeRocs2}}
 \end{figure}
 
-Esses estudos preliminares ajudaram a escolher a melhor implementação da metodologia de modo que a mesma fosse aplicável a redes maiores, como por exemplo a apresentada na Figura \ref{fig:Rede-testes}, onde o número de equipamentos é maior e a disposição é diferente para cada rede, uma vez que são diferentes topologias para cada alimentador.
+
+\chapter{Sistema Desenvolvido\label{sistemaDesenvolvido}}
+
+Para validar a metodologia, foi desenvolvido um sistema computacional capaz de representar e simular o funcionamento de uma rede de distribuição, além de permitir a simulação de defeitos. Dentro desse sistema foi implementada a metodologia apresentada nesse trabalho e funcionalidades que simulam o comportamento dos demais sistemas necessários, como o SCADA e histórico de carga das redes.
+
+O sistema foi desenvolvido utilizando a linguagem de programação C++, a qual oferece robustez e extensibilidade, tendo sido  utilizado o framework Qt \cite{QtSite} para o desenvolvido mais rápido, uma vez que o mesmo já disponibiliza componentes gráficos e de padrões de design já implementados.
+
+
+A Fig. \ref{fig:mainWindow} apresenta as principais janelas do sistema. A janela principal (\ref{fig:mainWindow}-A) é onde são apresentadas as mensagens de resposta da metodologia e onde estão os menus de acesso as opções.  A janela de simulação de eventos (\ref{fig:mainWindow}-B) permite simular o envio de eventos de desarme dos equipamentos. Na parte superior dessa janela, existe um campo no qual é indicado qual equipamento a metodologia irá considerar como equipamento desarmado pela corrente de curto circuito. Apesar da lista conter inicialmente apenas os disjuntores, é possível executar a simulação de desarme para qualquer equipamento telecomandado das redes carregadas. A corrente do campo pré-falta é utilizada para o ajuste de carga e a data e hora usada para as simulações de fluxo de potência. Os demais campos são informações em relação ao estado do equipamento, tais como como fases sinalizadas (ABCN) e os estados de não religar 
+(excluído) e se o controle está travado (bloqueio). A janela C (\ref{fig:mainWindow}-C) apresenta algumas opções da metodologia que podem ser configuradas, como o percentual de sobrecarga dos condutores e dos equipamentos de proteção, a queda máxima de tensão. A última janela (\ref{fig:mainWindow}-D) é apenas uma visualização da topologia da rede carregada.
+
+%%Fig aqui.
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\columnwidth]{img/ASE-Restoration}
+
+\caption[Principais janelas do sistema desenvolvido]{Principais janelas do sistema desenvolvido\\A) Janela principal,\\B) Janela de simulação de eventos,\\C) Visualização das redes carregadas,\\D) Configurações de restrições.\label{fig:mainWindow}}
+
+\end{figure}
+
+O envio dessas informações é o gatilho de início da metodologia apresentada. Caso alguma informação estiver incorreta (por exemplo, equipamento de origem não é um equipamento telecomandado) o sistema não irá continuar e irá apresentar uma mensagem na janela principal avisando o motivo de ter interrompido o processamento.
+
+Após o envio das informações para simulação, a metodologia necessita atualizar o estado das chaves do alimentador onde o defeito ocorreu e dos alimentadores que fazem fronteira com o mesmo. Para simular esse comportamento, o sistema apresenta uma lista das chaves contidas em tais alimentadores onde é possível mudar o estado das chaves. Isso pode ser visto na Fig \ref{fig:switchStatus}, onde as chaves marcadas são as que ao final terão o estado Fechado e as não marcadas terão o estado Aberto. Caso alguma operação de fechar leve a um ciclo na rede (lembrando que uma restrição é a radialidade do sistema), a metodologia é interrompida e uma mensagem é exibida na janela principal.
+
+%%Fig Aqui.
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.2\columnwidth]{img/EstadoChaves}
+
+\caption{Requisição do estado das chaves.\label{fig:switchStatus}}
+
+\end{figure}
+
+Com o estado das chaves atualizado, a metodologia define a lista de equipamentos que podem ser utilizados para o restabelecimento automático e agora necessita obter mais informações sobre tais equipamentos, para só então executar as simulações. Para cada equipamento que poderá ser utilizado, o sistema apresenta a janela da Fig \ref{fig:switchSCADARequest}, onde são solicitadas as informações do estado atual do equipamento telecomandado. As informações solicitadas são o estado (Aberto/Fechado) da chave, a existência da sinalização da passagem da corrente de curto por alguma fase, o estado de comunicação, se a chave está excluída (não religar) e se o equipamento está em bloqueio. Também é solicitada a corrente pré-falta de cada equipamento, porém esse valor somente é considerado para os disjuntores dos alimentadores.
+
+%%Fig Aqui
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.3\columnwidth]{img/SwitchSCADARequest}
+
+\caption{Requisição das informações de um equipamento telecomandado.\label{fig:switchSCADARequest}}
+
+\end{figure}
+
+Nesse ponto o sistema já dispõe de todas informações necessárias para executar as simulações, tanto de operação da rede quanto das manobras de isolamento e transferência de carga. Como resultado é obtida uma sequência de manobras que podem ser executadas, na qual são incluídas as manobras que violam as restrições, sendo que estas o sistema não coloca como executáveis. A Fig \ref{fig:maneuversWindows} apresenta um exemplo de manobras que contemplam o isolamento de defeitos (chave 5103) e a transferência (SLE - 47), sendo que a última não está marcada para execução por existirem restrições em um equipamento de proteção (5203 com 90.62\% de carga). Nessa última janela é possível aplicar as manobras (inclusive as que estão com algum tipo de sobrecarga), bastando marcar as manobras e clicar em Ok. Essa aplicação das manobras é útil para simular a ocorrência de novos defeitos quando a rede se encontra em estado de contingência.
+
+
+%%fig Aqui
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.4\columnwidth]{img/maneuversOptions}
+
+\caption{Opções de manobras simuladas.\label{fig:maneuversWindows}}
+
+\end{figure}
+
+\section{Resultados Obtidos}
+
+Com esses estudos preliminares e o desenvolvimento da ferramenta computacional a metodologia foi aplicada em rede reais maiores, como por exemplo a apresentada na Figura \ref{fig:Rede-testes}, onde o número de equipamentos é maior e a disposição é diferente para cada rede, uma vez que são diferentes topologias para cada alimentador.
 
 \begin{figure}[htp]
 \centering
@@ -77,7 +136,8 @@ As redes representadas graficamente na Figura \ref{fig:Rede-testes} foram as red
 
 Nessas redes foram executadas simulações de defeito em diferentes pontos, antes e após equipamentos telecomandados, através do envio de desarmes com bloqueio dos equipamentos. Também foi executado o teste de equipamentos sinalizados pela corrente de curto, ou seja, casos onde o defeito se encontrava a montante do equipamento sinalizado, por exemplo por não estar programado para agir como equipamento de proteção. A secção seguinte apresenta os resultados desses testes indicando as manobras sugeridas e informações, como consumidores restabelecidos, carregamento e queda de tensão, de cada uma dessas opções.
 
-\section{Resultados Obtidos}
+
+
 % Mostrar alguns resultados de redes reais. Necessário casos fictícios?
 
 Para executar os casos de testes foram consideradas as restrições de carregamento máximo dos equipamentos de proteção de 90\%, sobrecarga máxima dos condutores de 110\% e queda máxima de tensão de 7\%.
@@ -93,7 +153,8 @@ Os primeiros casos de teste consideram apenas um equipamento telecomandados no a
 \caption[Representação unifilar para casos 1,2 e 3]{Representação unifilar dos alimentadores envolvidos no caso de teste Nº 1, 2 e 3\label{fig:Unifilar-Caso1}}
 \end{figure}
 
-O primeiro teste realizado foi a simulação do desarme do disjuntor do alimentador ``SLE - 3'' sem a sinalização de passagem de corrente de curto circuito em nenhum outro equipamento telecomandado. Analisando a topologia apresenta, é possível deduzir que, como o defeito não foi detectado (sinalização de alguma fase) por nenhum equipamento a não ser o disjuntor, o defeito se encontra no primeiro trecho (entre a saída do alimentador  e o equipamento ``SLE - 2103''). Quando o disjuntor desarmou, todos os consumidores do alimentador ``SLE - 3'' ficaram sem fornecimento de energia elétrica. Na topologia apresentada existe um equipamento de fronteira (``SLE - 48'') que pode ser utilizado em conjunto com a chave ``SLE - 2103'' para transferir os clientes situados após o defeito para o alimentador vizinho (ZOO - 3). O resultado esperado da metodologia é que ele indique a chave ``SLE - 2103'' para ser aberta e a chave ``SLE - 48'' para ser fechada, se isso não violar nenhuma das restrições impostas. Num primeiro instante a 
+O primeiro teste realizado foi a simulação do desarme do disjuntor do alimentador ``SLE - 3'' sem a sinalização de passagem de corrente de curto circuito em nenhum outro equipamento telecomandado. Analisando a topologia apresenta, é possível deduzir que, como o defeito não foi detectado (sinalização de alguma fase) por nenhum equipamento a não ser o disjuntor, o defeito se encontra no primeiro trecho (entre a saída do alimentador  e o equipamento ``SLE - 2103''). Quando o disjuntor desarmou, todos os consumidores do alimentador ``SLE - 3'' ficaram sem fornecimento de energia elétrica. Na topologia apresentada existe um equipamento de fronteira (``SLE - 48'') que pode ser utilizado em conjunto com a chave ``SLE - 2103'' para transferir os clientes situados após o defeito para o alimentador vizinho (ZOO - 3). O resultado esperado da metodologia é que ele indique a chave ``SLE - 2103'' para ser aberta e a chave ``SLE - 48'' para ser fechada, se isso não violar nenhuma das restrições impostas. Num primeiro 
+instante a 
 metodologia indicou que existia um equipamento sobrecarregado e que a manobra não poderia ser executada, como pode ser visto nos resultados apresentados na Tabela \ref{caso1-Sobrecarga}.
 
 \begin{table}[htbp]

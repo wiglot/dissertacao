@@ -4,7 +4,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.1.2
-lastDocument=metodologia.tex
+lastDocument=Sist.Distr.tex
 masterDocument=
 name=Dissertação
 pkg_extIsRegExp=false
@@ -139,6 +139,8 @@ ReadWrite=true
 [document-settings,item:revisaoBibliografica.tex]
 Bookmarks=
 Encoding=ISO-8859-15
+FoldedColumns=
+FoldedLines=
 Highlighting=LaTeX
 Indentation Mode=
 Mode=LaTeX
@@ -246,13 +248,13 @@ order=1
 
 [item:Sist.Distr.tex]
 archive=true
-column=0
+column=26
 encoding=ISO-8859-15
 highlight=LaTeX
 line=5
 mode=LaTeX
-open=false
-order=2
+open=true
+order=9
 
 [item:anexo.tex]
 archive=true
@@ -286,13 +288,13 @@ order=2
 
 [item:consideracoesFinais.tex]
 archive=true
-column=178
+column=50
 encoding=ISO-8859-15
 highlight=LaTeX
-line=12
+line=19
 mode=LaTeX
-open=false
-order=6
+open=true
+order=3
 
 [item:dedicatoria.tex]
 archive=true
@@ -321,8 +323,8 @@ encoding=UTF-8
 highlight=LaTeX
 line=67
 mode=LaTeX
-open=false
-order=5
+open=true
+order=4
 
 [item:images/AECP.png]
 archive=true
@@ -506,13 +508,13 @@ order=-1
 
 [item:introducao.tex]
 archive=true
-column=0
+column=536
 encoding=ISO-8859-15
 highlight=LaTeX
-line=0
+line=21
 mode=LaTeX
-open=false
-order=7
+open=true
+order=5
 
 [item:metodologia.tex]
 archive=true
@@ -541,18 +543,18 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=2
 mode=LaTeX
-open=false
-order=0
+open=true
+order=6
 
 [item:revisaoBibliografica.tex]
 archive=true
-column=417
+column=0
 encoding=ISO-8859-15
 highlight=LaTeX
 line=21
 mode=LaTeX
-open=false
-order=3
+open=true
+order=7
 
 [item:sistemaComputacionais.tex]
 archive=true
@@ -581,7 +583,7 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=53
 mode=LaTeX
-open=false
+open=true
 order=8
 
 [view-settings,view=0,item:Dissertacao.tex]
@@ -591,7 +593,7 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:Sist.Distr.tex]
-CursorColumn=0
+CursorColumn=26
 CursorLine=5
 JumpList=
 ViMarks=
@@ -615,8 +617,8 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:consideracoesFinais.tex]
-CursorColumn=178
-CursorLine=12
+CursorColumn=50
+CursorLine=19
 JumpList=
 ViMarks=
 
@@ -657,8 +659,10 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:revisaoBibliografica.tex]
-CursorColumn=417
+CursorColumn=0
 CursorLine=21
+JumpList=
+ViMarks=
 
 [view-settings,view=0,item:sistemaComputacionais.tex]
 CursorColumn=65
