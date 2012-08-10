@@ -1,41 +1,49 @@
 \begin{resumo}
 $\phantom{}$
-Cada vez mais a energia elétrica é importante para os consumidores, tanto residenciais quanto comerciais e industriais, sendo a sua interrupção ruim tanto para os consumidores que param de produzir e podem ter prejuízos, quanto para as concessionárias de distribuição que deixam de vender-la.
 
-Para a maior parte dos consumidores, grande parte das interrupção são devido a atuação de equipamentos pela ocorrência de defeitos. Tais defeitos em sua maioria podem ser isolados de modo que os clientes fora da área afetada possam ter a energia elétrica restabelecida.
+Com o crescimento da dependência pela energia elétrica, é necessário que as consessionárias se preocupem em além de fornecer uma energia de qualidade, em manter a continuidade do seu fornecimento. A continuidade do fornecimento de energia elétrica é algo bom tanto para os consumidores quanto para a concessionária, a qual deixa de vender energia elétrica e ainda pode ser penalizada por interrupções. Como nem sempre é possível manter a continuidade do fornecimento devido a diversos fatores, sendo os defeitos permanentes os mais críticos, as empresas concessionárias são obrigadas a procurar novas metodologias e tecnologias para diminuir o tempo que o fornecimento de energia elétrica é interrompido.
 
-Esse restabelecimento deve ser feito de maneira rápida e para o maior número possível de consumidores para assim reduzir o tempo que os consumidores ficam sem energia elétrica, aumentando com isso a continuidade do fornecimento.
+Nesse trablho é descrita uma metodologia para o restabelecimento de redes de distribuição de maneira automática. Essa metodologia se baseia no uso de tecnologias de comunicação e na automação dos equipamentos de manobras das redes. Com isso é possível obeter os dados do estado da rede em tempo, e é possível enviar os comandos para tais equipamentos de forma direta, sem a necessidade de intervenção humana. A metodologia aqui apresentada tenta detectar a localização de um defeito na rede, através de leituras dos estados das chaves, e com o defeito localizado, procura as melhores manobras que restabeleçam o máximo de consumidores sem que isso coloque todo sistema de distribuição, ou parte dele, em sobrecarga. Também é considerado que a rede pode ter sofrido alterações em equipamentos não automatizados (chaves manuais), e por suas as características de carga, a topologia deve ser atualizada antes de executar simulações e que os dados para tais simulações devem prever o comportamento da carga para o tempo que a contingência possa durar.
 
-Antes de reconfigurar, é preciso definir as manobras a serem executadas, cuidando as restrições
-
-Para isso, podem ser utilizados equipamentos telecomandados para reconfigurar a rede e assim não precisar deslocar equipes até as chaves a serem manobrados.
+Como teste da metodologia, foram executadas simulações em redes reais de distribuição com diferentes topologias com a simulação dos defeitos em diferentes partes das mesmas. Os resultados obtidos foram os esperados como é demostrados no decorrer do trabalho.
 
 
- (nada mais é do que a reconfiguração da rede para que a energia chegue até os consumidores) de proteção que tem como objetivo principal evitar que o defeito ser propague para toda rede......
+% Cada vez mais a energia elétrica é importante para os consumidores, tanto residenciais quanto comerciais e industriais, sendo a sua interrupção ruim tanto para os consumidores que param de produzir e podem ter prejuízos, quanto para as concessionárias de distribuição que deixam de vender-la.
+%
+% Para a maior parte dos consumidores, grande parte das interrupção são devido a atuação de equipamentos pela ocorrência de defeitos. Tais defeitos em sua maioria podem ser isolados de modo que os clientes fora da área afetada possam ter a energia elétrica restabelecida.
+%
+% Esse restabelecimento deve ser feito de maneira rápida e para o maior número possível de consumidores para assim reduzir o tempo que os consumidores ficam sem energia elétrica, aumentando com isso a continuidade do fornecimento.
+%
+% Antes de reconfigurar, é preciso definir as manobras a serem executadas, cuidando as restrições
+%
+% Para isso, podem ser utilizados equipamentos telecomandados para reconfigurar a rede e assim não precisar deslocar equipes até as chaves a serem manobrados.
+%
+%
+%  (nada mais é do que a reconfiguração da rede para que a energia chegue até os consumidores) de proteção que tem como objetivo principal evitar que o defeito ser propague para toda rede......
 
 
 
 %%%Falar que o sistema será colocado em operação na AES? não falar sobre a ASE em si, mas que pode ser usado em concessionária
-% \noindent Com o desenvolvimento dos sistemas computacionais e dos equipamentos telecomandados das redes de distribuição, surgem novas possibilidades para automação das redes de distribuição. Um problema existente nas redes é a necessidade de manutenção e a resolução de defeitos, o que normalmente é executado pelas equipes de manutenção, sendo necessário o deslocamento das mesmas da sua base de operação até as chaves que deve ser manobradas. Isso gera uma demora no isolamento dos defeitos devido ao deslocamento, sendo essa demora até mesmo insegura por existirem casos de fios energizados no caminho de pedestres. Com os equipamentos telecomandados, um operador pode manobrar as chaves sem que equipes precisem se deslocar até as chaves a serem comandadas. Sendo o operador um ser humano, é possível que ele cometa falhas e tenha um tempo de reação elevado, visto é necessário a ele verificar um número grande de fatores para determinar a área onde ocorreu o defeito e executar várias simulações antes de proceder 
-com a manobra. Uma possível solução é o uso de um sistema computacional que execute as simulações e analise, de forma rápida e livre de falhas, os fatores que determinam as manobras a serem executadas para isolar o defeito a sua menor área.\\
+% \noindent Com o desenvolvimento dos sistemas computacionais e dos equipamentos telecomandados das redes de distribuição, surgem novas possibilidades para automação das redes de distribuição. Um problema existente nas redes é a necessidade de manutenção e a resolução de defeitos, o que normalmente é executado pelas equipes de manutenção, sendo necessário o deslocamento das mesmas da sua base de operação até as chaves que deve ser manobradas. Isso gera uma demora no isolamento dos defeitos devido ao deslocamento, sendo essa demora até mesmo insegura por existirem casos de fios energizados no caminho de pedestres. Com os equipamentos telecomandados, um operador pode manobrar as chaves sem que equipes precisem se deslocar até as chaves a serem comandadas. Sendo o operador um ser humano, é possível que ele cometa falhas e tenha um tempo de reação elevado, visto é necessário a ele verificar um número grande de fatores para determinar a área onde ocorreu o defeito e executar várias simulações antes de proceder
+% com a manobra. Uma possível solução é o uso de um sistema computacional que execute as simulações e analise, de forma rápida e livre de falhas, os fatores que determinam as manobras a serem executadas para isolar o defeito a sua menor área.\\
 %
 % \noindent Este trabalho apresenta uma metodologia que utiliza os equipamentos telecomandados e heurísticas de tomada de decisão para a implementação de um sistema de detecção de falhas e reconfiguração da rede de modo a reduzir a área afetada pelo curto.\\
 
 $\phantom{linha em branco}$\\
 \begin{espacosimples}
-Palavras-chave: Sistemas de Potência, Distribuição, Heurísticas;
+Palavras-chave: Sistemas de Potência, Heurísticas, Rede inteligentes;
 \end{espacosimples}
 \end{resumo}
 
 % *********** ABSTRACT ************
-% \begin{abstract}
-% $\phantom{linha em branco}$\\
-% \noindent With.
-%
-% \noindent This.\\
-% $\phantom{linha em branco}$\\
-%
-% \begin{espacosimples}
-% Key-words: OR; Heuristic; CCP, Clustering;
-% \end{espacosimples}
-% \end{abstract}
+\begin{abstract}
+$\phantom{linha em branco}$\\
+\noindent With.
+
+\noindent This.\\
+$\phantom{linha em branco}$\\
+
+\begin{espacosimples}
+Key-words: Power Systems; Heuristics; Smart grids;
+\end{espacosimples}
+\end{abstract}

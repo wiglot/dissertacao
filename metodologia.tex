@@ -94,13 +94,13 @@ Referente as manobras de isolamento (abertura da chave a montante do defeito e r
 
 A seguir é detalhada a arquitetura imaginada para implementação dessa metodologia, ou seja, quais são os sistemas necessários para adquirir informações em tempo real sobre o sistema de distribuição e como a metodologia aqui proposta se comunica com eles.
 
-\section{Arquitetura do Sistema}
+\section{Arquitetura do Sistema\label{sec:arquiteturaSistema}}
 Para implementar a metodologia, é necessário o acesso em tempo real a algumas informações como o estado de comunicação das chaves telecomandadas, o qual é obtido através do SCADA, o cadastro da rede (topologia original, cargas, tipos de condutores,...), o estado atual de todas as chaves do alimentador sendo testado, além do acesso ao histórico de carregamento dos alimentadores. Com base nessas necessidades, foi imaginada a arquitetura de sistema apresentada na figura \ref{fig:Arquitetura_sistema}, onde podemos ver 4 fontes de dados (Estado das Chaves, Histórico de carga, SCADA e Cadastro da Rede) e o sistema computacional, o qual implementa a metodologia aqui descrita. O sistema Estado das Chaves mantém um banco de dados onde se encontra o estado atualizado de todas as chaves, tal informação é importante uma vez que a rede pode ter sido reconfigurada em relação a topologia inicial descrita no Cadastro da Rede, sendo essa alteração proveniente de um defeito ou mesmo para isolar alguma área para 
 manutenção preventiva. O Histórico de carga armazena as leituras de corrente dos alimentadores, sendo então possível estimar o comportamento da carga nas próximas horas com base no comportamento passado, como será melhor detalhado mais a frente nesse capítulo.
 
 \begin{figure}[htbp]
 \centering
-% \includegraphics[width=0.7\columnwidth]{img/ArquiteturaSistema}
+\includegraphics[width=0.7\columnwidth]{img/ArquiteturaSistema}
 
 \caption{Arquitetura proposta para o sistema computacional\label{fig:Arquitetura_sistema}}
 
@@ -202,9 +202,9 @@ A próxima etapa (\ref{fig:Fluxograma_decisao}-d) é o envio dos comandos para o S
 
 O método prossegue agora tentando executar a transferência para alimentadores vizinhos dos consumidores localizados após o defeito. Essa parte do método independe se houve equipamentos sinalizados ou não, ou seja, mesmo que o método já tivesse restabelecido os consumidores a montante do defeito o método irá analisar as possibilidades de transferência.
 
-O início da análise de transferência inicia com o passo \ref{fig:Fluxograma_decisao}-e onde são procuradas todas possibilidades de transferência de carga para os alimentadores vizinhos e tem continuidade com passo \ref{fig:Fluxograma_decisao}-f, onde é feita a análise de tais possibilidades para decidir quais restabelecem mais consumidores e devem ser executadas.  Essas etapas serão apresentadas na próxima secção (\ref{section:Algoritmo}), onde será apresentado o algoritmo de enumeração das opções de transferências e de decisão sobre quais devem ser executadas.
+O início da análise de transferência inicia com o passo \ref{fig:Fluxograma_decisao}-e onde são procuradas todas possibilidades de transferência de carga para os alimentadores vizinhos e tem continuidade com passo \ref{fig:Fluxograma_decisao}-f, onde é feita a análise de tais possibilidades para decidir quais restabelecem mais consumidores e devem ser executadas.  Essas etapas serão apresentadas na próxima secção (\ref{sec:AlgoritmoTomadaDecisao}), onde será apresentado o algoritmo de enumeração das opções de transferências e de decisão sobre quais devem ser executadas.
 
-\section{Algoritmo de Tomada de Decisão \label{section:Algoritmo}}
+\section{Algoritmo de Tomada de Decisão \label{sec:AlgoritmoTomadaDecisao}}
 
 
 A definição das manobras a serem executadas para transferir clientes para os alimentadores vizinhos não é tão trivial quanto isolar o curto e religar o equipamento atuado. Inicialmente são definidas as chaves que se localizam após o defeito. Para isso, deve se levar em consideração o equipamento que atuou ou o equipamento manobrado no caso de existirem equipamentos atravessados pela corrente de curto. Tal equipamento é denominado como equipamento de origem, pois é ele quem marca o inicio da área defeituosa.

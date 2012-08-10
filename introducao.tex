@@ -1,52 +1,61 @@
 \chapter{Introdução}
-%Abordar falhas em sistemas e como resolver
 
-A continuidade no fornecimento de energia elétrica para os consumidores é
-um alvo permanente da gestão das redes de distribuição de energia elétrica.
-Isso representa não apenas conforto e satisfação para os consumidores, mas
-também uma necessidade cada vez maior para as atividades comerciais e
-industriais, visto que as interrupções comprometem
-sua produção. Por outro lado, estas são inevitáveis para a execução de obras de
-expansão do sistema, para manutenções preventivas e corretivas em componentes
-da rede ou, ainda, pela atuação de dispositivos de proteção em decorrência de
-defeitos (curto circuito).
-%Abordar  a organização radial do sistema de distribuição
+% A demanda por uma melhor qualidade no fornecimento de energia elétrica, tanto por parte dos consumidores quanto por órgão reguladores , como a ANEEL no Brasil, têm exigido que as empresas concessionárias de distribuição de energia elétrica investiam na modernização de suas redes sob sua concessão.
 
-Nesse último caso, a atuação de algum dispositivo de proteção deixa uma parte, ou até mesmo todos os consumidores de um alimentador, sem energia elétrica até que as equipes de manutenção efetuem os repararos necessários na rede e a energia possa ser restabelecida. Como a execução de tais reparos pode demorar, uma solução temporária seria a reconfiguração da rede através da localização do defeito, o isolamento da área afetada, através da abertura de chaves, e o restabelecimento dos demais consumidores usando o seu próprio alimentador ou mesmo alimentadores que façam fronteira e tenham capacidade de absorver mais carga. Um ponto a notar é que os alimentadores vizinhos devem suportar mais carga sem que isso leve outros dispositivos de proteção a atuar (por sobrecarga) a fim de proteger o sistema de novos desligamentos. Como esse estado da rede reconfigurada é temporário e somente para reduzir os impactos de uma falha, dizemos que esse é um estado de contingência.
+A maior continuidade do fornecimento de energia elétrica é uma demanda por parte dos consumidores e também uma exigência por orgão reguladores como a ANEEL no Brail, o qual estipula metas de continuidade para as empresas concessionárias atingirem \cite{prodist2010}.
 
-A configuração das redes em regime normal de operação é muito próxima da configuração ótima, ou seja, com as perdas e a queda de tensão reduzidas. Durante o estado de contingência, quando a rede é reconfigurada, a qualidade da energia deve piorar, aumentando as perdas elétricas. Naturalmente, ocorre um prejuízo no fornecimento de energia para esses consumidores, o que é aceitavel por ser uma solução de contingência, ou seja, o tempo de operação nessa nova configuração é reduzido e não permanente. Como vai ser apresentado mais a frente nesse trabalho, esse prejuízo aos consumidores não pode estar fora dos padrões de qualidade de energia (um tensão muito baixa por exemplo), visto que isso poderia vir a prejudicar o funcionamento dos equipamentos do cliente.
+% A demanda por parte dos consumidores e de órgão reguladores, como a ANEEL no Brasil, de uma melhor qualidade no , principalmente por uma maior continuidade no fornecimento de energia elétrica, têm exigido que as empresas concessionárias de distribuição de energia elétrica investiam na modernização das redes de distribuição sob sua concessão.
+% elevados pela diminuição os índices de interrupção, seja pela redução da frequência ou duração dos mesmos. Um menor índice de interrupções de fornecimento significa menos penalizações decorrentes dessas interrupções e também uma menor quantidade de energia não suprida, aumentado sua receita.
+As concessionárias tentam manter a continuidade do fornecimento o maior possível, visto que a interrupção gera transtornos para os consumidores e ela deixa de vender energia, mas nem sempre é possível não interrompe-lo.  O fornecimento de energia elétrica de um sistema de transmissão deve ser interrompido quando a concessionária necessita executar manutenções ou expansões na rede, ou quando algum defeito permanente ocorre (por exemplo o rompimento de um condutor ou a queda de um poste).
 
-Na ocorrência de um defeito que venha a atuar algum equipamento de proteção, inicialmente é preciso descobrir a área afetada pelo defeito e com base nessa informação executar manobras nas chaves para reconfigurar a rede de distribuição de modo a isolar a área afetada e restabeler os clientes. Aqui temos dois problemas distintos: a detecção da área afetada pelo defeito e a reconfiguração da rede. O primeiro trata de utilizar medições dos equipamentos telecomandados em campo e relatos das equipes de manutenção para descobrir a área que foi afetada pelo defeito. Essa detecção não pode errar no que diz respeito ao defeito estar todo contido na área definida visto que isso levaria a ligar novamente o defeito na rede, levando a um novo acionamento dos equipamentos de proteção, podendo deixar ainda mais consumidores sem energia elétrica caso o defeito seja ligado em outro alimentador. Já a reconfiguração da rede visa alterar a topologia original de maneira a reduzir as perdas técnicas ou mesmo restabeler a energia para um grupo consumidores afetados por um defeito previamente isolado de modo a restabeler o máximo possível de consumidores sem que as restrições de qualidade de energia e de sobrecarga sejam violadas. Esses problemas podem serão abordados como sendo um único problema de restabelecimento de energia elétrica que agrega as restrições citadas de ambos.
+No primeiro caso de interrupção, a concessionária conseguem programar previamente a região que ficará sem fornecimento, restringindo a área atingida e escolhendo horários que sejam menos problemáticos. O segundo caso nem sempre pode ser previsto e evitado, mas pode ter suas consequências minimizadas, como será visto a seguir.
 
-Esse trabalho descreve uma metodogia que resolve o problema de restabelecimento de energia em uma rede de distribuição de energia elétrica de maneira automática, resolvendo o problema de detecção da área afetada pelo defeito e de reconfiguração da rede para restabelecimento do maior número de consumidores. Para isso essa metodogia faz uso dos equipamentos telecomandados, o quais disponibilizam medições e estado através de um SCADA \sigla{SCADA} { Sistema de Supervisão e Aquisição de Dados - Supervisory Control and Data Aquisition}(Sistema supervisório) e que também podem ser operados a distância via telecomando. Essas possibilidades, juntamente com uma inteligência computacional, permite que o restabelecimento das redes que possuam tais caracteristicas seja feito de forma automática.
 
-Para isso será abordado o funcionamento das redes de distribuição de energia elétrica, bem como a simulação das mesmas, os metodos de inteligência computacional necessários para operar a rede e como juntar esses conhecimentos na formulação de uma  metodologia que automatize a operação da rede em situações de falha.
 
-% \textbf{O desenvolvimento de um método adequado e universal para a análise do
-% problema em questão é extremamente difícil, visto a quantidade de fatores a serem
-% considerados. Assim, pode-se atingir soluções mais eficientes quando o problema é
-% resolvido para cada concessionária, considerando a sua estrutura de redes de
-% distribuição, quantidade e composição dos equipamentos de comutações, operação
-% do sistema SCADA, suficiência e adequação das informações disponíveis.}
-%
-% \textbf{A solução do problema de reconfiguração de redes, após contingência, é de de grande complexidade para
-% sua realização. Da mesma forma, o sucesso da solução desse problema possibilita
-% vários benefícios, tanto para as redes como para os consumidores, já que
-% se otimizam as transferências de carga nas redes de distribuição, reduzindo o tempo
-% de restauração da energia, além de melhorar a confiabilidade e segurança na
-% execução das manobras.}
-%
-%
-% \textbf{
-% Como a solução deve ser identificada rapidamente, independente da
-% complexidade do problema, uma vez que os consumidores estão sem energia, é
-% necessário que o método utilizado realize rápidas alterações na topologia das redes
-% elétricas e recálculos do fluxo de potência. Após o algoritmo restringir ao mínimo a
-% área a ser desenergizada, isolando o defeito através da abertura de chaves, ele
-% deve selecionar a melhor opção para restaurar o suprimento aos consumidores a
-% jusante do bloco isolado. Para obter a melhor solução, a alternativa de
-% restabelecimento de energia deve ser escolhida com base em métodos de análise
-% multicriterial, atendendo às funções objetivo, sem violar as restrições.
-% }
+% A eliminação completa de tais interrupções é uma tarefa quase impossível. A concessionária deve efetuar reparos preventivos e de expansões das redes, ações essas que algumas vezes necessitam ser executadas com o fornecimento interrompido, além de também existirem as interrupções não programadas, como defeitos provenientes de acidentes de trânsito ou interpéries climáticas. No primeiro caso a empresa ainda consegue planejaros trabalhos para atingir menos consumidores ou mesmo escolher horários que tal interrupção cause o menor impacto. Já o segundo caso, que é o que será abordado nesse trabalho, trata de eventos adversos e não planejados. %os quais são quase sempre invevitáveis.
+
+% EXPLICAR MELHOR SOBRE AS FALHAS
+
+
+Com a preocupação permanente de manter os indíces de continuidade altos, novos equipamentos e técnicas são empregados nas redes de distribuição para que o impacto de tais interrupções não planejadas seja minimizados.
+
+% Isso é  trazendo vantagens para os usuários das redes quanto para as empresas concessionárias.
+Um exemplo largamente utilizado é o uso de equipamentos de proteção e sua instalação de forma coordenada e seletiva, assim um defeito é isolado com uma menor área afetada pela interrupção \cite{Alguem1988}. Essa metodologia, que é largamente utilizada nas redes de distribuição, consegue isolar a área afetada através da abertura de equipamentos de proteção como religadores e chaves fusíveis.
+
+A principal característica dessa metodologia é o fato de que quando acontece um defeito ela apenas isola o defeito e não considera que parte dos clientes podem ser restabelecidos transferindo sua carga para alimentadores vizinhos. Essas transferências devem então ser calculadas por operadores da rede, com base nos dados de localização do defeito enviados por equipes de campo, para então despachar equipes para executas as manobras. Isso demanda que equipes de manutenção se desloquem até a provável localização do defeito (equipamento atuado), para então percorrer a rede e encontrar o defeito, e então receber a indicação do operador das chaves que devem ser operadas, o que demanda o deslocamente até elas e isso pode demorar devido as distâncias entre as chaves. Após isso tudo, as equipes então  executam os procedimentos de manobra para transferir as cargas.
+
+Esse tempo de deslocamento das equipes para operar as chaves pode ser reduzido com o uso de equipamentos telecomandados. Tais equipamentos permitem que o operador possa enviar comandos para as chaves sem a necessidade de deslocar equipes até as mesmas. Mas ainda recaí para as equipes encontrarem a localização do defeito e para o operador simular novas topologias de redes. Tais simulações são necessárias para evitar sobrecargas no sistema, o que poderia levar a novas falhas na rede.
+
+Com o poder computacional cada vez maior e a evolução dos sistemas que rodam sobre tais sistemas, juntamente com a crescente disponibilidade de tecnologias de comunicação remota como as redes de celular e internet, é possível utilizar tais sistemas para prover inteligência computacional para simulações e enviar os resultados para equipamentos distantes vários quilometros uns dos outros. É imaginável que com essas tecnologias se possa automatizar a operação de redes de distribuição \cite{somebody}. As redes que utilizam dessas potencialidades, e apresentam algumas caracteristicas que serão apresentadas mais a frente nesse trabalho, são chamadas redes inteligentes (smarts grids)\cite{MaisAlguém} << Ver sobre smart grids
+% Para agilizar esse processo, e também reduzir o número de consumidores com o fornecimento de energia elétrica interrompido, foi desenvolvida uma metodologia para restabelecimento automático em caso de contingência na rede que utiliza os equipamentos telecomandados.
+
+
+\section{Objetivos}
+
+A metodologia desenvolvida objetiva restabelecer o fornecimento de energia elétrica para, após a ocorrência de um defeito permanente, o máximo de consumidores de uma rede de distribuição, isso de maneira automática sem a necessidade de intervenção humana ou programação prévia das ações a serem tomadas. Com essa automatização, a metodologia aqui descrita consegue reduzir o tempo de restauração da energia para os clientes não atingidos pelo defeito.
+
+Para conseguir isso, essa metodologia é capaz de detectar a localização do defeito, e com essa informação definir e enviar os comandos a serem executados pelos equipamentos telecomandados. Ela faz uso de várias tecnologias para conseguir essa capacidade, dentre elas estão o uso de um sistema de controle, supervisão e aquisição \sigla{SCADA}{Sistema de Supervisão e Aquisição de Dados - Supervisory Control and Data Aquisition}(SCADA) e de sistemas computacionais inteligentes para definição das manobras a serem executadas e simulações dessas manobras.
+
+Como informações de entrada, além da topologia inicial da rede, a metodologia também necessidade de outros dados de entrada, sendo eles o estado atual da rede, uma vez que a topologia origial pode ser alterada e um histórico de carregamento da rede para que se possa realizar estimações de crescimento de carga. O segundo conjunto de dados é necessário para estimar se a carga do sistema irá crescer num horizonte de algumas horas a frente, o que pode gerar sobrecargas no sistema já que a rede estará operando fora de sua topologia otimizada após o restabelecimento.
+
+Resalta-se que essa metodologia foi desenvolvida para ser uma método de restabelecimento universal que pode ser aplicado em redes com diferentes topologias e em tempo real, o que traz uma diminuição significativa do tempo de restabelecimento dos consumidores.
+
+%a fim de restabelecer o máximo de consumidores não afetados pelo defeito.
+
+% Como isso é feito? é seguro? porque é melhor ? qual a base de funcionamento (sinalização de chaves, eventos de desarme)
+
+\section{Organização desse Trabalho}
+
+Este trabalho está organizado da seguinte forma:
+
+No Capítulo 2 é feito uma revisão do estado da arte sobre o problema de restabelecimento de redes, automação de redes, redes inteligentes e sobre reconfiguração automatizada.
+
+No Capítulo 3 é apresentada uma abordagem ao funcionamento dos sistemas de potência, com grande enfoque nos sistemas de distribuição. Também é abordado a questão de automação das redes de distribuição e como é executado o restabelecimento do fornecimento em tais redes. São apresentadas métricas de medida de desempenho da rede em relação a continuidade. Ao final é feita uma comparação entre a metodologia tradicional de restabelecimento e o método automatizado.
+
+A metodologia é explicada no capítulo 4. Ela é dividida em seções para facilitar o seu entendimento. Inicialmente é feita uma revisão do problema e quais são as funções objetivo bem como as restrições que devem ser consideradas. Em seguida é apresentada a arquitetura imaginada para obtenção de informações em tempo real, o que é vital para um melhor resultado da metodologia, e também é apresentado, sem entrar em detalhes de implementação, como se dá essa comunicação. A descrição dos algoritmos de tomada de decisão, o qual enumera as possibilidades de manobras e escolhe dentre elas a melhor a ser executada, é apresentado na secção \ref{sec:AlgoritmoTomadaDecisao}.
+
+Os resultados, bem como a descrição dos ambientes de teste e os dados de entrada, estão apresentados no capítulo \ref{cap:casosestudos}. Nele é apresentado como a metodologia foi testada e implementada em um ferramenta computacional, para depois apresentar alguns testes de restabelecimento em redes e uma análise sobre tais resultados.
+
+No capítulo \ref{cap:consideracoesFinais} são apresentadas as considerações finais desse trabalho bem como idéias de trabalhos futuros que podem ser derivados deste trabalho.
 
 

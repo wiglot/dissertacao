@@ -16,7 +16,7 @@ A Figura \ref{fig:ExemploredeRocs} ilustra a tela inicial do Rocs com um represe
 cor vermelha os equipamentos NA (normalmente abertos). Também há a indicação 
 dos valores de carga em cada trecho, sendo que nas simulações foi considerado que qualquer transferência pode ser executada contanto que a carga total te tal transferência não ultrapasse 100 UC\footnote{Optou-se por não usar Amperes pois não existe uma simulação da rede, apenas um valor de carregamento arbitrário.} (Unidades de Carregamento). Foi considerado que todos os trechos entre os equipamentos possuem o mesmo número de consumidores, assim quanto mais o número de trechos transferidos maior o número de consumidores restabelecidos.
 
-\begin{figure}[htp]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.8\columnwidth]{img/rocsTela1}
 \caption{Topologia inicial do caso de teste.\label{fig:ExemploredeRocs}}
@@ -31,7 +31,7 @@ a jusante do defeito. Já para o defeito no trecho ``0 - 6'', o sistema abriu o
 equipamento ``6``, isolando o defeito, e fechou o equipamento  ``10'',
 restabelecendo a energia para as cargas a jusante do defeito. A figura \ref{fig:ResultadoRocs1} apresenta a topologia final após essas manobras.
 
-\begin{figure}[htp]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.8\columnwidth]{img/rocsTela2}
 \caption{Resultado do estudo do caso 1.\label{fig:ResultadoRocs1}}
@@ -49,7 +49,7 @@ o defeito no trecho ``0 - 6'', o sistema abriu os equipamentos dos nós ``6'' e `
 fechando os nós ``10'' e ``9'', de modo a transferir parte da carga para um alimentador
 e parte para o outro, evitando assim a violação da restrição uma vez que o equipamento ``9'' recebeu 90 UC e o equipamento ``10'' recebeu 50 UC.
 
-\begin{figure}[htp]
+\begin{figure}[htbp]
 \begin{centering}
 \includegraphics[width=0.8\columnwidth]{img/rocsTela3}
 \par\end{centering}
@@ -57,7 +57,7 @@ e parte para o outro, evitando assim a violação da restrição uma vez que o equip
 \end{figure}
 
 
-\chapter{Sistema Desenvolvido\label{sistemaDesenvolvido}}
+\section{Sistema Desenvolvido\label{sistemaDesenvolvido}}
 
 Para validar a metodologia, foi desenvolvido um sistema computacional capaz de representar e simular o funcionamento de uma rede de distribuição, além de permitir a simulação de defeitos. Dentro desse sistema foi implementada a metodologia apresentada nesse trabalho e funcionalidades que simulam o comportamento dos demais sistemas necessários, como o SCADA e histórico de carga das redes.
 
@@ -81,9 +81,9 @@ O envio dessas informações é o gatilho de início da metodologia apresentada. Cas
 Após o envio das informações para simulação, a metodologia necessita atualizar o estado das chaves do alimentador onde o defeito ocorreu e dos alimentadores que fazem fronteira com o mesmo. Para simular esse comportamento, o sistema apresenta uma lista das chaves contidas em tais alimentadores onde é possível mudar o estado das chaves. Isso pode ser visto na Fig \ref{fig:switchStatus}, onde as chaves marcadas são as que ao final terão o estado Fechado e as não marcadas terão o estado Aberto. Caso alguma operação de fechar leve a um ciclo na rede (lembrando que uma restrição é a radialidade do sistema), a metodologia é interrompida e uma mensagem é exibida na janela principal.
 
 %%Fig Aqui.
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.2\columnwidth]{img/EstadoChaves}
+\includegraphics[width=0.16\columnwidth]{img/EstadoChaves}
 
 \caption{Requisição do estado das chaves.\label{fig:switchStatus}}
 
@@ -92,9 +92,9 @@ Após o envio das informações para simulação, a metodologia necessita atualizar o
 Com o estado das chaves atualizado, a metodologia define a lista de equipamentos que podem ser utilizados para o restabelecimento automático e agora necessita obter mais informações sobre tais equipamentos, para só então executar as simulações. Para cada equipamento que poderá ser utilizado, o sistema apresenta a janela da Fig \ref{fig:switchSCADARequest}, onde são solicitadas as informações do estado atual do equipamento telecomandado. As informações solicitadas são o estado (Aberto/Fechado) da chave, a existência da sinalização da passagem da corrente de curto por alguma fase, o estado de comunicação, se a chave está excluída (não religar) e se o equipamento está em bloqueio. Também é solicitada a corrente pré-falta de cada equipamento, porém esse valor somente é considerado para os disjuntores dos alimentadores.
 
 %%Fig Aqui
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.3\columnwidth]{img/SwitchSCADARequest}
+\includegraphics[width=0.27\columnwidth]{img/SwitchSCADARequest}
 
 \caption{Requisição das informações de um equipamento telecomandado.\label{fig:switchSCADARequest}}
 
@@ -104,7 +104,7 @@ Nesse ponto o sistema já dispõe de todas informações necessárias para executar a
 
 
 %%fig Aqui
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.4\columnwidth]{img/maneuversOptions}
 
@@ -116,7 +116,7 @@ Nesse ponto o sistema já dispõe de todas informações necessárias para executar a
 
 Com esses estudos preliminares e o desenvolvimento da ferramenta computacional a metodologia foi aplicada em rede reais maiores, como por exemplo a apresentada na Figura \ref{fig:Rede-testes}, onde o número de equipamentos é maior e a disposição é diferente para cada rede, uma vez que são diferentes topologias para cada alimentador.
 
-\begin{figure}[htp]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.85\columnwidth]{img/redeDeTestes}
 
@@ -127,7 +127,7 @@ Com esses estudos preliminares e o desenvolvimento da ferramenta computacional a
 As redes representadas graficamente na Figura \ref{fig:Rede-testes} foram as redes escolhidas para realizar os casos de teste. Elas são redes reais de uma concessionária do Rio Grande do Sul e possuem 132.890 consumidores e um total de 41 equipamentos telecomandados distribuídos entre seus 21 alimentadores. Uma visão simplificada dos alimentadores e alguns equipamentos telecomandados está apresenta no diagrama unifilar da Figura \ref{fig:Unifilar-Rede-Testes}.
 
 
-\begin{figure}[htp]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.9\columnwidth]{img/Unifilar-Com_Nomes}
 
