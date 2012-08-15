@@ -1,7 +1,7 @@
 \chapter{Metodologia Proposta para Restabelecimento Automático de Energia Elétrica\label{cap:metodologia}}
 
 %\textbf{Modelo do sistema, diagrama de comunicação,  fluxogramas de tomada de decisão}
-%%%EXPLICAR MELHOR QUAL O OBJETIVO DO 
+%%%EXPLICAR MELHOR QUAL O OBJETIVO DO
 Esse capítulo descreve a metodologia desenvolvida para restabelecimento automático com o uso de chaves telecomandadas. A criação de tal metodologia teve como objetivo a definição de um conjunto de ações universais que possam ser aplicadas a diferentes topologias de redes de distribuição radial, para restabelecer o máximo de consumidores após um defeito permanente, sem que isso ocasione sobrecargas no sistema de distribuição.
 
 
@@ -15,45 +15,59 @@ Como foi apresentado no capítulo 3, a automação da rede de distribuição pode red
 
 %Descrever a modelagem da rede de distribuição com um grafo e definir a representação do estado das chaves como sendo binárias. Depois modelar o sistema função objetivo e restrições.
 
+
 % \textbf{Que restrições consideramos?}
-Não é desejado que nenhuma resposta dessa metodologia provoque danos ao invés de soluções, por exemplo, uma manobra que sobrecarregue um condutor a ponto de rompê-lo. Para isso, a metodologia utilizará as seguintes restrições para evitar esses casos:
-\begin{enumerate}
-\item manter a radialidade dos sistemas;
-\item não permitir sobrecarga nos elementos pertencentes às redes elétricas (trechos de rede, chaves, reguladores de tensão, entre outros) superior ao percentual permitido:
-\begin{equation}
- I_{i} \leq I_{i max} \cdot F_{sobrecarga}
-\end{equation}
+Para representar as rede de distribuição, foi escolhida a representação através de um grafo orientado, onde as arestas representam os elementos de conexão como condutores e chaves, e os vértices representam os pontos de carga ou sustentação da rede (para um modelo mais detalhado). Essa escolha foi feita por permitir uma implementação computacional mais eficaz e também uma formulação matemática que represente o problema. Como não é desejado que nenhuma resposta dessa metodologia provoque danos ao invés de soluções, por exemplo, uma manobra que sobrecarregue um condutor a ponto de rompê-lo. Para isso, a metodologia utilizará a seguinte função objetivo e restrições, as quais foram baseadas no trabalhando de \cite{Garcia2005}:
 
-\item não permitir violação dos ajustes de proteção:
-\begin{equation}
-I_{i} \leq I_{Prot i} \cdot F_{p}
-\end{equation}
+\begin{eqnarray}
+\min && \sum_{i \in CC}{(1-Z_{i})NC_{i}} \\ \label{eq:objetivo}
+\textrm{sujeito a:} && \nonumber \\
+&& X_i + X'_i \leq 1\textrm{ , para } i = 1, ..., M\label{eq:uso1aresta1} \\
+&& Y_i + Y'_i \leq 1\textrm{ , para } i = 1, ..., M \label{eq:uso1aresta2}\\
+&& \sum_{k \in B_{k}}(X_i + X'_i + Y_i + Y'_i) \leq 1 \textrm{ , para } k = 1, 2,\ldots, N \label{eq:radialidade} \\
+% && \sum_{i \in F_k}{(P_i + P'_i)} - \sum_{i \in B_k}{(P_i + P'_i}) = L_k Z_k \textrm{ , para } k = 1, 2,\ldots, N \label{eq::fluxo} \\
+&& I_k - IL_kX_k \leq 0 \textrm{ , para } k = 1, 2,\ldots, M \label{eq:capacidadeArestas1} \\
+&& I'_k - IL_kX'_k \leq 0 \textrm{ , para } k = 1, 2,\ldots, M \label{eq:capacidadeArestas2} \\
+&& I_k - IL_kY_k \leq 0 \textrm{ , para } k = 1, 2,\ldots, M \label{eq:capacidadeArestas3} \\
+&& I'_k - IL_kY'_k \leq 0 \textrm{ , para } k = 1, 2,\ldots, M \label{eq:capacidadeArestas4} \\
+&& V_{min} \leq \sqrt{L_kZ_kR_k} \leq V_{max} \textrm{ , para } k = 1, 2,\ldots, N \label{eq:tensao}
+\end{eqnarray}
 
-\item não permitir violação da faixa de tensão admissível nas redes primárias:
-\begin{equation}
-V_{min} \leq V_{j} \leq V_{max}
-\end{equation}
-\end{enumerate}
 
 Onde:
 \begin{description}
-    \item[$I_{i}$] - corrente no ramo i;
-    \item[$F_{sobrecarga}$] - Fator de sobrecarga aceitável para os condutores.
-    \item[$I_{Prot i}$] - corrente de atuação do dispositivo de proteção i;
-    \item[$F_{p}$] - Fator máximo de uso dos equipamentos de proteção.
-    \item [$I_{i max}$] - corrente máxima admissível no ramo i;
-    \item [$V_{j}$] - módulo da tensão no nó j;
-    \item [$V_{min}$] - módulo da tensão mínima aceitável na rede;
-    \item [$V_{max}$] - módulo da tensão máxima aceitável na rede.
+    \item[$N$] - Número de nós na rede;
+    \item[$M$] - Número de arestas na rede;
+    \item[$I_{i}$] - Corrente no ramo $i$;
+    \item[$I'_{i}$] - Corrente no ramo fictício $i$;
+    \item[$Z_i$] - Indica se o nó está sendo alimentado ($Z_i=1$) ou não ($Z_i=0$);
+    \item[$IL_i$] - Capacidade de fluxo na aresta $i$;
+    \item[$R_i$] - Impedância do nó $i$;
+    \item[$L_i$] - Demanda do nó $i$;
+    \item[$B_i$] - Conjunto de todas arestas com o nó $i$ como início;
+    \item[$F_i$] - Conjunto de todas arestas com o nó $i$ como fim;
+    \item[$CC$] - Conjunto de nós consumidores;
+    \item[$NC_i$] - Número de consumidores no nó $i$;
+    \item[$X_i$] - Indica se a chave normalmente fechada do ramo $i$ está fechada ($X_i = 1$) ou aberta ($X_i=0$) na solução final;
+    \item[$X'_i$] - Indica se a chave normalmente fechada do ramo fictício $i$ está fechada ($X'_i = 1$) ou aberta ($X'_i=0$) na solução final;
+    \item[$Y_i$] - Indica se a chave normalmente aberta do ramo $i$ está fechada ($Y_i = 1$) ou aberta ($Y_i=0$) na solução final;
+    \item[$Y'_i$] - Indica se a chave normalmente aberta do ramo fictício $i$ está fechada ($Y'_i = 1$) ou aberta ($Y'_i=0$) na solução final;
+    \item [$V_{min}$] - Módulo da tensão mínima aceitável na rede;
+    \item [$V_{max}$] - Módulo da tensão máxima aceitável na rede.
 \end{description}
 
-A primeira restrição é que as manobras de restabelecimento não podem inserir ciclos na rede de distribuição. A forma como foi concebido o método de enumeração das manobras de transferência já cuida dessa restrição e o isolamento usando as chaves a montante do defeito não deve gerar nenhum ciclo também.
+Como função objetivo (\ref{eq:objetivo}), foi definido que deseja-se minimizar o número de consumidores não restabelecidos, que é o mesmo que tentar restabelecer o máximo de consumidores, uma vez que quanto mais consumidores restabelecidos, menos consumidores não restabelecidos. Em caso de empate (duas soluções restabeleçam o mesmo número de consumidores), como critério de desempate a escolha da manobra que tiver o menor carregamento máximo nos condutores. Deve-se notar o uso de arestas fictícias ($'$) para impedir que os valores de fluxos sejam negativos, nesse caso o valor do fluxo fica atribuídos para aresta fictícia. Para garantir o uso de apenas uma dessas arestas, foram inseridas as restrições \ref{eq:uso1aresta1} e \ref{eq:uso1aresta2}.
 
-A restrição de carregamento dos condutores, segunda restrição, garante que não haverá sobrecarga além do permitido nos mesmos. Como o tempo em que a rede irá permanecer no estado de contingência é de poucas horas, é permitido uma pequena carga acima do limite de operação dos condutores. Esse limite é dado por $F_{sobrecarga}$ e indica o quanto de sobrecarga será aceito.
+A restrição \ref{eq:radialidade} garante que as manobras de restabelecimento não podem inserir ciclos na rede de distribuição. Essa restrição garante que não existirá mais de uma chave fechada incidente em um nó da rede.
+% A forma como foi concebido o método de enumeração das manobras de transferência já cuida dessa restrição e o isolamento usando as chaves a montante do defeito não deve gerar nenhum ciclo também.
 
-Os equipamentos de proteção da rede possuem uma corrente máxima de operação, sendo que se esse limite for ultrapassado ele virá a atuar, gerando um novo desligamento. Se isso acontecer, ainda mais consumidores podem ficar sem fornecimento de energia elétrica, por exemplo se tal equipamento for de um alimentador vizinho que recebeu mais carga que suportaria. Para isso a terceira restrição indica que apenas um certo percentual ($F_{p}$) da corrente de atuação do equipamento de proteção deva ser utilizado. Essa restrição é importante pois evita que os alimentadores fiquem com os equipamentos de proteção com correntes de operação muito próximas da corrente de atuação, deixando uma margem para picos de carga não previstos. 
+A restrição de carregamento dos condutores, restrições \ref{eq:capacidadeArestas1}, \ref{eq:capacidadeArestas2}, \ref{eq:capacidadeArestas3} e \ref{eq:capacidadeArestas4}, garante que não haverá sobrecarga nos mesmos. Para simplificar o modelo e não precisar descrever o modelo do fluxo de carga, os valores de carga nas variáveis $I_k$ são atribuídos por um algoritmo externo de cálculo de fluxo de potência por somatório de correntes \cite{bernardon2004desenvolvimento}. Esse algoritmofoi implementado dentro de uma ferramenta computacional será descrita mais a frente.
 
-Mesmo no estado de contingência é necessário manter a qualidade de energia disponibilizadas para os consumidores, assim a quarta restrição impõem os limites de tensão. Essa restrição tem como principal objetivo evitar que manobras de transferência deixe os consumidores com uma tensão muito abaixo ou acima dos padrões. 
+Como o tempo em que a rede irá permanecer no estado de contingência é de poucas horas, é pode ser permitido uma pequena carga acima do limite de operação dos condutores e um valor maior de carregamento nos equipamentos de proteção. Para simplificar o modelo, será considerado que os valores nas variáveis $IL_k$ já possuem esse valor incorporado. No decorrer do texto as referências a esses valores, que na metodologia são configuráveis, são referênciados como $F_{sobrecarga}$, que indica o quanto de sobrecarga será aceito nos condutores, $F_p$ indica o percentual de carregamento dos equipamentos de proteção.
+
+% Os equipamentos de proteção da rede possuem uma corrente máxima de operação, sendo que se esse limite for ultrapassado ele virá a atuar, gerando um novo desligamento. Se isso acontecer, ainda mais consumidores podem ficar sem fornecimento de energia elétrica, por exemplo se tal equipamento for de um alimentador vizinho que recebeu mais carga que suportaria. Para isso a terceira restrição indica que apenas um certo percentual ($F_{p}$) da corrente de atuação do equipamento de proteção deva ser utilizado. Essa restrição é importante pois evita que os alimentadores fiquem com os equipamentos de proteção com correntes de operação muito próximas da corrente de atuação, deixando uma margem para picos de carga não previstos.
+
+Mesmo no estado de contingência é necessário manter a qualidade de energia disponibilizadas para os consumidores, assim as restrições \ref{eq:tensao} impõem os limites de tensão mínima e máxima. Essa restrição tem como principal objetivo evitar que manobras de transferência deixe os consumidores com uma tensão muito abaixo ou acima dos padrões estabelecidos.
 
 A verificação do atendimento das restrições é executada para cada manobra indicada pela metodologia de restabelecimento. Para isso é necessário que sejam executadas as simulações de fluxo de potência nos alimentadores afetados pela manobra após a aplicação da mesma. Se alguma das restrições for violada, essa manobra é marcada como inválida e que não pode deve executada diretamente.
 
@@ -67,10 +81,10 @@ A solução que apresentamos aqui para esse problema de automatização do restabele
 
 Para isso, essa metodologia faz uso de informações em tempo real obtidas de diferentes fontes para realizar simulações muito próximas da rede atual, e assim definir o conjunto de manobras a serem avaliadas.
 
-A escolha dentre essas manobras é dada pela função objetivo, que prioriza as manobras que restabeleçam mais consumidores (usando o carregamento como desempate) e que tenham violando nenhuma das restrições. 
+A escolha dentre essas manobras é dada pela função objetivo, que prioriza as manobras que restabeleçam mais consumidores (usando o carregamento como desempate) e que tenham violando nenhuma das restrições.
 
 %\textbf{Exemplo de uma escolha entre manobras}
-Para exemplificar a escolha da melhor manobra, considere as manobras de transferência fictícias apresentadas na Tabela \ref{tab:listaManobras}. Os percentuais apresentados nos condutores, proteção e queda de tensão, são os carregamentos máximos e a maior queda de tensão apresentados durante as simulações, considerando os limites da rede. Como restrições, foram definidos os valores de sobrecarga dos condutores de 120\% ($F_{sobrecarga}=1.2$), carregamento de equipamentos de proteção 80 \% ($F_{p}=0.8$) e queda máxima de tensão de 7\% (em relação a tensão nominal, sendo nesse caso $V_{min} = V \cdot 0.93$, onde $V$ é a tensão nominal da rede). 
+Para exemplificar a escolha da melhor manobra, considere as manobras de transferência fictícias apresentadas na Tabela \ref{tab:listaManobras}. Os percentuais apresentados nos condutores, proteção e queda de tensão, são os carregamentos máximos e a maior queda de tensão apresentados durante as simulações, considerando os limites da rede. Como restrições, foram definidos os valores de sobrecarga dos condutores de 120\% ($F_{sobrecarga}=1.2$), carregamento de equipamentos de proteção 80 \% ($F_{p}=0.8$) e queda máxima de tensão de 7\% (em relação a tensão nominal, sendo nesse caso $V_{min} = V \cdot 0.93$ e $V_{max} = V \cdot 1.07$, onde $V$ é a tensão nominal da rede).
 
 \begin{table}[htbp]
 \caption{Exemplos de Manobras }
@@ -88,14 +102,14 @@ Para exemplificar a escolha da melhor manobra, considere as manobras de transfer
 
 Se apenas for analisado o número de consumidores restabelecidos, a manobra número 4 seria a melhor a ser aplicada. Agora se forem também consideradas as restrições definidas anteriormente, a manobra 4 não poderia ser executada, pois viola as restrições de carregamento dos equipamentos de proteção (limite é 80\%) e de queda de tensão máxima (limite é 7\%). Outra manobra que viola ao menos uma das restrições é a manobra 2, que tem uma queda de tensão de 8\%.
 
-As manobras restantes (1, 3 e 5) são válidas por não violarem nenhuma das restrições. Dentre elas é escolhida a melhor manobra que deverá ser aplicada. A melhor manobra é aquela que restabelece o maior número de consumidores. Existe um empate nesse quesito entre as manobras 1 e 5, ambas restabelecendo 1400 consumidores. Como somente uma deve ser aplica, é escolhida a manobra que gera a menor carregamento da rede, nesse caso é escolhida a manobra 5 que possui um carregamento um pouco menor dos condutores.
+As manobras restantes (1, 3 e 5) são válidas por não violarem nenhuma das restrições. Dentre elas é escolhida a melhor manobra que deverá ser aplicada. A melhor manobra é aquela que restabelece o maior número de consumidores. Existe um empate nesse quesito entre as manobras 1 e 5, ambas restabelecendo 1400 consumidores. Como somente uma deve ser aplicada à rede, é escolhida a manobra que gera a menor carregamento da rede, nesse caso é escolhida a manobra 5 que possui um carregamento um pouco menor dos condutores.
 
-Referente as manobras de isolamento (abertura da chave a montante do defeito e religamento do equipamento atuado), elas não devem violar nenhuma restrição uma vez que a rede volta a ter sua topologia anterior com uma redução da carga após a chave a montante, ou seja, a carga total do alimentador diminuirá reduzindo também o carregamento dos condutores e equipamentos de proteção. Para essas manobras, também se aplica a escolha por manobras que restabeleçam o máximo de consumidores, sendo que isso é garantido pela escolha do equipamento mais próximo ao defeito como equipamento a ser manobrado. Na seção \ref{sec:metodo_proposto} é explicado como a metodologia consegue fazer essa escolha de manobra.
+Referente as manobras de isolamento (abertura da chave a montante do defeito e religamento do equipamento atuado), elas não devem violar nenhuma restrição já que a rede volta a ter sua topologia anterior com uma redução da carga após a chave a montante, ou seja, a carga total do alimentador diminuirá, reduzindo também o carregamento dos condutores e equipamentos de proteção. Para essas manobras, também se aplica a escolha por manobras que restabeleçam o máximo de consumidores, sendo que isso é garantido pela escolha do equipamento mais próximo ao defeito como equipamento a ser manobrado. Na seção \ref{sec:metodo_proposto} é explicado como a metodologia consegue fazer essa escolha de manobra.
 
 A seguir é detalhada a arquitetura imaginada para implementação dessa metodologia, ou seja, quais são os sistemas necessários para adquirir informações em tempo real sobre o sistema de distribuição e como a metodologia aqui proposta se comunica com eles.
 
 \section{Arquitetura do Sistema\label{sec:arquiteturaSistema}}
-Para implementar a metodologia, é necessário o acesso em tempo real a algumas informações como o estado de comunicação das chaves telecomandadas, o qual é obtido através do SCADA, o cadastro da rede (topologia original, cargas, tipos de condutores,...), o estado atual de todas as chaves do alimentador sendo testado, além do acesso ao histórico de carregamento dos alimentadores. Com base nessas necessidades, foi imaginada a arquitetura de sistema apresentada na figura \ref{fig:Arquitetura_sistema}, onde podemos ver 4 fontes de dados (Estado das Chaves, Histórico de carga, SCADA e Cadastro da Rede) e o sistema computacional, o qual implementa a metodologia aqui descrita. O sistema Estado das Chaves mantém um banco de dados onde se encontra o estado atualizado de todas as chaves, tal informação é importante uma vez que a rede pode ter sido reconfigurada em relação a topologia inicial descrita no Cadastro da Rede, sendo essa alteração proveniente de um defeito ou mesmo para isolar alguma área para 
+Para implementar a metodologia, é necessário o acesso em tempo real a algumas informações como o estado de comunicação das chaves telecomandadas, o qual é obtido através do SCADA, o cadastro da rede (topologia original, cargas, tipos de condutores,...), o estado atual de todas as chaves do alimentador sendo testado, além do acesso ao histórico de carregamento dos alimentadores. Com base nessas necessidades, foi imaginada a arquitetura de sistema apresentada na figura \ref{fig:Arquitetura_sistema}, onde podemos ver 4 fontes de dados (Estado das Chaves, Histórico de carga, SCADA e Cadastro da Rede) e o sistema computacional, o qual implementa a metodologia aqui descrita. O sistema Estado das Chaves mantém um banco de dados onde se encontra o estado atualizado de todas as chaves, tal informação é importante uma vez que a rede pode ter sido reconfigurada em relação a topologia inicial descrita no Cadastro da Rede, sendo essa alteração proveniente de um defeito ou mesmo para isolar alguma área para
 manutenção preventiva. O Histórico de carga armazena as leituras de corrente dos alimentadores, sendo então possível estimar o comportamento da carga nas próximas horas com base no comportamento passado, como será melhor detalhado mais a frente nesse capítulo.
 
 \begin{figure}[htbp]
@@ -107,7 +121,7 @@ manutenção preventiva. O Histórico de carga armazena as leituras de corrente dos
 \end{figure}
 
 
-Quando um defeito na rede de distribuição faz com que algum equipamento telecomandado entre em bloqueio, o SCADA comunica esse fato através de um evento, que nada mais é do que um sinal computacional que pode ser capturado e tratado por outros sistemas, contanto que estejam registrados no servidor do sistema supervisório. Tal  evento é uma indicação de que aconteceu, por exemplo, a mudança de estado de aberto para fechado, e com qual equipamento isso aconteceu, normalmente indicado pela sua matrícula. A ocorrência do bloqueio de algum equipamento telecomandado, é o gatilho que dá inicio aos procedimentos de restabelecimento desta metodologia. Tais procedimentos tem início com a atualização da topologia da rede, usando o cadastro do Estado das chaves, seguido do ajuste da carga, o qual usa uma previsão para as próximas horas da corrente máxima de carga para  ajustar a demanda dos consumidores. Antes de continuar com o procedimento de seleção das manobras, é verificado no sistema SCADA o estado de 
+Quando um defeito na rede de distribuição faz com que algum equipamento telecomandado entre em bloqueio, o SCADA comunica esse fato através de um evento, que nada mais é do que um sinal computacional que pode ser capturado e tratado por outros sistemas, contanto que estejam registrados no servidor do sistema supervisório. Tal  evento é uma indicação de que aconteceu, por exemplo, a mudança de estado de aberto para fechado, e com qual equipamento isso aconteceu, normalmente indicado pela sua matrícula. A ocorrência do bloqueio de algum equipamento telecomandado, é o gatilho que dá inicio aos procedimentos de restabelecimento desta metodologia. Tais procedimentos tem início com a atualização da topologia da rede, usando o cadastro do Estado das chaves, seguido do ajuste da carga, o qual usa uma previsão para as próximas horas da corrente máxima de carga para  ajustar a demanda dos consumidores. Antes de continuar com o procedimento de seleção das manobras, é verificado no sistema SCADA o estado de
 comunicação das chaves que podem ser utilizadas para executar o restabelecimento, bem como outras informações que serão melhor detalhadas a seguir. Essas chaves que podem ser utilizadas é o conjunto de todas as chaves telecomandadas do alimentador que o equipamento que entrou em bloqueio faz parte, as chaves de fronteira desse alimentador com os alimentadores vizinhos e os disjuntores desses alimentadores.
 
 Com o conjunto de chaves que podem ser usadas nas manobras, o sistema computacional solicita as seguintes informações ao SCADA:
@@ -164,7 +178,7 @@ Esse método é a parte principal da metodologia de restabelecimento automático, j
 
 \begin{figure}[htb]
 \begin{centering}
-% \includegraphics[width=0.5\columnwidth]{img/FluxogramaChaves}    
+% \includegraphics[width=0.5\columnwidth]{img/FluxogramaChaves}
 \begin{tikzpicture}[node distance = 4cm,auto, scale=0.5]
     % Place nodes
     \node [block] (start) {a) Início metodologia};
@@ -173,7 +187,7 @@ Esse método é a parte principal da metodologia de restabelecimento automático, j
     \node [block, below of=findFlaged] (isolate) {d) Abrir tais chaves e rearme do equipamento atuado};
     \node [block, below of=checkFlags] (findOptions) {e) Encontre as opções de transferência após defeito};
     \node [block, below of=findOptions, node distance = 3cm] (choseBest) {f) Envio das melhores opções de transferência};
-    
+
 
     % Draw edges
     \path [line] (start) -- (checkFlags);
@@ -190,7 +204,7 @@ Esse método é a parte principal da metodologia de restabelecimento automático, j
 
 A parte inicial do método (\ref{fig:Fluxograma_decisao}-a) compreende as ações de desarme de um equipamento telecomandado e comunicação com os sistemas SCADA, de estado da rede e a obtenção da previsão de carga, a qual será utilizada para ajuste da rede. Essa etapa está descrita nas secções anteriores, mas basicamente trata do início da metodologia devido a algum desarme e da atualização das informações da rede com dado mais próximos a hora do evento. É importante ressaltar que essas atualização som importantes para se obter o estado da rede simulada o mais próximo do estado atual da mesma.
 
-Com as informação de estado da rede atualizados, o método procura se alguma chave foi sinalizada como tendo sido atravessada pela corrente de curto circuito, isso definirá se é possível isolar o defeito e restabelecer os clientes a montante do mesmo. 
+Com as informação de estado da rede atualizados, o método procura se alguma chave foi sinalizada como tendo sido atravessada pela corrente de curto circuito, isso definirá se é possível isolar o defeito e restabelecer os clientes a montante do mesmo.
 
 Essa procura é feita na etapa \ref{fig:Fluxograma_decisao}-b, onde todos os equipamentos telecomandados, que pertencem ao alimentador do equipamento desarmado, que tenham sido sinalizados em qualquer uma das fases, são colocados em um conjunto.
 
@@ -198,7 +212,7 @@ Se existir algum equipamento nesse conjunto, significa que a corrente de curto p
 
 % Ainda utilizando a topologia original, a rede é percorrida. %%%ISOLAMENTOS MULTIPLOS%%%
 
-A próxima etapa (\ref{fig:Fluxograma_decisao}-d) é o envio dos comandos para o SCADA uma vez que restabelecer os consumidores antes do defeito não irá interferir no cálculo das transferências. É importante que a manobra de fechamento do equipamento atuado somente aconteça após a confirmação da abertura do equipamento sinalizado escolhido no passo anterior, isso porque fechar o equipamento desarmado sem ter aberto o outro iria restabelecer o fornecimento com o defeito ainda presente na distribuição, o que poderia levar a um novo desarme do equipamento atuado anteriormente ou mesmo o desarme de outro equipamento. Nesse ponto, os consumidores a montante do defeito tiveram seu fornecimento restabelecido. 
+A próxima etapa (\ref{fig:Fluxograma_decisao}-d) é o envio dos comandos para o SCADA uma vez que restabelecer os consumidores antes do defeito não irá interferir no cálculo das transferências. É importante que a manobra de fechamento do equipamento atuado somente aconteça após a confirmação da abertura do equipamento sinalizado escolhido no passo anterior, isso porque fechar o equipamento desarmado sem ter aberto o outro iria restabelecer o fornecimento com o defeito ainda presente na distribuição, o que poderia levar a um novo desarme do equipamento atuado anteriormente ou mesmo o desarme de outro equipamento. Nesse ponto, os consumidores a montante do defeito tiveram seu fornecimento restabelecido.
 
 O método prossegue agora tentando executar a transferência para alimentadores vizinhos dos consumidores localizados após o defeito. Essa parte do método independe se houve equipamentos sinalizados ou não, ou seja, mesmo que o método já tivesse restabelecido os consumidores a montante do defeito o método irá analisar as possibilidades de transferência.
 
@@ -208,7 +222,7 @@ O início da análise de transferência inicia com o passo \ref{fig:Fluxograma_deci
 
 
 A definição das manobras a serem executadas para transferir clientes para os alimentadores vizinhos não é tão trivial quanto isolar o curto e religar o equipamento atuado. Inicialmente são definidas as chaves que se localizam após o defeito. Para isso, deve se levar em consideração o equipamento que atuou ou o equipamento manobrado no caso de existirem equipamentos atravessados pela corrente de curto. Tal equipamento é denominado como equipamento de origem, pois é ele quem marca o inicio da área defeituosa.
-% A enumeração das manobras de transferência, possui uma chave de origem, a qual indica o limite do defeito a montante, ou seja, a chave utilizada para isolar o defeito do restante da rede a montante, seja pelo próprio desarme do equipamento ou pela manobra das chaves sinalizadas pela corrente de curto (etapas \ref{fig:Fluxograma_decisao}-c e \ref{fig:Fluxograma_decisao}-d do método de seleção de configurações). 
+% A enumeração das manobras de transferência, possui uma chave de origem, a qual indica o limite do defeito a montante, ou seja, a chave utilizada para isolar o defeito do restante da rede a montante, seja pelo próprio desarme do equipamento ou pela manobra das chaves sinalizadas pela corrente de curto (etapas \ref{fig:Fluxograma_decisao}-c e \ref{fig:Fluxograma_decisao}-d do método de seleção de configurações).
 O algoritmo que será apresentado aqui parte de tal equipamento de origem e procura as manobras a jusante para transferir os consumidores localizados após a área afetada para os alimentadores vizinhos.
 
 Para exemplificar a enumeração completa de todas as manobras, sem ainda utilizar o algoritmo, será utilizada a rede da Figura \ref {fig:Exemplo_transferencia}, onde o equipamento de origem tem a cor amarela e o estado aberta, uma vez que pode ter sido desarmado pela corrente do defeito no primeiro trecho  (Origem - CH1-A), os equipamentos NF estão em verde e os equipamentos NA em vermelho. Todos equipamentos apresentados são telecomandados e possuem um estado de comunicação bom, ou seja, qualquer um deles pode ser utilizado para transferir os clientes afetados pela interrupção para um alimentador vizinho.
@@ -219,21 +233,21 @@ Para exemplificar a enumeração completa de todas as manobras, sem ainda utilizar
 % O defeito está após a chave Ch2, a chave mais a jusante da chave Ch1, pois a mesma foi sinalizada como tendo sido atravessada pelo curto
 % O defeito está antes da chave Ch3 pois a mesma não foi sinalizada.
 % Nesse exemplo a reconfiguração da rede através da abertura das chaves Ch2 e Ch3 e o fechamento das chaves Ch1 e NA, reduziu a área afetada de todos clientes protegidos pela chave Ch1, a qual atuou com o defeito, para uma área menor no entorno do defeito entre as chaves Ch2 e Ch3. É importante ressaltar que as equipes de manutenção podem ainda reduzir ainda mais a área afetada usando equipamentos não telecomandados, mas o objetivo aqui é ter uma metodologia que restabeleça os clientes usando apenas os equipamentos telecomandadas de  modo ágil e sem a necessidade de interação de operadores.
-% 
+%
 % \begin{figure}[htbp]
 % \begin{centering}
 % \includegraphics[width=0.5\columnwidth]{img/redeDefeito}
 % \par\end{centering}
-% 
+%
 % \caption{Exemplo de defeito em uma rede \label {fig:Rede_defeito}}
 % \end{figure}
-% 
+%
 % A primeira parte do procedimento é desencadeado pelo SCADA, que envia uma mensagem da ocorrência do evento de bloqueio de um equipamento telecomandado, sendo esse equipamento um disjuntor ou mesmo uma chave posicionada no decorrer da rede de distribuição. Como tais equipamentos telecomandados podem ser configurados como equipamentos de proteção ou como chaves sobcarga, somente os configurados da primeira forma irão desarmar em caso de defeito.
 % Antes de prosseguir tratando o evento, o sistema atualiza o estado das chaves, uma vez que a rede pode ter sido alterada por operações em campo (reconfigurada para manutenção por exemplo). Com o estado das chaves atualizado, o sistema computacional prepara um conjunto das chaves das quais é preciso buscar informações, em tal conjunto estão todas os equipamentos telecomandados, tanto os NA quanto os NF, do alimentador ao qual o equipamento que sofreu o desarme pertence, bem como as chaves de socorro (fronteira) e disjuntores dos alimentadores vizinhos que usem uma das chaves de fronteira selecionadas anteriormente. Com essas chaves é possível, após detectar a área afetada pelo defeito, tanto isolar os clientes antes do defeito e religar o disjuntor do alimentador e/ou transferir os clientes após o defeito para os alimentadores vizinhos usando apenas os equipamentos telecomandados.
 
 
 
-% Com as informações requisitadas, é procurado por equipamentos com alguma fase sinalizada. Caso exista pelo menos um equipamento sinalizado (diferente do equipamento que desarmou), pode ser possível isolar o defeito e religar o equipamento atuado. Para encontrar as chaves a serem utilizadas para isolar o defeito, inicialmente é escolhido o equipamento mais a jusante do equipamento atuado e este é marcado como sendo um equipamento a ser aberto. Após, todos equipamentos entre o equipamento escolhido e o atuado são removidos da lista de equipamentos sinalizados. Caso ainda existam equipamentos sinalizados, o procedimento é executado novamente e a chaves escolhidas vão sendo colocadas em uma lista. Com as chaves a serem abertas selecionadas, o comando de abri-las é enviado para o SCADA e com a confirmação, o comando de fechar o equipamento atuado é enviado. Com isso alguns clientes antes do defeito são restabelecidos de forma direta. Uma vez que não exite problema de sobrecarga do alimentador e nem dos 
+% Com as informações requisitadas, é procurado por equipamentos com alguma fase sinalizada. Caso exista pelo menos um equipamento sinalizado (diferente do equipamento que desarmou), pode ser possível isolar o defeito e religar o equipamento atuado. Para encontrar as chaves a serem utilizadas para isolar o defeito, inicialmente é escolhido o equipamento mais a jusante do equipamento atuado e este é marcado como sendo um equipamento a ser aberto. Após, todos equipamentos entre o equipamento escolhido e o atuado são removidos da lista de equipamentos sinalizados. Caso ainda existam equipamentos sinalizados, o procedimento é executado novamente e a chaves escolhidas vão sendo colocadas em uma lista. Com as chaves a serem abertas selecionadas, o comando de abri-las é enviado para o SCADA e com a confirmação, o comando de fechar o equipamento atuado é enviado. Com isso alguns clientes antes do defeito são restabelecidos de forma direta. Uma vez que não exite problema de sobrecarga do alimentador e nem dos
 % equipamento pois somente foi cortada carga e não foi alterada a topologia da rede, as manobras de isolamento não necessitam de simulações de fluxo e nem decisão entre uma manobra ou outra.
 %  (\textbf{ pq não precisam decisão? As manobras já são executadas? Falar sobre forks com mais de um eq. sinalizado?}).
 
@@ -265,9 +279,9 @@ Para uma topologia pequena, como a apresentada na Figura \ref{fig:Exemplo_transf
 
 Para não enumerar todas as possibilidades de manobras, foi desenvolvido um algoritmo que escolhe as manobras devem ser executadas de maneira inteligente, enumerando o menor número possível das mesmas. Tal algoritmo de escolha das manobras, já leva em consideração a função objetivo e as restrições quanto está gerando o conjunto de manobras a serem executados, assim a saída do algoritmo é as manobras que podem ser executadas automaticamente pelo SCADA.
 
-Antes de apresentar o algoritmo, será apresentado aqui uma visão geral de como o algoritmo funciona. Basicamente o algoritmo tenta transferir os consumidores usando as chaves mais próximas ao equipamento de origem (nível 1) e caso não consiga, avança para o próximo nível (2) e tenta novamente, podendo descer ainda mais nos níveis e depois retornar para o primeiro nível caso consiga executar uma transferência parcial dos consumidores em algum dos níveis a frente. Para cada nível são testados todos os equipamentos NF e para cada um deles são testadas todas as possibilidades de transferência com as chaves NA. Em comparação com a topologia apresentada na Figura \ref{fig:Exemplo_transferencia}, no primeiro nível são enumeradas as manobras 1 e 2. Caso existam mais de uma manobra válida  de transferência (sem violar nenhuma restrição), é escolhida a que tem um melhor valor da função objetivo, ou seja, a que restabelece mais consumidores. 
+Antes de apresentar o algoritmo, será apresentado aqui uma visão geral de como o algoritmo funciona. Basicamente o algoritmo tenta transferir os consumidores usando as chaves mais próximas ao equipamento de origem (nível 1) e caso não consiga, avança para o próximo nível (2) e tenta novamente, podendo descer ainda mais nos níveis e depois retornar para o primeiro nível caso consiga executar uma transferência parcial dos consumidores em algum dos níveis a frente. Para cada nível são testados todos os equipamentos NF e para cada um deles são testadas todas as possibilidades de transferência com as chaves NA. Em comparação com a topologia apresentada na Figura \ref{fig:Exemplo_transferencia}, no primeiro nível são enumeradas as manobras 1 e 2. Caso existam mais de uma manobra válida  de transferência (sem violar nenhuma restrição), é escolhida a que tem um melhor valor da função objetivo, ou seja, a que restabelece mais consumidores.
 
-Se existir pelo menos uma manobra válida para cada equipamento NF do primeiro nível, então todos os consumidores após o defeito podem ser transferidos e as manobras podem ser enviadas ao SCADA. Esse é o melhor caso onde apenas as manobras do primeiro nível foram simuladas, ou seja, apenas as manobras 1 e 2 foram simuladas, sendo que somente uma delas poderá executada automaticamente. 
+Se existir pelo menos uma manobra válida para cada equipamento NF do primeiro nível, então todos os consumidores após o defeito podem ser transferidos e as manobras podem ser enviadas ao SCADA. Esse é o melhor caso onde apenas as manobras do primeiro nível foram simuladas, ou seja, apenas as manobras 1 e 2 foram simuladas, sendo que somente uma delas poderá executada automaticamente.
 
 Caso não seja possível transferir usando os equipamentos NF de primeiro nível devido a violação de alguma restrição, o algoritmo passa para o próximo nível (2) e testa as possibilidades desse nível. A enumeração das manobras desse segundo nível é feita  da mesma forma como foi feita no nível anterior(1) e usando a topologia de exemplo, o algoritmo agora simularia as manobras 3 e 4.
 
@@ -314,7 +328,7 @@ O método de seleção de manobras está definido no Algoritmo \ref{alg:encontraMano
   \ELSE
     \IF {$EqAtual \neq EqOrigem$}
 	\STATE $manLst \leftarrow manLst\; \cup\; op$
-    \ELSE 
+    \ELSE
 	\STATE $manVld\leftarrow manVld\; \cup\; ApliqueMelhorManobra(op)$
     \ENDIF
   \ENDIF
@@ -334,12 +348,12 @@ Para cada equipamento NF ($\beta$), o algoritmo obterá uma lista de opções de tr
 
 Se $op$ for vazio, significa que nenhuma das transferências contidas em $Ts$ são válidas, ou seja, todas violaram pelo menos uma das restrições impostas. Nesse caso o algoritmo é aplicado no próximo nível (linha 14) e o resultado de tal aplicação é adicionado ao conjunto de manobras a serem aplicadas. A chamada a função na linha 14 passa como argumentos de EqAtual o equipamento NF ($\beta$) do qual as transferências estavam sendo testadas e o equipamento EqOrigem é passado como ele mesmo.
 
-Existindo opções de manobras válidas, a melhor delas será escolhida (linhas 16-20). Caso o método não esteja no primeiro nível ($EqAtual \neq EqOrigem$), todas opções de manobra do conjunto $op$ são adicionas à lista de manobras do nível atual (linha 17). Caso o algoritmo esteja sendo aplicado no primeiro nível ($EqAtual = EqOrigem$), a melhor manobra para o equipamento $\beta$ é escolhida e aplicada à simulação com uso do método ApliqueMelhorManobra \ref{alg:AplicaMelhor} e então é colocada na lista de manobras válidas para ser executada diretamente. 
+Existindo opções de manobras válidas, a melhor delas será escolhida (linhas 16-20). Caso o método não esteja no primeiro nível ($EqAtual \neq EqOrigem$), todas opções de manobra do conjunto $op$ são adicionas à lista de manobras do nível atual (linha 17). Caso o algoritmo esteja sendo aplicado no primeiro nível ($EqAtual = EqOrigem$), a melhor manobra para o equipamento $\beta$ é escolhida e aplicada à simulação com uso do método ApliqueMelhorManobra \ref{alg:AplicaMelhor} e então é colocada na lista de manobras válidas para ser executada diretamente.
 
-% 
+%
 % Com a melhor transferência escolhida, o algoritmo de busca das manobras \ref{alg:encontraManobras} adiciona tal manobra a lista de manobras a serem executadas (linha 15). Nesse ponto o algoritmo avalia se ele se encontra no primeiro nível ou não. Isso é feito comparando os parâmetros EqAtual e EqOrigem. Se eles forem diferentes significa que o algoritmo está processando um nível diferente do primeiro e como foi encontrada uma manobra válida, ele deve voltar para o primeiro nível para reavaliar as transferências daquele nível. Para isso o método é chamado o método passando ambos parâmetros, EqAtual e EqOrigem, são atribuídos com o o valor do EqOrigem na linha 17.
 
-Após enumerar todas as possibilidades de transferências do nível atual, o algoritmo agora verifica se ele se encontra no primeiro nível ou não e se ele necessita retornar para o primeiro nível para tentar novas transferências. Isso é feito na linha 24 onde é testado se o nível atual é diferente do nível atual ($EqAtual \neq EqOrigem$) e se existem ou transferências válidas a serem executadas ou transferências no nível atual. Se o nível atual não for o primeiro mas não existirem transferências ou válidas ou a serem executadas, significa que todas as transferências possuem alguma restrição e não foi possível transferir parte da carga para algum alimentador vizinho. Se o algoritmo já está num nível diferente do primeiro do primeiro, significa que não existiam transferências no primeiro nível e o mesmo avançou para tentar transferir parte da carga e assim poder retornar e tentar transferir novamente os consumidores do primeiro nível. Assim, se não existirem transferências válidas nos níveis a frente do primeiro, 
+Após enumerar todas as possibilidades de transferências do nível atual, o algoritmo agora verifica se ele se encontra no primeiro nível ou não e se ele necessita retornar para o primeiro nível para tentar novas transferências. Isso é feito na linha 24 onde é testado se o nível atual é diferente do nível atual ($EqAtual \neq EqOrigem$) e se existem ou transferências válidas a serem executadas ou transferências no nível atual. Se o nível atual não for o primeiro mas não existirem transferências ou válidas ou a serem executadas, significa que todas as transferências possuem alguma restrição e não foi possível transferir parte da carga para algum alimentador vizinho. Se o algoritmo já está num nível diferente do primeiro do primeiro, significa que não existiam transferências no primeiro nível e o mesmo avançou para tentar transferir parte da carga e assim poder retornar e tentar transferir novamente os consumidores do primeiro nível. Assim, se não existirem transferências válidas nos níveis a frente do primeiro,
 não há a necessidade de tentar transferir os clientes do primeiro nível.
 
 Caso existam possibilidades no nível atual, é necessário aplicar apenas a melhor delas e retornar ao primeiro nível para tentar novamente transferir os clientes. Se existirem manobras a serem executas, provenientes de outros níveis, as mesmas não podem ser perdidas, assim o conjunto de manobras válidas passar a ser a união delas juntamente com o a melhor manobra do nível atual (linha 25). Na linha 26 o algoritmo retorna ao primeiro nível e une as manobras encontradas lá com as manobras válidas atuais.
@@ -360,7 +374,7 @@ qual é retornado ao final da segunda execução. Voltando a primeira execução do a
 Maiores detalhes sobre os resultados que o algoritmo oferece, estarão melhor apresentados no capítulo \refname{cap:casosestudos}, onde são apresentado casos de aplicação da metodologia em redes reais. Vale ressaltar que o número total de transferências simuladas nunca será completa, uma vez que dentre as transferência a partir do segundo nível apenas uma escolhida a para ser testadas com as manobras do primeiro nível, como no exemplo de aplicação descrito acima que não teve uma simulação entre das manobras  ``CH1-A - NA-1'' após a aplicação da manobra ``CH2-B - NA-2''.
 
 % A tentativa inicial de transferir os consumidores usando os equipamento NF do primeiro nível (CH1-A), gerando as manobras 1 e 2, e nenhuma das manobras era válida (ambas violavam alguma das das restrições), elas não podem ser executas, assim o algoritmo desce para o segundo nível que tem as manobras 3 e 4 como correspondentes. Caso ambas manobras possam ser executas, é escolhida apenas a melhor delas e o método retorna para as manobras do nível 1. Caso a manobra escolhida no segundo nível seja a manobra 3 (equipamentos ``CH 1-B'' e ``NA-1''), agora o algoritmo irá simular apenas a manobra 2, uma vez que a chave ``NA-1'' que compõem a manobra 1 já foi utilizada na manobra 3.
-% 
+%
 % Se agora for possível de transferir usando a manobra 2 sem que isso viole nenhuma restrição, essa manobra é colocada junto com a manobra 3 para ser executada. Caso a manobra 2 ainda apresentar violações nas restrições, o algoritmo irá avançar um nível (2) e  tentará executar a manobra 4. Se não houver restrições nessa transferência, o algoritmo volta no nível 1, sendo que agora não existem mais transferências válidas, uma vez que todas possibilidades do primeiro nível usam equipamentos NA que já foram utilizados nas manobras aceitas (3 e 4), então o algoritmo encerra e devolve a lista de manobras que podem ser executadas.
   %Usando 2 pares de chaves foi possível restabelecer todos consumidores após o defeito
 
@@ -386,7 +400,7 @@ Maiores detalhes sobre os resultados que o algoritmo oferece, estarão melhor apr
 %     }
 %   }
 % fim para
-% 
+%
 % retorn m
 
 
@@ -395,16 +409,16 @@ Maiores detalhes sobre os resultados que o algoritmo oferece, estarão melhor apr
 
 
 % Inicialmente são tentadas as transferências que usam a chave mais próxima ao defeito (CH 1-A), nesse caso as transferências 1 e 2. Caso ambas permitam transferir sem violar nenhuma restrição, é escolhida a manobra que apresenta um melhor valor da função objetivo. Se nenhuma delas satisfazer as restrições, então é tentada a transferência usando as próximas chaves mais próximas do defeito (CH 1-B e CH 2-B), as transferências 3 e 4, procedendo da mesma forma na escolha de qual executar. Se ainda assim houver violações em todas tentativas, é testada as próximas chaves mais perto da área afetada.
-% 
+%
 % A partir do segundo nível de chaves próximas ao defeito, nesse caso as chaves CH 1-B e CH 2-B, se existir a possibilidade de executar alguma das transferências testas sem comprometer nenhuma restrição, é escolhida a melhor dentre as opções e ela é aplicada, logo após as tentativas de transferência são reiniciadas a partir das chaves mais próximas ao defeito, considerando que as transferências escolhidas já foram aplicadas (chaves NA usadas fazem mais parte das opções). Essa metodologia permite que, se não for possível transferir toda carga, então parte dela será transferida para um alimentador e o restante, que será uma carga reduzida pela primeira transferência, é testada novamente gerando assim as combinações 5, 6 e 7.
 
 
 
 % As escolhas das funções objetivo e restrições são de extrema importância
 % para o processo de restabelecimento de energia elétrica. Quando tratamos do problema de reconfiguração em um estado de contingência, podemos considerar que é desejado reduzir a área afetada pelo defeito (minimizar o número de clientes afetados) e também é esperado um número de manobras reduzido, uma vez que essas modificações são temporárias e será necessário retornar a rede ao estado anterior após a correção dos defeitos\cite{Garcia2005}.
-% 
+%
 % Ao restabelecer os consumidores usando outro alimentador, deve-se tomar cuidado para não deixar a rede operando com algum equipamento de proteção sobrecarregado, tanto do alimentador defeituoso como dos alimentadores que irão receber mais carga, uma vez que isso pode levar a um desarme do mesmo em caso de um elevação inesperada da carga. Os níveis de queda de tensão também devem ser observados de modo que eles fiquem dentro de um limite aceitável. Quando o caso do restabelecimento acontecer dentro do mesmo alimentador (área restabelecida antes do defeito), nenhum equipamento será sobrecarregado, uma vez que houve apenas uma redução de carga em relação a operação normal. Quanto a sobrecarga dos elementos da rede elétrica (condutores) é aceitável uma sobrecarga por ser uma situação provisória.
-% 
+%
 % % \textbf{Como restrições, os principais fatores são operar as redes sem sobrecarga
 % % nos elementos elétricos, sem violar os ajustes de proteção e a queda de tensão
 % % admissível nas redes primárias. Normalmente, as restrições de não permitir violação
@@ -414,35 +428,35 @@ Maiores detalhes sobre os resultados que o algoritmo oferece, estarão melhor apr
 % % que o defeito seja sanado, para retornar a configuração de operação em regime
 % % normal. Assim, se aceita um pequeno percentual de sobrecarga nos elementos
 % % elétricos.}
-% 
+%
 % Com base nessas considerações, definiram-se as seguintes funções
 % objetivo e restrições a serem utilizadas nas análises das reconfigurações da rede
 % em situações de contingências:
-% 
+%
 % Funções Objetivo:
 % \begin{enumerate}
 % \item restabelecer o número máximo de consumidores;
 % \item restabelecer a quantidade máxima de energia elétrica;
 % \item realizar o número mínimo necessário de operações de comutação para as transferências de carga;
 % \end{enumerate}
-% 
-% 
+%
+%
 % A análise das funções objetivo é executada quando existem várias manobras que podem ser executadas sem exceder nenhuma restrição.
-% 
-% 
+%
+%
 % \section{Metodologia proposta para operação automática dos equipamentos}
 % Tendo a metodologia de definição das manobras de restabelecimento, as restrições e as funções objetivo bem definidas, fica fácil agregar esses métodos a possibilidade de enviar comandos para os equipamentos telecomandados e ter uma operação automática e autônoma da rede de distribuição.
-% 
+%
 % A grande vantagem desse método é que ele por si só descobre as possibilidades de transferência, ou seja, não existe um cadastro prévio das manobras do tipo 'se acontecer um defeito após a chave X, opere as chaves Z e Y', somente sendo necessário cadastras as chaves telecomandadas do sistema e a comunicação com o SCADA. Isso permite o uso dessa metodologia em diferentes topologias de rede de modo que ela irá definir as manobras a serem executadas de forma automática.
-% 
+%
 % Para a operação das chaves os comandos de abertura e fechamento das mesmas é enviado ao sistema supervisório, sendo que para cada par de chaves, primeiro é enviado o comando de abertura da chave que irá isolar o defeito, se o mesmo falhar (erro de comunicação), o SCADA irá rejeitar o comando e a manobra desse par de chaves será abortada. Se houverem mais manobras elas podem continuar se alguns critérios forem satisfeitos como por exemplo:
 % \begin{itemize}
 %     \item A manobra que falhou é fechar uma chave;
 %     \item A manobra que falhou é de abrir, mas a chave encontra-se a montante da chave que será aberta;
 % \end{itemize}
-% 
-% 
-% 
+%
+%
+%
 % % \textbf{telecomandados para restabelecimento de energia elétrica
 % % A seguir é apresentada a metodologia proposta para operação automática
 % % dos equipamentos telecomandados para restabelecimento de energia. Para tanto,
@@ -501,7 +515,7 @@ Maiores detalhes sobre os resultados que o algoritmo oferece, estarão melhor apr
 % % previsão de carga para três horas a frente de modo a dar mais segurança na
 % % viabilidade técnica das manobras. As previsões são realizadas com base no histórico
 % % de medições da semana anterior.}
-% 
+%
 % % \textbf{Para identificação das opções de manobra, verifica-se quais equipamentos
 % % telecomandados NA possuem condições de assumir as cargas a jusante do bloco
 % % sob defeito isolado, sem violar as restrições. Quando houver mais de uma opção,
