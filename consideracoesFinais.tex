@@ -1,23 +1,35 @@
 \chapter{Considerações Finais \label{cap:consideracoesFinais}}
 
 
-Este trabalho tem por objetivo a apresentação e demostração de uma metodologia desenvolvida para ser usada no restabelecimento automático de energia elétrica considerando o uso de equipamentos telecomandados. 
+Este trabalho tem por objetivo a apresentação e demostração de uma metodologia desenvolvida para ser usada no restabelecimento automático de energia elétrica considerando o uso de equipamentos telecomandados.
 
 A metodologia aqui apresentada foi implementada em um software e testada com redes de distribuição reais, onde ofereceu respostas factíveis  muito boas em um tempo computacional baixo (poucos segundos para casos com maior número de transferências e menos de meio segundo para casos simples). Esse tempo e resposta reduzido se deve pelo fato da metodologia gerar apenas as manobras de transferência necessárias, evitando a enumeração e todas possibilidades.
 
-O desenvolvimento dessa metodologia para restabelecimento automático, traz vantagens em relação a outras metodologias \cite{Gris2010} por ser aplicável em diferentes topologias de rede sem a necessidade de uma pré configuração das manobras que podem ser executadas. Isso se dá pela forma que essa metodologia utiliza as informações em campo (medições, controle) com inteligência computacional (simulações, definições das manobras) para obter o conjunto de manobras a serem executadas para restabelecimento máximo do fornecimento de energia elétrica para os consumidores.
+O desenvolvimento dessa metodologia para restabelecimento automático, traz vantagens em relação a outras metodologias de restabelecimento pré programadas por ser aplicável em diferentes topologias de rede sem a necessidade de uma pré configuração das manobras que podem ser executadas. Isso se dá pela forma que essa metodologia utiliza as informações em campo (medições, controle) com inteligência computacional (simulações, definições das manobras) para obter o conjunto de manobras a serem executadas para restabelecimento máximo do fornecimento de energia elétrica para os consumidores.
 
-\section{Possíveis trabalhos possíveis}
-É deixado aqui algumas idéias de possíveis trabalhos futuros dentro desse tema.
+\section{Trabalhos publicados}
+Durante o desenvolvimento dessa dissertação, os seguintes trabalhos relacionados foram publicados e ou apresentados em eventos
+
+\begin{trivlist}
+\item Reck, W. and Giacomelli, J. and Garcia, V. and Bernardon, D. and Sperandio, M. and others, \textbf{Alocação Multicriterial de Chaves Telecomandadas}, CIDEL 2010 - Argentina;
+\item Trabalho anterior foi premiado como o melhor de sua secção e foi publicado na Revista CIER No. 58 de 2011 do Uruguai;
+\item D. P. Bernardon, M. Sperandio, V. J. Garcia, L.L. Pfitscher, W. Reck, E. F. B. Daza, M. Ramos, L. Comassetto, \textbf{Automatic Reestablishment of Power Supply in Distribution Systems using AHP Method}, Proceedings of the 2011 International Conference on Power Engineering, Energy and Electrical Drives - Malaga - Espanha;
+\item SILVA, P. A. S. ; RECK, W. M. ; BERNARDON, D. P. . \textbf{Aplicação de Sistemas Inteligentes no Restabelecimento Automático da Energia}. Revista Júnior de Iniciação Científica em Ciências Exatas e Engenharia, v. 1, p. 11-18, 2011
+\item Bernardon, D., Sperandio, M., Garcia, V., Pfitscher, L., Reck, W., \textbf{Automatic Restoration of Power Supply in Distribution Systems by Computer-Aided Technologies}, Automation, Capítulo 3, 2012. ISBN: 978-953-51-0685-2
+\end{trivlist}
+
+
+\section{Trabalhos futuros}
+Mesmo a metodologia tendo apresentado resultados muito bons, ainda existe a possibilidade de ampliar suas funcionalidades. Para incentivar a continuidade desse trabalho, são deixadas aqui algumas idéias de possíveis trabalhos futuros dentro desse tema.
 \begin{itemize}
- \item Desconsiderar a restrição de radialidade e permitir a transferência de uma única parte de um alimentador para mais de um alimentador vizinho, sendo que para isso seria necessário incluir a modelagem de transitórios, os quais podem fazer equipamentos e proteção atuarem \cite{bernardon2007use}. 
- \item A escolha das manobras pode utilizar algum método multi objetivo, como AHP ou mesmo métodos evolutivos como algoritmos genéticos, sendo que para isso seria necessário enumerar todas as possibilidades para então compará-las utilizando alguma função multi objetivo. 
+ \item Desconsiderar a restrição de radialidade e permitir a transferência de uma única parte de um alimentador para mais de um alimentador vizinho, sendo que para isso seria necessário incluir a modelagem de transitórios, os quais podem fazer equipamentos e proteção atuarem \cite{bernardon2007use}.
+ \item A escolha das manobras pode utilizar algum método multi objetivo, como AHP ou mesmo métodos evolutivos como algoritmos genéticos, sendo que para isso seria necessário enumerar todas as possibilidades para então compará-las utilizando alguma função multi objetivo.
  \item Para evitar enumerar todas as manobras a cada desarme, pode ser aplicado algum tipo de inteligência computacional, como redes neurais ou outras técnicas de `\textbf{`memoização''} , a qual poderia ser treinada durante a ocorrência dos desarmes com soluções da metodologia aqui apresentada para que em ocorrências futuras desses mesmos desarmes, a inteligência computacional iria procurar por eventos com cargas semelhantes e recuperar as manobras anteriormente sugeridas, sem a necessidade de simular novamente todas essas manobras.
  \item Essa última técnica poderia também levar em consideração decisões tomadas por operadores em cima das soluções anteriores, por exemplo a aceitação de uma manobra que viole alguma restrição, seja pelo operador conhecer a rede e saber que é aceitável ou pelo mesmo saber de algum erro de cadastro como o que foi apresentada nos casos de estudo.
 % Uso de Redes neurais para armazenar fatos do passado e se a mesma situação ocorrer não precisar recalcular/esperar operador aceitar violações de restrição.
  \item Ainda referente a escolha das manobras, o uso de critérios de desempate que escolhem a manobra, a partir do segundo nível de chaves, com maior carregamento, mas que ainda estejam dentro das restrição, transferindo assim grande parte da carga com essa manobra e permitir que a transferência do primeiro nível tenha uma carga menor a ser transferida, aumentado assim a possibilidade dela poder ser executada.
-
- \item -------Comparar com outros métodos---------
+%
+%  \item -------Comparar com outros métodos---------
 \end{itemize}
 
 Mesmo com essas ideias que poderiam melhorar tanto as soluções quanto o tempo tomado para o cálculo e tais soluções, a metodologia aqui apresentada já apresenta soluções factíveis que podem ser aplicadas a redes reais, como foi apresentado no capítulo  \ref{cap:casosestudos}
