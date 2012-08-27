@@ -1,16 +1,11 @@
 \chapter{Resultados Práticos \label{cap:casosestudos}}
 % Apresentar algumas topologias de estudo, mostrar resultados preliminares com o Rocs para o sistema de teste, mostrar algumas redes (pedir permissão para a AES?)
 
-Foram realizados testes da metodologia proposta, inicialmente para validar o método de enumeração de possibilidades de transferências, e posteriormente considerando
-vários cenários operacionais de desarmes de alimentadores, incluindo defeitos a
-montante ou a jusante dos equipamentos telecomandados para diferentes períodos
-de carga.
+Para validar a metodologia e analisar os resultados gerados pela mesma, foram executados testes e simulações de defeitos em redes de distribuição reais. As simulações consideraram a ocorrência de defeitos antes, depois e entre equipamentos telecomandados tentando criar uma grande variedade de cenários de defeitos. Também foram executadas simulações em diferentes horários para analisar o comportamento da metodologia em diferentes patamares de carga.
 
 Para o estudo da eficiência da busca por manobras, foi implementado um protótipo do algoritmo na ferramenta Rocs \cite{Rocs2012}. O Rocs é uma ferramenta de pesquisa em Teoria de Grafos que permite visualizar e interagir utilizando algoritmos escritos em linguagem Javascript\footnote{Linguagem de programação. Muito utilizada para programação em tempo de execução.}.
 
-Após tal estudo do funcionamento do algoritmo de busca, foi desenvolvida uma ferramenta computacional para a simulação da operação de redes de distribuição e também a simulação da ocorrência de defeitos. A descrição do sistema desenvolvido se encontra na secção \refname{sistemaDesenvolvido}.
-
-
+Após o estudo e refinamentos do funcionamento do algoritmo de busca, foi desenvolvida uma ferramenta computacional para a simulação da operação de redes de distribuição e também a simulação da ocorrência de defeitos. A descrição do sistema desenvolvido se encontra na secção \refname{sistemaDesenvolvido}.
 
 A Figura \ref{fig:ExemploredeRocs} ilustra a tela inicial do Rocs com um representação simplificada de uma rede de distribuição, onde os nós em cor azul representam os equipamentos telecomandados NF (normalmente fechado) e os de
 cor vermelha os equipamentos NA (normalmente abertos). Também há a indicação
@@ -100,7 +95,7 @@ Com o estado das chaves atualizado, a metodologia define a lista de equipamentos
 
 \end{figure}
 
-Nesse ponto o sistema já dispõe de todas informações necessárias para executar as simulações, tanto de operação da rede quanto das manobras de isolamento e transferência de carga. Como resultado é obtida uma sequência de manobras que podem ser executadas, na qual são incluídas as manobras que violam as restrições, sendo que estas o sistema não coloca como executáveis. A Fig \ref{fig:maneuversWindows} apresenta um exemplo de manobras que contemplam o isolamento de defeitos (chave 5103) e a transferência (SLE - 47), sendo que a última não está marcada para execução por existirem restrições em um equipamento de proteção (5203 com 90.62\% de carga). Nessa última janela é possível aplicar as manobras (inclusive as que estão com algum tipo de sobrecarga), bastando marcar as manobras e clicar em Ok. Essa aplicação das manobras é útil para simular a ocorrência de novos defeitos quando a rede se encontra em estado de contingência.
+Nesse ponto o sistema já dispõe de todas informações necessárias para executar as simulações, tanto de operação da rede quanto das manobras de isolamento e transferência de carga. Como resultado é obtida uma sequência de manobras que podem ser executadas, na qual são incluídas as manobras que violam as restrições, sendo que estas o sistema não coloca como executáveis. A Fig \ref{fig:maneuversWindows} apresenta um exemplo de manobras que contemplam o isolamento de defeitos (chave 5103) e a transferência (SLE - 47), sendo que a última não está marcada para execução por existirem restrições em um equipamento de proteção (5203 com 90.62\% de carga). Nessa última janela é possível aplicar as manobras (inclusive as que estão com algum tipo de sobrecarga), bastando marcar as manobras e clicar em \textit{Ok}. Essa aplicação das manobras é útil para simular a ocorrência de novos defeitos quando a rede se encontra em estado de contingência.
 
 
 %%fig Aqui
@@ -111,6 +106,8 @@ Nesse ponto o sistema já dispõe de todas informações necessárias para executar a
 \caption{Opções de manobras simuladas.\label{fig:maneuversWindows}}
 
 \end{figure}
+
+Com a ferramenta desenvolvida e as simulações de fluxo de potência e controle de carga por curvas típicas previamente validadas, foram executados diversos casos de teste, os quais estão descritos na próxima secção.
 
 \section{Resultados Obtidos}
 

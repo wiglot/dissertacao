@@ -183,7 +183,7 @@ Esse método é a parte principal da metodologia de restabelecimento automático, j
     % Place nodes
     \node [block] (start) {a) Início metodologia};
     \node [decision, below of=start,] (checkFlags) {b) Existem equipamentos sinalizados?};
-    \node [block, left of=checkFlags, node distance = 6cm ] (findFlaged) {c) Encontre as chaves sinalizadas mais a jusante};
+    \node [block, left of=checkFlags, node distance = 6cm ] (findFlaged) {c) Encontre as chaves sinalizadas mais a jusante do equipamento atuado};
     \node [block, below of=findFlaged] (isolate) {d) Abrir tais chaves e rearme do equipamento atuado};
     \node [block, below of=checkFlags] (findOptions) {e) Encontre as opções de transferência após defeito};
     \node [block, below of=findOptions, node distance = 3cm] (choseBest) {f) Envio das melhores opções de transferência};

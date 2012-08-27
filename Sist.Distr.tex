@@ -75,6 +75,53 @@ Na próxima secção será apresentado um comparativo da operação de rede de forma t
 % O que é um sistema SCADA
 % O que é a automação de redes? como isso pode ajudar no trabalho (leitura em tempo real dos dados de operação e comando remoto das chaves)
 
+\section{Indicadores individuais e coletivos de continuidade}\label{sec:indicadores}
+
+As interrupções por causa de defeitos levam a uma diminuição da continuidade de fornecimento de energia elétrica. A continuidade é medida por indicadores que apresentam o tempo total que um grupo de consumidores ficaram sem fornecimento, além da frequência que os mesmos tiveram o fornecimento interrompido. Tais indicadores são definidos por agências reguladoras, como a ANEEL no Brasil que apresenta tais indicadores com seu respectivos limites no módulo 8 do PRODIST \sigla{PRODIST}{Procedimentos de Distribuição de Energia Elétrica no Sistema Elétrico Nacional} (Procedimentos de Distribuição de Energia Elétrica no Sistema Elétrico Nacional)\cite{prodist2010}. O cálculo dos indicadores após o defeito apresentado na Fig. \ref{fig:exemploDefeito} é executado usado as fórmulas  \ref{eq:DEC}, \ref{eq:FEC} para os indicadores globais da rede e \ref{eq:DIC}, \ref{eq:FIC} e \ref{eq:DMIC} para os indicadores individuais de cada unidade consumidora.
+
+DEC:\sigla{DEC} { Duração Equivalente por Consumidor } (Duração Equivalente por Unidade Consumidora):
+\begin{equation} \label{eq:DEC}
+ DEC=\frac{\sum\limits_{i=1}^{k}Ca(i)\cdot t(i)}{Cc}
+\end{equation}
+
+DEC:\sigla{FEC} { Frequência Equivalente por Consumidor } (Frequência Equivalente por Unidade Consumidora)
+\begin{equation}\label{eq:FEC}
+ FEC=\frac{\sum\limits_{i=1}^{k}Ca(i)}{Cc}
+\end{equation}
+Onde:
+\begin{description}
+ \item [k] Número eventos sendo analisados;
+ \item [t(i):] duração da interrupção $i$;
+ \item [Ca(i):] Número de consumidores afetados pelo evento $i$;
+ \item [Cc:] Total de consumidores da rede.
+\end{description}
+
+Os indicadores globais oferecem uma ótima visão geral da rede em termos de continuidade, apresentando a média de interrupções por consumidor e o tempo médio que cada um deles ficou sem fornecimento de energia elétrica. Apesar disso, os valores podem mascarar situação que um pequeno grupo de consumidores ficaram sem energia por um longo período de tempo por exemplo o caso de uma rede que atende 100.000 consumidores e em período o tempo total de interrupções foi de 100 horas (6000 minutos) e atingiu apenas 100 consumidores, o DEC resultante 6, o que indica que na média cada consumidor ficou 6 minutos sem energia elétrica.
+
+
+DIC\sigla{DIC} { Duração Individual por Consumidor } (Duração Individual por Consumidor)
+\begin{equation}\label{eq:DIC}
+ DIC = \sum_{i=1}^{n}t(i)
+\end{equation}
+
+FIC\sigla{FIC} { Frequência Individual por Consumidor } (Frequência Individual por Consumidor)
+\begin{equation}\label{eq:FIC}
+ FIC = n
+\end{equation}
+
+DMIC\sigla{DMIC} { Duração Máxima Individual por Consumidor } (Duração Máxima Individual por Consumidor)
+\begin{equation}\label{eq:DMIC}
+ DMIC = max_{i=1}^n(t(i))
+\end{equation}
+
+Onde:
+\begin{description}
+  \item [n:] total de interrupções do cliente;
+  \item [t(i):] tempo de interrupção do evento $i$.
+\end{description}
+
+Já os indicadores individuais apresentam uma visão focada em apenas um cliente, o que permite identificar pontos críticos como frequências elevadas de interrupções e demora para restabelecimento de alguns consumidores.
+
 \section{Procedimento Convencional para Restabelecimento de Energia Elétrica}
 Os sistemas de distribuição estão sujeitos a condições anormais de operação, como falha em equipamentos isoladores, descargas elétricas, contato entre condutores, ou mesmo interferência no sistema por algum fator externo. Essas condições anormais fazem com que os equipamentos de proteção, atuem para evitar a propagação do defeito, tendo como consequência a interrupção do fornecimento de energia elétrica para um conjunto de consumidores de um alimentador.
 
@@ -135,52 +182,7 @@ Onde:
 
 %\textbf{explicar um pouco melhor o atendimento das equipes, transformar as diferenças de tempo em $\Delta$}
 
-As interrupções por causa de defeitos levam a uma diminuição da continuidade de fornecimento de energia elétrica. A continuidade é medida por indicadores que apresentam o tempo total que um grupo de consumidores ficaram sem fornecimento, além da frequência que os mesmos tiveram o fornecimento interrompido. Tais indicadores são definidos por agências reguladoras, como a ANEEL no Brasil que apresenta tais indicadores com seu respectivos limites no módulo 8 do PRODIST \sigla{PRODIST}{Procedimentos de Distribuição de Energia Elétrica no Sistema Elétrico Nacional} (Procedimentos de Distribuição de Energia Elétrica no Sistema Elétrico Nacional)\cite{prodist2010}. O cálculo dos indicadores após o defeito apresentado na Fig. \ref{fig:exemploDefeito} é executado usado as fórmulas  \ref{eq:DEC}, \ref{eq:FEC} para os indicadores globais da rede e \ref{eq:DIC}, \ref{eq:FIC} e \ref{eq:DMIC} para os indicadores individuais de cada unidade consumidora.
-
-DEC:\sigla{DEC} { Duração Equivalente por Consumidor } (Duração Equivalente por Unidade Consumidora):
-\begin{equation} \label{eq:DEC}
- DEC=\frac{\sum\limits_{i=1}^{k}Ca(i)\cdot t(i)}{Cc}
-\end{equation}
-
-DEC:\sigla{FEC} { Frequência Equivalente por Consumidor } (Frequência Equivalente por Unidade Consumidora)
-\begin{equation}\label{eq:FEC}
- FEC=\frac{\sum\limits_{i=1}^{k}Ca(i)}{Cc}
-\end{equation}
-Onde:
-\begin{description}
- \item [k] Número eventos sendo analisados;
- \item [t(i):] duração da interrupção $i$;
- \item [Ca(i):] Número de consumidores afetados pelo evento $i$;
- \item [Cc:] Total de consumidores da rede.
-\end{description}
-
-Os indicadores globais oferecem uma ótima visão geral da rede em termos de continuidade, apresentando a média de interrupções por consumidor e o tempo médio que cada um deles ficou sem fornecimento de energia elétrica. Apesar disso, os valores podem mascarar situação que um pequeno grupo de consumidores ficaram sem energia por um longo período de tempo por exemplo o caso de uma rede que atende 100.000 consumidores e em período o tempo total de interrupções foi de 100 horas (6000 minutos) e atingiu apenas 100 consumidores, o DEC resultante 6, o que indica que na média cada consumidor ficou 6 minutos sem energia elétrica.
-
-
-DIC\sigla{DIC} { Duração Individual por Consumidor } (Duração Individual por Consumidor)
-\begin{equation}\label{eq:DIC}
- DIC = \sum_{i=1}^{n}t(i)
-\end{equation}
-
-FIC\sigla{FIC} { Frequência Individual por Consumidor } (Frequência Individual por Consumidor)
-\begin{equation}\label{eq:FIC}
- FIC = n
-\end{equation}
-
-DMIC\sigla{DMIC} { Duração Máxima Individual por Consumidor } (Duração Máxima Individual por Consumidor)
-\begin{equation}\label{eq:DMIC}
- DMIC = max_{i=1}^n(t(i))
-\end{equation}
-
-Onde:
-\begin{description}
-  \item [n:] total de interrupções do cliente;
-  \item [t(i):] tempo de interrupção do evento $i$.
-\end{description}
-
-Já os indicadores individuais apresentam uma visão focada em apenas um cliente, o que permite identificar pontos críticos como frequências elevadas de interrupções e demora para restabelecimento de alguns consumidores.
-
-Considerando as fórmulas dos indicadores apresentados, a ocorrência do defeito (Fig. \ref{fig:exemploDefeito}) e que os tempos de de isolamento, transferência e restabelecimento são, respectivamente, 10, 20 e 40 minutos, o valor do DEC para o alimentador 1 é apresentado em \ref{eq:DECcalculado}.
+Considerando os indicadores apresentados na secção \ref{sec:indicadores}, a ocorrência do defeito (Fig. \ref{fig:exemploDefeito}) e que os tempos de de isolamento, transferência e restabelecimento são, respectivamente, 10, 20 e 40 minutos, o valor do DEC para o alimentador 1 é apresentado em \ref{eq:DECcalculado}.
 
 \begin{eqnarray}\label{eq:DECcalculado}
 DEC_{Alimentador1}&=&\frac{(10 \cdot 1000) + (40 \cdot 2000) + (20 \cdot 500)}{3500}\nonumber\\
