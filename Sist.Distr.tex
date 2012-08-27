@@ -54,7 +54,22 @@ fechamento de alguma chave de fronteira, sendo necessário executar simulações, q
 Normalmente a operação de tais chaves de manobra é executada por equipes que devem se deslocar até a chave para executar a manobra de abertura, quando é desejado que a energia seja interrompida naquele ponto ou de fechamento quando é desejado restabelecer o fluxo a partir daquele ponto. Uma solução para evitar esse deslocamento, que pode ser problemático em uma cidade grande devido a problemas do trânsito, é a automação da operação de tais equipamentos de manobra.
 
 \section{Automação de Sistemas de Distribuição}
-A automação das redes de distribuição possui um papel importante no restabelecimento mais ágil do fornecimento de energia elétrica através do uso de equipamentos telecomandos \cite{bernardon2011methodology}.
+
+A automação das redes de distribuição teve inicio nos anos 1970 com o desenvolvimento de microcontroladores, computadores e de comunicação \cite{Sperandio2008}, sendo que a sua aplicação começou a crescer mais na década seguinte após aprimoramento da tecnologia. Tal automação possui um papel importante no restabelecimento mais ágil do fornecimento de energia elétrica através do uso de equipamentos telecomandos \cite{bernardon2011methodology}. Uma rede inteligente (smart grid) é uma rede que é completamente automatizada, ou seja, ela faz uso de tecnologias de comunicação, informação e dos equipamtos da rede. Para gerenciar isso, são utilizados sistemas supervisórios, chamados de SCADA \cite{mini2011distribution}.
+
+Tais sistemas supervisórios oferecem uma abstração de como é executada a comunicação com os equipamentos, sejam chaves, religadores ou disjuntores, instalados em campo. Essa abstração é importante por facilitar a obtenção de estados e eventos, como a passagem de corrente de curto circuito, de tais equipamentos. A metodologia que será apresentada nesse trabalho se baseia nessa automação para obter as informações em tempo real dos equipamentos em campo e para enviar os comandos para eles.
+
+Para executar a comunicação entre os equipamentos de campo e o sistema supervisórios, vários meios de comunicação podem ser utilizados. Com a cobertura cada vez mais das rede sem fio e a possibilidades de uso de protocolos, como o caso do DNP3, que podem ser transmitidos sobre protocolo TCP/IP\cite{kanabar2011reviewing}, o qual garante a confiabilidade da entrega de todos os pacotes e é um protocolo padrão usado por diferentes sistema de comunicação.
+
+Os equipamentos telecomandos pode ser utilizados para monitoramento e operação por parte de um operador humano, o qual irá analisar os dados de tais equipamentos e tomar decisões de operações que devem ser enviadas para a rede. Outra forma é a substiruição da figura do operador por um sistema computacional inteligente, o qual irá analisar o estado dos equipamentos e poderá operar diretamente os equipamentos ou então sugerir ao operador o que deve ser executado. %Claro que essa ferramenta computacional deve ser robusta e segura para evitar que ela apresente soluções perigosas para as pessoas ou para o sistema elétrico .
+
+Na próxima secção será apresentado um comparativo da operação de rede de forma tradicional e completamente automatizada.
+
+% Como os equipamentos de automação cada vez mais evoluem e tem os custos reduzidos, é natuaral que as empresas passem a substituir os equipamentos de suas redes por equipamentos mais modernos. Esse é um passo importante para as empresas uma vez que isso melhor
+
+
+
+
 % %#Pegar algum livro sobre isso.
 % Smart Grids
 % O que é um sistema SCADA
