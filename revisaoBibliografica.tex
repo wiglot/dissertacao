@@ -1,33 +1,70 @@
 \chapter{Revisão Bibliográfica}
 
-Esse capítulo traz uma revisão dos temas de reconfiguração e automação das redes elétricas, além de apresentar o conceito de redes inteligentes (smart grids) e onde este trabalho se encaixa nesse conceito.
-
-% A operação da rede de distribuição possui perdas técnicas devido a resistência e reatância dos condutores e equipamentos instalados na rede \cite{Fulano2010}.
-%
-
-Reconfiguração das redes trata sobre a alteração da topologia da rede através da abertura e fechamento de chaves, sendo a maioria dos estudos sobre a melhoria da qualidade de energia e redução das perdas \cite{Braz2011,Radha2010,Souza2010}. A reconfiguração da rede também é tratado quando desejamos restaurar a rede em situações de falhas, onde a mesma apresenta algum defeito e desejamos restabelecer o máximo de consumidores, deixando apenas a área afetada pelo defeito desenergizada\cite{Garcia2005}.
-
-O estudo da reconfiguração da rede é tido como sendo de natureza combinatória \cite{Souza2010}, não sendo posível, em casos reais, testar todas as possibilidades devido ao alto custo computacional envolvido. Para resolver o problema de reconfiguração, são aplicadas heurísticas para encontrar a melhor solução possível em um espaço de tempo aceitável.
+Esse capítulo traz uma revisão dos temas de automação e restabelecimento, com foco no restabelecimento automatizado, das redes elétricas. Também é apresentado alguns conceitos de redes inteligentes (smart grids) e onde este trabalho se encaixa nesse conceito.
 
 
+O termo \textit{smart grids} vem sendo utilizado para designar as redes do futuro, as chamadas redes inteligentes. Essas redes inteligentes não são uma tecnologia ou um produto, mas sim um conceito que independe da tecnologia ou dos produtos usados \cite{Falcao2010}. As redes inteligentes são assim chamadas por utilizarem a automação da rede, sistemas de comunicação e inteligência computacional para ter um maior controle sobre a rede de distribuição.
+Apesar do termo redes inteligentes tratar desde a geração até as unidades consumidoras, o termo normalmente é aplicado apenas na etapa de distribuição \cite{Hassan_Radman_2010}.
 
-Levando em consideração a importância da solução rápida e eficiente do restabelecimento do fornecimento de energia em situações de contingência, tanto para as concessionárias quanto para os consumidores, este assunto é discutido em um grande número de publicações realizadas durante um longo período de tempo \cite{castro1980, Kuwabara1987, Ucak1994, nagata2001efficient}. Primeiramente, estas pesquisas foram direcionadas somente para a análise dos sistemas de potência \cite{teo1992computer, kojima1989development}. Nos anos noventa, surgiram situações em que a confiabilidade dos sistemas de potência tornou-se muito maior que a dos sistemas de distribuição. Os dados apresentados em vários países mostraram que as falhas nos sistemas de distribuição eram responsáveis por cerca de 90\% do tempo em que os consumidores ficavam sem energia elétrica. Por isto, no processo de implantação dos equipamentos de informática, desenvolvimento de sistemas de controle e instalação nas redes de equipamentos de comutação com controle remoto, cresce a quantidade de pesquisas voltadas para o aumento da confiabilidade dos sistemas de distribuição, em particular as ligadas com o desenvolvimento de métodos de restabelecimento ótimo do fornecimento de energia em situações de contingência \cite{aoki1989new, lin1998new, zhou1997distribution}. A atenção principal dos pesquisadores está voltada para a busca de métodos eficientes de otimização, levando em conta a extrema complexidade deste problema combinatorial de grandes dimensões. Eram claramente conhecidas as dificuldades ligadas com a tentativa de utilização de métodos clássicos de programação matemática para a solução deste problema \cite{curcic1996electric}. Por isto, os esforços dos pesquisadores foram direcionados para a análise da possibilidade de utilização de vários métodos informais de otimização \cite {moon2000fault}, p. ex., redes neurais \cite{bretas2001fault} ou redes Petri \cite{fountas1997hierarchical, wu1998petri}. Obviamente, a eficiente solução daquele problema era impossível sem a utilização do conhecimento e experiência da equipe dos setores de operação das concessionárias. Primeiramente, isto foi realizado a partir do desenvolvimento de sistemas especialistas \cite {liu1988expert, wu1997enhancement, nagata1995power}. A desvantagem destes trabalhos é que a grande maioria praticamente ignora a totalidade da informação formal que está disponível nas concessionárias. Por esta razão, torna-se mais eficiente considerar algoritmos que possibilitem reunir métodos de análise formais e informais. \cite{hsu1991distribution, morelato1989heuristic, drezga2001object}.
+As redes inteligentes normalmente têm as seguintes característica a elas atribuídas \cite{Falcao2010}:
+\begin{itemize}
+ \item Tolerância a ataques externos, seja eles cibernéticos ou físicos;
+ \item Maior qualidade de energia para os consumidores finais;
+ \item Participação do consumidores como produtor de energia elétrica (micro geração);
+ \item Capacidade de acomodar uma diversidade de fontes geradoras de forma transparente;
+ \item Reduzir as perdas e com isso diminuir o impacto ambiental;
+ \item Auto recuperação: Capacidade da rede restabelecer-se após a ocorrência de um defeito de forma autônoma.
+\end{itemize}
 
-Da mesma forma, conforme já mencionado, o problema de definição da configuração ótima das redes de distribuição, após as falhas, não pode ser solucionado de forma correta e eficiente sem a análise de problemas como: modelagem adequada e previsão de cargas dos transformadores de distribuição, cálculos das perdas de energia e níveis de tensão, consideração sobre a prioridade dos consumidores e, a seguir, tomadas de decisão com base em métodos de análise multicriterial. É necessário ressaltar que os trabalhos que analisam este problema sob tal formulação geral, são a minoria \cite{miu1998fast, hsu1994heuristic, popovic1999multi}. Consequentemente, o desenvolvimento de um método eficiente e universal para a análise do problema em questão é extremamente difícil, levando em conta a grande quantidade de fatores a serem considerados. Assim, conforme as experiências e de acordo com a análise bibliográfica, pode-se atingir soluções mais eficientes quando o problema é resolvido para cada concessionária, individualmente, considerando a estrutura das redes de distribuição, quantidade e composição dos equipamentos de comutações, operação do sistema SCADA, suficiência e adequação da informação inicial \cite{nahman1994new, lei2000network, lee1998service}.
+\textbf{Quais são as características das redes inteligentes? Falar de redes automatizadas e autônomas. Redes capazes de se auto-recompor (self healing). Medições em tempo real. Reconfiguração automática }
 
-Normalmente, a reconfiguração das redes é realizado por meio da operação manual das chaves (abrir ou fechar), sendo necessário que as equipes se desloquem até as mesmas. Para tornar esse processo mais rápido, é possível automatizar essa operação com o uso de chaves telecomandas \cite{ Sperandio2008}. Tais chaves permitem sua operação à distância sem a necessidade de deslocar equipes.
+Esse é um tema que está sendo tratado atualmente em diversos trabalhos \cite{Ipakchi2009,Farhangi2010,Moslehi2010}, uma vez que estão sendo definidas as tecnologias que implementam o que era definido apenas como conceito. As redes inteligentes necessitaram de uma inteligência computacional para que sejam capazes de tratar de diferentes situações que acontecem no dia-à-dia de uma rede de distribuição. Um trabalho nessa área é o estudo do uso de agentes inteligentes para gerenciar tais redes\cite{filipe2012aplicacao, Falcao2010, Soo2010}. Apesar de essa ser uma forma de representar, existem outros trabalhos que não fazem uso desse tipo de inteligência artificial, mas fazem uso de heurísticas e bases de conhecimento\cite{Teo1992,curcic1996electric, maisAlgum}.
+
+Essas chamadas redes inteligentes fazem uso de diferentes tecnologias, de informação, comunicação e automação, o que aumenta a sua complexidade \cite{Moslehi2010}. As diferentes tecnologia utilizadas nessas redes estão em constante evolução, seja pelo desenvolvimento de novos equipamentos ou pela definição de padrões de projeto para uso em tais redes \cite{Singhal2012}.
+
+\textbf{Ressaltam-se também as primeiras experiências práticas sobre o uso dessas redes inteligentes, como a cidade de Évora em Portugal.} \textbf{Procurar por outras experiências práticas}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Reconfiguração das redes trata sobre a alteração da topologia da rede através da abertura e fechamento de chaves, sendo a maioria dos estudos sobre a melhoria da qualidade de energia e redução das perdas \cite{Braz2011,Radha2010,Souza2010}. A reconfiguração da rede também é tratado quando desejamos restaurar a rede em situações de falhas, após a mesma ter apresentado algum defeito e desejamos restabelecer o máximo de consumidores, deixando apenas a área afetada pelo defeito desenergizada\cite{Garcia2005}. Esse tipo de reconfiguração também é referenciado como restabelecimento.
+
+O estudo da reconfiguração da rede é tido como sendo de natureza combinatória \cite{Souza2010}, não sendo possível, em casos reais, testar todas as possibilidades devido ao alto custo computacional envolvido. Para resolver o problema de reconfiguração, normalmente são aplicadas heurísticas para encontrar a melhor solução possível em um espaço de tempo aceitável.
+
+Levando em consideração a importância da solução rápida e eficiente do restabelecimento do fornecimento de energia em situações de contingência, tanto para as concessionárias quanto para os consumidores, este assunto é discutido em um grande número de publicações realizadas durante um longo período de tempo \cite{castro1980, Kuwabara1987, Ucak1994, nagata2001efficient}. Primeiramente, estas pesquisas foram direcionadas somente para a análise dos sistemas de potência \cite{teo1992computer, kojima1989development}. Nos anos noventa, surgiram situações em que a confiabilidade dos sistemas de potência tornou-se muito maior que a dos sistemas de distribuição. Os dados apresentados em vários países mostraram que as falhas nos sistemas de distribuição eram responsáveis por cerca de 90\% do tempo em que os consumidores ficavam sem energia elétrica.
+
+
+Por isto, no processo de implantação dos equipamentos de informática, desenvolvimento de sistemas de controle e instalação nas redes de equipamentos de comutação telecomandados, cresce a quantidade de pesquisas voltadas para o aumento da confiabilidade dos sistemas de distribuição, em particular as ligadas com o desenvolvimento de métodos de restabelecimento ótimo do fornecimento de energia em situações de contingência \cite{aoki1989new, lin1998new, zhou1997distribution}. A atenção principal dos pesquisadores está voltada para a busca de métodos eficientes de otimização, levando em conta a extrema complexidade deste problema combinatorial de grandes dimensões.
+
+Eram claramente conhecidas as dificuldades ligadas com a tentativa de utilização de métodos clássicos de programação matemática para a solução deste problema \cite{curcic1996electric}. Por isto, os esforços dos pesquisadores foram direcionados para a análise da possibilidade de utilização de vários métodos heurísticos de otimização \cite {moon2000fault}, p. ex., redes neurais \cite{bretas2001fault} ou redes Petri \cite{fountas1997hierarchical, wu1998petri}. Obviamente, a eficiente solução daquele problema era
+impossível sem a utilização do conhecimento e experiência da equipe dos setores de operação das concessionárias. Primeiramente, isto foi realizado a partir do desenvolvimento de sistemas especialistas \cite {liu1988expert, wu1997enhancement, nagata1995power}. A desvantagem destes trabalhos é que a grande maioria praticamente ignora a totalidade da informação formal que está disponível nas concessionárias. Por esta razão, torna-se mais eficiente considerar algoritmos que possibilitem reunir métodos de análise formais e heurísticos. \cite{hsu1991distribution, morelato1989heuristic, drezga2001object}.
+
+Da mesma forma, conforme já mencionado, o problema de definição da configuração ótima das redes de distribuição, após as falhas, não pode ser solucionado de forma correta e eficiente sem a análise de problemas como: modelagem adequada e previsão de cargas dos transformadores de distribuição, cálculos das perdas de energia e níveis de tensão, consideração sobre a prioridade dos consumidores e, a seguir, tomadas de decisão com base em métodos de análise multicriterial. É necessário ressaltar que os trabalhos que analisam este problema sob tal formulação geral, são a minoria \cite{miu1998fast, hsu1994heuristic, popovic1999multi}.
+
+Consequentemente, o desenvolvimento de um método eficiente e universal para a análise do problema em questão é extremamente difícil, levando em conta a grande quantidade de fatores a serem considerados.
+
+\textbf{Assim, conforme as experiências e de acordo com a análise bibliográfica, pode-se atingir soluções mais eficientes quando o problema é resolvido para cada concessionária, individualmente, considerando a estrutura das redes de distribuição, quantidade e composição dos equipamentos de comutações, operação do sistema SCADA, suficiência e adequação da informação inicial \cite{nahman1994new, lei2000network, lee1998service}.}
+
+
+\textbf{Trabalhos com heurísticas: Falar de alguns outros algoritmos e redes inteligentes}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Normalmente, esse restabelecimento do fornecimento nas redes é realizado por meio da operação manual das chaves, sendo necessário que as equipes se desloquem até as mesmas. Para tornar esse processo mais rápido, é possível automatizar essa operação através da automação dos equipamentos de manobra da rede \cite{ Sperandio2008}.
+
+\textbf{Falar o que é a automação da rede. Depois tratar como essa automação vem sendo aplicada nas redes de distribuição. Trabalhos relacionados (ver material do Luciano)}
+
+Tais chaves permitem sua operação à distância sem a necessidade de deslocar equipes.
 
 Essa possibilidade abre espaço para a automatização das redes\cite{Gris2010}, usando da comunicação das chaves para obter informações de campo e a inteligência computacional para determinar quais chaves devem ser operadas.
 
-Outro tema abordado nesse trabalho é o de redes inteligentes (smart grids), sendo essas redes inteligentes não uma tecnologia ou um produto, mas sim um conceito que independe da tecnologia ou dos produtos usados  \cite{Falcao2010}. As redes inteligentes são assim chamadas por utilizarem a automação da rede, sistemas de comunicação e inteligência computacional para ter um maior controle sobre a rede de distribuição.
-Apesar do termo redes inteligentes tratar desde a geração até as unidades consumidoras, o termo normalmente é aplicado apenas na etapa de distribuição \cite{Hassan_Radman_2010}.
 
 
-Desta forma, este trabalho explora parte deste conceito, visto que associa-se as redes inteligentes a característica de auto-recuperação das redes, ou seja, a capacidade de automaticamente detectar, analisar, responder e restaurar falhas na rede.
+\textbf{Desta forma, este trabalho explora parte deste conceito, visto que associa-se as redes inteligentes a característica de auto-recuperação das redes, ou seja, a capacidade de automaticamente detectar, analisar, responder e restaurar falhas na rede.
+%  \(definir as manobras mais adequadas, verificar a viabilidade técnica das mesmas...\)...
 %
-% No final da revisão, você tem que destacr o seu trabalho, coloca, algo do tipo:
-% Apesar de haver várias pesquisas, este tema ainda não está finalizado, necessitando do desenvolvimento de métodos eficientes aplicados para sistemas reais de distribuição de energia elétrica, com o propósito
-% com o propósito de restabelecimento automático de energia elétrica.
-% O diferencial deste trabalho é tratamento combinado das informações de campo
+O diferencial deste trabalho é tratamento combinado das informações de campo (monitoração, controle, aquisição de dados...) com simulações computacionais.}
 
-%  \(monitoreação, controle, aquisição de dados...\) com simulações computacionais \(definir as manobras mais adequadas, verificar a viabilidade técnica das mesmas...\)...
+% No final da revisão, você tem que destacr o seu trabalho, coloca, algo do tipo:
+\textbf{Apesar de haver várias pesquisas, este tema ainda não está finalizado. Cada vez mais os equipamentos evoluem e são capazes de fornecer novas informações, as quais podem ser utilizadas em novas metodologias, como por exemplo, para calcular a localização do defeito. Mas para isso é necessário o desenvolvimento de métodos eficientes aplicados para sistemas reais de distribuição de energia elétrica, com o propósito de restabelecimento automático de energia elétrica.}
+

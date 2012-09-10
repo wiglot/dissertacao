@@ -59,11 +59,13 @@ A automação das redes de distribuição teve inicio nos anos 1970 com o desenvolvi
 
 Tais sistemas supervisórios oferecem uma abstração de como é executada a comunicação com os equipamentos, sejam chaves, religadores ou disjuntores, instalados em campo. Essa abstração é importante por facilitar a obtenção de estados e eventos, como a passagem de corrente de curto circuito, de tais equipamentos. A metodologia que será apresentada nesse trabalho se baseia nessa automação para obter as informações em tempo real dos equipamentos em campo e para enviar os comandos para eles.
 
-Para executar a comunicação entre os equipamentos de campo e o sistema supervisórios, vários meios de comunicação podem ser utilizados. Com a cobertura cada vez mais das rede sem fio e a possibilidades de uso de protocolos, como o caso do DNP3, que podem ser transmitidos sobre protocolo TCP/IP\cite{kanabar2011reviewing}, o qual garante a confiabilidade da entrega de todos os pacotes e é um protocolo padrão usado por diferentes sistema de comunicação.
+Para executar a comunicação entre os equipamentos de campo e o sistema supervisórios, vários meios de comunicação podem ser utilizados. Com a cobertura cada vez mais das rede sem fio e a possibilidades de uso de protocolos, como o caso do DNP3, que podem ser transmitidos sobre protocolo TCP/IP\cite{kanabar2011reviewing}, o qual garante a confiabilidade da entrega de todos os pacotes e é um protocolo padrão usado por diferentes sistemas de comunicação.
 
-Os equipamentos telecomandos pode ser utilizados para monitoramento e operação por parte de um operador humano, o qual irá analisar os dados de tais equipamentos e tomar decisões de operações que devem ser enviadas para a rede. Outra forma é a substiruição da figura do operador por um sistema computacional inteligente, o qual irá analisar o estado dos equipamentos e poderá operar diretamente os equipamentos ou então sugerir ao operador o que deve ser executado. %Claro que essa ferramenta computacional deve ser robusta e segura para evitar que ela apresente soluções perigosas para as pessoas ou para o sistema elétrico .
+Os equipamentos telecomandos podem ser utilizados para monitoramento e operação por parte de um operador humano, o qual irá analisar os dados de tais equipamentos e tomar decisões de operações que devem ser enviadas para a rede. Outra forma é a substituição da figura do operador por um sistema computacional inteligente, o qual irá analisar o estado dos equipamentos e poderá operar diretamente os equipamentos ou então sugerir ao operador o que deve ser executado. %Claro que essa ferramenta computacional deve ser robusta e segura para evitar que ela apresente soluções perigosas para as pessoas ou para o sistema elétrico .
 
-Na próxima secção será apresentado um comparativo da operação de rede de forma tradicional e completamente automatizada.
+% -----------------------------------------
+
+Na secção \ref{sec:procedimento} será apresentado um comparativo da operação de rede de forma tradicional e completamente automatizada utilizando os indicadores de continuidade como medida.
 
 % Como os equipamentos de automação cada vez mais evoluem e tem os custos reduzidos, é natuaral que as empresas passem a substituir os equipamentos de suas redes por equipamentos mais modernos. Esse é um passo importante para as empresas uma vez que isso melhor
 
@@ -122,7 +124,7 @@ Onde:
 
 Já os indicadores individuais apresentam uma visão focada em apenas um cliente, o que permite identificar pontos críticos como frequências elevadas de interrupções e demora para restabelecimento de alguns consumidores.
 
-\section{Procedimento Convencional para Restabelecimento de Energia Elétrica}
+\section{Procedimento Convencional para Restabelecimento de Energia Elétrica}\label{sec:procedimento}
 Os sistemas de distribuição estão sujeitos a condições anormais de operação, como falha em equipamentos isoladores, descargas elétricas, contato entre condutores, ou mesmo interferência no sistema por algum fator externo. Essas condições anormais fazem com que os equipamentos de proteção, atuem para evitar a propagação do defeito, tendo como consequência a interrupção do fornecimento de energia elétrica para um conjunto de consumidores de um alimentador.
 
 A rede de distribuição possui três estados de operação \cite{SilvaAloca2010}:

@@ -4,7 +4,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.1.2
-lastDocument=casosDeEstudo.tex
+lastDocument=introducao.tex
 masterDocument=
 name=Dissertação
 pkg_extIsRegExp=false
@@ -238,20 +238,20 @@ order=-1
 
 [item:Dissertacao.tex]
 archive=true
-column=0
+column=23
 encoding=ISO-8859-15
 highlight=LaTeX
-line=8
+line=5
 mode=LaTeX
 open=true
 order=2
 
 [item:Sist.Distr.tex]
 archive=true
-column=465
+column=79
 encoding=ISO-8859-15
 highlight=LaTeX
-line=63
+line=41
 mode=LaTeX
 open=true
 order=0
@@ -278,23 +278,23 @@ order=1
 
 [item:casosDeEstudo.tex]
 archive=true
-column=0
+column=11
 encoding=ISO-8859-15
 highlight=LaTeX
-line=11
+line=3
 mode=LaTeX
 open=true
 order=5
 
 [item:consideracoesFinais.tex]
 archive=true
-column=249
+column=204
 encoding=ISO-8859-15
 highlight=LaTeX
-line=26
+line=10
 mode=LaTeX
-open=false
-order=0
+open=true
+order=6
 
 [item:dedicatoria.tex]
 archive=true
@@ -508,23 +508,23 @@ order=-1
 
 [item:introducao.tex]
 archive=true
-column=488
+column=121
 encoding=ISO-8859-15
 highlight=LaTeX
-line=28
+line=61
 mode=LaTeX
 open=true
 order=3
 
 [item:metodologia.tex]
 archive=true
-column=563
+column=41
 encoding=ISO-8859-15
 highlight=LaTeX
-line=63
+line=180
 mode=LaTeX
-open=false
-order=6
+open=true
+order=7
 
 [item:modelagemDeCargas.tex]
 archive=true
@@ -587,14 +587,14 @@ open=false
 order=4
 
 [view-settings,view=0,item:Dissertacao.tex]
-CursorColumn=0
-CursorLine=8
+CursorColumn=23
+CursorLine=5
 JumpList=
 ViMarks=
 
 [view-settings,view=0,item:Sist.Distr.tex]
-CursorColumn=465
-CursorLine=63
+CursorColumn=79
+CursorLine=41
 JumpList=
 ViMarks=
 
@@ -611,14 +611,14 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:casosDeEstudo.tex]
-CursorColumn=0
-CursorLine=11
+CursorColumn=11
+CursorLine=3
 JumpList=
 ViMarks=
 
 [view-settings,view=0,item:consideracoesFinais.tex]
-CursorColumn=249
-CursorLine=26
+CursorColumn=204
+CursorLine=10
 JumpList=
 ViMarks=
 
@@ -635,14 +635,14 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:introducao.tex]
-CursorColumn=488
-CursorLine=28
+CursorColumn=121
+CursorLine=61
 JumpList=
 ViMarks=
 
 [view-settings,view=0,item:metodologia.tex]
-CursorColumn=563
-CursorLine=63
+CursorColumn=41
+CursorLine=180
 JumpList=
 ViMarks=
 
