@@ -83,25 +83,32 @@ Para isso, essa metodologia faz uso de informações em tempo real obtidas de dife
 A escolha dentre essas manobras é dada pela função objetivo, que prioriza as manobras que restabeleçam mais consumidores (usando o carregamento como desempate) e que tenham violando nenhuma das restrições.
 
 %\textbf{Exemplo de uma escolha entre manobras}
-Para exemplificar a escolha da melhor manobra, considere as manobras de transferência fictícias apresentadas na Tabela \ref{tab:listaManobras}. Os percentuais apresentados nos condutores, proteção e queda de tensão, são os carregamentos máximos e a maior queda de tensão apresentados durante as simulações, considerando os limites da rede. Como restrições, foram definidos os valores de sobrecarga dos condutores de 120\% ($F_{sobrecarga}=1.2$), carregamento de equipamentos de proteção 80 \% ($F_{p}=0.8$) e queda máxima de tensão de 7\% (em relação a tensão nominal, sendo nesse caso $V_{min} = V \cdot 0.93$ e $V_{max} = V \cdot 1.07$, onde $V$ é a tensão nominal da rede).
+Para exemplificar a escolha da melhor manobra, considere as manobras de transferência fictícias apresentadas na Tabela \ref{tab:listaManobras}. Essas manobras são referentes ao trecho de rede apresentada na Figura \ref{fig:Exemplo_transferencia}. Aqui ainda não serão exploradas todas as possibilidades de manobras, isso será tratado na seção \ref{sec:AlgoritmoTomadaDecisao}.Os percentuais apresentados nos condutores, proteção e queda de tensão, são os carregamentos máximos e a maior queda de tensão apresentados durante as simulações, considerando os limites da rede. Como restrições, foram definidos os valores de sobrecarga dos condutores de 120\% ($F_{sobrecarga}=1.2$), carregamento de equipamentos de proteção 80 \% ($F_{p}=0.8$) e queda máxima de tensão de 7\% (em relação a tensão nominal, sendo nesse caso $V_{min} = V \cdot 0.93$ e $V_{max} = V \cdot 1.07$, onde $V$ é a tensão nominal da rede).
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.5\columnwidth]{img/exemploTransferencias}
+
+\caption{Exemplo de possíveis transferências de uma rede \label {fig:Exemplo_transferencia}}
+\end{figure}
 
 \begin{table}[htbp]
 \caption{Exemplos de Manobras }
 \begin{tabular}{|c|c|c|r|r|r|r|}
 \hline
 \multicolumn{1}{|l|}{Manobra} & \multicolumn{1}{l|}{Abrir} & \multicolumn{1}{l|}{Fechar} & \multicolumn{1}{l|}{Clientes} & \multicolumn{1}{l|}{Condutores (\%)} & \multicolumn{1}{l|}{Proteção (\%)} & \multicolumn{1}{l|}{Queda Tensão (\%)} \\ \hline
-1 & CH-1 & NA-1 & 1400 & 90 & 30 & 3 \\ \hline
-2 & CH-2 & NA-2 & 2000 & 95 & 50 & 8 \\ \hline
-3 & CH-3 & NA-1 & 1300 & 80 & 70 & 4 \\ \hline
-4 & CH-4 & NA-1 & 2500 & 105 & 83 & 9 \\ \hline
-5 & CH-1 & NA-2 & 1400 & 88 & 35 & 3 \\ \hline
+1 & CH1-A & NA-1 & 3000 & 90 & 105 & 3 \\ \hline
+2 & CH1-A & NA-2 & 3000 & 95 & 70 & 8 \\ \hline
+3 & CH1-B & NA-1 & 1000 & 80 & 90 & 4 \\ \hline
+4 & CH2-B & NA-2 & 1500 & 75 & 50 & 3 \\ \hline
+% 5 & CH-1 & NA-2 & 1400 & 88 & 35 & 3 \\ \hline
 \end{tabular}
 \label{tab:listaManobras}
 \end{table}
 
-Se apenas for analisado o número de consumidores restabelecidos, a manobra número 4 seria a melhor a ser aplicada. Agora se forem também consideradas as restrições definidas anteriormente, a manobra 4 não poderia ser executada, pois viola as restrições de carregamento dos equipamentos de proteção (limite é 80\%) e de queda de tensão máxima (limite é 7\%). Outra manobra que viola ao menos uma das restrições é a manobra 2, que tem uma queda de tensão de 8\%.
+Se apenas for analisado o número de consumidores restabelecidos, sem considerar as restrições, tanto a manobra número 1 quanto a número 2 seriam as melhores a serem aplicadas. Entre elas seria escolhida a transferência 1. Agora se forem também consideradas as restrições definidas anteriormente, a manobra 1 não poderia ser executada, pois viola as restrições de carregamento dos equipamentos de proteção (limite é 80\%). Já a manobra 2 viola a queda de tensão. Outra manobra que viola ao menos uma das restrições é a manobra 3, que também viola o carregamento dos equipamentos de proteção.
 
-As manobras restantes (1, 3 e 5) são válidas por não violarem nenhuma das restrições. Dentre elas é escolhida a melhor manobra que deverá ser aplicada. A melhor manobra é aquela que restabelece o maior número de consumidores. Existe um empate nesse quesito entre as manobras 1 e 5, ambas restabelecendo 1400 consumidores. Como somente uma deve ser aplicada à rede, é escolhida a manobra que gera a menor carregamento da rede, nesse caso é escolhida a manobra 5 que possui um carregamento um pouco menor dos condutores.
+A manobra restante (4) não viola nenhuma das restrições, sendo válida para ser aplicada diretamente. Dentre as manobras válidas, é escolhida a melhor delas, que poderá ser aplicada. A melhor manobra é aquela que restabelece o maior número de consumidores. Como não existem outras possibilidades, a única manobra que poderia ser executada diretamente é a manobra 4.
 
 Referente as manobras de isolamento (abertura da chave a montante do defeito e religamento do equipamento atuado), elas não devem violar nenhuma restrição, já que a rede volta a ter sua topologia anterior com uma redução da carga após a chave a montante, ou seja, a carga total do alimentador diminuirá, reduzindo também o carregamento dos condutores e equipamentos de proteção. Para essas manobras, também se aplica a escolha por manobras que restabeleçam o máximo de consumidores, sendo que isso é garantido pela escolha do equipamento mais próximo ao defeito como equipamento a ser manobrado. Na seção \ref{sec:metodo_proposto} é explicado como a metodologia consegue fazer essa escolha de manobra.
 
@@ -231,7 +238,7 @@ A definição das manobras a serem executadas para transferir clientes para os ali
 % A enumeração das manobras de transferência, possui uma chave de origem, a qual indica o limite do defeito a montante, ou seja, a chave utilizada para isolar o defeito do restante da rede a montante, seja pelo próprio desarme do equipamento ou pela manobra das chaves sinalizadas pela corrente de curto (etapas \ref{fig:Fluxograma_decisao}-c e \ref{fig:Fluxograma_decisao}-d do método de seleção de configurações).
 O algoritmo que será apresentado aqui parte de tal equipamento de origem e procura as manobras a jusante para transferir os consumidores localizados após a área afetada para os alimentadores vizinhos.
 
-Para exemplificar a enumeração completa de todas as manobras, sem ainda utilizar o algoritmo, será utilizada a rede da Figura \ref {fig:Exemplo_transferencia}, onde o equipamento de origem tem a cor amarela e o estado aberta, uma vez que pode ter sido desarmado pela corrente do defeito no primeiro trecho  (Origem - CH1-A), os equipamentos NF estão em verde e os equipamentos NA em vermelho. Todos equipamentos apresentados são telecomandados e possuem um estado de comunicação bom, ou seja, qualquer um deles pode ser utilizado para transferir os clientes afetados pela interrupção para um alimentador vizinho.
+Para exemplificar a enumeração completa de todas as manobras, sem ainda utilizar o algoritmo, será utilizada a rede da Figura \ref {fig:Exemplo_transferencia} que se encontra na seção \ref{sec:modelagem_problema}, onde o equipamento de origem tem a cor amarela e o estado aberta, uma vez que pode ter sido desarmado pela corrente do defeito no primeiro trecho  (Origem - CH1-A), os equipamentos NF estão em verde e os equipamentos NA em vermelho. Todos equipamentos apresentados são telecomandados e possuem um estado de comunicação bom, ou seja, qualquer um deles pode ser utilizado para transferir os clientes afetados pela interrupção para um alimentador vizinho.
 
 
 
@@ -261,12 +268,6 @@ Para exemplificar a enumeração completa de todas as manobras, sem ainda utilizar
 
 Para encontrar o limite final (jusante) da área defeituosa, a rede é percorrida de cada chave telecomandada de fronteira do alimentador afetado até o equipamento de origem. Se não existirem outras chaves entre a chave de fronteira e o equipamento de origem, não existe nenhuma transferência possível usando tal chave. Se existir pelo menos um equipamento, então existe uma possibilidade de transferência.
 
-\begin{figure}[htb]
-\centering
-\includegraphics[width=0.5\columnwidth]{img/exemploTransferencias}
-
-\caption{Exemplo de possíveis transferências de uma rede \label {fig:Exemplo_transferencia}}
-\end{figure}
 
 Considerando o defeito após a chaves Origem, a qual se encontra aberta, e antes das demais chaves NF (verde), uma vez que nenhuma delas foi sinalizada pelo curto, é possível de executar as seguintes manobras de transferência de carga. Essa é uma enumeração completa de todas manobras, ela não foi gerada pelo algoritmo de tomada de decisão.
 \begin{enumerate}
