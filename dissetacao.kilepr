@@ -4,7 +4,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.1.2
-lastDocument=introducao.tex
+lastDocument=revisaoBibliografica.tex
 masterDocument=
 name=Dissertação
 pkg_extIsRegExp=false
@@ -52,7 +52,7 @@ Encoding=ISO-8859-15
 FoldedColumns=
 FoldedLines=
 Highlighting=BibTeX
-Indentation Mode=
+Indentation Mode=normal
 Mode=BibTeX
 ReadWrite=true
 
@@ -238,13 +238,13 @@ order=-1
 
 [item:Dissertacao.tex]
 archive=true
-column=23
+column=25
 encoding=ISO-8859-15
 highlight=LaTeX
-line=5
+line=72
 mode=LaTeX
-open=true
-order=2
+open=false
+order=9
 
 [item:Sist.Distr.tex]
 archive=true
@@ -253,8 +253,8 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=41
 mode=LaTeX
-open=true
-order=0
+open=false
+order=7
 
 [item:anexo.tex]
 archive=true
@@ -268,23 +268,23 @@ order=1
 
 [item:bibliography.bib]
 archive=true
-column=29
+column=0
 encoding=ISO-8859-15
 highlight=BibTeX
-line=509
+line=0
 mode=BibTeX
-open=true
+open=false
 order=1
 
 [item:casosDeEstudo.tex]
 archive=true
-column=11
+column=54
 encoding=ISO-8859-15
 highlight=LaTeX
-line=3
+line=0
 mode=LaTeX
 open=true
-order=5
+order=1
 
 [item:consideracoesFinais.tex]
 archive=true
@@ -293,8 +293,8 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=10
 mode=LaTeX
-open=true
-order=6
+open=false
+order=1
 
 [item:dedicatoria.tex]
 archive=true
@@ -324,7 +324,7 @@ highlight=LaTeX
 line=65
 mode=LaTeX
 open=false
-order=1
+order=2
 
 [item:images/AECP.png]
 archive=true
@@ -513,7 +513,7 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=61
 mode=LaTeX
-open=true
+open=false
 order=3
 
 [item:metodologia.tex]
@@ -523,8 +523,8 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=180
 mode=LaTeX
-open=true
-order=7
+open=false
+order=0
 
 [item:modelagemDeCargas.tex]
 archive=true
@@ -544,17 +544,17 @@ highlight=LaTeX
 line=7
 mode=LaTeX
 open=false
-order=2
+order=4
 
 [item:revisaoBibliografica.tex]
 archive=true
-column=0
+column=319
 encoding=ISO-8859-15
 highlight=LaTeX
-line=11
+line=5
 mode=LaTeX
 open=true
-order=4
+order=0
 
 [item:sistemaComputacionais.tex]
 archive=true
@@ -584,11 +584,11 @@ highlight=LaTeX
 line=54
 mode=LaTeX
 open=false
-order=4
+order=6
 
 [view-settings,view=0,item:Dissertacao.tex]
-CursorColumn=23
-CursorLine=5
+CursorColumn=25
+CursorLine=72
 JumpList=
 ViMarks=
 
@@ -605,14 +605,14 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:bibliography.bib]
-CursorColumn=29
-CursorLine=509
+CursorColumn=31
+CursorLine=473
 JumpList=
 ViMarks=
 
 [view-settings,view=0,item:casosDeEstudo.tex]
-CursorColumn=11
-CursorLine=3
+CursorColumn=54
+CursorLine=0
 JumpList=
 ViMarks=
 
@@ -659,8 +659,8 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:revisaoBibliografica.tex]
-CursorColumn=0
-CursorLine=11
+CursorColumn=319
+CursorLine=5
 JumpList=
 ViMarks=
 
