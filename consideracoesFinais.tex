@@ -1,23 +1,28 @@
 \chapter{Considerações Finais \label{cap:consideracoesFinais}}
 
+O problema de restauração do fornecimento de energia elétrica tem um papel importante na gestão das redes de distribuição. Com a evolução dos equipamentos de manobra e o advento de novas tecnologias de comunicação, o restabelecimento automatizado passa a ser possível e traz grandes benefícios na redução do tempo de interrupção para os clientes. 
 
-Este trabalho tem por objetivo a apresentação e demostração de uma metodologia desenvolvida para ser usada no restabelecimento automático de energia elétrica considerando o uso de equipamentos telecomandados.
+Este trabalho apresentou e demostrou uma metodologia para ser usada no restabelecimento automático de energia elétrica considerando o uso de equipamentos telecomandados. Foi considerado como objetivo dessa metodologia a restauração do maior número de consumidores, reduzindo assim os indicadores coletivos como DEC, e também os individuais com DIC.
 
 A metodologia aqui apresentada foi implementada em um software e testada com redes de distribuição reais, onde ofereceu respostas factíveis  muito boas em um tempo computacional baixo (poucos segundos para casos com maior número de transferências e menos de meio segundo para casos simples). Esse tempo e resposta reduzido se deve pelo fato da metodologia gerar apenas as manobras de transferência necessárias, evitando a enumeração e todas possibilidades.
 
-O desenvolvimento dessa metodologia para restabelecimento automático, traz vantagens em relação a outras metodologias de restabelecimento pré programadas por ser aplicável em diferentes topologias de rede sem a necessidade de uma pré configuração das manobras que podem ser executadas. Isso se dá pela forma que essa metodologia utiliza as informações em campo (medições, controle) com inteligência computacional (simulações, definições das manobras) para obter o conjunto de manobras a serem executadas para restabelecimento máximo do fornecimento de energia elétrica para os consumidores.
+O uso dessa metodologia para restabelecimento automático, traz vantagens em relação a outras metodologias de restabelecimento pré programadas por ser aplicável em diferentes topologias de rede sem a necessidade de uma pré configuração das manobras que podem ser executadas. Isso se dá pela forma que essa metodologia utiliza as informações em campo (medições, controle) com inteligência computacional (simulações, definições das manobras) para obter o conjunto de manobras a serem executadas para restabelecimento máximo do fornecimento de energia elétrica para os consumidores. Em contrapartida, essa metodologia depende da comunicação em tempo real com os equipamentos em campo, ou pelo menos com uma baixa latência na comunicação.
 
-\section{Contribuições}
-\textbf{Como contribuição esse trabalho apresentou uma metodologia que pode ser aplicada em redes com diferentes topologia. Também foi apresentada a arquitetura necessária para a implementação de tal metodologia.}
+Como contribuição esse trabalho propôs tanto a arquitetura necessária para implementação de um sistema de restabelecimento em tempo real, como também apresenta o algoritmo heurístico para escolha das manobras que restabelecem o maior número de consumidores. Devido a formulação do algoritmo, a heurística de enumeração de manobras pode ser reutilizada com outras funções objetivo, como por exemplo a minimização da energia não suprida. 
 
-\textbf{detalhar mais as contribuições, em relação ao algoritmo, à possibilidade de aplicação típica: 
--  citar as possíveis aplicações tal como foi apresentado nos testes do capítulo 5 (seria um resumo das funcionalidades).}
+
+% 
+% \section{Contribuições}
+% \textbf{Como contribuição esse trabalho apresentou uma metodologia que pode ser aplicada em redes com diferentes topologia. Também foi apresentada a arquitetura necessária para a implementação de tal metodologia.}
+% 
+% \textbf{detalhar mais as contribuições, em relação ao algoritmo, à possibilidade de aplicação típica: 
+% -  citar as possíveis aplicações tal como foi apresentado nos testes do capítulo 5 (seria um resumo das funcionalidades).}
 
 \section{Trabalhos publicados}
 Durante o desenvolvimento dessa dissertação, os seguintes trabalhos relacionados foram publicados e ou apresentados em eventos
 
 \begin{trivlist}
-\item Reck, W. and Giacomelli, J. and Garcia, V. and Bernardon, D. and Sperandio, M. and others, \textbf{Alocação Multicriterial de Chaves Telecomandadas}, CIDEL 2010 - Argentina;
+\item Reck, W., Giacomelli, J., Garcia, V., Bernardon, D., Sperandio, M. e outros, \textbf{Alocação Multicriterial de Chaves Telecomandadas}, CIDEL 2010 - Argentina;
 \item Trabalho anterior foi premiado como o melhor de sua secção e foi publicado na Revista CIER No. 58 de 2011 do Uruguai;
 \item D. P. Bernardon, M. Sperandio, V. J. Garcia, L.L. Pfitscher, W. Reck, E. F. B. Daza, M. Ramos, L. Comassetto, \textbf{Automatic Reestablishment of Power Supply in Distribution Systems using AHP Method}, Proceedings of the 2011 International Conference on Power Engineering, Energy and Electrical Drives - Malaga - Espanha;
 \item SILVA, P. A. S. ; RECK, W. M. ; BERNARDON, D. P. . \textbf{Aplicação de Sistemas Inteligentes no Restabelecimento Automático da Energia}. Revista Júnior de Iniciação Científica em Ciências Exatas e Engenharia, v. 1, p. 11-18, 2011
@@ -26,7 +31,7 @@ Durante o desenvolvimento dessa dissertação, os seguintes trabalhos relacionados
 
 
 \section{Trabalhos futuros}
-Mesmo com os resultados satisfatórios e dentro do esperado, ainda existem possibilidades de ampliar suas funcionalidades. Para incentivar a continuidade desse trabalho, são deixadas aqui algumas idéias de possíveis trabalhos futuros dentro desse tema.
+Mesmo com os resultados satisfatórios e dentro do esperado, ainda existem possibilidades de ampliar suas funcionalidades. Para incentivar a continuidade desse trabalho, são deixadas aqui algumas ideias de possíveis trabalhos futuros dentro desse tema.
 \begin{itemize}
  \item Desconsiderar a restrição de radialidade e permitir a transferência de uma única parte de um alimentador para mais de um alimentador vizinho, sendo que para isso seria necessário incluir a modelagem de transitórios, os quais podem fazer alguns equipamentos de proteção atuarem \cite{bernardon2007use}.
  \item A escolha das manobras pode utilizar algum método multi objetivo, como métodos evolutivos.
