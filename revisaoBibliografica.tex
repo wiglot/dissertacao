@@ -6,37 +6,57 @@ Esse capítulo traz uma revisão dos temas de automação e restabelecimento, com fo
 O termo \textit{smart grids} vem sendo utilizado para designar as redes do futuro, as chamadas redes inteligentes. Essas redes inteligentes não são uma tecnologia ou um produto, mas sim um conceito que independe da tecnologia ou dos produtos usados \cite{Falcao2010, Ipakchi2009}. As redes inteligentes são assim chamadas por utilizarem a automação da rede, sistemas de comunicação e inteligência computacional para ter um maior controle sobre a rede de distribuição.
 Apesar do termo redes inteligentes tratar desde a geração até as unidades consumidoras, o termo normalmente é aplicado apenas na etapa de distribuição \cite{Hassan_Radman_2010}.
 
-As redes inteligentes normalmente têm as seguintes característica a elas atribuídas \cite{Falcao2010}:
+Dentre as características atribuídas às redes inteligentes \cite{Falcao2010}, destaca-se a associação das seguintes características com esse trabalho:
 \begin{itemize}
  \item Tolerância a ataques externos, seja eles cibernéticos ou físicos;
  \item Maior qualidade de energia para os consumidores finais;
- \item Participação do consumidores como produtor de energia elétrica (micro geração);
- \item Capacidade de acomodar uma diversidade de fontes geradoras de forma transparente;
+%  \item Participação do consumidores como produtor de energia elétrica (micro geração);
+%  \item Capacidade de acomodar uma diversidade de fontes geradoras de forma transparente;
  \item Reduzir as perdas e com isso diminuir o impacto ambiental;
  \item Auto recuperação: Capacidade da rede restabelecer-se após a ocorrência de um defeito de forma autônoma.
 \end{itemize}
 
-\textbf{Quais são as características das redes inteligentes? Falar de redes automatizadas e autônomas. Redes capazes de se auto-recompor (self healing). Medições em tempo real. Reconfiguração automática }
 
-Esse é um tema que está sendo tratado atualmente em diversos trabalhos \cite{Ipakchi2009,Farhangi2010,Moslehi2010}, uma vez que estão sendo definidas as tecnologias que implementam o que era definido apenas como conceito. As redes inteligentes necessitaram de uma inteligência computacional para que sejam capazes de tratar de diferentes situações que acontecem no dia-à-dia de uma rede de distribuição. Um trabalho nessa área é o estudo do uso de agentes inteligentes para gerenciar tais redes\cite{filipe2012aplicacao, Falcao2010, Soo2010}. Apesar de essa ser uma forma de representar, existem outros trabalhos que não fazem uso desse tipo de inteligência artificial, mas fazem uso de heurísticas e bases de conhecimento\cite{Teo1992,curcic1996electric, maisAlgum}.
+% \textbf{Quais são as características das redes inteligentes? Falar de redes automatizadas e autônomas. Redes capazes de se auto-recompor (self healing). Medições em tempo real. Reconfiguração automática }
 
-Essas chamadas redes inteligentes fazem uso de diferentes tecnologias, de informação, comunicação e automação, o que aumenta a sua complexidade \cite{Moslehi2010}. As diferentes tecnologia utilizadas nessas redes estão em constante evolução, seja pelo desenvolvimento de novos equipamentos ou pela definição de padrões de projeto para uso em tais redes \cite{Singhal2012}.
+O tema de redes inteligentes que está sendo tratado atualmente em diversos trabalhos \cite{Ipakchi2009,Farhangi2010,Moslehi2010}, uma vez que estão sendo definidas as tecnologias que implementam o que está definido apenas como conceito. As redes inteligentes necessitaram de uma inteligência computacional para que sejam capazes de tratar de diferentes situações que acontecem no dia-à-dia de uma rede de distribuição. Um trabalho nessa área é o estudo do uso de agentes inteligentes para gerenciar tais redes\cite{filipe2012aplicacao,Soo2010} devido as características que ambos sistemas compartilham. Apesar dessa ser uma forma de se trabalhar com inteligência computacional e redes inteligentes, existem também outros trabalhos que não fazem uso desse tipo de inteligência artificial, mas fazem uso de heurísticas, meta-heurísticas e bases de conhecimento\cite{Teo1992,curcic1996electric,Kumar2008, Adhikari2009}.
 
-\textbf{Ressaltam-se também as primeiras experiências práticas sobre o uso dessas redes inteligentes, como a cidade de Évora em Portugal.} \textbf{Procurar por outras experiências práticas}
+Essas chamadas redes inteligentes fazem uso de diferentes tecnologias de informação, comunicação e automação, o que aumenta a sua complexidade \cite{Moslehi2010}. As diferentes tecnologia utilizadas nessas redes estão em constante evolução, seja pelo desenvolvimento de novos equipamentos ou pela definição de padrões de projeto para uso em tais redes \cite{Singhal2012}.
 
+Ressaltam-se também as primeiras experiências práticas sobre o uso dessas redes inteligentes, como a cidade de Évora em Portugal\cite{ArtigoEvora} e a criação de  consórcios e plataformas para alavancar o desenvolvimento de tais redes, como por exemplo ETP smart grids\footnote{http://smartgrids.eu}, E-Energy\footnote{http://www.e-energy.de/en/} e Gridwise\footnote{http://gridwise.org}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+As redes inteligentes tem como uma de suas bases a automação dos equipamentos pertencentes a rede de distribuição. Essa automação teve início nos anos 70\cite{ Sperandio2008} com o desenvolvimento de novos componentes eletrônicos, como os microcontroladores, e também com o desenvolvimento de novos sistemas de comunicação. Com o passar dos anos, essas tecnologias foram sendo empregadas em cada vez mais sistemas de distribuição juntamente com sistemas computacionais para automatizar tais equipamentos\cite{XXX}.
 
-Reconfiguração das redes trata sobre a alteração da topologia da rede através da abertura e fechamento de chaves, sendo a maioria dos estudos sobre a melhoria da qualidade de energia e redução das perdas \cite{Braz2011,Radha2010,Souza2010}. A reconfiguração da rede também é tratado quando desejamos restaurar a rede em situações de falhas, após a mesma ter apresentado algum defeito e desejamos restabelecer o máximo de consumidores, deixando apenas a área afetada pelo defeito desenergizada\cite{Garcia2005}. Esse tipo de reconfiguração também é referenciado como restabelecimento.
+Os equipamentos automatizados são capazes de enviar uma quantidade muito grande de informações sobre o seu estado. Essas informação podem ser enviadas por uma variedade de meios de comunicação, como redes de microondas, fibras óticas, as quais podem ser mantidas e operadas tanto pela própria concessionária quanto por terceiros (empresas de telecomunicações). Devido a essa grande quantidade de informações, o tratamento das mesmas pode ser difícil sem o auxílio de um sistema que agregue essas informações. Aqui entra o Sistema de Supervisão e Aquisição de Dados (SCADA), o qual é uma peça fundamental no uso da automação nas redes inteligentes. Estes sistemas permitem tanto monitorar os dados medidos pelos equipamentos, quanto controlar tais equipamentos. Eles também podem oferecer uma interface para que outros softwares possam se comunicar com os equipamentos de formar abstrata. Para isso, esses sistemas, bem como toda automação das redes de distribuição, fazem uso de padrões \cite{kanabar2011reviewing}, em alguns casos padrões abertos para permitir uma maior interoperabilidade entre diferentes equipamentos. 
 
-O estudo da reconfiguração da rede é tido como sendo de natureza combinatória \cite{Souza2010}, não sendo possível, em casos reais, testar todas as possibilidades devido ao alto custo computacional envolvido. Para resolver o problema de reconfiguração, normalmente são aplicadas heurísticas para encontrar a melhor solução possível em um espaço de tempo aceitável.
+Segundo \cite{mini2011distribution}, a automação da distribuição é dividia em três partes: Automação de subestação, Automação de consumidores e Automação do alimentador. Os dois primeiros não serão discutidos nesse trabalho por fugir do escopo do mesmo. A automação da distribuição é definida de maneira diferente por cada uma das pessoas envolvidas com a rede automatizada, podendo ser vista como controle de carga para os envolvidos com gerenciamento de carga e como a operação remota do ponto de vista dos operadores da rede.
+
+O último caso é o que mais interessa nesse trabalho. Apesar da metodologia que será apresentada necessitar de mais informações, o uso de equipamentos telecomandados é o que permite que a metodologia possa automatizar a rede, e não apenas indique ao operador quais equipamentos devem ser manobrados.
+
+Quando existe a necessidade de realizar manobras em equipamentos pertencentes as redes de distribuição, se os mesmos não forem telecomandados, haverá a necessidade dos operadores despacharem equipes de manutenção para que elas executem tais manobras
+
+
+Normalmente, esse restabelecimento do fornecimento nas redes é realizado por meio da operação manual das chaves, sendo necessário que as equipes se desloquem até as mesmas. Para tornar esse processo mais rápido, é possível automatizar essa operação através da automação dos equipamentos de manobra da rede .
+
+\textbf{Falar o que é a automação da rede. Depois tratar como essa automação vem sendo aplicada nas redes de distribuição. Trabalhos relacionados (ver material do Luciano)}
+
+Tais chaves permitem sua operação à distância sem a necessidade de deslocar equipes.
+
+Essa possibilidade abre espaço para a automatização das redes\cite{Gris2010}, usando da comunicação das chaves para obter informações de campo e a inteligência computacional para determinar quais chaves devem ser operadas.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Reconfiguração das redes trata sobre a alteração da topologia da rede através da abertura e fechamento de chaves, sendo a maioria dos estudos sobre a melhoria da qualidade de energia e redução das perdas \cite{Braz2011,Radha2010,Souza2010}. A reconfiguração da rede também é tratado quando desejamos restaurar o fornecimento em partes da rede de distribuição após a mesma ter apresentado algum defeito. Nesse caso, os mesmos conceitos de alteração de topologia com suas restrições são aplicados e o objetivo pode por exemplo ser o de restabelecer o máximo de consumidores, deixando apenas a área afetada pelo defeito desenergizada\cite{Garcia2005}. Esse tipo de reconfiguração também é referenciado como restabelecimento.
+
+Como o estudo da reconfiguração da rede é tido como sendo de natureza combinatória \cite{Souza2010}, não é possível, em casos reais com vários equipamentos, testar todas as possibilidades devido ao alto custo computacional envolvido. Para resolver o problema de reconfiguração, normalmente são aplicadas heurísticas para encontrar a melhor solução possível em um espaço de tempo aceitável.
 
 Levando em consideração a importância da solução rápida e eficiente do restabelecimento do fornecimento de energia em situações de contingência, tanto para as concessionárias quanto para os consumidores, este assunto é discutido em um grande número de publicações realizadas durante um longo período de tempo \cite{castro1980, Kuwabara1987, Ucak1994, nagata2001efficient}. Primeiramente, estas pesquisas foram direcionadas somente para a análise dos sistemas de potência \cite{teo1992computer, kojima1989development}. Nos anos noventa, surgiram situações em que a confiabilidade dos sistemas de potência tornou-se muito maior que a dos sistemas de distribuição. Os dados apresentados em vários países mostraram que as falhas nos sistemas de distribuição eram responsáveis por cerca de 90\% do tempo em que os consumidores ficavam sem fornecimento.
 
-\textbf{Nesse cenário cada vez mais são desenvolvidas pesquisas voltadas para o aumento da confiabilidade dos sistemas de distribuição\cite{aoki1989new, lin1998new, zhou1997distribution}, e mais recentemente no que se refere as redes inteligentes \cite{Moslehi2010,Adhikari2009,Soo2010,Podmore2010a}.
+Nesse cenário cada vez mais são desenvolvidas pesquisas voltadas para o aumento da confiabilidade dos sistemas de distribuição\cite{aoki1989new, lin1998new, zhou1997distribution}, e mais recentemente, tais pesquisas referenciam as redes inteligentes \cite{Moslehi2010,Adhikari2009,Soo2010,Podmore2010a}, o que demonstra que as redes inteligentes estão trazendo novas perspectivas sobre esse problema.
 Por isto, no processo de implantação dos equipamentos de informática, desenvolvimento de sistemas de controle e instalação nas redes de equipamentos de comutação telecomandados, cresce a quantidade de pesquisas voltadas para o aumento da confiabilidade dos sistemas de distribuição, em particular as ligadas com o desenvolvimento de métodos de restabelecimento ótimo do fornecimento de energia em situações de contingência \cite{Adhikari2009,Soo2010,Podmore2010a} %.
-A atenção principal dos pesquisadores está voltada para a busca de métodos eficientes de otimização, levando em conta a extrema complexidade deste problema combinatorial de grandes dimensões.}
+A atenção principal dos pesquisadores está voltada para a busca de métodos eficientes de otimização, levando em conta a extrema complexidade deste problema combinatorial de grandes dimensões.
 
 Eram claramente conhecidas as dificuldades ligadas com a tentativa de utilização de métodos clássicos de programação matemática para a solução deste problema \cite{curcic1996electric}. Por isto, os esforços dos pesquisadores foram direcionados para a análise da possibilidade de utilização de vários métodos heurísticos de otimização \cite {moon2000fault}, por exemplo, redes neurais \cite{bretas2001fault}, redes Petri \cite{fountas1997hierarchical, wu1998petri} ou mesmo sistemas especialistas baseados em regras \cite{Ma1992}.
 
@@ -53,13 +73,6 @@ Consequentemente, o desenvolvimento de um método eficiente e universal para a an
 \textbf{Trabalhos com heurísticas: Falar de alguns outros algoritmos e redes inteligentes}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Normalmente, esse restabelecimento do fornecimento nas redes é realizado por meio da operação manual das chaves, sendo necessário que as equipes se desloquem até as mesmas. Para tornar esse processo mais rápido, é possível automatizar essa operação através da automação dos equipamentos de manobra da rede \cite{ Sperandio2008}.
-
-\textbf{Falar o que é a automação da rede. Depois tratar como essa automação vem sendo aplicada nas redes de distribuição. Trabalhos relacionados (ver material do Luciano)}
-
-Tais chaves permitem sua operação à distância sem a necessidade de deslocar equipes.
-
-Essa possibilidade abre espaço para a automatização das redes\cite{Gris2010}, usando da comunicação das chaves para obter informações de campo e a inteligência computacional para determinar quais chaves devem ser operadas.
 
 
 
