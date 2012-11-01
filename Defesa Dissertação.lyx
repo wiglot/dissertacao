@@ -1,0 +1,1788 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass beamer
+\begin_preamble
+%\usetheme{Szeged}\
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+
+% Define block styles 
+
+\tikzstyle{decision} = [diamond, draw, fill=blue!20,
+    text width=5.0em, text badly centered, node distance=3.5cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20,
+    text width=12em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{line} = [draw, -latex']
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language brazilian
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family sfdefault
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Índice
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Emprego de Sistemas Inteligentes para Restabelecimento Automático de Energia
+ Elétrica a partir do uso de Equipamentos Telecomandados 
+\end_layout
+
+\begin_layout Author
+Wagner Reck
+\begin_inset Flex InstituteMark
+status collapsed
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+and
+\end_layout
+
+\end_inset
+
+ Vinicius J.
+ Garcia
+\begin_inset Flex InstituteMark
+status collapsed
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+and
+\end_layout
+
+\end_inset
+
+ Daniel P.
+ Bernardon
+\begin_inset Flex InstituteMark
+status collapsed
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Institute
+\begin_inset Flex InstituteMark
+status collapsed
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+
+Universidade Federal do Pampa - UNIPAMPA Alegrete 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Flex InstituteMark
+status collapsed
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+
+Universidade Federal de Santa Maria - UFSM
+\end_layout
+
+\begin_layout Date
+Outubro/2012
+\end_layout
+
+\begin_layout BeginFrame
+Conteúdo
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introdução
+\end_layout
+
+\begin_layout Subsection
+Definição do Problema
+\end_layout
+
+\begin_layout BeginFrame
+Definição do Problema
+\end_layout
+
+\begin_layout Itemize
+SEP são planejados para serem seguros
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Segurança das pessoas e do sistema elétrico
+\end_layout
+
+\begin_layout Itemize
+Em caso de defeitos, o impacto deve ser o mínimo
+\end_layout
+
+\end_deeper
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+Defeitos podem ser:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Temporários
+\end_layout
+
+\begin_layout Itemize
+Permanentes
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Os permanentes causam interrupções por longos períodos de tempo no fornecimento
+ de energia elétrica
+\end_layout
+
+\begin_layout BeginFrame
+Definição do Problema
+\end_layout
+
+\begin_layout Itemize
+As interrupções permanentes acontecem por diversas razões:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Programadas (trabalhos na rede);
+\end_layout
+
+\begin_layout Itemize
+Acidentes;
+\end_layout
+
+\begin_layout Itemize
+Intempéries climáticas;
+\end_layout
+
+\begin_layout Itemize
+etc.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Normalmente clientes devem esperar os reparos serem concluídos;
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename img/redeDefeito.png
+	width 70col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Quote
+-Como reduzir o tempo que os consumidores ficam sem fornecimento de energia
+ elétrica?
+\end_layout
+
+\begin_layout Quote
+-E, por que reduzir esse tempo?
+\end_layout
+
+\begin_layout Subsection
+Justificativa
+\end_layout
+
+\begin_layout BeginFrame
+Justificativa
+\end_layout
+
+\begin_layout Itemize
+As interrupções permanentes trazem prejuízos para os consumidores e para
+ as concessionárias;
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Concessionárias podem ser punidas por violar indicadores de continuidade;
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+A redução do tempo total é algo positivo para ambos;
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+Dependendo da causa da interrupção, o reparo e restabelecimento total pode
+ demorar muito tempo;
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Para minimizar o impacto, pode se usar equipamentos de manobra.
+\end_layout
+
+\end_deeper
+\begin_layout BeginFrame
+Justificativa - Restabelecimento
+\end_layout
+
+\begin_layout Itemize
+O restabelecimento parcial consegue reduzir o tempo de interrupção de alguns
+ consumidores
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Isso diminui o tempo médio que a rede ficou sem fornecimento;
+\end_layout
+
+\end_deeper
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+É necessário definir que equipamentos devem ser operados;
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Isso deve ser feito rápido;
+\end_layout
+
+\begin_layout Itemize
+A execução das manobras também deve ser rápida.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Essas manobras não podem colocar a rede ou pessoas em risco.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename img/redeDefeito.png
+	width 70col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Objetivo
+\end_layout
+
+\begin_layout BeginFrame
+Objetivo
+\end_layout
+
+\begin_layout AlertBlock
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{Objetivo}
+\end_layout
+
+\end_inset
+
+Como solução em caso de uma interrupção, espera-se que sejam restabelecidos
+ o máximo de consumidores, no menor tempo possível e sem que isso gere sobrecarg
+as no sistema.
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout AlertBlock
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{Objetivo Específico}
+\end_layout
+
+\end_inset
+
+Desenvolver uma metodologia que execute esse restabelecimento de forma segura,
+ em tempo real, ou pelo menos no menor tempo possível, de maneira autônoma
+ e que ela possa ser aplicada em diferentes topologias de rede.
+\end_layout
+
+\begin_layout BeginFrame
+Objetivo
+\end_layout
+
+\begin_layout Itemize
+Função Objetivo
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Restabelecer o máximo de consumidores
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Restrições
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Manter a Radialidade do sistema
+\end_layout
+
+\begin_layout Itemize
+Não provocar sobrecarga nos condutores
+\end_layout
+
+\begin_layout Itemize
+Não provocar sobrecarga nos Equipamentos de proteção
+\end_layout
+
+\begin_layout Itemize
+Manter padrões aceitáveis de nível de tensão
+\end_layout
+
+\end_deeper
+\begin_layout Section
+Considerações Iniciais
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+A idéia é introduzir as tecnologias utilizadas, mostrar o embasamento bibliográf
+ico
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Restabelecimento de Energia Elétrica
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Falar sobre as transferências de carga.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+Restabelecimento de Energia Elétrica
+\end_layout
+
+\begin_layout Itemize
+Tem por objetivo restabelecer a rede de um estado de contingência
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Braz2011"
+
+\end_inset
+
+;
+\end_layout
+
+\begin_layout Itemize
+Usa equipamentos de manobra para isolar e/ou transferir consumidores
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Deve-se tomar cuidado com restrições
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Aumento da continuidade
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+Definir a melhor opção pode não ser trivial
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Por ser de natureza combinatória
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Souza2010"
+
+\end_inset
+
+;
+\end_layout
+
+\begin_layout Itemize
+Cada opção deve ser simulada.
+\end_layout
+
+\begin_layout Itemize
+Uso de heurísticas 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Radha2010,filipe2012aplicacao"
+
+\end_inset
+
+;
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Restabelecimento pode ser manual ou automatizado.
+\end_layout
+
+\begin_layout BeginFrame
+Restabelecimento Manual
+\end_layout
+
+\begin_layout Itemize
+Operador detecta defeito;
+\end_layout
+
+\begin_layout Itemize
+É necessário deslocamento das equipes até as chaves
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+Tempo com o restabelecimento manual:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Tempo de detectar o defeito; 
+\end_layout
+
+\begin_layout Itemize
+Tempo do operador definir as manobras;
+\end_layout
+
+\begin_layout Itemize
+Tempo de deslocamento das equipes;
+\end_layout
+
+\begin_layout Itemize
+Tempo de manobras;
+\end_layout
+
+\begin_layout Itemize
+Tempo de Reparo.
+\end_layout
+
+\end_deeper
+\begin_layout BeginFrame
+Restabelecimento Com Equipamentos Automatizados
+\end_layout
+
+\begin_layout Itemize
+Utilizando equipamentos telecomandados;
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Comandos podem ser enviados pelo operador;
+\end_layout
+
+\begin_layout Itemize
+Mas ele ainda deve detectar o defeito.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Não é necessário descolamento até equipamentos;
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Mais equipes disponíveis
+\end_layout
+
+\begin_layout Itemize
+Reparo do defeito pode ter início mais cedo.
+\end_layout
+
+\end_deeper
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+Redução dos tempos de interrupção:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+DEC irá diminuir;
+\end_layout
+
+\begin_layout Itemize
+DIC e DMIC terão uma redução maior.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+passou de 28,57 para 17,57 minutos (38%).
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Mais detalhes sobre valores e cálculos estão na dissertação
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Subsection
+Automação de Redes de Distribuição
+\end_layout
+
+\begin_layout BeginFrame
+Automação de Redes de Distribuição
+\end_layout
+
+\begin_layout Itemize
+Cada vez mais as redes são atualizadas com equipamentos automatizados;
+\end_layout
+
+\begin_layout Itemize
+Equipamentos são capazes de:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Enviar dados do estado atual da rede;
+\end_layout
+
+\begin_layout Itemize
+Receber comandos;
+\end_layout
+
+\begin_layout Itemize
+Em tempo real ou muito próximo a isso.
+\end_layout
+
+\end_deeper
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+Crescente a aplicação de Inteligencia computacional 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "koziolek2011"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Grande volume de informações 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "kanabar2011reviewing"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Equipamentos gerenciados por sistemas do tipo SCADA
+\end_layout
+
+\end_deeper
+\begin_layout BeginFrame
+Automação de Redes de Distribuição
+\end_layout
+
+\begin_layout Standard
+Este trabalho se baseia no uso de equipamentos de manobra telecomandados:
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename img/chaveTelecomanda_reduzida.png
+	lyxscale 10
+	height 60theight%
+	BoundingBox 0bp 0bp 450bp 535bp
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Redes inteligentes
+\end_layout
+
+\begin_layout BeginFrame
+Redes Inteligentes
+\end_layout
+
+\begin_layout Itemize
+É uma definição/conceito de como serão as redes no futuro
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Ipakchi2009"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Define conceitos, não tecnologias:
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Falcao2010"
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Resistentes a ataques físicos e/ou cibernéticos;
+\end_layout
+
+\begin_layout Itemize
+Auto reparáveis;
+\end_layout
+
+\begin_layout Itemize
+Melhor qualidade de energia.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Combinação de inteligência computacional, sistemas de comunicação e automação
+ de rede.
+\end_layout
+
+\begin_layout Section
+Método Desenvolvido
+\end_layout
+
+\begin_layout Subsection
+Descrição
+\end_layout
+
+\begin_layout BeginFrame
+Descrição da Metodologia
+\end_layout
+
+\begin_layout Itemize
+Características:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Uso de informações em tempo real;
+\end_layout
+
+\begin_layout Itemize
+Uso de sistemas computacionais para simulações e definições das melhores
+ manobras;
+\end_layout
+
+\begin_layout Itemize
+Capacidade de ser aplicável em diferentes topologias de rede;
+\end_layout
+
+\begin_layout Itemize
+Detecta a ocorrência de eventos de desarme permanente.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Como resultado, oferece manobras que restabelecem o máximo de consumidores;
+\end_layout
+
+\begin_layout Subsection
+Arquitetura do Sistema
+\end_layout
+
+\begin_layout BeginFrame
+Arquitetura do Sistema
+\end_layout
+
+\begin_layout Itemize
+Informações necessárias:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Cadastro inicial da rede;
+\end_layout
+
+\begin_layout Itemize
+Informações do estado de todas as chaves;
+\end_layout
+
+\begin_layout Itemize
+Acesso aos eventos da rede (SCADA);
+\end_layout
+
+\begin_layout Itemize
+Histórico de carga.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Também é necessário enviar comandos ao SCADA;
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Metodologia prevê o envio de manobras de forma automática.
+\end_layout
+
+\end_deeper
+\begin_layout BeginFrame
+Arquitetura do Sistema
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename img/ArquiteturaSistema.png
+	width 70col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Ajuste de carga
+\end_layout
+
+\begin_layout BeginFrame
+Ajuste de Carga
+\end_layout
+
+\begin_layout Itemize
+É importante que a rede simulada seja muito próxima da rede real;
+\end_layout
+
+\begin_layout Itemize
+Antes das simulações a topologia e carga atual são atualizadas;
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Topologia é atualizada pelo estado dos equipamentos de manobra;
+\end_layout
+
+\begin_layout Itemize
+As cargas são ajustadas pelo histórico de leituras
+\end_layout
+
+\end_deeper
+\begin_layout BeginFrame
+Ajuste de Carga
+\end_layout
+
+\begin_layout Itemize
+O ajuste tenta projetar a carga nas próximas 
+\begin_inset Formula $n$
+\end_inset
+
+ horas
+\end_layout
+
+\begin_layout Itemize
+Para isso é analisada a tendência da semana anterior
+\end_layout
+
+\begin_layout Itemize
+Sempre é considerado o cenário de maior carga
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Ou a carga se mantêm no nível atual, ou cresce
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+A carga antes do defeito é usada como base do ajuste
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{eqnarray*}  
+\end_layout
+
+\begin_layout Plain Layout
+
+A_{carga} &=& 
+\backslash
+frac{Max(H_{h}, H_{h+1}, 
+\backslash
+cdots , H_{h+n})}{H_{h}} 
+\backslash
+label{eq:Historico_carga}
+\backslash
+
+\backslash
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+pause
+\end_layout
+
+\begin_layout Plain Layout
+
+C_{prevista} &=& C_{pre
+\backslash
+_defeito} 
+\backslash
+cdot A_{carga} 
+\backslash
+label{eq:Ajuste_carga} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{eqnarray*}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Definição das Manobras
+\end_layout
+
+\begin_layout BeginFrame
+Definição das Manobras
+\end_layout
+
+\begin_layout Itemize
+A metodologia apresenta dois tipos de manobras:
+\end_layout
+
+\begin_layout Description
+Isolamento: Restabelece consumidores antes do defeito (montante)
+\end_layout
+
+\begin_layout Description
+Transferência: Restabelece consumidores após o defeito (jusante)
+\end_layout
+
+\begin_layout Itemize
+Manobras de transferência só são oferecidas como opção se não violarem as
+ restrições;
+\end_layout
+
+\begin_layout Itemize
+Manobras de isolamento não violam as restrições.
+\end_layout
+
+\begin_layout BeginFrame
+Manobras de Isolamento
+\end_layout
+
+\begin_layout Itemize
+Caso existam equipamentos entre defeito e equipamento atuado;
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+O equipamento mais próximo ao defeito é aberto;
+\end_layout
+
+\begin_layout Itemize
+O equipamento atuado é fechado, restabelecendo alguns consumidores.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+A execução dessa manobra não interfere na definição das manobras de transferênci
+a
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename img/redeDefeito.png
+	width 80col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+Definição da Manobra de Isolamento
+\end_layout
+
+\begin_layout Itemize
+Algum equipamento foi atravessado pela CC?
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Se sim, é escolhido o equipamento mais próximo ao defeito;
+\end_layout
+
+\begin_layout Itemize
+Esse equipamento escolhido é marcado para ser aberto;
+\end_layout
+
+\begin_layout Itemize
+Desmarque Todos os equipamentos entre esse equipamento e o atuado;
+\end_layout
+
+\begin_layout Itemize
+Repete-se até que não exista mais equipamentos sinalizados.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Ao fim, abre-se todos equipamentos marcados;
+\end_layout
+
+\begin_layout Itemize
+Se não houve nenhum problema (falha de comunicação), o equipamento atuado
+ e religado.
+\end_layout
+
+\begin_layout BeginFrame
+Manobras de Transferência
+\end_layout
+
+\begin_layout Itemize
+Usam alimentadores vizinhos para restabelecer clientes
+\end_layout
+
+\begin_layout Itemize
+Manobram-se equipamentos após o defeito e os de fronteira
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+É dada prioridade pelo equipamento mais perto do defeito
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Podem ocorrer sobrecargas
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Se isso ocorrer, pode-se reduzir a carga transferida
+\end_layout
+
+\begin_layout Itemize
+É possível dividir a carga entre diferentes alimentadores
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename img/exemploTransferencias_original.png
+	width 70col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+Definição das Manobras de Transferência
+\end_layout
+
+\begin_layout Itemize
+O equipamento de origem indica onde o defeito começa
+\end_layout
+
+\begin_layout Itemize
+Os equipamentos a frente são divididos em níveis
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+o Primeiro nível é mais próximo ao equipamento de Origem
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Os equipamentos do primeiro nível indicam o fim da área afetada
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+CH1-A no exemplo anterior.
+\end_layout
+
+\end_deeper
+\begin_layout BeginFrame
+Heurística de Definição das Transferências
+\end_layout
+
+\begin_layout Itemize
+Restabelecer a maior área possível
+\end_layout
+
+\begin_layout Itemize
+Tenta transferir usando os equipamentos do 1º nível;
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Caso não seja possível, tenta usando algum do próximo nível;
+\end_layout
+
+\begin_layout Itemize
+Caso consiga, tenta novamente do primeiro nível, mantendo a manobra anterior;
+\end_layout
+
+\begin_layout Itemize
+Se não conseguir avance mais um nível até conseguir ou acabarem os níveis.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Se existirem várias opções em um nível, é escolhida a melhor
+\end_layout
+
+\begin_layout BeginFrame
+Exemplo de Escolha das transferências
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename img/exemploTransferencias.png
+	width 60col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+Tratamento dos Eventos
+\end_layout
+
+\begin_layout Itemize
+O SCADA envia avisos sobre acontecimentos na rede
+\end_layout
+
+\begin_layout Itemize
+Se algum equipamento entrou em bloqueio, um defeito permanente aconteceu
+\end_layout
+
+\begin_layout Itemize
+Nesse caso, o estado da rede é atualizado
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Ajuste de carga
+\end_layout
+
+\begin_layout Itemize
+Atualização dos estados dos equipamentos de manobra
+\end_layout
+
+\begin_layout Itemize
+Verificação do estado de comunicação dos equipamentos
+\end_layout
+
+\end_deeper
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Itemize
+É verificado se não existe nenhum perigo em religar;
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Equipes trabalhando na rede por exemplo.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Após isso a metodologia processa essas informações
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+São definidas e aplicadas as manobras de isolamento e/ou transferência;
+\end_layout
+
+\begin_layout Itemize
+O defeito está isolado.
+\end_layout
+
+\end_deeper
+\begin_layout BeginFrame
+Fluxograma
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename img/FluxogramaApresentação.png
+	height 90theight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Testes com Redes Reais
+\end_layout
+
+\begin_layout BeginFrame
+Testes com Redes Reais
+\end_layout
+
+\begin_layout Itemize
+Foram consideradas as seguintes restrições:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Carregamento máximo proteção: 90%
+\end_layout
+
+\begin_layout Itemize
+Carregamento máximo condutores: 110%
+\end_layout
+
+\begin_layout Itemize
+Queda máxima de tensão: 7%
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Horário de carga baixa (0:00)
+\end_layout
+
+\begin_layout Itemize
+Testes foram executados num 
+\emph on
+software
+\emph default
+ que implementa a metodologia
+\end_layout
+
+\begin_layout BeginPlainFrame
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename img/ASE-Restoration.png
+	width 90col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Sistema utilizado para os testes
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+Transferência Simples
+\end_layout
+
+\begin_layout Standard
+Defeito entre SLE - 2103 e SLE - 3;
+\end_layout
+
+\begin_layout Standard
+Disjuntor de SLE - 3 desarmou:
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename img/Defesa/Caso1Unifilar_Transferência.png
+	lyxscale 10
+	width 90col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename img/Defesa/TabelaExemplo1.png
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+Isolamento Simples
+\end_layout
+
+\begin_layout Standard
+Defeito após SLE - 2103;
+\end_layout
+
+\begin_layout Standard
+Equipamento SLE - 2103 foi sinalizado;
+\end_layout
+
+\begin_layout Standard
+Disjuntor de SLE - 3 desarmou:
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename img/Defesa/Caso1Unifilar_isolamento.png
+	lyxscale 10
+	width 90col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename img/Defesa/TabelaIsolamento1.png
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+Defeito Já isolado
+\end_layout
+
+\begin_layout Standard
+Defeito após SLE - 2103;
+\end_layout
+
+\begin_layout Standard
+Equipamento SLE - 2103 configurado como proteção;
+\end_layout
+
+\begin_layout Standard
+SLE - 2103 desarmou:
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename img/Defesa/Caso1Unifilar_jaIsolado.png
+	lyxscale 10
+	width 90col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+Transferência e isolamento
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename img/Defesa/Caso3Unifilar_defeito.png
+	lyxscale 30
+	width 80col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename img/Defesa/TabelaCaso4.png
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+Múltiplas Transferências
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename img/Defesa/Caso5Unifilar_tranferência.png
+	lyxscale 30
+	width 80col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename img/Defesa/TabelaCaso5.png
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+Tratamento de Restrições
+\end_layout
+
+\begin_layout Itemize
+Mesmo caso anterior, mas aplicado às 6:00;
+\end_layout
+
+\begin_layout Itemize
+Uso de corrente pré-defeito:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+EST - 3 = 130 A; SPC - 3 = 80 A; GRA - 212 = 140 A.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Pause
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename img/Defesa/TabelaCaso7.png
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Considerações finais
+\end_layout
+
+\begin_layout BeginFrame
+Considerações Finais
+\end_layout
+
+\begin_layout Itemize
+O restabelecimento rápido é importante para os consumidores e concessionárias;
+\end_layout
+
+\begin_layout Itemize
+Como contribuição, esse trabalho apresentou:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Proposta de arquitetura do sistema;
+\end_layout
+
+\begin_layout Itemize
+Metodologia de tratamento dos dados;
+\end_layout
+
+\begin_layout Itemize
+Algoritmos de definição das melhor transferências.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Método apresentou resultados factíveis e muito bons;
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Sem a necessidade de intervenção de um operador;
+\end_layout
+
+\begin_layout Itemize
+Em poucos segundos após ter recebido todas informações.
+\end_layout
+
+\end_deeper
+\begin_layout BeginFrame
+Trabalhos Publicados
+\end_layout
+
+\begin_layout Standard
+
+\size footnotesize
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{trivlist} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item Reck, W., Giacomelli, J., Garcia, V., Bernardon, D., Sperandio, M.
+ e outros, 
+\backslash
+textbf{Alocação Multicriterial de Chaves Telecomandadas}, CIDEL 2010 - Argentina
+; 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item Trabalho anterior foi premiado como o melhor de sua secção e foi publicado
+ na Revista CIER No.
+ 58 de 2011 do Uruguai; 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item D.
+ P.
+ Bernardon, M.
+ Sperandio, V.
+ J.
+ Garcia, L.L.
+ Pfitscher, W.
+ Reck, E.
+ F.
+ B.
+ Daza, M.
+ Ramos, L.
+ Comassetto, 
+\backslash
+textbf{Automatic Reestablishment of Power Supply in Distribution Systems
+ using AHP Method}, Proceedings of the 2011 International Conference on
+ Power Engineering, Energy and Electrical Drives - Malaga - Espanha; 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item SILVA, P.
+ A.
+ S.
+ ; RECK, W.
+ M.
+ ; BERNARDON, D.
+ P.
+ .
+ 
+\backslash
+textbf{Aplicação de Sistemas Inteligentes no Restabelecimento Automático
+ da Energia}.
+ Revista Júnior de Iniciação Científica em Ciências Exatas e Engenharia,
+ v.
+ 1, p.
+ 11-18, 2011 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+item Bernardon, D., Sperandio, M., Garcia, V., Pfitscher, L., Reck, W., 
+\backslash
+textbf{Automatic Restoration of Power Supply in Distribution Systems by
+ Computer-Aided Technologies}, Automation, Capítulo 3, 2012.
+ ISBN: 978-953-51-0685-2 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{trivlist}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout BeginFrame
+Trabalhos Futuros
+\end_layout
+
+\begin_layout Itemize
+Uso de uma função multiobjetivo;
+\end_layout
+
+\begin_layout Itemize
+Armazenar simulações anteriores para evitar recalcular;
+\end_layout
+
+\begin_layout Itemize
+Consideração das decisões dos operadores sobre manobras inválidas;
+\end_layout
+
+\begin_layout Itemize
+Estudo de uma estrutura de dados mais rápida para transferências;
+\end_layout
+
+\begin_layout Itemize
+Comparação da qualidade dos resultados com algum outro método que enumere
+ todas manobras;
+\end_layout
+
+\begin_layout BeginFrame
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+[allowframebreaks]
+\end_layout
+
+\end_inset
+
+Bibliografia
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "bibliography"
+options "abnt-alf"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\end_body
+\end_document
