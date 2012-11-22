@@ -6,19 +6,19 @@ Esse capítulo descreve a metodologia desenvolvida para restabelecimento automáti
 
 
 
-\section{Caracterização e modelagem do Problema \label{sec:modelagem_problema}}
+\section{Caracterização e Modelagem do Problema \label{sec:modelagem_problema}}
 
 %\textbf{Descrever/modelar o problema, Aqui entram as restrições/objetivo????}
 
 % \textbf{Qual é o problema?}
-Como foi apresentado no capítulo 3, a automação da rede de distribuição pode reduzir o tempo de interrupção de energia elétrica para os consumidores. O uso de um sistema computacional inteligente pode reduzir ainda mais esse tempo, uma vez que tal sistema pode analisar todas as possibilidades de manobras e executar as simulações necessárias para cada uma das possibilidade enumeradas de forma automática, apresentando ao final o melhor conjunto de manobras, tudo isso em questão de poucos instantes. Quando se diz que tal sistema apresenta como resultado de seu processamento o melhor conjunto de manobras, essas manobras são melhores que as demais com base em algum objetivo específico e porque não violam as restrições impostas. Esse objetivo, que nesse trabalho será restabelecer o número máximo de consumidores, irá direcionar as escolhas feitas pelo sistema computacional, ou seja, qual é a melhor manobra dentre um conjunto de opções. As restrições devem ser definidas para que as manobras apresentadas pelo sistema 
+Como foi apresentado no capítulo 3, a automação da rede de distribuição pode reduzir o tempo de interrupção de energia elétrica para os consumidores. O uso de um sistema computacional inteligente pode reduzir ainda mais esse tempo, uma vez que tal sistema pode analisar todas as possibilidades de manobras e executar as simulações necessárias para cada uma das possibilidade enumeradas de forma automática, apresentando ao final o melhor conjunto de manobras, tudo isso em questão de poucos instantes. Quando a metodologia apresenta o melhor conjunto de manobras como resultado de seu processamento, essas manobras são melhores que as demais com base em algum objetivo específico e porque não violam as restrições impostas. Neste trabalho, esse objetivo será tentar restabelecer o número máximo de consumidores e ele irá direcionar as escolhas feitas pelo sistema computacional, ou seja, qual é a melhor manobra dentre um conjunto de opções. As restrições devem ser definidas para que as manobras apresentadas pelo sistema 
 sejam respostas factíveis, ou seja, que tais respostas possam ser aplicadas a realidade de uma rede de distribuição.
 
 %Descrever a modelagem da rede de distribuição com um grafo e definir a representação do estado das chaves como sendo binárias. Depois modelar o sistema função objetivo e restrições.
 
 
 % \textbf{Que restrições consideramos?}
-Para representar as rede de distribuição, foi escolhida a representação através de um grafo não orientado, onde as arestas representam os elementos de conexão como condutores e chaves, e os vértices representam os pontos de carga ou sustentação da rede (para um modelo mais detalhado). Essa escolha foi feita por permitir uma implementação computacional mais eficaz e também uma formulação matemática que represente o problema. Como não é desejado que nenhuma resposta dessa metodologia provoque danos ao invés de soluções, por exemplo, uma manobra que sobrecarregue um condutor a ponto de rompê-lo. Para isso, a metodologia utilizará a seguinte função objetivo e restrições, as quais foram baseadas no trabalho de \cite{Garcia2005}:
+Para representar as rede de distribuição, foi escolhida a representação através de um grafo não orientado, onde as arestas representam os elementos de conexão como condutores e chaves, e os vértices representam os pontos de carga ou sustentação da rede (para um modelo mais detalhado). Essa escolha foi feita por permitir uma implementação computacional mais eficaz e também uma formulação matemática que represente o problema. As resposta apresentadas por essa metodologia não devem provocar danos, por exemplo, uma manobra que sobrecarregue um condutor a ponto de rompê-lo. Para isso, a metodologia utilizará a seguinte função objetivo e restrições de operação da rede, as quais foram baseadas no trabalho de \cite{Garcia2005}:
 
 \begin{eqnarray}
 \min && \sum_{i \in CC}{(1-Z_{i})NC_{i}}  \label{eq:objetivo} \\
@@ -39,13 +39,13 @@ Onde:
 \begin{description}
     \item[$N$] - Número de nós na rede;
     \item[$M$] - Número de arestas na rede;
-    \item[$I_{i}$] - Corrente no ramo $i$;
-    \item[$I'_{i}$] - Corrente no ramo fictício $i$;
-    \item[$Z_i$] - Indica se o nó está sendo alimentado ($Z_i=1$) ou não ($Z_i=0$);
-    \item[$IL_i$] - Capacidade de fluxo na aresta $i$;
-    \item[$R_i$] - Impedância do nó $i$;
-    \item[$L_i$] - Demanda do nó $i$;
-    \item[$B_i$] - Conjunto de todas arestas com o nó $i$ como início;
+    \item[$I_{k}$] - Corrente no ramo $k$;
+    \item[$I'_{k}$] - Corrente no ramo fictício $k$;
+    \item[$Z_k$] - Indica se o nó está sendo alimentado ($Z_i=1$) ou não ($Z_i=0$);
+    \item[$IL_k$] - Capacidade de fluxo na aresta $k$;
+    \item[$R_k$] - Impedância do nó $k$;
+    \item[$L_k$] - Demanda do nó $k$;
+    \item[$B_k$] - Conjunto de todas arestas com o nó $k$ como início;
     \item[$F_i$] - Conjunto de todas arestas com o nó $i$ como fim;
     \item[$CC$] - Conjunto de nós consumidores;
     \item[$NC_i$] - Número de consumidores no nó $i$;
@@ -57,12 +57,12 @@ Onde:
     \item [$V_{max}$] - Módulo da tensão máxima aceitável na rede.
 \end{description}
 
-Como função objetivo (\ref{eq:objetivo}), foi definido que deseja-se minimizar o número de consumidores não restabelecidos, que é o mesmo que tentar restabelecer o máximo de consumidores, uma vez que quanto mais consumidores restabelecidos, menos consumidores não restabelecidos. Em caso de empate (duas soluções restabeleçam o mesmo número de consumidores), como critério de desempate, será escolhida a manobra que tiver o menor carregamento máximo nos condutores. Deve-se notar o uso de arestas fictícias ($'$) para impedir que os valores de fluxos sejam negativos, nesse caso o valor do fluxo fica atribuídos para aresta fictícia. Para garantir o uso de apenas uma dessas arestas, foram inseridas as restrições \ref{eq:uso1aresta1} e \ref{eq:uso1aresta2}.
+Como função objetivo (\ref{eq:objetivo}), foi definido que deseja-se minimizar o número de consumidores não restabelecidos, que é o mesmo que tentar restabelecer o máximo de consumidores. Em caso de empate (duas soluções restabeleçam o mesmo número de consumidores), como critério de desempate, será escolhida a manobra que tiver o menor carregamento máximo nos condutores. Deve-se notar o uso de arestas fictícias ($'$) para impedir que os valores de fluxos sejam negativos, nesse caso o valor do fluxo fica atribuído para aresta fictícia. Para garantir o uso de apenas uma dessas arestas, foram inseridas as restrições \ref{eq:uso1aresta1} e \ref{eq:uso1aresta2}.
 
-A restrição \ref{eq:radialidade} garante que as manobras de restabelecimento não podem inserir ciclos na rede de distribuição. Essa restrição garante que não existirá mais de uma chave fechada incidente em um nó da rede.
+A restrição \ref{eq:radialidade} garante que as manobras de restabelecimento não podem criar aneis na rede de distribuição. Essa restrição garante que não existirá mais de uma chave fechada incidente em um nó da rede.
 % A forma como foi concebido o método de enumeração das manobras de transferência já cuida dessa restrição e o isolamento usando as chaves a montante do defeito não deve gerar nenhum ciclo também.
 
-A restrição de carregamento dos condutores, restrições \ref{eq:capacidadeArestas1}, \ref{eq:capacidadeArestas2}, \ref{eq:capacidadeArestas3} e \ref{eq:capacidadeArestas4}, garante que não haverá sobrecarga nos mesmos. Para simplificar o modelo e não precisar descrever o modelo do fluxo de carga, os valores de carga nas variáveis $I_k$ são atribuídos por um algoritmo externo de cálculo de fluxo de potência por somatório de correntes \cite{bernardon2004desenvolvimento}. Esse algoritmo foi implementado dentro de uma ferramenta computacional será descrita no capítulo \ref{cap:casosestudos}.
+As restrições de carregamento dos condutores, \ref{eq:capacidadeArestas1}, \ref{eq:capacidadeArestas2}, \ref{eq:capacidadeArestas3} e \ref{eq:capacidadeArestas4}, garantem que não haverá sobrecarga nos mesmos. Para simplificar o modelo matemático e não precisar descrever o método do fluxo de carga, os valores de carga nas variáveis $I_k$ são atribuídos por um algoritmo externo de cálculo de fluxo de potência por somatório de correntes \cite{bernardon2004desenvolvimento}. Esse algoritmo foi implementado dentro de uma ferramenta computacional que será descrita no capítulo \ref{cap:casosestudos}.
 
 Como o tempo em que a rede irá permanecer no estado de contingência é de poucas horas, pode ser permitido uma pequena carga acima do limite de operação dos condutores e um valor maior de carregamento nos equipamentos de proteção, mas não acima de sua corrente de atuação. Para simplificar o modelo, será considerado que os valores nas variáveis $IL_k$ já possuem esse valor incorporado. No decorrer do texto as referências a esses valores, que na metodologia são configuráveis, são referenciados como $F_{sobrecarga}$, que indica o quanto de sobrecarga será aceito nos condutores, $F_p$ indica o percentual de carregamento dos equipamentos de proteção.
 
@@ -80,10 +80,10 @@ A solução que apresentamos aqui para esse problema de automatização do restabele
 
 Para isso, essa metodologia faz uso de informações em tempo real obtidas de diferentes fontes para realizar simulações muito próximas da rede atual, e assim definir o conjunto de manobras a serem avaliadas.
 
-A escolha dentre essas manobras é dada pela função objetivo, que prioriza as manobras que restabeleçam mais consumidores (usando o carregamento como desempate) e que tenham violando nenhuma das restrições.
+A escolha dentre essas manobras é dada pela função objetivo, que prioriza as manobras que restabeleçam mais consumidores (usando o carregamento como desempate) e que não tenham violado nenhuma das restrições.
 
 %\textbf{Exemplo de uma escolha entre manobras}
-Para exemplificar a escolha da melhor manobra, considere as manobras de transferência fictícias apresentadas na Tabela \ref{tab:listaManobras}. Essas manobras são referentes ao trecho de rede apresentada na Figura \ref{fig:Exemplo_transferencia}. Aqui ainda não serão exploradas todas as possibilidades de manobras, isso será tratado na seção \ref{sec:AlgoritmoTomadaDecisao}.Os percentuais apresentados nos condutores, proteção e queda de tensão, são os carregamentos máximos e a maior queda de tensão apresentados durante as simulações, considerando os limites da rede. Como restrições, foram definidos os valores de sobrecarga dos condutores de 120\% ($F_{sobrecarga}=1.2$), carregamento de equipamentos de proteção 80 \% ($F_{p}=0.8$) e queda máxima de tensão de 7\% (em relação a tensão nominal, sendo nesse caso $V_{min} = V \cdot 0.93$ e $V_{max} = V \cdot 1.07$, onde $V$ é a tensão nominal da rede).
+Para exemplificar a escolha da melhor manobra, considere as manobras de transferência fictícias apresentadas na Tabela \ref{tab:listaManobras}. Essas manobras são referentes ao trecho de rede apresentada na Figura \ref{fig:Exemplo_transferencia}. Aqui ainda não serão exploradas todas as possibilidades de manobras, isso será tratado na seção \ref{sec:AlgoritmoTomadaDecisao}. Os percentuais apresentados nos condutores, proteção e queda de tensão, são os carregamentos máximos e a maior queda de tensão apresentados durante as simulações, considerando os limites da rede. Como restrições, foram definidos os valores de sobrecarga dos condutores de 120\% ($F_{sobrecarga}=1.2$), carregamento de equipamentos de proteção 80 \% ($F_{p}=0.8$) e queda máxima de tensão de 7\% (em relação a tensão nominal, sendo nesse caso $V_{min} = V \cdot 0.93$ e $V_{max} = V \cdot 1.07$, onde $V$ é a tensão nominal da rede).
 
 \begin{figure}[htb]
 \centering
