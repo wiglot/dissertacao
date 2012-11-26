@@ -1,15 +1,15 @@
 \chapter{Resultados Práticos \label{cap:casosestudos}}
 % Apresentar algumas topologias de estudo, mostrar resultados preliminares com o Rocs para o sistema de teste, mostrar algumas redes (pedir permissão para a AES?)
 
-Para validar a metodologia e analisar os resultados gerados pela mesma, foram executados testes e simulações de defeitos em redes de distribuição reais. As simulações consideraram a ocorrência de defeitos antes, depois e entre equipamentos telecomandados tentando criar uma grande variedade de cenários de defeitos. Também foram executadas simulações em diferentes horários para analisar o comportamento da metodologia em diferentes patamares de carga.
+Para validar a metodologia e analisar os resultados gerados pela mesma, foram executados testes e simulações de defeitos em redes de distribuição reais. As simulações consideraram a ocorrência de defeitos antes, depois e entre equipamentos telecomandados tentando criar uma variedade de cenários de defeitos. Também foram executadas simulações em diferentes horários para analisar o comportamento da metodologia em diferentes patamares de carga.
 
-Para avaliar e validar o algoritmo de busca de manobras, foi implementado um protótipo do mesmo utilizando a ferramenta Rocs \cite{Rocs2012}. O Rocs é uma ferramenta de pesquisa em Teoria de Grafos que permite visualizar e interagir utilizando algoritmos escritos em linguagem Javascript\footnote{Linguagem de programação. Muito utilizada para programação em tempo de execução.}.
+Para avaliar e validar o algoritmo de busca de manobras, foi implementado um protótipo utilizando a ferramenta Rocs \cite{Rocs2012}. O Rocs é uma ferramenta de pesquisa em Teoria de Grafos que permite visualizar e interagir utilizando algoritmos escritos em linguagem Javascript\footnote{Linguagem de programação. Muito utilizada para programação em tempo de execução.}.
 
 Após esses estudos e refinamentos iniciais do funcionamento do algoritmo de busca, foi desenvolvida uma ferramenta computacional para a simulação da operação de redes de distribuição e também a simulação da ocorrência de defeitos. A descrição do sistema desenvolvido se encontra na seção \ref{sistemaDesenvolvido}.
 
 A Figura \ref{fig:ExemploredeRocs} ilustra a tela inicial do Rocs com um representação simplificada de uma rede de distribuição, onde os nós em cor azul representam os equipamentos telecomandados NF (normalmente fechado) e os de
 cor vermelha os equipamentos NA (normalmente abertos). Também há a indicação
-dos valores de carga em cada trecho, sendo que nas simulações foi considerado que qualquer transferência pode ser executada contanto que a carga total te tal transferência não ultrapasse 100 UC\footnote{Optou-se por não usar Amperes pois não existe uma simulação da rede, apenas um valor de carregamento arbitrário.} (Unidades de Carregamento). Foi considerado que todos os trechos entre os equipamentos possuem o mesmo número de consumidores, assim quanto mais o número de trechos transferidos maior o número de consumidores restabelecidos.
+dos valores de carga em cada trecho, sendo que nas simulações foi considerado que qualquer transferência pode ser executada contanto que a carga total de tal transferência não ultrapasse 100 UC\footnote{Optou-se por não usar Amperes pois não existe uma simulação da rede, apenas um valor de carregamento arbitrário.} (Unidades de Carregamento). Foi considerado que todos os trechos entre os equipamentos possuem o mesmo número de consumidores, assim quanto mais o número de trechos transferidos maior o número de consumidores restabelecidos.
 
 \begin{figure}[htbp]
 \centering
@@ -39,7 +39,7 @@ as cargas a jusante do defeito, isto é, se dividirá as cargas entre diferentes e
 De acordo com a Figura \ref{fig:ExemploredeRocs2} verifica-se que a metodologia respondeu de
 forma satisfatória. Para o defeito no trecho ``0 - 5'', o sistema abriu os equipamentos
 dos nós ``5'' e ``1'', fechando os nós ``4'' e ``3'', de modo a transferir parte da carga para
-equipamento e parte para o outro, evitando assim a violação da restrição, já que o equipamento ``4'' recebeu 100 UC  e o ``3'' recebeu 20 UC. Já para
+um dos equipamentos de fronteira e parte para o outro, evitando assim a violação da restrição, já que o equipamento ``4'' recebeu 100 UC  e o ``3'' recebeu 20 UC. Já para
 o defeito no trecho ``0 - 6'', o sistema abriu os equipamentos dos nós ``6'' e ``8'',
 fechando os nós ``10'' e ``9'', de modo a transferir parte da carga para um alimentador
 e parte para o outro, evitando assim a violação da restrição uma vez que o equipamento ``9'' recebeu 90 UC e o equipamento ``10'' recebeu 50 UC.
@@ -54,13 +54,13 @@ e parte para o outro, evitando assim a violação da restrição uma vez que o equip
 
 \section{Sistema Desenvolvido\label{sistemaDesenvolvido}}
 
-Para validar a metodologia, foi desenvolvido um sistema computacional capaz de representar e simular o funcionamento de uma rede de distribuição, além de permitir a simulação de defeitos. Dentro desse sistema foi implementada a metodologia apresentada nesse trabalho e funcionalidades que simulam o comportamento dos demais sistemas necessários, como o SCADA e histórico de carga das redes.
+Para validar a metodologia completa, foi desenvolvido um sistema computacional capaz de representar e simular o funcionamento de uma rede de distribuição, além de permitir a simulação de defeitos. Para isso, esse sistema implementa  as funcionalidades de simulação dos componentes citados como o SCADA, histórico de carga das redes além do algoritmo de escolha de manobras.
 
-O sistema foi desenvolvido utilizando a linguagem de programação C++, a qual oferece robustez e extensibilidade, tendo sido  utilizado o framework Qt \cite{QtSite} para o desenvolvido mais rápido, uma vez que o mesmo já disponibiliza componentes gráficos e de padrões de design já implementados.
+O sistema foi desenvolvido utilizando a linguagem de programação C++ por oferecer robustez e extensibilidade, tendo sido  utilizado o framework Qt \cite{QtSite} para o desenvolvido mais rápido, uma vez que o mesmo já disponibiliza componentes gráficos e alguns padrões de design já implementados.
 
 
-A Fig. \ref{fig:mainWindow} apresenta as principais janelas do sistema. A janela principal (\ref{fig:mainWindow}-A) é onde são apresentadas as mensagens de resposta da metodologia e onde estão os menus de acesso as opções.  A janela de simulação de eventos (\ref{fig:mainWindow}-B) permite simular o envio de eventos de desarme dos equipamentos. Na parte superior dessa janela, existe um campo no qual é indicado qual equipamento a metodologia irá considerar como equipamento desarmado pela corrente de curto circuito. Apesar da lista conter inicialmente apenas os disjuntores, é possível executar a simulação de desarme para qualquer equipamento telecomandado das redes carregadas. A corrente do campo pré-falta é utilizada para o ajuste de carga e a data e hora usada para as simulações de fluxo de potência. Os demais campos são informações em relação ao estado do equipamento, tais como como fases sinalizadas (ABCN) e os estados de não religar
-(excluído) e se o controle está travado (bloqueio). A janela C (\ref{fig:mainWindow}-C) apresenta algumas opções da metodologia que podem ser configuradas, como o percentual de sobrecarga dos condutores e dos equipamentos de proteção, a queda máxima de tensão. A última janela (\ref{fig:mainWindow}-D) é apenas uma visualização da topologia da rede carregada.
+A Fig. \ref{fig:mainWindow} apresenta as principais janelas do sistema. A janela principal (\ref{fig:mainWindow}-A) é onde são apresentadas as mensagens de resposta da metodologia e onde estão os menus de acesso às opções.  A janela de simulação de eventos (\ref{fig:mainWindow}-B) permite simular o envio de eventos de desarme dos equipamentos. Na parte superior dessa janela, existe um campo no qual é indicado qual equipamento a metodologia irá considerar como equipamento desarmado pela corrente de curto-circuito. Apesar da lista conter inicialmente apenas os disjuntores, é possível executar a simulação de desarme para qualquer equipamento telecomandado das redes carregadas. A corrente do campo pré-falta é utilizada para o ajuste de carga e a data e hora usada para as simulações de fluxo de potência. Os demais campos são informações em relação ao estado do equipamento, tais como fases sinalizadas (ABCN) e os estados de não religar
+(excluído) e se o controle está travado (bloqueio). A janela D (\ref{fig:mainWindow}-D) apresenta algumas opções da metodologia que podem ser configuradas, como o percentual de sobrecarga dos condutores e dos equipamentos de proteção, e a queda máxima de tensão. A última janela (\ref{fig:mainWindow}-C) é apenas uma visualização da topologia da rede carregada.
 
 %%Fig aqui.
 \begin{figure}[ht]
@@ -73,7 +73,7 @@ A Fig. \ref{fig:mainWindow} apresenta as principais janelas do sistema. A janela
 
 O envio dessas informações é o gatilho de início da metodologia apresentada. Caso alguma informação estiver incorreta (por exemplo, equipamento de origem não é um equipamento telecomandado) o sistema não irá continuar e irá apresentar uma mensagem na janela principal avisando o motivo de ter interrompido o processamento.
 
-Após o envio das informações para simulação, a metodologia necessita atualizar o estado das chaves do alimentador onde o defeito ocorreu e dos alimentadores que fazem fronteira com o mesmo. Para simular esse comportamento, o sistema apresenta uma lista das chaves contidas em tais alimentadores onde é possível mudar o estado das chaves. Isso pode ser visto na Fig \ref{fig:switchStatus}, onde as chaves marcadas são as que ao final terão o estado Fechado e as não marcadas terão o estado Aberto. Caso alguma operação de fechar leve a um ciclo na rede (lembrando que uma restrição é a radialidade do sistema), a metodologia é interrompida e uma mensagem é exibida na janela principal.
+Após o envio das informações para simulação, a metodologia necessita atualizar o estado das chaves do alimentador onde o defeito ocorreu e dos alimentadores que fazem fronteira com o mesmo. Para simular esse comportamento, o sistema apresenta uma lista das chaves contidas em tais alimentadores onde é possível mudar o estado das chaves. Isso pode ser visto na Fig \ref{fig:switchStatus}, onde as chaves marcadas são as que ao final terão o estado Fechado e as não marcadas terão o estado Aberto. Caso alguma operação de fechar um equipamento forme um anel na rede (lembrando que uma restrição é a radialidade do sistema), a metodologia é interrompida e uma mensagem é exibida na janela principal.
 
 %%Fig Aqui.
 \begin{figure}[htbp]
@@ -139,8 +139,8 @@ Nessas redes foram executadas simulações de defeito em diferentes pontos, antes 
 
 % Mostrar alguns resultados de redes reais. Necessário casos fictícios?
 
-Para executar os casos de testes foram consideradas as restrições de carregamento máximo dos equipamentos de proteção de 90\%, sobrecarga máxima dos condutores de 110\% e queda máxima de tensão de 7\%.
-Os testes aqui apresentados foram definidos de modo a contemplar as possíveis topologias e demostrar que as escolhas feitas pela metodologia são as melhores entre as aceitáveis, ou seja, dentre as que não violam nenhuma restrição são escolhidas as que restabelecem o maior número de consumidores. Para os casos onde a metodologia não apresentou nenhuma solução, são apresentadas a manobras possíveis e são indicadas as restrições violadas.
+Para executar os casos de testes foram consideradas as restrições de carregamento máximo dos equipamentos de proteção de 90\%, carregamento máxima dos condutores de 110\% e queda máxima de tensão de 7\%.
+Os testes aqui apresentados foram definidos de modo a contemplar as possíveis topologias e demostrar que as escolhas feitas pela metodologia são as melhores entre as aceitáveis, ou seja, dentre as que não violam nenhuma restrição são escolhidas as que restabelecem o maior número de consumidores. Para os casos onde a metodologia não apresentou nenhuma solução, são apresentadas as manobras possíveis e são indicadas as restrições violadas.
 
 \subsection[Caso 1]{Caso 1: Transferência de carga simples para alimentador vizinho}
 Os primeiros casos de teste consideram apenas um equipamento telecomandado no alimentador mais um de fronteira que pode ser utilizando para executar transferências. A Figura \ref{fig:Unifilar-Caso1} apresenta o alimentador escolhido para os primeiros testes.
@@ -152,7 +152,7 @@ Os primeiros casos de teste consideram apenas um equipamento telecomandado no al
 \caption[Representação unifilar para casos 1,2 e 3]{Representação unifilar dos alimentadores envolvidos no caso de teste Nº 1, 2 e 3\label{fig:Unifilar-Caso1}}
 \end{figure}
 
-O primeiro teste realizado foi a simulação do desarme do disjuntor do alimentador ``SLE - 3'' sem a sinalização de passagem de corrente de curto circuito em nenhum outro equipamento telecomandado. Analisando a topologia apresenta, é possível deduzir que, como o defeito não foi detectado (sinalização de alguma fase) por nenhum equipamento a não ser o disjuntor, o defeito se encontra no primeiro trecho (entre a saída do alimentador  e o equipamento ``SLE - 2103''). Quando o disjuntor desarmou, todos os consumidores do alimentador ``SLE - 3'' ficaram sem fornecimento de energia elétrica. Na rede apresentada existe um equipamento de fronteira (``SLE - 48'') que pode ser utilizado em conjunto com a chave ``SLE - 2103'' para transferir os clientes situados após o defeito para o alimentador vizinho (ZOO - 3). O resultado esperado da metodologia é que ele indique a chave ``SLE - 2103'' para ser aberta e a chave ``SLE - 48'' para ser fechada, se isso não violar nenhuma das restrições impostas. Num primeiro
+O primeiro teste realizado foi a simulação do desarme do disjuntor do alimentador ``SLE - 3'' sem a sinalização de passagem de corrente de curto-circuito em nenhum outro equipamento telecomandado. Analisando a topologia apresentada, é possível deduzir que, como o defeito não foi detectado (sinalização de alguma fase) por nenhum equipamento a não ser o disjuntor, o defeito se encontra no primeiro trecho (entre a saída do alimentador  e o equipamento ``SLE - 2103''). Quando o disjuntor desarmou, todos os consumidores do alimentador ``SLE - 3'' ficaram sem fornecimento de energia elétrica. Na rede apresentada existe um equipamento de fronteira (``SLE - 48'') que pode ser utilizado em conjunto com a chave ``SLE - 2103'' para transferir os clientes situados após o defeito para o alimentador vizinho (ZOO - 3). O resultado esperado da metodologia é que ele indique a chave ``SLE - 2103'' para ser aberta e a chave ``SLE - 48'' para ser fechada, se isso não violar nenhuma das restrições impostas. Num primeiro
 instante a
 metodologia indicou que existia um equipamento sobrecarregado e que a manobra não poderia ser executada, como pode ser visto nos resultados apresentados na Tabela \ref{caso1-Sobrecarga}.
 
@@ -191,9 +191,9 @@ A manobra sugerida poderia inicialmente restabelecer 1867 consumidores, isolando
 \subsection[Caso 2]{Caso 2: Isolamento simples}
 
 
-No segundo caso teste, a região do defeito foi modificada para a região após a chave ``SLE - 2103''. Os eventos enviados como entrada na metodologia foram o desarme do disjuntor do alimentador ``SLE - 3'' e a sinalização da passagem da corrente de curto pelo equipamento ``SLE - 2103''. O esperado da metodologia é que ela indique uma manobra que isole o fornecimento de energia ao defeito, utilizando a chave ``SLE - 2103'', de modo que o disjuntor possa ser religado novamente. 
+No segundo caso teste, a região do defeito foi modificada para a região após a chave ``SLE - 2103''. Os eventos enviados como entrada na metodologia foram o desarme do disjuntor do alimentador ``SLE - 3'' e a sinalização da passagem da corrente de curto-circuito pelo equipamento ``SLE - 2103''. O esperado da metodologia é que ela indique uma manobra que isole o fornecimento de energia ao defeito, utilizando a chave ``SLE - 2103'', de modo que o disjuntor possa ser religado novamente. 
 
-O resultado obtido pela metodologia está descrito na Tabela \ref{caso2-Resultados}, onde pode ser visto que a metodologia apresentou o resultado esperado. Pode-se notar que não existem valores de carregamentos e queda de tensão, uma vez que essa manobra apenas restabelece o fornecimento de energia elétrica para uma região que antes era alimentada utilizando tendo como única diferença a redução da área de fornecimento em relação a topologia antes do defeito.
+O resultado obtido pela metodologia está descrito na Tabela \ref{caso2-Resultados}, onde pode ser visto que a metodologia apresentou o resultado esperado. Pode-se notar que não existem valores de carregamentos e queda de tensão, uma vez que essa manobra apenas restabelece o fornecimento de energia elétrica para uma região que antes era alimentada tendo como única diferença a redução da área de fornecimento em relação a topologia antes do defeito.
 % consumidores, assim se não
 
 \begin{table}[htbp]
@@ -207,7 +207,7 @@ Manobra & Abrir & Fechar & Clientes & Condutores (\%) & Proteção (\%) & Queda (\
 \end{table}
 
 \subsection[Caso 3] {Caso 3: Defeito já isolado, sem opções de manobras}
-O terceiro caso de teste é uma variação do caso 2 caso de teste é quando o equipamento ``SLE - 2103'' está configurado como equipamento de proteção, ou seja, na ocorrência de uma corrente de curto circuito o mesmo atua para interromper o fluxo de corrente. Nesse caso como o defeito aconteceu à jusante do equipamento, ele irá atuar e isolar o defeito. 
+O terceiro caso de teste é uma variação do caso 2 caso de teste é quando o equipamento ``SLE - 2103'' está configurado como equipamento de proteção, ou seja, na ocorrência de uma corrente de curto-circuito o mesmo atua para interromper o fluxo de corrente. Nesse caso como o defeito aconteceu a jusante do equipamento, ele irá atuar e isolar o defeito. 
 
 Como não existe nenhum outro equipamento NF após o defeito  que possa ser usado para transferir parte da carga para outro alimentador, não existe nenhuma manobra que possa ser executada utilizando os equipamentos telecomandados e a metodologia não apresenta nenhuma resposta, o que era o esperado.
 
@@ -225,7 +225,7 @@ O caso de teste 4 envolverá as redes apresentadas na Figura \ref{fig:Unifilar-Ca
 \caption[Representação unifilar para os casos 4 e 5]{Representação unifilar dos alimentadores envolvidos nos casos de teste 4 e 5\label{fig:Unifilar-Caso4}}
 \end{figure}
 
-Como o defeito foi a jusante do equipamento ``SLE - 74'' e o mesmo não desarmou com a passagem da corrente de curto circuito, ele é sinalizado para a metodologia como tendo sido atravessado por tal corrente. Com as informações do estado atual das demais chaves, a metodologia apresentou as manobras da Tabela \ref{caso3-Resultados}, onde a manobra 1 é de isolamento, que será indicada para ser executada, e as manobras 2 e 3 são duas opções distintas de transferência, sendo que a apresentada pela metodologia para ser executada automaticamente foi a manobra 3, que apesar de ter um carregamento maior nos equipamentos de proteção, possui um carregamento menor dos condutores da rede.
+Como o defeito foi a jusante do equipamento ``SLE - 74'' e o mesmo não desarmou com a passagem da corrente de curto-circuito, ele é sinalizado para a metodologia como tendo sido atravessado por tal corrente. Com as informações do estado atual das demais chaves, a metodologia apresentou as manobras da Tabela \ref{caso3-Resultados}, onde a manobra 1 é de isolamento, que será indicada para ser executada, e as manobras 2 e 3 são duas opções distintas de transferência, sendo que a apresentada pela metodologia para ser executada automaticamente foi a manobra 3, que apesar de ter um carregamento maior nos equipamentos de proteção, possui um carregamento menor dos condutores da rede.
 
 \begin{table}[htbp]
 \caption{Resultados para o caso de teste 4}

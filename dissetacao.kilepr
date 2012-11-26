@@ -3,8 +3,8 @@ def_graphic_ext=png
 img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
-kileversion=2.1.3
-lastDocument=revisaoBibliografica.tex
+kileversion=2.1.2
+lastDocument=metodologia.tex
 masterDocument=
 name=Dissertação
 pkg_extIsRegExp=false
@@ -241,19 +241,19 @@ archive=true
 column=0
 encoding=ISO-8859-15
 highlight=LaTeX
-line=133
+line=1
 mode=LaTeX
-open=true
+open=false
 order=3
 
 [item:Sist.Distr.tex]
 archive=true
-column=0
+column=201
 encoding=ISO-8859-15
 highlight=LaTeX
-line=216
+line=207
 mode=LaTeX
-open=true
+open=false
 order=0
 
 [item:anexo.tex]
@@ -283,7 +283,7 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=321
 mode=LaTeX
-open=true
+open=false
 order=5
 
 [item:consideracoesFinais.tex]
@@ -293,7 +293,7 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=29
 mode=LaTeX
-open=true
+open=false
 order=2
 
 [item:dedicatoria.tex]
@@ -518,13 +518,13 @@ order=3
 
 [item:metodologia.tex]
 archive=true
-column=66
+column=31
 encoding=ISO-8859-15
 highlight=LaTeX
-line=270
+line=162
 mode=LaTeX
 open=true
-order=1
+order=0
 
 [item:modelagemDeCargas.tex]
 archive=true
@@ -548,12 +548,12 @@ order=4
 
 [item:revisaoBibliografica.tex]
 archive=true
-column=277
+column=0
 encoding=ISO-8859-15
 highlight=LaTeX
-line=64
+line=44
 mode=LaTeX
-open=true
+open=false
 order=4
 
 [item:sistemaComputacionais.tex]
@@ -588,13 +588,13 @@ order=7
 
 [view-settings,view=0,item:Dissertacao.tex]
 CursorColumn=0
-CursorLine=133
+CursorLine=1
 JumpList=
 ViMarks=
 
 [view-settings,view=0,item:Sist.Distr.tex]
-CursorColumn=0
-CursorLine=216
+CursorColumn=201
+CursorLine=207
 JumpList=
 ViMarks=
 
@@ -641,8 +641,8 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:metodologia.tex]
-CursorColumn=66
-CursorLine=270
+CursorColumn=31
+CursorLine=162
 JumpList=
 ViMarks=
 
@@ -659,8 +659,8 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:revisaoBibliografica.tex]
-CursorColumn=277
-CursorLine=64
+CursorColumn=0
+CursorLine=44
 JumpList=
 ViMarks=
 
