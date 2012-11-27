@@ -4,7 +4,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.1.2
-lastDocument=metodologia.tex
+lastDocument=Dissertacao.tex
 masterDocument=
 name=Dissertação
 pkg_extIsRegExp=false
@@ -243,8 +243,8 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=1
 mode=LaTeX
-open=false
-order=3
+open=true
+order=1
 
 [item:Sist.Distr.tex]
 archive=true
@@ -278,23 +278,23 @@ order=1
 
 [item:casosDeEstudo.tex]
 archive=true
-column=414
+column=1
 encoding=ISO-8859-15
 highlight=LaTeX
-line=321
+line=156
 mode=LaTeX
-open=false
-order=5
+open=true
+order=0
 
 [item:consideracoesFinais.tex]
 archive=true
-column=14
+column=62
 encoding=ISO-8859-15
 highlight=LaTeX
-line=29
+line=47
 mode=LaTeX
 open=false
-order=2
+order=1
 
 [item:dedicatoria.tex]
 archive=true
@@ -523,7 +523,7 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=162
 mode=LaTeX
-open=true
+open=false
 order=0
 
 [item:modelagemDeCargas.tex]
@@ -611,14 +611,14 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:casosDeEstudo.tex]
-CursorColumn=414
-CursorLine=321
+CursorColumn=1
+CursorLine=156
 JumpList=
 ViMarks=
 
 [view-settings,view=0,item:consideracoesFinais.tex]
-CursorColumn=14
-CursorLine=29
+CursorColumn=62
+CursorLine=47
 JumpList=
 ViMarks=
 
