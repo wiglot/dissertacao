@@ -31,7 +31,8 @@ Para representar as rede de distribuição, foi escolhida a representação através 
 && I'_k - IL_kX'_k \leq 0 \textrm{ , para } k = 1, 2,\ldots, M \label{eq:capacidadeArestas2} \\
 && I_k - IL_kY_k \leq 0 \textrm{ , para } k = 1, 2,\ldots, M \label{eq:capacidadeArestas3} \\
 && I'_k - IL_kY'_k \leq 0 \textrm{ , para } k = 1, 2,\ldots, M \label{eq:capacidadeArestas4} \\
-&& V_{min} \leq \sqrt{L_kZ_kR_k} \leq V_{max} \textrm{ , para } k = 1, 2,\ldots, N \label{eq:tensao}
+&& V_{min} \leq \sqrt{L_kZ_kR_k} \textrm{ , para } k = 1, 2,\ldots, N \label{eq:tensao}
+% && V_{min} \leq \sqrt{L_kZ_kR_k} \leq V_{max} \textrm{ , para } k = 1, 2,\ldots, N \label{eq:tensao}
 \end{eqnarray}
 
 
@@ -54,7 +55,7 @@ Onde:
     \item[$Y_i$] - Indica se a chave normalmente aberta do ramo $i$ está fechada ($Y_i = 1$) ou aberta ($Y_i=0$) na solução final;
     \item[$Y'_i$] - Indica se a chave normalmente aberta do ramo fictício $i$ está fechada ($Y'_i = 1$) ou aberta ($Y'_i=0$) na solução final;
     \item [$V_{min}$] - Módulo da tensão mínima aceitável na rede;
-    \item [$V_{max}$] - Módulo da tensão máxima aceitável na rede.
+%     \item [$V_{max}$] - Módulo da tensão máxima aceitável na rede.
 \end{description}
 
 Como função objetivo (\ref{eq:objetivo}), foi definido que deseja-se minimizar o número de consumidores não restabelecidos, que é o mesmo que tentar restabelecer o máximo de consumidores. Em caso de empate (duas soluções restabeleçam o mesmo número de consumidores), como critério de desempate, será escolhida a manobra que tiver o menor carregamento máximo nos condutores. Deve-se notar o uso de arestas fictícias ($'$) para impedir que os valores de fluxos sejam negativos, nesse caso o valor do fluxo fica atribuído para aresta fictícia. Para garantir o uso de apenas uma dessas arestas, foram inseridas as restrições \ref{eq:uso1aresta1} e \ref{eq:uso1aresta2}.
@@ -67,11 +68,11 @@ As restrições de carregamento dos condutores, \ref{eq:capacidadeArestas1}, \ref{
 Como o tempo em que a rede irá permanecer no estado de contingência é de poucas horas, pode ser permitido uma pequena carga acima do limite de operação dos condutores e um valor maior de carregamento nos equipamentos de proteção, mas não acima de sua corrente de atuação. Para simplificar o modelo, será considerado que os valores nas variáveis $IL_k$ já possuem esse valor incorporado. No decorrer do texto as referências a esses valores, que na metodologia são configuráveis, são referenciados como $F_{sobrecarga}$, que indica o quanto de sobrecarga será aceito nos condutores, $F_p$ indica o percentual de carregamento dos equipamentos de proteção.
 
 
-Mesmo no estado de contingência é necessário manter a qualidade de energia disponibilizadas para os consumidores, assim as restrições \ref{eq:tensao} impõem os limites de tensão mínima e máxima. Essas restrições tem como principal objetivo evitar que manobras de transferência deixem os consumidores com uma tensão muito abaixo ou acima dos padrões estabelecidos.
+Mesmo no estado de contingência é necessário manter a qualidade de energia disponibilizadas para os consumidores, assim as restrições \ref{eq:tensao} impõem o limite de tensão mínima aceitável. Essas restrições tem como principal objetivo evitar que manobras de transferência deixem os consumidores com uma tensão abaixo dos valores estabelecidos.
 
-A verificação do atendimento das restrições é executada para cada manobra indicada pela metodologia de restabelecimento. Para isso é necessário que sejam executadas as simulações de fluxo de potência nos alimentadores afetados pela manobra após a aplicação da mesma. Se alguma das restrições for violada, essa manobra é marcada como inválida e que não pode ser executada diretamente.
+A verificação do atendimento das restrições é executada para cada manobra indicada pela metodologia de restabelecimento. Para isso é necessário que sejam executadas as simulações de fluxo de potência nos alimentadores afetados pela manobra após a aplicação da mesma. Se alguma das restrições for violada, essa manobra é marcada como inválida e que não pode será executada automaticamente pela metodologia, podendo ser apresentada para um operador.
 
-A solução que apresentamos aqui para esse problema de automatização do restabelecimento, é capaz de:
+A solução de automatização do restabelecimento, que será apresentada aqui, é capaz de:
 \begin{itemize}
 \item Detectar a ocorrência de um defeito permanente (através de um SCADA);
 \item Localizar a área a ser isolada (área defeituosa);
@@ -83,7 +84,7 @@ Para isso, essa metodologia faz uso de informações em tempo real obtidas de dife
 A escolha dentre essas manobras é dada pela função objetivo, que prioriza as manobras que restabeleçam mais consumidores (usando o carregamento como desempate) e que não tenham violado nenhuma das restrições.
 
 %\textbf{Exemplo de uma escolha entre manobras}
-Para exemplificar a escolha da melhor manobra, considere as manobras de transferência fictícias apresentadas na Tabela \ref{tab:listaManobras}. Essas manobras são referentes ao trecho de rede apresentada na Figura \ref{fig:Exemplo_transferencia}. Aqui ainda não serão exploradas todas as possibilidades de manobras, isso será tratado na seção \ref{sec:AlgoritmoTomadaDecisao}. Os percentuais apresentados nos condutores, proteção e queda de tensão, são os carregamentos máximos e a maior queda de tensão apresentados durante as simulações, considerando os limites da rede. Como restrições, foram definidos os valores de sobrecarga dos condutores de 120\% ($F_{sobrecarga}=1.2$), carregamento de equipamentos de proteção 80 \% ($F_{p}=0.8$) e queda máxima de tensão de 7\% (em relação a tensão nominal, sendo nesse caso $V_{min} = V \cdot 0.93$ e $V_{max} = V \cdot 1.07$, onde $V$ é a tensão nominal da rede).
+Para exemplificar a escolha da melhor manobra, serão utilizadas nas demostrações as manobras de transferência fictícias apresentadas na Tabela \ref{tab:listaManobras}. Essas manobras são referentes ao trecho de rede apresentada na Figura \ref{fig:Exemplo_transferencia}. Aqui ainda não serão exploradas todas as possibilidades de manobras, isso será tratado na seção \ref{sec:AlgoritmoTomadaDecisao}. Os percentuais apresentados nos condutores, proteção e queda de tensão são respectivamente os carregamentos máximos dos condutores e equipamentos de proteção, e a maior queda de tensão apresentados durante as simulações. Como restrições, foram definidos os valores de sobrecarga dos condutores de 10\% ($F_{sobrecarga}=1.1$), carregamento máximo dos equipamentos de proteção 90 \% ($F_{p}=0.9$) e queda máxima de tensão de 7\% em relação a tensão nominal da rede, sendo nesse caso $V_{min} = V \cdot 0.93$, onde $V$ é a tensão nominal da rede. Não foi considerado aqui nesse trabalho o aumento da tensão acima da tensão nominal.
 
 \begin{figure}[htb]
 \centering
@@ -97,16 +98,16 @@ Para exemplificar a escolha da melhor manobra, considere as manobras de transfer
 \begin{tabular}{|c|c|c|r|r|r|r|}
 \hline
 \multicolumn{1}{|l|}{Manobra} & \multicolumn{1}{l|}{Abrir} & \multicolumn{1}{l|}{Fechar} & \multicolumn{1}{l|}{Clientes} & \multicolumn{1}{l|}{Condutores (\%)} & \multicolumn{1}{l|}{Proteção (\%)} & \multicolumn{1}{l|}{Queda Tensão (\%)} \\ \hline
-1 & CH1-A & NA-1 & 3000 & 90 & 105 & 3 \\ \hline
-2 & CH1-A & NA-2 & 3000 & 95 & 70 & 8 \\ \hline
-3 & CH1-B & NA-1 & 1000 & 80 & 90 & 4 \\ \hline
+1 & CH1-A & NA-1 & 3000 & 95 & 105 & 3 \\ \hline
+2 & CH1-A & NA-2 & 3000 & 90 & 70 & 8 \\ \hline
+3 & CH1-B & NA-1 & 1000 & 80 & 92 & 4 \\ \hline
 4 & CH2-B & NA-2 & 1500 & 75 & 50 & 3 \\ \hline
 % 5 & CH-1 & NA-2 & 1400 & 88 & 35 & 3 \\ \hline
 \end{tabular}
 \label{tab:listaManobras}
 \end{table}
 
-Se apenas for analisado o número de consumidores restabelecidos, sem considerar as restrições, tanto a manobra número 1 quanto a número 2 seriam as melhores a serem aplicadas. Como o critério de desempate é o menor carregamento dos condutores, a manobra de número 1 seria escolhida. Agora se forem também consideradas as restrições definidas anteriormente, a manobra 1 não poderia ser executada, pois viola as restrições de carregamento dos equipamentos de proteção (limite é 80\%). Já a manobra 2 viola a queda de tensão. Outra manobra que viola ao menos uma das restrições é a manobra 3, que também viola o carregamento dos equipamentos de proteção.
+Se apenas for analisado o número de consumidores restabelecidos, sem considerar as restrições, tanto a manobra número 1 quanto a número 2 seriam as melhores a serem aplicadas. Como o critério de desempate é o menor carregamento dos condutores, a manobra de número 1 seria escolhida. Agora se forem também consideradas as restrições definidas anteriormente, a manobra 1 não poderia ser executada, pois viola as restrições de carregamento dos equipamentos de proteção (limite é 90\%). Já a manobra 2 viola a queda de tensão. Outra manobra que viola ao menos uma das restrições é a manobra 3, que também viola o carregamento dos equipamentos de proteção.
 
 A manobra restante (4) não viola nenhuma das restrições, sendo válida para ser aplicada diretamente. Dentre as manobras válidas, é escolhida a melhor delas, que poderá ser aplicada. A melhor manobra é aquela que restabelece o maior número de consumidores. Como não existem outras possibilidades, a única manobra que poderia ser executada diretamente é a manobra 4.
 
@@ -175,7 +176,7 @@ Onde:
   \item $h$: Hora da ocorrência do defeito (atual);
   \item $C_{p}$: Carga pré-defeito do alimentador em questão;
   \item $C_{prev}$: Carga máxima prevista para o alimentador no horizonte de n horas a frente;
-  \item $A_{carga}$: Ajuste a ser aplicado na carga. Esse valor é sempre maior ou igual a 1.
+  \item $A_{carga}$: Ajuste a ser aplicado na carga. Esse valor é sempre maior ou igual a 1 (um).
 \end{itemize}
 
 O ajuste das demandas dos consumidores é relativo a carga prevista e a carga simulada através de um algoritmo de fluxo de potência como foi dito na seção \ref{sec:modelagem_problema}. É necessário executar os ajustes das potências ativa e reativa demandada pelos consumidores na mesma proporção da carga prevista pela simulada. Assim se a carga prevista for o dobro da carga simulada, a potência ativa e reativa de cada consumidor é duplicada também.
@@ -225,7 +226,8 @@ Se existir algum equipamento nesse conjunto, significa que a corrente de curto-c
 
 % Ainda utilizando a topologia original, a rede é percorrida. %%%ISOLAMENTOS MULTIPLOS%%%
 
-A próxima etapa (\ref{fig:Fluxograma_decisao}-d) é o envio dos comandos para o SCADA.  Esses comandos de restabelecimento dos consumidores antes do defeito podem ser executados diretamente, pois isso não irá interferir no cálculo das transferências para os alimentadores vizinhos. É importante que a manobra de fechamento do equipamento atuado somente aconteça após a confirmação da abertura do equipamento sinalizado escolhido no passo anterior. Isso é necessário porque fechar o equipamento desarmado sem ter aberto o outro iria restabelecer o fornecimento com o defeito ainda presente na distribuição, o que poderia levar a um novo desarme do equipamento atuado anteriormente ou mesmo o desarme de outro equipamento. Nesse ponto, os consumidores a montante do defeito tiveram seu fornecimento restabelecido. Concluida essa operação, o método prossegue agora tentando executar a transferência para alimentadores vizinhos dos consumidores localizados após o defeito. Essa parte do método independe se houve equipamentos sinalizados ou não, ou seja, mesmo que o método já tivesse restabelecido os consumidores a montante do defeito o método irá analisar as possibilidades de transferência.
+A próxima etapa (\ref{fig:Fluxograma_decisao}-d) é o envio dos comandos para o SCADA.  Esses comandos de restabelecimento dos consumidores antes do defeito podem ser executados diretamente, pois isso não irá interferir no cálculo das transferências para os alimentadores vizinhos. É importante que a manobra de fechamento do equipamento atuado somente aconteça após a confirmação da abertura do equipamento sinalizado escolhido no passo anterior. Isso é necessário porque fechar o equipamento desarmado sem ter aberto o outro iria restabelecer o fornecimento com o defeito ainda presente na distribuição, o que poderia levar a um novo desarme do equipamento atuado anteriormente ou mesmo o desarme de outro equipamento. Nesse ponto, os consumidores a montante do defeito tiveram seu fornecimento restabelecido. Concluida essa operação, o método prossegue agora tentando executar a transferência para alimentadores vizinhos dos consumidores localizados após o defeito. Essa parte do método independe se houve equipamentos 
+sinalizados ou não, ou seja, mesmo que o método já tivesse restabelecido os consumidores a montante do defeito o método irá analisar as possibilidades de transferência.
 
 A análise de transferência inicia com o passo \ref{fig:Fluxograma_decisao}-e onde são procuradas todas possibilidades de transferência de carga para os alimentadores vizinhos e tem continuidade com passo \ref{fig:Fluxograma_decisao}-f, onde é feita a análise de tais possibilidades para decidir quais restabelecem mais consumidores e devem ser executadas.  Essas etapas serão apresentadas na próxima seção (\ref{sec:AlgoritmoTomadaDecisao}), onde serão apresentados os algoritmos de enumeração das opções de transferências e de decisão sobre quais devem ser executadas.
 
@@ -335,7 +337,8 @@ Existindo opções de manobras válidas, a melhor delas será escolhida (linhas 16-2
 %
 % Com a melhor transferência escolhida, o algoritmo de busca das manobras \ref{alg:encontraManobras} adiciona tal manobra a lista de manobras a serem executadas (linha 15). Nesse ponto o algoritmo avalia se ele se encontra no primeiro nível ou não. Isso é feito comparando os parâmetros EqAtual e EqOrigem. Se eles forem diferentes significa que o algoritmo está processando um nível diferente do primeiro e como foi encontrada uma manobra válida, ele deve voltar para o primeiro nível para reavaliar as transferências daquele nível. Para isso o método é chamado o método passando ambos parâmetros, EqAtual e EqOrigem, são atribuídos com o o valor do EqOrigem na linha 17.
 
-Após enumerar todas as possibilidades de transferências do nível atual, o algoritmo agora verifica se ele se encontra no primeiro nível ou não, e se ele necessita retornar para o primeiro nível para tentar novas transferências. Isso é feito na linha 24 onde é testado se o nível do equipamento sendo processador ($EqAtual$) é diferente do equipamento do primeiro nível ($EqOrigem$). Também é verificado se existem outras transferências válidas a serem executadas ou transferências no nível atual. Se o nível atual não for o primeiro mas não existirem transferências, sejam válidas ou a serem executadas, significa que todas as transferências possuem alguma restrição e não foi possível transferir parte da carga para algum alimentador vizinho. Se o algoritmo já está num nível diferente do primeiro, significa que não existiam transferências no primeiro nível e o mesmo avançou para tentar transferir parte da carga e assim poder retornar e tentar transferir novamente os consumidores do primeiro nível. Assim, se não existirem transferências válidas nos níveis a frente do primeiro,
+Após enumerar todas as possibilidades de transferências do nível atual, o algoritmo agora verifica se ele se encontra no primeiro nível ou não, e se ele necessita retornar para o primeiro nível para tentar novas transferências. Isso é feito na linha 24 onde é testado se o nível do equipamento sendo processador ($EqAtual$) é diferente do equipamento do primeiro nível ($EqOrigem$). Também é verificado se existem outras transferências válidas a serem executadas ou transferências no nível atual. Se o nível atual não for o primeiro mas não existirem transferências, sejam válidas ou a serem executadas, significa que todas as transferências possuem alguma restrição e não foi possível transferir parte da carga para algum alimentador vizinho. Se o algoritmo já está num nível diferente do primeiro, significa que não existiam transferências no primeiro nível e o mesmo avançou para tentar transferir parte da carga e assim poder retornar e tentar transferir novamente os consumidores do primeiro nível. Assim, se não 
+existirem transferências válidas nos níveis a frente do primeiro,
 não há a necessidade de tentar transferir os consumidores do primeiro nível.
 
 Caso existam possibilidades no nível atual, é necessário aplicar apenas a melhor delas e retornar ao primeiro nível para tentar novamente transferir os consumidores. Se existirem manobras a serem executadas, provenientes de outros níveis, as mesmas não podem ser perdidas, assim o conjunto de manobras válidas passa a ser a união delas juntamente com o a melhor manobra do nível atual (linha 25). Na linha 26 o algoritmo retorna ao primeiro nível e une as manobras encontradas lá com as manobras válidas atuais.
