@@ -248,13 +248,13 @@ order=1
 
 [item:Sist.Distr.tex]
 archive=true
-column=201
+column=566
 encoding=ISO-8859-15
 highlight=LaTeX
-line=207
+line=27
 mode=LaTeX
-open=false
-order=0
+open=true
+order=3
 
 [item:anexo.tex]
 archive=true
@@ -278,10 +278,10 @@ order=1
 
 [item:casosDeEstudo.tex]
 archive=true
-column=77
+column=571
 encoding=ISO-8859-15
 highlight=LaTeX
-line=326
+line=273
 mode=LaTeX
 open=true
 order=0
@@ -508,20 +508,20 @@ order=-1
 
 [item:introducao.tex]
 archive=true
-column=189
+column=247
 encoding=ISO-8859-15
 highlight=LaTeX
-line=63
+line=24
 mode=LaTeX
-open=false
-order=3
+open=true
+order=1
 
 [item:metodologia.tex]
 archive=true
-column=31
+column=669
 encoding=ISO-8859-15
 highlight=LaTeX
-line=162
+line=65
 mode=LaTeX
 open=false
 order=0
@@ -553,8 +553,8 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=44
 mode=LaTeX
-open=false
-order=4
+open=true
+order=2
 
 [item:sistemaComputacionais.tex]
 archive=true
@@ -593,8 +593,8 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:Sist.Distr.tex]
-CursorColumn=201
-CursorLine=207
+CursorColumn=566
+CursorLine=27
 JumpList=
 ViMarks=
 
@@ -611,8 +611,8 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:casosDeEstudo.tex]
-CursorColumn=77
-CursorLine=326
+CursorColumn=571
+CursorLine=273
 JumpList=
 ViMarks=
 
@@ -635,14 +635,14 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:introducao.tex]
-CursorColumn=189
-CursorLine=63
+CursorColumn=247
+CursorLine=24
 JumpList=
 ViMarks=
 
 [view-settings,view=0,item:metodologia.tex]
-CursorColumn=31
-CursorLine=162
+CursorColumn=669
+CursorLine=65
 JumpList=
 ViMarks=
 
