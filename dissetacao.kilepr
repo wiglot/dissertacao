@@ -278,10 +278,10 @@ order=1
 
 [item:casosDeEstudo.tex]
 archive=true
-column=571
+column=0
 encoding=ISO-8859-15
 highlight=LaTeX
-line=273
+line=0
 mode=LaTeX
 open=true
 order=0
@@ -508,10 +508,10 @@ order=-1
 
 [item:introducao.tex]
 archive=true
-column=247
+column=0
 encoding=ISO-8859-15
 highlight=LaTeX
-line=24
+line=0
 mode=LaTeX
 open=true
 order=1
@@ -611,8 +611,8 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:casosDeEstudo.tex]
-CursorColumn=571
-CursorLine=273
+CursorColumn=0
+CursorLine=0
 JumpList=
 ViMarks=
 
@@ -635,8 +635,8 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:introducao.tex]
-CursorColumn=247
-CursorLine=24
+CursorColumn=0
+CursorLine=0
 JumpList=
 ViMarks=
 
