@@ -1,5 +1,18 @@
 \chapter{Resultados Práticos \label{cap:casosestudos}}
-% Apresentar algumas topologias de estudo, mostrar resultados preliminares com o Rocs para o sistema de teste, mostrar algumas redes (pedir permissão para a AES?)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Por Fazer:::
+% Mudar imagem do Rocs (recarregar arquivos antigos
+% - Colocar figuras diferentes, não só as cores.
+% - Mostrar apenas o grafo.
+% - Colocar códigos com Anexo e apontar que os códigos estão lá
+% Verificar número de equipamentos (remotos e não)
+% Ver uma imagem melhor da rede de teste (exportar pelo ASE como figura?)
+
+
+%%%%%%%%%%%
+%%%Chapter commands
+\newcommand{\violado}[1]{\textbf{\emph{#1}}}
+
 
 Para validar a metodologia e analisar os resultados gerados pela mesma, foram executados testes e simulações de defeitos em redes de distribuição reais. As simulações consideraram a ocorrência de defeitos antes, depois e entre equipamentos telecomandados tentando criar uma variedade de cenários de defeitos. Também foram executadas simulações em diferentes horários para analisar o comportamento da metodologia em diferentes patamares de carga.
 
@@ -67,7 +80,13 @@ A Fig. \ref{fig:mainWindow} apresenta as principais janelas do sistema. A janela
 \centering
 \includegraphics[width=0.9\columnwidth]{img/ASE-Restoration}
 
-\caption[Principais janelas do sistema desenvolvido]{Principais janelas do sistema desenvolvido\\A) Janela principal,\\B) Janela de simulação de eventos,\\C) Visualização das redes carregadas,\\D) Configurações de restrições.\label{fig:mainWindow}}
+\caption[Principais janelas do sistema desenvolvido]{Principais janelas do sistema desenvolvido.\label{fig:mainWindow}}
+\begin{enumerate}[(A)]
+  \item Janela principal;
+  \item Janela de simulação de eventos;
+  \item Visualização das redes carregadas;
+  \item Configurações de restrições.
+\end{enumerate}
 
 \end{figure}
 
@@ -149,13 +168,13 @@ Antes de apresentar os casos de teste e analisar os resultados, segue uma breve 
 \begin{tabular}{|c|c|c|r|r|r|r|}
 \hline
 Manobra & Abrir & Fechar & Clientes & Condutores (\%) & Proteção (\%) & Queda (\%) \\ \hline
-\multicolumn{1}{|c|}{$1^\dag$} & \multicolumn{1}{c|}{NF-1} & \multicolumn{1}{c|}{NA-2} & \multicolumn{1}{r|}{999} & \multicolumn{1}{r|}{127,2635} & \multicolumn{1}{r|}{72,83} & \multicolumn{1}{r|}{3,8358} \\ \hline
+\multicolumn{1}{|c|}{$1^\dag$} & \multicolumn{1}{c|}{NF-1} & \multicolumn{1}{c|}{NA-2} & \multicolumn{1}{r|}{999} & \multicolumn{1}{r|}{\violado{127,2635}} & \multicolumn{1}{r|}{72,83} & \multicolumn{1}{r|}{3,8358} \\ \hline
 \end{tabular}
 \label{tab:exemplo}
 \end{table}
 
-Cada linha possui um número na coluna \textit{Manobra} e é composta por um equipamento que deve ser aberto, indicado na coluna \textit{Abrir}, e um que deve ser fechado, coluna \textit{Fechar}. A coluna \textit{Clientes} indica quantos clientes a manobra irá restabelecer se  for executada. As três colunas restantes são as indicações dos percentuais de carregamento máximo  de condutores na coluna Condutores, de carregamento máximo dos equipamentos de proteção na coluna Proteção e o percentual máximo de queda de tensão na coluna Queda. As manobras que violam alguma das restrições possuem uma marca ($^\dag$) ao lado no número da manobra. Já as manobras indicadas pela metodologia como podendo ser aplicadas 
-diretamente possuem a marca \textdegree.
+Cada linha possui um número na coluna \textit{Manobra} e é composta por um equipamento que deve ser aberto, indicado na coluna \textit{Abrir}, e um que deve ser fechado, coluna \textit{Fechar}. A coluna \textit{Clientes} indica quantos clientes a manobra irá restabelecer se  for executada. As três colunas restantes são as indicações dos percentuais de carregamento máximo  de condutores na coluna Condutores, de carregamento máximo dos equipamentos de proteção na coluna Proteção e o percentual máximo de queda de tensão na coluna Queda. As manobras que violam alguma das restrições possuem uma marca ($^\dag$) ao lado no número da manobra. 
+As restrições violadas se encontram destacadas (veja nesse exemplo a restrição de Condutores). Já as manobras indicadas pela metodologia como sendo aplicáveis diretamente possuem a marca \textdegree.
 
 \subsection[Caso 1]{Caso 1: Transferência de carga simples para alimentador vizinho}
 Os primeiros casos de teste consideram apenas um equipamento telecomandado no alimentador mais um de fronteira que pode ser utilizando para executar transferências. A Figura \ref{fig:Unifilar-Caso1} apresenta o alimentador escolhido para os primeiros testes.
@@ -303,9 +322,9 @@ A metodologia respondeu com as possibilidades apresentadas na Tabela \ref{caso4-
 \begin{tabular}{|c|c|c|r|r|r|r|}
 \hline
 Manobra & \multicolumn{1}{c|}{Abrir} & Fechar & \multicolumn{1}{c|}{Clientes} & \multicolumn{1}{c|}{Condutores (\%)} & \multicolumn{1}{c|}{Proteção (\%)} & \multicolumn{1}{c|}{Queda (\%)} \\ \hline
-1$^\dag$ &   SSU - 74  & SSU - 376 & 4460 & 54,5453 & 100,236 & 1,90574 \\ \hline
+1$^\dag$ &   SSU - 74  & SSU - 376 & 4460 & 54,5453 & \violado{100,236} & 1,90574 \\ \hline
 2\textdegree &   SSU - 74  & SSU - 1830 & 4460 & 53,6057 & 50,8109 & 1,47402 \\ \hline
-3$^\dag$ &   SSU - 74  & SSU - 867 & 4460 & 32,2247 & 99,9072 & 1,45342 \\ \hline
+3$^\dag$ &   SSU - 74  & SSU - 867 & 4460 & 32,2247 & \violado{99,9072} & 1,45342 \\ \hline
 \end{tabular}
 \label{caso4-Resultados}
 \end{table}
@@ -361,8 +380,8 @@ Em comparação com as manobras anteriores, apresentadas na Tabela \ref{caso5-Resu
 \begin{tabular}{|c|c|c|r|r|r|r|}
 \hline
 \multicolumn{1}{|c|}{Manobra} & Abrir & Fechar & \multicolumn{1}{c|}{Clientes} & \multicolumn{1}{c|}{Condutores (\%)} & \multicolumn{1}{c|}{Proteção (\%)} & \multicolumn{1}{c|}{Queda (\%)} \\ \hline
-1$^\dag$ &  SSU - 967  &  SSU - 1707  & 4806 & 118,340 & 67,4538 & 1,69866 \\ \hline
-2$^\dag$ &  EST - 919  &  SSU - 899  & 4806 & 77,514 & 96,8924 & 3,90202 \\ \hline
+1$^\dag$ &  SSU - 967  &  SSU - 1707  & 4806 & \violado{118,340} & 67,4538 & 1,69866 \\ \hline
+2$^\dag$ &  EST - 919  &  SSU - 899  & 4806 & 77,514 & \violado{96,8924} & 3,90202 \\ \hline
 3\textdegree &  SSU - 805  &  SSU - 368  & 2663 & 102,482 & 58,4148 & 1,01778 \\ \hline
 \end{tabular}
 \label{tab:caso5-Manobras-invalidas}

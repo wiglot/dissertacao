@@ -3,7 +3,7 @@ def_graphic_ext=png
 img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
-kileversion=2.1.2
+kileversion=2.1.3
 lastDocument=casosDeEstudo.tex
 masterDocument=
 name=Dissertação
@@ -238,23 +238,23 @@ order=-1
 
 [item:Dissertacao.tex]
 archive=true
-column=13
+column=0
 encoding=ISO-8859-15
 highlight=LaTeX
 line=0
 mode=LaTeX
-open=false
-order=1
+open=true
+order=2
 
 [item:Sist.Distr.tex]
 archive=true
-column=566
+column=0
 encoding=ISO-8859-15
 highlight=LaTeX
-line=27
+line=7
 mode=LaTeX
 open=true
-order=3
+order=1
 
 [item:anexo.tex]
 archive=true
@@ -268,13 +268,13 @@ order=1
 
 [item:bibliography.bib]
 archive=true
-column=54
+column=18
 encoding=ISO-8859-15
 highlight=BibTeX
-line=758
+line=492
 mode=BibTeX
 open=false
-order=1
+order=6
 
 [item:casosDeEstudo.tex]
 archive=true
@@ -513,7 +513,7 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=0
 mode=LaTeX
-open=true
+open=false
 order=1
 
 [item:metodologia.tex]
@@ -534,7 +534,7 @@ highlight=LaTeX
 line=0
 mode=LaTeX
 open=false
-order=8
+order=5
 
 [item:resumo.tex]
 archive=true
@@ -548,12 +548,12 @@ order=4
 
 [item:revisaoBibliografica.tex]
 archive=true
-column=0
+column=46
 encoding=ISO-8859-15
 highlight=LaTeX
-line=44
+line=33
 mode=LaTeX
-open=true
+open=false
 order=2
 
 [item:sistemaComputacionais.tex]
@@ -587,14 +587,14 @@ open=false
 order=7
 
 [view-settings,view=0,item:Dissertacao.tex]
-CursorColumn=13
+CursorColumn=0
 CursorLine=0
 JumpList=
 ViMarks=
 
 [view-settings,view=0,item:Sist.Distr.tex]
-CursorColumn=566
-CursorLine=27
+CursorColumn=0
+CursorLine=7
 JumpList=
 ViMarks=
 
@@ -605,8 +605,8 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:bibliography.bib]
-CursorColumn=54
-CursorLine=758
+CursorColumn=18
+CursorLine=492
 JumpList=
 ViMarks=
 
@@ -659,8 +659,8 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:revisaoBibliografica.tex]
-CursorColumn=0
-CursorLine=44
+CursorColumn=46
+CursorLine=33
 JumpList=
 ViMarks=
 
