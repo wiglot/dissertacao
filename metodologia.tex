@@ -18,7 +18,12 @@ sejam respostas factíveis, ou seja, que tais respostas possam ser aplicadas a re
 
 
 % \textbf{Que restrições consideramos?}
-Para representar as rede de distribuição, foi escolhida a representação através de um grafo não orientado, onde as arestas representam os elementos de conexão como condutores e chaves, e os vértices representam os pontos de carga ou sustentação da rede (para um modelo mais detalhado). Essa escolha foi feita por permitir uma implementação computacional mais eficaz e também uma formulação matemática que represente o problema. As resposta apresentadas por essa metodologia não devem provocar danos, por exemplo, uma manobra que sobrecarregue um condutor a ponto de rompê-lo. Para isso, a metodologia utilizará a seguinte função objetivo e restrições de operação da rede, as quais foram baseadas no trabalho de \cite{Garcia2005}:
+Para representar as rede de distribuição, foi escolhida a representação através de um grafo não orientado, onde as arestas representam os elementos de conexão como condutores e chaves, e os vértices representam os pontos de carga ou sustentação da rede (para um modelo mais detalhado). 
+Devido a característica direcionada do grafo (orientado), há a necessidade de se criar ramos fictícios para representar o fluxo inverso quando se faz uma transferência.
+Para exemplificar, se antes de executar uma transferência de carga para uma outra fonte o sentido da corrente era do ponto $i$ até o ponto $j$ passando pelo ramo $X$, após a transferência a corrente inverterá seu sentindo, vindo agora de uma outra fonte, e passará do ponto $j$ aé o ponto $i$, sendo que nesse caso será usado o ramo fictício $X'$. 
+A escolha dessa estrutura de representa foi por tal estrutura permitir uma implementação computacional mais eficaz e também facilitar uma formulação matemática que represente o problema.
+As resposta apresentadas por essa metodologia não devem provocar danos, por exemplo, uma manobra que sobrecarregue um condutor a ponto de rompê-lo.
+Para isso, a metodologia utilizará a seguinte função objetivo e restrições de operação da rede, as quais foram baseadas no trabalho de \cite{Garcia2005}:
 
 \begin{eqnarray}
 \min && \sum_{i \in CC}{(1-Z_{i})NC_{i}}  \label{eq:objetivo} \\
@@ -84,7 +89,8 @@ Para isso, essa metodologia faz uso de informações em tempo real obtidas de dife
 A escolha dentre essas manobras é dada pela função objetivo, que prioriza as manobras que restabeleçam mais consumidores (usando o carregamento como desempate) e que não tenham violado nenhuma das restrições.
 
 %\textbf{Exemplo de uma escolha entre manobras}
-Para exemplificar a escolha da melhor manobra, serão utilizadas nas demostrações as manobras de transferência fictícias apresentadas na Tabela \ref{tab:listaManobras}. Essas manobras são referentes ao trecho de rede apresentada na Figura \ref{fig:Exemplo_transferencia}. Aqui ainda não serão exploradas todas as possibilidades de manobras, isso será tratado na seção \ref{sec:AlgoritmoTomadaDecisao}. Os percentuais apresentados nos condutores, proteção e queda de tensão são respectivamente os carregamentos máximos dos condutores e equipamentos de proteção, e a maior queda de tensão apresentados durante as simulações. Como restrições, foram definidos os valores de sobrecarga dos condutores de 10\% ($F_{sobrecarga}=1.1$), carregamento máximo dos equipamentos de proteção 90 \% ($F_{p}=0.9$) e queda máxima de tensão de 7\% em relação a tensão nominal da rede, sendo nesse caso $V_{min} = V \cdot 0.93$, onde $V$ é a tensão nominal da rede. Não foi considerado aqui nesse trabalho o aumento da tensão acima da tensão nominal.
+Para exemplificar a escolha da melhor manobra, serão utilizadas nas demostrações as manobras de transferência fictícias apresentadas na Tabela \ref{tab:listaManobras}. Essas manobras são referentes ao trecho de rede apresentada na Figura \ref{fig:Exemplo_transferencia}. Aqui ainda não serão exploradas todas as possibilidades de manobras, isso será tratado na seção \ref{sec:AlgoritmoTomadaDecisao}. Os percentuais apresentados nos condutores, proteção e queda de tensão são respectivamente os carregamentos máximos dos condutores e equipamentos de proteção, e a maior queda de tensão apresentados durante as simulações. Como restrições, foram definidos os valores de sobrecarga dos condutores de 10\% ($F_{sobrecarga}=1.1$), carregamento máximo dos equipamentos de proteção 90 \% ($F_{p}=0.9$) e queda máxima de tensão de 7\% em relação a tensão nominal da rede, sendo nesse caso $V_{min} = V \cdot 0.93$, onde $V$ é a tensão nominal da rede. Não foi considerado aqui nesse trabalho o aumento da tensão acima da tensão 
+nominal.
 
 \begin{figure}[htb]
 \centering

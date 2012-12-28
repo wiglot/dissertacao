@@ -244,7 +244,7 @@ highlight=LaTeX
 line=14
 mode=LaTeX
 open=true
-order=2
+order=1
 
 [item:Sist.Distr.tex]
 archive=true
@@ -253,7 +253,7 @@ encoding=ISO-8859-15
 highlight=LaTeX
 line=7
 mode=LaTeX
-open=true
+open=false
 order=1
 
 [item:anexo.tex]
@@ -278,10 +278,10 @@ order=6
 
 [item:casosDeEstudo.tex]
 archive=true
-column=11
+column=661
 encoding=ISO-8859-15
 highlight=LaTeX
-line=401
+line=403
 mode=LaTeX
 open=true
 order=0
@@ -611,8 +611,8 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:casosDeEstudo.tex]
-CursorColumn=11
-CursorLine=401
+CursorColumn=661
+CursorLine=403
 JumpList=
 ViMarks=
 
