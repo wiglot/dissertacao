@@ -185,6 +185,20 @@ Onde:
   \item $A_{carga}$: Ajuste a ser aplicado na carga. Esse valor é sempre maior ou igual a 1 (um).
 \end{itemize}
 
+Para demonstrar a predição, é apresentado um gráfico de cargas na Figura \ref{fig:grafico_predicao}.
+Nesse gráfico são apresentados os dados de carga da semana anterior e também são apresentados os dados de carga do dia atual.
+Os dados utilizados nesse gráfico estão disponíveis na Anexo A.
+
+Foram simuladas 2 falhas e o resultado da carga estimada aparece sobreposta no gráfico. É possível ver que no caso da carga estar diminuindo, o primeiro caso, estimativa é que a carga continuará com o valor atual. Para o caso da carga aumentar, o valor estimado será o maior das próximas três horas. 
+
+ \begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\columnwidth]{img/SystemsComm}
+
+\caption{Gráfico de cargas e estimativas em caso de defeitos\label{fig:grafico_predicao}}
+
+\end{figure}
+
 O ajuste das demandas dos consumidores é relativo a carga prevista e a carga simulada através de um algoritmo de fluxo de potência como foi dito na seção \ref{sec:modelagem_problema}. É necessário executar os ajustes das potências ativa e reativa demandada pelos consumidores na mesma proporção da carga prevista pela simulada. Assim se a carga prevista for o dobro da carga simulada, a potência ativa e reativa de cada consumidor é duplicada também.
 
 Após a atualização da topologia da rede e de suas cargas, o sistema computacional está pronto para computar as manobras que devem ser realizadas para isolar o defeito e restabelecer os demais consumidores. Na próxima seção é apresentada a metodologia de seleção das manobras a serem executadas.
@@ -322,6 +336,26 @@ Caso a chave não NA, as chaves adjacentes a essa chave são adicionadas à fila pa
 \end{algorithmic}
 \end{algorithm}
 
+
+Um outro algoritmo auxiliar é o \textit{chavesNF\_Adj} (Algoritmo \ref{alg:ChavesAdj}) que recebe uma chave NF como parâmetro de entrada e devolve uma lista contendo todas as chaves NF que são adjacentes e se encontram a jusante da chave NF passada como parâmetro.
+
+
+\begin{algorithm}[htb]
+\caption{{chavesNF\_Adj(chaveNF)}\label{alg:ChavesAdj}}
+\begin{algorithmic}[1]
+\STATE $lst \leftarrow \emptyset$
+\IF {chaveNF é NF}
+  \FORALL {$ \alpha \in$ chaveNF->chavesAdj}
+    \IF {$\alpha$ é $NF\; \AND\; \alpha$ está a jusante de $chaveNF$}
+      \STATE $lst \leftarrow lst \cup \alpha$
+    \ENDIF
+  \ENDFOR
+\ENDIF
+\RETURN $lst$
+\end{algorithmic}
+\end{algorithm}
+
+
 O método de seleção de manobras está definido no Algoritmo \ref{alg:encontraManobras}. O algoritmo recursivo é denominado \textit{EncontraManobras} e recebe dois equipamentos, o $EqAtual$ que é o equipamento que está sendo processado e o $EqOrigem$ que é o equipamento de origem do defeito. A medição dos níveis é através da comparação de ambos equipamentos, sendo que sabe-se que o procedimento está no primeiro nível quando ambos são iguais. Com esses dois equipamentos o algoritmo não precisa contar os níveis, uma vez que apenas é necessário saber se o equipamento atual está no primeiro nível ou não. Cabe salientar que os equipamentos passados para esse algoritmo são os equipamentos do nível anterior ao que se deseja processar. O algoritmo foi definido assim para simplificar a sua construção e evitar alguns casos especiais, mas o funcionamento é o mesmo descrito anteriormente.
 
 \begin{algorithm}[htb]
@@ -329,9 +363,9 @@ O método de seleção de manobras está definido no Algoritmo \ref{alg:encontraMano
 \begin{algorithmic}[1]
 \STATE $manVld\leftarrow \emptyset$
 \STATE $manLst \leftarrow \emptyset$
-\FORALL {$\beta \in$ encontraChavesNA(EqAtual)}
+\FORALL {$\beta \in chaveNF\_Adj(EqAtual)$}
 \STATE $op \leftarrow \emptyset$
-\STATE $Ts \leftarrow$ Lista de possíveis transferências usando $\beta$
+\STATE $Ts \leftarrow$ Lista de possíveis transferências usando $\beta$ e encontraChavesNA($\beta$)
 \IF {$Ts$ NÃO é vazio}
   \FORALL {$t \in Ts$}
     \STATE {Simule a manobra $t$}
@@ -360,7 +394,7 @@ O método de seleção de manobras está definido no Algoritmo \ref{alg:encontraMano
 
 A variável $manVld$ é o conjunto que contém todas as manobras válidas a serem executas e é inicializado vazio. A lista de manobras do nível atual $manLst$  é utilizada apenas nos níveis a frente do primeiro e também é inicializado como um conjunto vazio. Da linha 3 até a linha 23 o algoritmos itera sobre a lista de equipamentos a frente do equipamento atual. Caso não exista nenhum equipamento, a execução termina sem oferecer nenhuma manobra, uma vez que não existe nenhuma opção de transferência ($manVld$ e $manLst$ serão vazios).
 
-Para cada equipamento NF ($\beta$), o algoritmo obterá uma lista de opções de transferência ($Ts$). Nessa lista $TS$ estão contidas as transferências usando o equipamento NF $\beta$ e as chaves telecomandas de fronteira com os alimentadores vizinhos. Essas chaves telecomandadas de fronteira são obtidas aplicando o algortimo \textit{encontraChavesNA} (Algoritmo \ref{alg:EncontraChaves}) na chave NF atual ($\beta$). Se algum equipamento, incluindo $\beta$, já foi utilizado em outra manobra que foi aplicada pelo método \textit{ApliqueMelhorManobra}, essa manobra não será incluída na lista $Ts$. Se existir pelo menos uma opção de transferência, o algoritmo executa as simulações e adiciona ao conjunto $op$ apenas as manobras válidas (linhas 7 até 12). As simulações são a aplicação da manobra $t$ e o armazenamento dos valores necessários para comparação posterior, como consumidores transferidos, carregamentos e queda de tensão.
+Para cada equipamento NF ($\beta$), o algoritmo obterá uma lista de opções de transferência ($Ts$). Nessa lista $Ts$ estão contidas as transferências usando o equipamento NF $\beta$ e as chaves telecomandas de fronteira com os alimentadores vizinhos. Essas chaves telecomandadas de fronteira (NA) são obtidas aplicando o algortimo \textit{encontraChavesNA} (Algoritmo \ref{alg:EncontraChaves}) na chave NF atual ($\beta$). Se algum equipamento, incluindo $\beta$, já foi utilizado em outra manobra que foi aplicada pelo método \textit{ApliqueMelhorManobra}, essa manobra não será incluída na lista $Ts$. Se existir pelo menos uma opção de transferência, o algoritmo executa as simulações e adiciona ao conjunto $op$ apenas as manobras válidas (linhas 7 até 12). As simulações são a aplicação da manobra $t$ e o armazenamento dos valores necessários para comparação posterior, como consumidores transferidos, carregamentos e queda de tensão.
 
 Se $op$ for vazio, significa que nenhuma das transferências contidas em $Ts$ são válidas, ou seja, todas violaram pelo menos uma das restrições impostas. Nesse caso o algoritmo é aplicado no próximo nível (linha 14) e o resultado de tal aplicação é adicionado ao conjunto de manobras a serem aplicadas. A chamada a função na linha 14 passa como argumentos de EqAtual o equipamento NF ($\beta$) do qual as transferências estavam sendo testadas e o equipamento EqOrigem é passado como ele mesmo.
 
