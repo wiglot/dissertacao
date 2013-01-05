@@ -399,9 +399,10 @@ O método de seleção de manobras está definido no Algoritmo \ref{alg:encontraMano
 \end{algorithmic}
 \end{algorithm}
 
-A variável $manVld$ é o conjunto que contém todas as manobras válidas a serem executas e é inicializado vazio. A lista de manobras do nível atual $manLst$  é utilizada apenas nos níveis a frente do primeiro e também é inicializado como um conjunto vazio. Da linha 3 até a linha 23 o algoritmos itera sobre a lista de equipamentos a frente do equipamento atual. Caso não exista nenhum equipamento, a execução termina sem oferecer nenhuma manobra, uma vez que não existe nenhuma opção de transferência ($manVld$ e $manLst$ serão vazios).
+A variável $manVld$ é o conjunto que contém todas as manobras válidas a serem executas e é inicializado vazio. A lista de manobras do nível atual $manLst$  é utilizada apenas nos níveis a frente do primeiro e também é inicializado como um conjunto vazio. Da linha 3 até a linha 23 o algoritmo itera sobre a lista de equipamentos adjacentes e a jusante do equipamento atual. Essa lista de equipamentos NF é obtida pelo algoritmo \textit{chavesNF\_Adj}  (Algoritmo \ref{alg:ChavesAdj}).
+Caso a lista de equipamento NF seja vazia, a execução termina sem oferecer nenhuma manobra, uma vez que não existem opções de transferência ($manVld$ e $manLst$ serão vazios).
 
-Para cada equipamento NF ($\beta$), o algoritmo obterá uma lista de opções de transferência ($Ts$). Nessa lista $Ts$ estão contidas as transferências usando o equipamento NF $\beta$ e as chaves telecomandas de fronteira com os alimentadores vizinhos. Essas chaves telecomandadas de fronteira (NA) são obtidas aplicando o algortimo \textit{encontraChavesNA} (Algoritmo \ref{alg:EncontraChaves}) na chave NF atual ($\beta$). Se algum equipamento, incluindo $\beta$, já foi utilizado em outra manobra que foi aplicada pelo método \textit{ApliqueMelhorManobra}, essa manobra não será incluída na lista $Ts$. Se existir pelo menos uma opção de transferência, o algoritmo executa as simulações e adiciona ao conjunto $op$ apenas as manobras válidas (linhas 7 até 12). As simulações são a aplicação da manobra $t$ e o armazenamento dos valores necessários para comparação posterior, como consumidores transferidos, carregamentos e queda de tensão.
+Para cada equipamento NF ($\beta$), o algoritmo obterá uma lista de opções de transferência ($Ts$). Nessa lista $Ts$ estão contidas as transferências usando o equipamento NF $\beta$ e as chaves telecomandas de fronteira com os alimentadores vizinhos. Essas chaves telecomandadas de fronteira (NA) são obtidas aplicando o algoritmo \textit{encontraChavesNA} (Algoritmo \ref{alg:EncontraChaves}) na chave NF atual ($\beta$). Se algum equipamento, incluindo $\beta$, já foi utilizado em outra manobra que foi aplicada pelo método \textit{ApliqueMelhorManobra}, essa manobra não será incluída na lista $Ts$. Se existir pelo menos uma opção de transferência, o algoritmo executa as simulações e adiciona ao conjunto $op$ apenas as manobras válidas (linhas 7 até 12). As simulações são a aplicação da manobra $t$ e o armazenamento dos valores necessários para comparação posterior, como consumidores transferidos, carregamentos e queda de tensão.
 
 Se $op$ for vazio, significa que nenhuma das transferências contidas em $Ts$ são válidas, ou seja, todas violaram pelo menos uma das restrições impostas. Nesse caso o algoritmo é aplicado no próximo nível (linha 14) e o resultado de tal aplicação é adicionado ao conjunto de manobras a serem aplicadas. A chamada a função na linha 14 passa como argumentos de EqAtual o equipamento NF ($\beta$) do qual as transferências estavam sendo testadas e o equipamento EqOrigem é passado como ele mesmo.
 
@@ -416,7 +417,27 @@ não há a necessidade de tentar transferir os consumidores do primeiro nível.
 
 Caso existam possibilidades no nível atual, é necessário aplicar apenas a melhor delas e retornar ao primeiro nível para tentar novamente transferir os consumidores. Se existirem manobras a serem executadas, provenientes de outros níveis, as mesmas não podem ser perdidas, assim o conjunto de manobras válidas passa a ser a união delas juntamente com o a melhor manobra do nível atual (linha 25). Na linha 26 o algoritmo retorna ao primeiro nível e une as manobras encontradas lá com as manobras válidas atuais.
 
-Utilizando a rede da Figura \ref{fig:Exemplo_transferencia}, será apresentado um exemplo de aplicação do algoritmo. Para questão de desempate entre as manobras, caso o número de consumidores restabelecidos ser igual entre as possibilidades, será considerado que as transferências que  utilizam a chave NA-1 possuem um carregamento menor.
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.95\columnwidth]{img/metodologia1}
+
+\caption{Rede para demonstração da metodologia \label {fig:Exemplo_metodologia}}
+\end{figure}
+
+Utilizando a rede da Figura \ref{fig:Exemplo_metodologia}, será apresentado um exemplo de aplicação da metodologia. Nesse exemplo o defeito na área sinalizada levou o equipamento ``D'' atuar e o equipamento ``1'' ser sinalizado como tendo sido atravessado pela corrente de curto-circuito. Não serão apresentados detalhes sobre cargas e número de consumidores para facilitar a demostração.
+
+A metodologia, após atualizar as informações da rede segundo informações em campo, irá inicialmente verificar se é possível isolar o defeito e restabelecer os consumidores antes da área afetada. Essa manobra de isolamento e restabelecimento é feita ao detectar que existem equipamentos sinalizados como tendo sido atravessados pela corrente de curto-circuito.
+
+A metodologia escolhe o equipamento sinalizado que se encontra mais a jusante do equipamento atuado, nesse caso o equipamento ``1''. Esse equipamento é então marcado para ser aberto e a sinalização de corrente de curto-circuito é removida desse equipamento. Em seguida, o equipamento que foi atuado pela corrente de curto-circuito pode ser religado. Esse equipamento era inicialmente considerado como sendo a origem do defeito, ou seja, ele marcava onde iniciava a área afetada pelo defeito. Com a sinalização de corrente de curto-circuito em equipamento, sabe-se que o defeito se encontra mais a frente, nesse caso a jusante do equipamento ``1''. A Figura \ref{fig:Exemplo_metodologia_isolamento} mostra a área onde o isolamento foi aplicado.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.6\columnwidth]{img/metodologia1}
+
+\caption{Área da rede de exemplo afetada pela manobra de isolamento \label {fig:Exemplo_metodologia_isolamento}}
+\end{figure}
+
+Com o defeito isolado, a metodologia continua agora tentando executar a transferência dos consumidores localizados após o defeito. A lista de manobras de transferência é obtida passando o equipamento de origem como parâmetros do Algoritmo \ref{alg:encontraManobras}.
 
 O início do procedimento é dado pela chamada do algoritmo \textit{EncontraManobras} (\ref{alg:encontraManobras}) passando como parâmetro inicial o equipamento ``Origem'' tanto para EqAtual quanto EqOrigem. O algoritmo então irá testar todos os equipamentos NF que se encontram a frente do equipamento atual (``Origem''). O único equipamento a frente de tal equipamento é ``CH1-A'' e agora o algoritmo irá  enumera as possibilidades de transferência utilizando tal equipamento (linha 5). São possíveis duas manobras com o equipamento ``CH1-A'': ``CH1-A - NA-1'' e ``CH1-A - NA-2''. As manobras são simuladas e, se não violarem nenhuma restrição, são colocadas na lista opções válidas (linhas 7 à 11).
 

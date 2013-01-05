@@ -20,9 +20,8 @@ Para avaliar e validar o algoritmo de busca de manobras, foi implementado um pro
 
 Após esses estudos e refinamentos iniciais do funcionamento do algoritmo de busca, foi desenvolvida uma ferramenta computacional para a simulação da operação de redes de distribuição e também a simulação da ocorrência de defeitos. A descrição do sistema desenvolvido se encontra na seção \ref{sistemaDesenvolvido}.
 
-A Figura \ref{fig:ExemploredeRocs} ilustra a tela inicial do Rocs com um representação simplificada de uma rede de distribuição, onde os nós em cor azul representam os equipamentos telecomandados NF (normalmente fechado) e os de
-cor vermelha os equipamentos NA (normalmente abertos). Também há a indicação
-dos valores de carga em cada trecho, sendo que nas simulações foi considerado que qualquer transferência pode ser executada contanto que a carga total de tal transferência não ultrapasse 100 UC\footnote{Optou-se por não usar Amperes pois não existe uma simulação da rede, apenas um valor de carregamento arbitrário.} (Unidades de Carregamento). Foi considerado que todos os trechos entre os equipamentos possuem o mesmo número de consumidores, assim quanto mais o número de trechos transferidos maior o número de consumidores restabelecidos.
+A Figura \ref{fig:ExemploredeRocs} ilustra o grafo representado no \textit{software} do Rocs. Nessa figura está uma representação simplificada de uma rede de distribuição, onde os pontos redondos em cor azul representam os equipamentos telecomandados NF (normalmente fechado) e os redondos com pontas na cor vermelha são os equipamentos NA (normalmente abertos). O ponto com uma exclamação representa o equipamentos de origem, ou seja, o equipamento que indica o início da área defeituosa.
+Também há a indicação dos valores de carga em cada trecho, sendo que nas simulações foi considerado que qualquer transferência pode ser executada contanto que a carga total de tal transferência não ultrapasse 100 UC\footnote{Optou-se por não usar Amperes pois não existe uma simulação da rede, apenas um valor de carregamento arbitrário.} (Unidades de Carregamento). Foi considerado que todos os trechos entre os equipamentos possuem o mesmo número de consumidores, assim quanto mais o número de trechos transferidos maior o número de consumidores restabelecidos.
 
 \begin{figure}[htbp]
 \centering
@@ -147,7 +146,7 @@ As redes representadas graficamente na Figura \ref{fig:Rede-testes} foram as red
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.9\columnwidth]{img/Unifilar-Com_Nomes}
+\includegraphics[width=0.85\columnwidth]{img/Unifilar-Com_Nomes}
 
 \caption{Representação unifilar da rede de testes\label{fig:Unifilar-Rede-Testes}}
 \end{figure}
