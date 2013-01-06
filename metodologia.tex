@@ -428,31 +428,82 @@ Utilizando a rede da Figura \ref{fig:Exemplo_metodologia}, será apresentado um e
 
 A metodologia, após atualizar as informações da rede segundo informações em campo, irá inicialmente verificar se é possível isolar o defeito e restabelecer os consumidores antes da área afetada. Essa manobra de isolamento e restabelecimento é feita ao detectar que existem equipamentos sinalizados como tendo sido atravessados pela corrente de curto-circuito.
 
-A metodologia escolhe o equipamento sinalizado que se encontra mais a jusante do equipamento atuado, nesse caso o equipamento ``1''. Esse equipamento é então marcado para ser aberto e a sinalização de corrente de curto-circuito é removida desse equipamento. Em seguida, o equipamento que foi atuado pela corrente de curto-circuito pode ser religado. Esse equipamento era inicialmente considerado como sendo a origem do defeito, ou seja, ele marcava onde iniciava a área afetada pelo defeito. Com a sinalização de corrente de curto-circuito em equipamento, sabe-se que o defeito se encontra mais a frente, nesse caso a jusante do equipamento ``1''. A Figura \ref{fig:Exemplo_metodologia_isolamento} mostra a área onde o isolamento foi aplicado.
+A metodologia escolhe o equipamento sinalizado que se encontra mais a jusante do equipamento atuado, nesse caso o equipamento ``1''. Esse equipamento é então marcado para ser aberto e a sinalização de corrente de curto-circuito é removida desse equipamento. Em seguida, o equipamento que foi atuado pela corrente de curto-circuito pode ser religado. Esse equipamento era inicialmente considerado como sendo a origem do defeito, ou seja, ele marcava onde iniciava a área afetada pelo defeito. Com a sinalização de corrente de curto-circuito em equipamento, sabe-se que o defeito se encontra mais a frente, nesse caso a jusante do equipamento ``1''. A Figura \ref{fig:Exemplo_metodologia_isolamento} mostra a área onde o isolamento foi aplicado. A Figura \ref{fig:Isolamento_antes} apresenta a rede antes de ser aplicada a monobra de isolamento e restabelecimento e a Figura \ref{fig:Isolamento_depois} mostra as manobras já aplicada.
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=0.6\columnwidth]{img/metodologia1}
+\begin{subfigure}[b]{0.45\textwidth}
+  \includegraphics[width=\textwidth]{img/metodologiaIsolamento1}
+  \caption{Região localizada antes da área defeituosa}
+  \label{fig:Isolamento_antes}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+  \includegraphics[width=\textwidth]{img/metodologiaIsolamento2}
+  \caption{Região após isolamento}
+  \label{fig:Isolamento_depois}
+\end{subfigure}
 
 \caption{Área da rede de exemplo afetada pela manobra de isolamento \label {fig:Exemplo_metodologia_isolamento}}
 \end{figure}
 
-Com o defeito isolado, a metodologia continua agora tentando executar a transferência dos consumidores localizados após o defeito. A lista de manobras de transferência é obtida passando o equipamento de origem como parâmetros do Algoritmo \ref{alg:encontraManobras}.
+Com o defeito isolado, a metodologia continua agora tentando executar a transferência dos consumidores localizados após o defeito. A lista de manobras de transferência é obtida passando o equipamento de origem como parâmetros do Algoritmo \ref{alg:encontraManobras}. Como foi aplicada a manobra de isolamento e restabelecimento, o equipamento de origem é agora o equipamento ``1''.
 
-O início do procedimento é dado pela chamada do algoritmo \textit{EncontraManobras} (\ref{alg:encontraManobras}) passando como parâmetro inicial o equipamento ``Origem'' tanto para EqAtual quanto EqOrigem. O algoritmo então irá testar todos os equipamentos NF que se encontram a frente do equipamento atual (``Origem''). O único equipamento a frente de tal equipamento é ``CH1-A'' e agora o algoritmo irá  enumera as possibilidades de transferência utilizando tal equipamento (linha 5). São possíveis duas manobras com o equipamento ``CH1-A'': ``CH1-A - NA-1'' e ``CH1-A - NA-2''. As manobras são simuladas e, se não violarem nenhuma restrição, são colocadas na lista opções válidas (linhas 7 à 11).
+Inicialmente o algoritmo irá enumerar os equipamento localizados a frente de \textit{EqAtual}, que nesse caso serão os equipamentos ``2'' e ``3''. Para cada um desses equipamentos serão avaliadas suas manobras. Começando pelo equipamento ``2'', são enumerados os equipamentos NA de fronteira que possam ser utilizadas para executar a transferência. Para esse equipamento existe apenas o equipamento ``A'' que pode ser utilizado. A manobra de transferência ``2 - A'' é então simulada sendo que se ela não apresentar nenhuma violação nas restrições estabelecidas, ela é então adicionada a lista de possíveis opções de transferência. Dessa lista de opções é escolhida a melhor delas, que nessa será essa manobra já que é a única possível. Como essa manobra está no primeiro nível (linha 16, $EqAtual=$``2'' e $EqOrigem=$``2''), essa manobra é colocada diretamente na lista de manobras válidas (\textit{manVld}, linha 19).
 
-Considerando que ambas manobras são válidas, o algoritmo então escolhe a de menor carregamento (a que utiliza ``NA-1''), que é então adicionada ao conjunto de manobras (linha 19), uma vez que os parâmetros EqAtual e EqOrigem são iguais (``Origem''). Por essa mesma razão, o algoritmo não irá executar os passos nas linhas 25 e 26. Ao final, a lista de manobras a serem realizadas é retornada, nesse caso contendo a manobra ``CH1-A - NA-1''.
+Passando para o próximo equipamento (``3''), agora são enumeradas os equipamentos NA ``B'' e ``C'', sendo simuladas as possibilidades de manobras ``3 - B'' e ``3 - C''. Se alguma desses manobras não violasse nenhuma restrição, seria escolhida a melhor, como no caso anterior, e o algoritmo devolveria a manobra anterior (``2 - A'') e a que foi escolhida aqui, terminando a simulação. Para demostrar como o algoritmo trata os demais níveis, será considerado aqui nessa demosntração que ambas manobras usando o equipamento ``3'' violaram alguma das restrições.
+Nesse caso, a lista de opções está vazia e o algoritmo vai procurar manobras que existam a frente do equipamento $\beta$ (``3'') (linha 14).
 
-Caso as manobras do primeiro nível não possam ser aplicadas, a lista de opções válidas ficará vazia e o algoritmo irá passar para a linha 14, onde irá avançar para o próximo nível, passando o equipamento atual (``CH1-A'') como equipamento atual e o próprio equipamento EqOrigem como seu valor de parâmetro. Como as chamadas estão sendo feitas de forma recursiva, os algoritmos referenciados pela sua ordem de chamada. Na segunda chamada do algoritmo, o algoritmo agora irá enumerar os equipamento NF a frente do equipamento atual (``CH1-A''), para cada um deles serão enumeradas as possibilidades de transferência, e ao final será escolhida apenas a melhor transferência desse nível.
+No segundo nível os equipamentos NF localizados a frente do equipamento EqAtual (``3'') serão testados, sendo que somente um deles será utilizado. Nessa caso foram simuladas as manobras ``4 - B'' e ``5 - C''. Aqui nessa demonstração ambas manobras não violaram nenhuma restrição e estão armazenadas na lista de manobras (linha 17), uma vez que nesse ponto o algoritmo não está mais no primeiro nível (linha 16, $EqAtual=$``3'' e $EqOrigem=$``2''). Dentre essas duas manobras foi escolhida como melhor manobra (linha 25). Aqui nessa demonstração foi escolhida a manobra ``4 - B'' como sendo a melhor manobra. Na sequência o algoritmo retorna ao primeiro nível (linha 26), já que foi transferida parte da carga e agora pode ser possível transferir usando equipamentos que se encontram mais próximos ao defeito.
 
-O primeiro equipamento enumerado é ``CH1-B'' que possui apenas uma transferência com o equipamento NA-1, que será considerada válida. Como a segunda chamada do algoritmo não está no primeiro nível (EqAtual é diferente de EqOrigem), o algoritmo escolhe a melhor manobra e adiciona à lista de manobras do nível atual (linha 17). Nota-se que é utilizado o método EscolhaMelhorManobra, uma vez que a manobra não deve ainda ser aplicada. A segunda chamada do algoritmo agora passa para o próximo equipamento NF (``CH2-B''), o qual também possui apenas uma transferência utilizando o equipamento ``NA-2'', a qual será considerada válida. Essa manobra também será adiciona à lista de manobras do nível atual (linha 17). Não tendo mais equipamento NF, a segunda chamada do algoritmo agora escolhe a melhor manobra do nível atual (linha 25) e volta para o primeiro nível (linha 26). Considerando que a manobra ``CH1-B - NA-1'' é a melhor, ela então é aplicada e adicionada ao conjunto de manobras a serem executadas.
+Nessa terceira chamada do algoritmo, sobrou apenas a possibilidade ``3 - C'', uma vez que o equipamento NF ``2'' e o NA ``B'' já foram utilizados em manobras anteriores. Considerando que essa possibilidade de transferência seja válida, ela é adicionada a lista de manobras válidas (\textit{manVld}, linha 19). O algoritmo estando no primeiro nível (linha 24, $EqAtual=$``2'' e $EqOrigem=$``2'') retorna essa manobra que será agrupada com as outras manobras definidas previamente.
 
-A terceira chamada do algoritmo na linha 26 na segunda chamada do algoritmo, retorna ao primeiro nível, mas agora a enumeração das manobras não irá considerar a transferência utilizando o equipamento ``NA-1'', uma vez que a manobra ``CH1-B - NA-1'' no segundo nível foi aplicada e utilizava aquele equipamento. Dessa forma, sobrou apenas a manobra ``CH1-A - NA-2'' que agora será considerada válida uma vez que parte da carga já foi transferida com a manobra ``CH1-B - NA-1''. Sendo a manobra válida, ela é então retornada como executável encerrando a terceira chamada do algoritmo.
+A lista de manobras final ficou com as seguintes manobras: ``2 - A'', ``4 - B'' e ``3 - C''. Pode-se notar que as manobras estão na mesma ordem que elas foram definidas no decorrer da demonstração. Isso é importante por que pode existir uma dependência entre elas, como no caso das manobras ``4 - B'' e ``3 - C'', onde a primeira deve ser executada primeiro para transferir parte da carga e assim evitar possíveis restrições que a segunda manobra possa ter. Essa lista de manobras pode então ser enviada para ser aplicada ao SCADA.
+ 
+O conjunto de Figuras \ref{fig:Exemplo_metodologia_transf} mostra o estado da rede antes de aplicar as manobras transferência (Figura \ref{fig:Transf_antes}), após a aplicação da primeira manobra de transferência (Figura \ref{fig:Transf_depois}), da segunda transferência (Figura \ref{fig:Transf_depois_1}) e o estado final da rede após a aplicação de todas manobras de transferência sugeridas (Figura \ref{fig:Transf_depois_2}).
 
-Na segunda chamada do algoritmo, a manobra retornada pela terceira chamada do algoritmo (``CH1-A - NA-2'') é acrescentada ao conjunto de manobras a serem executados, ficando o conjunto composto pelas manobras \{`CH1-B - NA-1'', ``CH1-A - NA-2''\}, o
-qual é retornado ao final da segunda execução. Voltando a primeira execução do algoritmo, as manobras retornadas da chamada do próximo nível (linha 14) são adicionadas ao conjunto de manobras executáveis, que estava vazio antes disso. Não existindo mais nenhum equipamento NF e estando no primeiro nível, a execução do algoritmo termina retornando as manobras \{``CH1-B - NA-1'', ``CH1-A - NA-2''\} para serem executadas, na ordem que elas estão no conjunto, pelo SCADA. Esse envio corresponde ao passo \ref{fig:Fluxograma_decisao}-f da metodologia de escolha das chaves.
+\begin{figure}[htb]
+\centering
+\begin{subfigure}[b]{0.45\textwidth}
+  \includegraphics[width=\textwidth]{img/metodologiaTransf}
+  \caption{Região após defeito}
+  \label{fig:Transf_antes}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+  \includegraphics[width=\textwidth]{img/metodologiaTransf_2-A}
+  \caption{Transferência parcial 1}
+  \label{fig:Transf_depois}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+  \includegraphics[width=\textwidth]{img/metodologiaTransf_4-B}
+  \caption{Transferência parcial 2}
+  \label{fig:Transf_depois_1}
+\end{subfigure}
+\begin{subfigure}[b]{0.45\textwidth}
+  \includegraphics[width=\textwidth]{img/metodologiaTransf_3-C}
+  \caption{Transferência parcial final}
+  \label{fig:Transf_depois_2}
+\end{subfigure}
 
-Maiores detalhes sobre os resultados que o algoritmo oferece, estarão melhor apresentados no capítulo \ref{cap:casosestudos}, onde são apresentados casos de aplicação da metodologia em redes reais. Vale ressaltar que o número total de transferências simuladas nunca será completo, uma vez que dentre as transferência a partir do segundo nível apenas uma é escolhida para ser testada com as manobras do primeiro nível. Como no exemplo de aplicação descrito acima, que não teve uma simulação da manobra usando os equipamentos ``CH1-A - NA-1'' após a aplicação da manobra ``CH2-B - NA-2''.
+\caption{Área da rede que pode ser transferida e resultados aplicados \label {fig:Exemplo_metodologia_transf}}
+\end{figure}
+
+
+
+
+% O início do procedimento é dado pela chamada do algoritmo \textit{EncontraManobras} (\ref{alg:encontraManobras}) passando como parâmetro inicial o equipamento ``Origem'' tanto para EqAtual quanto EqOrigem. O algoritmo então irá testar todos os equipamentos NF que se encontram a frente do equipamento atual (``Origem''). O único equipamento a frente de tal equipamento é ``CH1-A'' e agora o algoritmo irá  enumera as possibilidades de transferência utilizando tal equipamento (linha 5). São possíveis duas manobras com o equipamento ``CH1-A'': ``CH1-A - NA-1'' e ``CH1-A - NA-2''. As manobras são simuladas e, se não violarem nenhuma restrição, são colocadas na lista opções válidas (linhas 7 à 11).
+% 
+% Considerando que ambas manobras são válidas, o algoritmo então escolhe a de menor carregamento (a que utiliza ``NA-1''), que é então adicionada ao conjunto de manobras (linha 19), uma vez que os parâmetros EqAtual e EqOrigem são iguais (``Origem''). Por essa mesma razão, o algoritmo não irá executar os passos nas linhas 25 e 26. Ao final, a lista de manobras a serem realizadas é retornada, nesse caso contendo a manobra ``CH1-A - NA-1''.
+% 
+% Caso as manobras do primeiro nível não possam ser aplicadas, a lista de opções válidas ficará vazia e o algoritmo irá passar para a linha 14, onde irá avançar para o próximo nível, passando o equipamento atual (``CH1-A'') como equipamento atual e o próprio equipamento EqOrigem como seu valor de parâmetro. Como as chamadas estão sendo feitas de forma recursiva, os algoritmos referenciados pela sua ordem de chamada. Na segunda chamada do algoritmo, o algoritmo agora irá enumerar os equipamento NF a frente do equipamento atual (``CH1-A''), para cada um deles serão enumeradas as possibilidades de transferência, e ao final será escolhida apenas a melhor transferência desse nível.
+% 
+% O primeiro equipamento enumerado é ``CH1-B'' que possui apenas uma transferência com o equipamento NA-1, que será considerada válida. Como a segunda chamada do algoritmo não está no primeiro nível (EqAtual é diferente de EqOrigem), o algoritmo escolhe a melhor manobra e adiciona à lista de manobras do nível atual (linha 17). Nota-se que é utilizado o método EscolhaMelhorManobra, uma vez que a manobra não deve ainda ser aplicada. A segunda chamada do algoritmo agora passa para o próximo equipamento NF (``CH2-B''), o qual também possui apenas uma transferência utilizando o equipamento ``NA-2'', a qual será considerada válida. Essa manobra também será adiciona à lista de manobras do nível atual (linha 17). Não tendo mais equipamento NF, a segunda chamada do algoritmo agora escolhe a melhor manobra do nível atual (linha 25) e volta para o primeiro nível (linha 26). Considerando que a manobra ``CH1-B - NA-1'' é a melhor, ela então é aplicada e adicionada ao conjunto de manobras a serem executadas.
+% 
+% A terceira chamada do algoritmo na linha 26 na segunda chamada do algoritmo, retorna ao primeiro nível, mas agora a enumeração das manobras não irá considerar a transferência utilizando o equipamento ``NA-1'', uma vez que a manobra ``CH1-B - NA-1'' no segundo nível foi aplicada e utilizava aquele equipamento. Dessa forma, sobrou apenas a manobra ``CH1-A - NA-2'' que agora será considerada válida uma vez que parte da carga já foi transferida com a manobra ``CH1-B - NA-1''. Sendo a manobra válida, ela é então retornada como executável encerrando a terceira chamada do algoritmo.
+% 
+% Na segunda chamada do algoritmo, a manobra retornada pela terceira chamada do algoritmo (``CH1-A - NA-2'') é acrescentada ao conjunto de manobras a serem executados, ficando o conjunto composto pelas manobras \{`CH1-B - NA-1'', ``CH1-A - NA-2''\}, o
+% qual é retornado ao final da segunda execução. Voltando a primeira execução do algoritmo, as manobras retornadas da chamada do próximo nível (linha 14) são adicionadas ao conjunto de manobras executáveis, que estava vazio antes disso. Não existindo mais nenhum equipamento NF e estando no primeiro nível, a execução do algoritmo termina retornando as manobras \{``CH1-B - NA-1'', ``CH1-A - NA-2''\} para serem executadas, na ordem que elas estão no conjunto, pelo SCADA. Esse envio corresponde ao passo \ref{fig:Fluxograma_decisao}-f da metodologia de escolha das chaves.
+% 
+Maiores detalhes sobre os resultados que o algoritmo oferece, estarão melhor apresentados no capítulo \ref{cap:casosestudos}, onde são apresentados casos de aplicação da metodologia em redes reais. Vale ressaltar que o número total de transferências simuladas nunca será completo, uma vez que dentre as transferência a partir do segundo nível apenas uma é escolhida para ser testada com as manobras do primeiro nível.
 
 % A tentativa inicial de transferir os consumidores usando os equipamento NF do primeiro nível (CH1-A), gerando as manobras 1 e 2, e nenhuma das manobras era válida (ambas violavam alguma das das restrições), elas não podem ser executas, assim o algoritmo desce para o segundo nível que tem as manobras 3 e 4 como correspondentes. Caso ambas manobras possam ser executas, é escolhida apenas a melhor delas e o método retorna para as manobras do nível 1. Caso a manobra escolhida no segundo nível seja a manobra 3 (equipamentos ``CH 1-B'' e ``NA-1''), agora o algoritmo irá simular apenas a manobra 2, uma vez que a chave ``NA-1'' que compõem a manobra 1 já foi utilizada na manobra 3.
 %
