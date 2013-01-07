@@ -238,10 +238,10 @@ order=-1
 
 [item:Dissertacao.tex]
 archive=true
-column=29
+column=21
 encoding=ISO-8859-15
 highlight=LaTeX
-line=29
+line=36
 mode=LaTeX
 open=true
 order=1
@@ -518,10 +518,10 @@ order=1
 
 [item:metodologia.tex]
 archive=true
-column=40
+column=531
 encoding=ISO-8859-15
 highlight=LaTeX
-line=365
+line=459
 mode=LaTeX
 open=true
 order=0
@@ -587,8 +587,8 @@ open=false
 order=7
 
 [view-settings,view=0,item:Dissertacao.tex]
-CursorColumn=29
-CursorLine=29
+CursorColumn=21
+CursorLine=36
 JumpList=
 ViMarks=
 
@@ -641,8 +641,8 @@ JumpList=
 ViMarks=
 
 [view-settings,view=0,item:metodologia.tex]
-CursorColumn=40
-CursorLine=365
+CursorColumn=531
+CursorLine=459
 JumpList=
 ViMarks=
 

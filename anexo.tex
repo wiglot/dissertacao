@@ -3,7 +3,7 @@
 \part*{Anexos}
 
 
-\chapter*{Anexo A: Diagramas UML}
+\chapter*{Anexo A: Dados de Carga para Previsão}\label{anx:DadosCarga}
 \renewcommand{\thefigure}{A.\arabic{figure}}
 
 % \begin{figure}[ht]
@@ -13,3 +13,47 @@
 % \caption{Classes que representam uma Instância e as soluções }
 % \end{figure}
 %
+
+\begin{table}[htbp]
+\centering
+\caption{Dados de Carga para Previsão de Carga}
+\begin{tabular}{|r|r|r|l|}
+\hline
+\multicolumn{1}{|c|}{Horas} & \multicolumn{1}{c|}{Semana Anterior} & \multicolumn{1}{c|}{Carga Atual} & \multicolumn{1}{c|}{Previsão} \\ \hline
+00:00 & 72 & 79 &  \\ \hline
+01:00 & 61 & 65 &  \\ \hline
+02:00 & 63 & 59 &  \\ \hline
+03:00 & 60 & 58 &  \\ \hline
+04:00 & 55 & 57 &  \\ \hline
+05:00 & 57 & 57 & \multicolumn{1}{r|}{120} \\ \hline
+06:00 & 70 & 75 & \multicolumn{1}{r|}{120} \\ \hline
+07:00 & 99 & 106 & \multicolumn{1}{r|}{120} \\ \hline
+08:00 & 120 & 133 & \multicolumn{1}{r|}{120} \\ \hline
+09:00 & 125 & 126 &  \\ \hline
+10:00 & 127 & 133 &  \\ \hline
+11:00 & 133 & 137 &  \\ \hline
+12:00 & 92 & 95 & \multicolumn{1}{r|}{135,2717391304} \\ \hline
+13:00 & 108 & 108 & \multicolumn{1}{r|}{135,2717391304} \\ \hline
+14:00 & 129 & 130 & \multicolumn{1}{r|}{135,2717391304} \\ \hline
+15:00 & 131 & 130 & \multicolumn{1}{r|}{135,2717391304} \\ \hline
+16:00 & 129 & 131 &  \\ \hline
+17:00 & 130 & 134 &  \\ \hline
+18:00 & 134 & 135 &  \\ \hline
+19:00 & 139 & 146 &  \\ \hline
+20:00 & 125 & 142 & \multicolumn{1}{r|}{142} \\ \hline
+21:00 & 115 & 132 & \multicolumn{1}{r|}{142} \\ \hline
+22:00 & 105 & 118 & \multicolumn{1}{r|}{142} \\ \hline
+23:00 & 92 & 98 & \multicolumn{1}{r|}{142} \\ \hline
+\end{tabular}
+\label{}
+\end{table}
+
+
+\chapter*{Anexo B: Implementação para o Rocs}\label{anx:ProgramaRocs}
+\lstinputlisting[language=C]{RocsFiles/selectManeuvers.js}
+
+\chapter*{Anexo C: Funções Auxiliares para a Implementação}\label{anx:ProgramaRocsHelper}
+\lstinputlisting[language=C]{RocsFiles/selectManeuversHelper.js}
+
+\chapter*{Anexo D: Arquivo de Entrada do Rocs}\label{anx:EntradaRocs}
+\lstinputlisting{RocsFiles/exampleGraf.graph}

@@ -1,0 +1,238 @@
+[Document Properties] 
+top : -150
+bottom : 300
+left : -629.138
+right : 329.856
+DataStructurePlugin : Graph
+
+[DataType 0]
+Name : NF
+IconName : rocs_grayball1
+Color : #0000ff
+
+[DataType 1]
+Name : NA
+IconName : rocs_mines2
+Color : #0000ff
+
+[DataType 2]
+Name : Origem
+IconName : rocs_information
+Color : #0000ff
+
+[PointerType 0]
+Name : Connection
+Color : #808080
+
+[DataStructure 0] 
+X-plugin-type : 1
+name : Graph0 
+
+[Data 2]
+type : 0
+x : -161 
+y : 50 
+width : 0.3 
+name : untitled 
+color : #0000ff 
+value : 1 
+useColor : false 
+
+[Data 3]
+type : 0
+x : -154 
+y : -31 
+width : 0.3 
+name : untitled 
+color : #0000ff 
+value : 2 
+useColor : false 
+
+[Data 6]
+type : 0
+x : -269 
+y : 29 
+width : 0.3 
+name : untitled 
+color : #0000ff 
+value : 5 
+useColor : false 
+
+[Data 7]
+type : 0
+x : -275 
+y : 115 
+width : 0.3 
+name : untitled 
+color : #0000ff 
+value : 6 
+useColor : false 
+
+[Data 8]
+type : 0
+x : -156 
+y : 144 
+width : 0.3 
+name : untitled 
+color : #0000ff 
+value : 7 
+useColor : false 
+
+[Data 9]
+type : 0
+x : -32 
+y : 169 
+width : 0.3 
+name : untitled 
+color : #0000ff 
+value : 8 
+useColor : false 
+
+[Data 5]
+type : 1
+x : -5 
+y : -31 
+width : 0.3 
+name : untitled 
+color : #ff0000 
+value : 4 
+useColor : true 
+
+[Data 4]
+type : 1
+x : -6 
+y : 56 
+width : 0.3 
+name : untitled 
+color : #ff0000 
+value : 3 
+useColor : true 
+
+[Data 10]
+type : 1
+x : 85 
+y : 198 
+width : 0.3 
+name : untitled 
+color : #ff0000 
+value : 9 
+useColor : true 
+
+[Data 12]
+type : 1
+x : -107 
+y : 210 
+width : 0.3 
+name : untitled 
+color : #ff0000 
+value : 11 
+useColor : true 
+
+[Data 11]
+type : 1
+x : -215 
+y : 200 
+width : 0.3 
+name : untitled 
+color : #ff0000 
+value : 10 
+useColor : true 
+
+[Data 1]
+type : 2
+x : -400 
+y : 64 
+width : 0.3 
+name : untitled 
+color : #0000ff 
+value : 0 
+useColor : false 
+
+[Pointer 1->6]
+type : 0
+color : #808080 
+value : 100 
+name :  
+width : 1 
+style : solid 
+
+[Pointer 6->3]
+type : 0
+color : #808080 
+value : 10 
+name :  
+width : 1 
+style : solid 
+
+[Pointer 6->2]
+type : 0
+color : #808080 
+value : 1 
+name :  
+width : 1 
+style : solid 
+
+[Pointer 3->5]
+type : 0
+color : #808080 
+value : 10 
+name :  
+width : 1 
+style : solid 
+
+[Pointer 2->4]
+type : 0
+color : #808080 
+value : 20 
+name :  
+width : 1 
+style : solid 
+
+[Pointer 1->7]
+type : 0
+color : #808080 
+value : 100 
+name :  
+width : 1 
+style : solid 
+
+[Pointer 7->8]
+type : 0
+color : #808080 
+value : 10 
+name :  
+width : 1 
+style : solid 
+
+[Pointer 7->11]
+type : 0
+color : #808080 
+value : 20 
+name :  
+width : 1 
+style : solid 
+
+[Pointer 8->12]
+type : 0
+color : #808080 
+value : 10 
+name :  
+width : 1 
+style : solid 
+
+[Pointer 8->9]
+type : 0
+color : #808080 
+value : 10 
+name :  
+width : 1 
+style : solid 
+
+[Pointer 9->10]
+type : 0
+color : #808080 
+value : 10 
+name :  
+width : 1 
+style : solid 
+

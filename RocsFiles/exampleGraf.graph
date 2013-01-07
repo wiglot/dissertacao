@@ -1,0 +1,239 @@
+[DataType 0] 
+directed : true 
+name : Sem titulo0 
+datumDefaultColor : blue 
+pointerDefaultColor : gray 
+automate : false 
+
+[Datum 0]
+x : 76 
+y : 146 
+width : 0.5 
+name : 0 
+color : red 
+begin : false 
+end : false 
+value : 0 
+iconPackage : /usr/share/apps/rocs/iconpacks/default.svg 
+icon : rocs_default 
+status : 0 
+
+[Datum 1]
+x : 432 
+y : 219 
+width : 0.5 
+name : 1 
+color : blue 
+begin : false 
+end : false 
+value : 0 
+iconPackage : /usr/share/apps/rocs/iconpacks/default.svg 
+icon : rocs_default 
+status : 1 
+
+[Datum 2]
+x : 431 
+y : 63 
+width : 0.5 
+name : 2 
+color : red 
+begin : false 
+end : false 
+value : 0 
+iconPackage : /usr/share/apps/rocs/iconpacks/default.svg 
+icon : rocs_default 
+status : 0 
+
+[Datum 3]
+x : 648 
+y : 222 
+width : 0.5 
+name : 3 
+color : blue 
+begin : false 
+end : false 
+value : 0 
+iconPackage : /usr/share/apps/rocs/iconpacks/default.svg 
+icon : rocs_default 
+status : 1 
+
+[Datum 4]
+x : 646 
+y : 58 
+width : 0.5 
+name : 4 
+color : blue 
+begin : false 
+end : false 
+value : 0 
+iconPackage : /usr/share/apps/rocs/iconpacks/default.svg 
+icon : rocs_default 
+status : 1 
+
+[Datum 5]
+x : 266 
+y : 142 
+width : 0.5 
+name : 5 
+color : red 
+begin : false 
+end : false 
+value : 0 
+iconPackage : /usr/share/apps/rocs/iconpacks/default.svg 
+icon : rocs_default 
+status : 0 
+
+[Datum 6]
+x : 250 
+y : 240 
+width : 0.5 
+name : 6 
+color : red 
+begin : false 
+end : false 
+value : 0 
+iconPackage : /usr/share/apps/rocs/iconpacks/default.svg 
+icon : rocs_default 
+status : 0 
+
+[Datum 7]
+x : 400 
+y : 300 
+width : 0.5 
+name : 7 
+color : red 
+begin : false 
+end : false 
+value : 0 
+iconPackage : /usr/share/apps/rocs/iconpacks/default.svg 
+icon : rocs_default 
+status : 0 
+
+[Datum 8]
+x : 543 
+y : 327 
+width : 0.5 
+name : 8 
+color : red 
+begin : false 
+end : false 
+value : 0 
+iconPackage : /usr/share/apps/rocs/iconpacks/default.svg 
+icon : rocs_default 
+status : 0 
+
+[Datum 9]
+x : 743 
+y : 393 
+width : 0.5 
+name : 9 
+color : blue 
+begin : false 
+end : false 
+value : 0 
+iconPackage : /usr/share/apps/rocs/iconpacks/default.svg 
+icon : rocs_default 
+status : 1 
+
+[Datum 10]
+x : 363 
+y : 393 
+width : 0.5 
+name : 10 
+color : blue 
+begin : false 
+end : false 
+value : 0 
+iconPackage : /usr/share/apps/rocs/iconpacks/default.svg 
+icon : rocs_default 
+status : 1 
+
+[Datum 11]
+x : 513 
+y : 432 
+width : 0.5 
+name : 11 
+color : blue 
+begin : false 
+end : false 
+value : 0 
+iconPackage : /usr/share/apps/rocs/iconpacks/default.svg 
+icon : rocs_default 
+
+[Pointer 0->5]
+color : gray 
+value : 100 
+name :  
+width : 1 
+style : solid 
+
+[Pointer 5->2]
+color : gray 
+value : 31 
+name :  
+width : 1 
+style : solid 
+
+[Pointer 2->4]
+color : gray 
+value : 20 
+name :  
+width : 1 
+style : solid 
+
+[Pointer 5->1]
+color : gray 
+value : 30 
+name :  
+width : 1 
+style : solid 
+
+[Pointer 1->3]
+color : gray 
+value : 20 
+name :  
+width : 1 
+style : solid 
+
+[Pointer 0->6]
+color : gray 
+value : 100 
+name :  
+width : 1 
+style : solid 
+
+[Pointer 6->7]
+color : gray 
+value : 10 
+name :  
+width : 1 
+style : solid 
+
+[Pointer 7->8]
+color : gray 
+value : 90 
+name :  
+width : 1 
+style : solid 
+
+[Pointer 8->9]
+color : gray 
+value : 10 
+name :  
+width : 1 
+style : solid 
+
+[Pointer 6->10]
+color : gray 
+value : 20 
+name :  
+width : 1 
+style : solid 
+
+[Pointer 7->11]
+color : gray 
+value : 10 
+name :  
+width : 1 
+style : solid 
+
